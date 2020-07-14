@@ -102,7 +102,7 @@ public class EnemyBehavior : MonoBehaviour
     private void Update()
     {
         // Verify if its alive
-        if(myHealthManager.getCurrentHP() <= 0)
+        if(myHealthManager.GetCurrentHP() <= 0)
         {
             Destroy(gameObject);
             Destroy(fieldOfView.gameObject);
@@ -297,13 +297,5 @@ public class EnemyBehavior : MonoBehaviour
         yield return new WaitForSeconds(knockbackTime);
         Debug.Log("ESPEROU o tempo");
         myAIPath.enabled = true;
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            myHealthManager.HurtObject(25f);
-        }    
     }
 }

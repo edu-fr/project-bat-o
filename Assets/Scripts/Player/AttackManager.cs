@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class AttackManager : MonoBehaviour
 {
@@ -39,6 +40,9 @@ public class AttackManager : MonoBehaviour
 
         // set attack point default position as same as player position
         attackPoint.transform.position = transform.position;
+        
+        // set inactive while not attacking
+        attackPoint.gameObject.SetActive(false);
 
         myAnimator = GetComponent<Animator>();
     }
@@ -69,6 +73,8 @@ public class AttackManager : MonoBehaviour
 
     private void Attack()
     {
+        attackPoint.gameObject.SetActive(true);
+        
         // Set attack animation
         myAnimator.SetTrigger("Attack");
 
@@ -83,7 +89,8 @@ public class AttackManager : MonoBehaviour
                 enemy.GetComponent<EnemyBehavior>().TakeDamage(currentWeaponDamage, currentWeaponKnockback, attackDirection, currentKnockbackDuration);
             }
         }
-
+        
+        attackPoint.gameObject.SetActive(false);
     }
 
     private Directions GetAnimationDirection()
