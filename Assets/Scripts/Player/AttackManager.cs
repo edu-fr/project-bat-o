@@ -1,15 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AttackManager : MonoBehaviour
 {
     #region Enums
+
     enum Directions {UpperLeft, UpperRight, DownLeft, DownRight}
+
     enum WeaponType {Bat}
+
     #endregion
 
     #region Variables
+
     [SerializeField] private bool hasWeaponEquipped = false;
     private WeaponType currentWeaponType = WeaponType.Bat;
     private float currentWeaponDamage = 0;
@@ -21,7 +23,8 @@ public class AttackManager : MonoBehaviour
     [SerializeField] private float xOffset = 1f;
     [SerializeField] private float yOffset = 1f;
     private LayerMask enemyLayers;
-    private Directions direction; 
+    private Directions direction;
+
     #endregion
 
     #region Unity Callbacks
@@ -63,6 +66,7 @@ public class AttackManager : MonoBehaviour
     #endregion
 
     #region Auxiliar Methods
+
     private void Attack()
     {
         // Set attack animation
@@ -148,5 +152,6 @@ public class AttackManager : MonoBehaviour
         }
         Gizmos.DrawWireSphere(attackPoint.transform.position, attackRange);
     }
+
     #endregion
 }
