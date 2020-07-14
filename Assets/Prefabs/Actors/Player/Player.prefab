@@ -14,11 +14,11 @@ GameObject:
   - component: {fileID: 6753889184881655948}
   - component: {fileID: 6753889184881655949}
   - component: {fileID: 6753889184881655951}
-  - component: {fileID: 6753889184881655936}
   - component: {fileID: 6753889184881655937}
   - component: {fileID: 6753889184881655942}
   - component: {fileID: 6753889184881655943}
-  m_Layer: 8
+  - component: {fileID: 385695933423370815}
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -32,7 +32,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6753889184881655945}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 92.71045, y: 83.22544, z: 2901}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -157,22 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3d7280bb3e9b3e469427cc4efd75ff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4.5
---- !u!114 &6753889184881655936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6753889184881655945}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff1088bb1257b444da6dbece101a83fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 0}
-  currentHP: 100
-  maxHP: 100
+  Speed: 0
 --- !u!114 &6753889184881655937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,9 +170,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ca5b8915d1ef1f4f85758c7c8b25a08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sortingOrderBase: 5000
-  offset: -0.75
-  runOnlyOnce: 0
+  SortingOrderBase: 5000
+  Offset: 0
+  RunOnlyOnce: 0
 --- !u!114 &6753889184881655942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,11 +185,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de6e46098e12e4443b13b2f5563617e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasWeaponEquipped: 1
-  attackPoint: {fileID: 0}
-  attackRange: 0.81
-  xOffset: 0.23
-  yOffset: 0.38
+  HasWeaponEquipped: 1
+  AttackPoint: {fileID: 0}
+  AttackRange: 1
+  XOffset: 1
+  YOffset: 1
 --- !u!114 &6753889184881655943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,3 +202,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a51da7dee9fefc64da486f85e7cdbe57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &385695933423370815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6753889184881655945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d287127ada117164c9209ec5f56efb75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HealthBarScript: {fileID: 0}

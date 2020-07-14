@@ -1,20 +1,22 @@
 ﻿// This C# function can be called by an Animation Event
+
 using UnityEngine;
-using System.Collections;
 
-
-public class AlertObservers : MonoBehaviour
+namespace Animation
 {
-    private Animator animator;
-
-    private void Awake()
+    public class AlertObservers : MonoBehaviour
     {
-        animator = GetComponent<Animator>();
-    }
+        private Animator Animator;
 
-    public void FinishAttackAnimation()
-    {
-        animator.SetBool("isAttacking", false);
+        private void Awake()
+        {
+            Animator = GetComponent<Animator>();
+        }
+
+        public void FinishAttackAnimation()
+        {
+            Animator.SetBool("isAttacking", false);
         
+        }
     }
 }

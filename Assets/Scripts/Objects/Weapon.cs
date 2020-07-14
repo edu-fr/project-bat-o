@@ -1,29 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Weapon : MonoBehaviour
+namespace Objects
 {
-    #region Variables
-    private int damage;
-
-    #endregion
-
-    #region Unity Callbacks
-
-    void Start()
+    public class Weapon : MonoBehaviour
     {
+        #region Variables
+        private int Damage;
+
+        #endregion
+
+        #region Unity Callbacks
+
+        void Start()
+        {
         
-    }
+        }
 
-    void Update()
-    {
+        void Update()
+        {
         
+        }
+
+        #endregion
+
+        #region Auxiliar Methods
+
+        #endregion
     }
-
-    #endregion
-
-    #region Auxiliar Methods
-
-    #endregion
 }

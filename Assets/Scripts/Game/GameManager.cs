@@ -1,37 +1,39 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+namespace Game
 {
-    #region Variables
-    private GameObject player;
-    private HealthManager playerHealthManager;
-
-    #endregion
-
-    #region UnityCallbacks
-
-    // Start is called before the first frame update
-    void Start()
+    public class GameManager : MonoBehaviour
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        playerHealthManager = player.GetComponent<HealthManager>();
-    }
+        #region Variables
+        private GameObject Player;
+        private PlayerHealthManager PlayerHealthManager;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(playerHealthManager.getCurrentHP() <= 0)
+        #endregion
+
+        #region UnityCallbacks
+
+        // Start is called before the first frame update
+        void Start()
         {
-            SceneManager.LoadScene(0);
+            Player = GameObject.FindGameObjectWithTag("Player");
+            PlayerHealthManager = Player.GetComponent<PlayerHealthManager>();
         }
+
+        // Update is called once per frame
+        void Update()
+        {
+            if(PlayerHealthManager.GetCurrentHp() <= 0)
+            {
+                SceneManager.LoadScene(0);
+            }
+        }
+        #endregion
+
+        #region Auxiliar methods
+
+        #endregion
     }
-    #endregion
-
-    #region Auxiliar methods
-
-    #endregion
 }
 

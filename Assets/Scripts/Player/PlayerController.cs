@@ -1,58 +1,62 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+namespace Player
 {
-    #region Variables
-    private Animator animator;
-    private Rigidbody2D rigidBody;
-    [SerializeField]
-    private float speed;
-    float moveX;
-    float moveY;
-    #endregion
-
-    #region Unity Callbacks
-    // Start is called before the first frame update
-    void Start()
+    public class PlayerController : MonoBehaviour
     {
-        animator = GetComponent<Animator>();
-        rigidBody = GetComponent<Rigidbody2D>();
-        speed = 5f;
-    }
+        #region Variables
+        private Animator Animator;
+        private Rigidbody2D RigidBody;
+        [SerializeField]
+        private float Speed;
 
-    // Update is called once per frame
-    void Update()
-    {
+    
+        float MoveX;
+        float MoveY;
+        #endregion
 
-        HandleMovement();
-    }
-    #endregion
+        #region Unity Callbacks
 
-    #region Auxiliar Methods
-    private void HandleMovement()
-    {
-        rigidBody.velocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized * speed;
-        animator.SetFloat("moveX", rigidBody.velocity.x);
-        animator.SetFloat("moveY", rigidBody.velocity.y);
-
-        if (Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Horizontal") == -1)
+        // Start is called before the first frame update
+        void Start()
         {
-            animator.SetFloat("lastMoveX", Input.GetAxisRaw("Horizontal"));
+            Animator = GetComponent<Animator>();
+            RigidBody = GetComponent<Rigidbody2D>();
+            Speed = 5f;
         }
 
-        if (Input.GetAxisRaw("Vertical") == 1 || Input.GetAxisRaw("Vertical") == -1)
+        // Update is called once per frame
+        void Update()
         {
-            animator.SetFloat("lastMoveY", Input.GetAxisRaw("Vertical"));
-        }
-    }
 
-    public Vector3 getPosition()
-    {
-        return transform.position;
+            HandleMovement();
+        }
+        #endregion
+
+        #region Auxiliar Methods
+        private void HandleMovement()
+        {
+            RigidBody.velocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized * Speed;
+            Animator.SetFloat("moveX", RigidBody.velocity.x);
+            Animator.SetFloat("moveY", RigidBody.velocity.y);
+
+            if (Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Horizontal") == -1)
+            {
+                Animator.SetFloat("lastMoveX", Input.GetAxisRaw("Horizontal"));
+            }
+
+            if (Input.GetAxisRaw("Vertical") == 1 || Input.GetAxisRaw("Vertical") == -1)
+            {
+                Animator.SetFloat("lastMoveY", Input.GetAxisRaw("Vertical"));
+            }
+        }
+
+        public Vector3 GetPosition()
+        {
+            return transform.position;
+        }
+        #endregion
     }
-    #endregion
 }
 

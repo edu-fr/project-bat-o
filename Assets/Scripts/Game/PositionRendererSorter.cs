@@ -1,39 +1,40 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PositionRendererSorter : MonoBehaviour
+namespace Game
 {
-    #region Variables
-    private Renderer myRenderer;
-    [SerializeField]
-    private float sortingOrderBase = 5000;
-    [SerializeField]
-    private float offset = 0;
-    [SerializeField]
-    private bool runOnlyOnce = false;
-    #endregion
-
-
-    #region Unity Callbacks
-    // Start is called before the first frame update
-    private void Awake()
+    public class PositionRendererSorter : MonoBehaviour
     {
-        myRenderer = gameObject.GetComponent<Renderer>();
-    }
+        #region Variables
+        private Renderer MyRenderer;
+        [SerializeField]
+        private float SortingOrderBase = 5000;
+        [SerializeField]
+        private float Offset = 0;
+        [SerializeField]
+        private bool RunOnlyOnce = false;
+        #endregion
 
-    private void LateUpdate()
-    {
-        myRenderer.sortingOrder = (int)(sortingOrderBase - transform.position.y - offset);
-        if(runOnlyOnce)
+
+        #region Unity Callbacks
+        // Start is called before the first frame update
+        private void Awake()
         {
-            Destroy(this);
+            MyRenderer = gameObject.GetComponent<Renderer>();
         }
+
+        private void LateUpdate()
+        {
+            MyRenderer.sortingOrder = (int)(SortingOrderBase - transform.position.y - Offset);
+            if(RunOnlyOnce)
+            {
+                Destroy(this);
+            }
+        }
+
+        #endregion
+
+        #region Auxiliar Methods
+
+        #endregion
     }
-
-    #endregion
-
-    #region Auxiliar Methods
-
-    #endregion
 }

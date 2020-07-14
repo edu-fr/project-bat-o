@@ -1,120 +1,120 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Scripts.Utils;
+﻿using UnityEngine;
 
-public class FieldOfView : MonoBehaviour
+namespace Enemy
 {
-    #region Variables
+    public class FieldOfView : MonoBehaviour
+    {
+        #region Variables
 
-    private Mesh mesh;
-    private Vector3 origin;
-    private float startingAngle;
-    private float fieldOfView = 90f;
-    private float viewDistance =5f;
-    private int rayCount = 50;
-    [SerializeField] private LayerMask layerMask = 0;
-    private EnemyBehavior myEnemyBehavior;
+        private Mesh Mesh;
+        private Vector3 Origin;
+        private float StartingAngle;
+        private float FieldOfViewValue = 90f;
+        private float ViewDistance =5f;
+        private int RayCount = 50;
+        [SerializeField] private LayerMask LayerMask = 0;
+        private EnemyBehavior MyEnemyBehavior;
 
-    #endregion
+        #endregion
 
-    #region UnityCallbacks
+        #region UnityCallbacks
     
-    void Awake()
-    {
-        mesh = new Mesh();
-        GetComponent<MeshFilter>().mesh = mesh;
-    }
-
-    // Start is called before the first frame update
-    private void Start()
-    {
-
-    }
-
-    // LateUpdate is called once per frame
-    void LateUpdate()
-    {
-        float angle = startingAngle;
-        float angleIncrease = fieldOfView / rayCount;
-
-        Vector3[] vertices = new Vector3[rayCount + 1 + 1];
-        Vector2[] uv = new Vector2[vertices.Length];
-        int[] triangles = new int[rayCount * 3];
-
-        vertices[0] = origin;
-
-        int vertexIndex = 1;
-        int triangleIndex = 0;
-
-        for (int i = 0; i <= rayCount; i++)
+        void Awake()
         {
-            Vector3 vertex;
-
-            RaycastHit2D raycastHit2D = Physics2D.Raycast(origin, Utilities.GetVectorFromAngle(angle), viewDistance, layerMask);
-            if (raycastHit2D.collider == null)
-            {
-                // No hit
-                vertex = origin + Utilities.GetVectorFromAngle(angle) * viewDistance;
-            }
-            else
-            {
-                // Hit object
-                if (raycastHit2D.collider.gameObject.CompareTag("Player"))
-                {
-                    myEnemyBehavior.setTargetPlayer(raycastHit2D.collider.gameObject);
-                }
-                vertex = raycastHit2D.point;
-            }
-
-            vertices[vertexIndex] = vertex;
-
-            if (i > 0)
-            {
-                triangles[triangleIndex + 0] = 0;
-                triangles[triangleIndex + 1] = vertexIndex - 1;
-                triangles[triangleIndex + 2] = vertexIndex;
-
-                triangleIndex += 3;
-            }
-
-            vertexIndex++;
-            angle -= angleIncrease;
+            Mesh = new Mesh();
+            GetComponent<MeshFilter>().mesh = Mesh;
         }
 
+        // Start is called before the first frame update
+        private void Start()
+        {
 
-        mesh.vertices = vertices;
-        mesh.uv = uv;
-        mesh.triangles = triangles;
-    }
-    #endregion
+        }
 
-    #region Auxiliar methods
+        // LateUpdate is called once per frame
+        void LateUpdate()
+        {
+            float angle = StartingAngle;
+            float angleIncrease = FieldOfViewValue / RayCount;
+
+            Vector3[] vertices = new Vector3[RayCount + 1 + 1];
+            Vector2[] uv = new Vector2[vertices.Length];
+            int[] triangles = new int[RayCount * 3];
+
+            vertices[0] = Origin;
+
+            int vertexIndex = 1;
+            int triangleIndex = 0;
+
+            for (int i = 0; i <= RayCount; i++)
+            {
+                Vector3 vertex;
+
+                RaycastHit2D raycastHit2D = Physics2D.Raycast(Origin, Utilities.GetVectorFromAngle(angle), ViewDistance, LayerMask);
+                if (raycastHit2D.collider == null)
+                {
+                    // No hit
+                    vertex = Origin + Utilities.GetVectorFromAngle(angle) * ViewDistance;
+                }
+                else
+                {
+                    // Hit object
+                    if (raycastHit2D.collider.gameObject.CompareTag("Player"))
+                    {
+                        MyEnemyBehavior.SetTargetPlayer(raycastHit2D.collider.gameObject);
+                    }
+                    vertex = raycastHit2D.point;
+                }
+
+                vertices[vertexIndex] = vertex;
+
+                if (i > 0)
+                {
+                    triangles[triangleIndex + 0] = 0;
+                    triangles[triangleIndex + 1] = vertexIndex - 1;
+                    triangles[triangleIndex + 2] = vertexIndex;
+
+                    triangleIndex += 3;
+                }
+
+                vertexIndex++;
+                angle -= angleIncrease;
+            }
+
+
+            Mesh.vertices = vertices;
+            Mesh.uv = uv;
+            Mesh.triangles = triangles;
+        }
+        #endregion
+
+        #region Auxiliar methods
     
 
-    public void SetOrigin(Vector3 origin)
-    {
-        this.origin = origin;
-    }
+        public void SetOrigin(Vector3 origin)
+        {
+            this.Origin = origin;
+        }
 
-    public void SetAimDirection(Vector3 aimDirection)
-    {
-        startingAngle = Utilities.GetAngleFromVectorFloat(aimDirection) + fieldOfView / 2f;
-    }
+        public void SetAimDirection(Vector3 aimDirection)
+        {
+            StartingAngle = Utilities.GetAngleFromVectorFloat(aimDirection) + FieldOfViewValue / 2f;
+        }
 
-    public void setFieldOfView(float fieldOfView)
-    {
-        this.fieldOfView = fieldOfView;
-    }
+        public void SetFieldOfView(float fieldOfView)
+        {
+            this.FieldOfViewValue = fieldOfView;
+        }
 
-    public void setViewDistance(float viewDistance)
-    {
-        this.viewDistance = viewDistance;
-    }
+        public void SetViewDistance(float viewDistance)
+        {
+            this.ViewDistance = viewDistance;
+        }
 
-    public void setMyEnemyBehavior(EnemyBehavior enemyBehavior)
-    {
-        this.myEnemyBehavior = enemyBehavior;
+        public void SetMyEnemyBehavior(EnemyBehavior enemyBehavior)
+        {
+            this.MyEnemyBehavior = enemyBehavior;
+        }
+        #endregion
     }
-    #endregion
 }
