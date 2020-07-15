@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Game;
 using Pathfinding;
 using Player;
 using UnityEngine;
@@ -110,7 +111,7 @@ namespace Enemy
             // Verify if its alive
               if(EnemyHealthManager.GetCurrentHp() <= 0)
             {
-                Debug.Log("DESTRUIU A VIDA");
+                AudioManager.instance.Play("Final blow in the enemy");;
                 Destroy(gameObject);
                 Destroy(FieldOfViewComponent.gameObject);
                 Destroy(Target.gameObject);
@@ -310,6 +311,8 @@ namespace Enemy
         {
             if (!other.gameObject.CompareTag("Player")) return;
             other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage((int)Damage);
+            // sound player getting hit
+            AudioManager.instance.Play("Player get hit");
         }
 
         private IEnumerator TakeKnockback(float knockbackTime)

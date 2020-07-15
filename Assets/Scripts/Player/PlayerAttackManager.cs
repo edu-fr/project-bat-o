@@ -1,4 +1,5 @@
 ﻿using Enemy;
+using Game;
 using UnityEngine;
 
 namespace Player
@@ -85,6 +86,7 @@ namespace Player
                 {
                     Vector3 attackDirection = (enemy.transform.position - transform.position).normalized;
                     enemy.GetComponent<EnemyBehavior>().TakeDamage(CurrentWeaponDamage, CurrentWeaponKnockback, attackDirection, CurrentKnockbackDuration);
+                    AudioManager.instance.Play("Hit enemy");
                 }
             }
         

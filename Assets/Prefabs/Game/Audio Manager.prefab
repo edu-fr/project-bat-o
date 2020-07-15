@@ -1,0 +1,110 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5328630655766209162
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5328630655766209165}
+  - component: {fileID: 5328630655766209164}
+  m_Layer: 0
+  m_Name: Audio Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5328630655766209165
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5328630655766209162}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5328630655766209164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5328630655766209162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca5b51ce74084d549812e90032afb2a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sounds:
+  - Name: Final blow in the enemy
+    Clip: {fileID: 8300000, guid: 1989d3f2292aa4842b2cae75cd33281c, type: 3}
+    Volume: 0.05
+    Pitch: 1
+    VolumeVariance: 0.1
+    PitchVariance: 0.05
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Hit enemy
+    Clip: {fileID: 8300000, guid: e6a10b9ec3817164686d090c3999f5b7, type: 3}
+    Volume: 0.05
+    Pitch: 1
+    VolumeVariance: 0.1
+    PitchVariance: 0.05
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Player dying 2
+    Clip: {fileID: 8300000, guid: 7eadb481609fc7b40a7e64bbc669b0e9, type: 3}
+    Volume: 0.05
+    Pitch: 1
+    VolumeVariance: 0.1
+    PitchVariance: 0.05
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Player dying
+    Clip: {fileID: 8300000, guid: 5659c8cddf3eaa846b03973508fd5e0d, type: 3}
+    Volume: 0.05
+    Pitch: 1
+    VolumeVariance: 0
+    PitchVariance: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Player get hit
+    Clip: {fileID: 8300000, guid: 33e07a118a30d024e8339bc88fad24bf, type: 3}
+    Volume: 0.05
+    Pitch: 1
+    VolumeVariance: 0.1
+    PitchVariance: 0.05
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Beach background music
+    Clip: {fileID: 8300000, guid: b307afb6049465149b1405b8c3f24e23, type: 3}
+    Volume: 0.05
+    Pitch: 1
+    VolumeVariance: 0
+    PitchVariance: 0
+    Loop: 1
+    Source: {fileID: 0}
+  - Name: Phase 1 background music
+    Clip: {fileID: 8300000, guid: 01afde394dc7a2645868eaa316bb6093, type: 3}
+    Volume: 0.05
+    Pitch: 1
+    VolumeVariance: 0
+    PitchVariance: 0
+    Loop: 1
+    Source: {fileID: 0}
+  - Name: Tutorial background music
+    Clip: {fileID: 8300000, guid: 3c041f701de7a1041a9139c33bd2a1a4, type: 3}
+    Volume: 0.05
+    Pitch: 1
+    VolumeVariance: 0
+    PitchVariance: 0
+    Loop: 1
+    Source: {fileID: 0}

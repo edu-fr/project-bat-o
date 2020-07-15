@@ -19,6 +19,7 @@ namespace Game
         {
             Player = GameObject.FindGameObjectWithTag("Player");
             PlayerHealthManager = Player.GetComponent<PlayerHealthManager>();
+            AudioManager.instance.Play("Phase 1 background music");
         }
 
         // Update is called once per frame
@@ -26,6 +27,7 @@ namespace Game
         {
             if(PlayerHealthManager.GetCurrentHp() <= 0)
             {
+                AudioManager.instance.Play("Player dying");
                 SceneManager.LoadScene(0);
             }
         }
