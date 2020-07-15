@@ -92,14 +92,6 @@ MonoBehaviour:
     PitchVariance: 0
     Loop: 1
     Source: {fileID: 0}
-  - Name: Phase 1 background music
-    Clip: {fileID: 8300000, guid: 01afde394dc7a2645868eaa316bb6093, type: 3}
-    Volume: 0.05
-    Pitch: 1
-    VolumeVariance: 0
-    PitchVariance: 0
-    Loop: 1
-    Source: {fileID: 0}
   - Name: Tutorial background music
     Clip: {fileID: 8300000, guid: 3c041f701de7a1041a9139c33bd2a1a4, type: 3}
     Volume: 0.05
