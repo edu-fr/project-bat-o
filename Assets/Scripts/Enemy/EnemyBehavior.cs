@@ -27,7 +27,7 @@ namespace Enemy
         private Renderer Renderer;
         private Material DefaultMaterial;
         [SerializeField]
-        private Material WhiteMaterial;
+        private Material FlashMaterial;
 
 
         // Movement
@@ -330,7 +330,7 @@ namespace Enemy
 
         private void FlashSprite()
         {
-            Renderer.material = WhiteMaterial;
+            Renderer.material = FlashMaterial;
         }
 
         private void EndFlash()
@@ -342,12 +342,11 @@ namespace Enemy
             Invincible = false;
         }
         
-        private void OnCollisionEnter2D(Collision2D other)
+        private void OnCollisionStay2D(Collision2D other)
         {
             if (!other.gameObject.CompareTag("Player")) return;
             other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage((int)Damage);
-            // sound player getting hit
-            AudioManager.instance.Play("Player get hit");
+
         }
 
         private IEnumerator TakeKnockback(float knockbackTime)

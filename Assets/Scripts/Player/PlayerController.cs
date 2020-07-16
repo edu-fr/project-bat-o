@@ -40,25 +40,24 @@ namespace Player
         #region Auxiliar Methods
         private void HandleMovement()
         {
-            if (PlayerAttackManager.IsAttacking)
-            {
-                RigidBody.velocity = Vector2.zero;
-                return;
-            }
-            
-            RigidBody.velocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized * Speed;
+            RigidBody.velocity = PlayerAttackManager.IsAttacking ? 
+                new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized * Speed / 2 : 
+                new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized * Speed;
 
             Animator.SetFloat("moveX", RigidBody.velocity.x);
             Animator.SetFloat("moveY", RigidBody.velocity.y);
 
-            if (Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Horizontal") == -1)
+            if (!PlayerAttackManager.IsAttacking)
             {
-                Animator.SetFloat("lastMoveX", Input.GetAxisRaw("Horizontal"));
-            }
+                if (Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Horizontal") == -1)
+                {
+                    Animator.SetFloat("lastMoveX", Input.GetAxisRaw("Horizontal"));
+                }
 
-            if (Input.GetAxisRaw("Vertical") == 1 || Input.GetAxisRaw("Vertical") == -1)
-            {
-                Animator.SetFloat("lastMoveY", Input.GetAxisRaw("Vertical"));
+                if (Input.GetAxisRaw("Vertical") == 1 || Input.GetAxisRaw("Vertical") == -1)
+                {
+                    Animator.SetFloat("lastMoveY", Input.GetAxisRaw("Vertical"));
+                }
             }
         }
 

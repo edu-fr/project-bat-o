@@ -214,4 +214,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d287127ada117164c9209ec5f56efb75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FlashMaterial: {fileID: 2100000, guid: 478fe359495af0742b7432b040a1ca38, type: 2}
   HealthBarScript: {fileID: 0}
