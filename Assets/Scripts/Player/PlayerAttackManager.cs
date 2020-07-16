@@ -1,4 +1,5 @@
-﻿using Enemy;
+﻿using System.Security.Cryptography;
+using Enemy;
 using Game;
 using UnityEngine;
 
@@ -8,9 +9,9 @@ namespace Player
     {
         #region Enums
 
-        enum Directions {UpperLeft, UpperRight, DownLeft, DownRight}
+        private enum Directions {UpperLeft, UpperRight, DownLeft, DownRight}
 
-        enum WeaponType {Bat}
+        private enum WeaponType {Bat}
 
         #endregion
 
@@ -18,10 +19,15 @@ namespace Player
 
         [SerializeField] 
         private bool HasWeaponEquipped = true;
+        [HideInInspector]
+        public bool IsAttacking { private set; get;} = false;
+        
         private WeaponType CurrentWeaponType = WeaponType.Bat;
         private float CurrentWeaponDamage;
         private float CurrentWeaponKnockback;
+        private float CurrentWeaponAttackSpeed;
         private float CurrentKnockbackDuration;
+
         private Animator MyAnimator;
         [SerializeField] 
         private Transform AttackPoint;
@@ -38,7 +44,7 @@ namespace Player
 
         #region Unity Callbacks
 
-        void Awake()
+        private void Awake()
         {
             // Creating an attack point
             AttackPoint = new GameObject("Attack point").transform;
@@ -55,7 +61,7 @@ namespace Player
             MyAnimator = GetComponent<Animator>();
         }
 
-        void Update()
+        private void Update()
         {
             // Set position according to player's direction and give an offset 
             Direction = GetAnimationDirection();
@@ -64,8 +70,14 @@ namespace Player
             if (HasWeaponEquipped)
             {
                 SetWeaponStats();
-                if(Input.GetKeyDown(KeyCode.Z))
+                if(Input.GetKeyDown(KeyCode.Z) && !IsAttacking)
                     Attack();
+
+                if (IsAttacking)
+                {
+                    // Detect if hit enemies
+                    VerifyAttackCollision();
+                }
             }
         }
 
@@ -75,11 +87,26 @@ namespace Player
 
         private void Attack()
         {
+            IsAttacking = true;
             AttackPoint.gameObject.SetActive(true);
         
             // Set attack animation
+            MyAnimator.speed = CurrentWeaponAttackSpeed * 0.1f;
             MyAnimator.SetTrigger("Attack");
+            
+            
+        }
+        
+        private void AttackEnd()
+        {
+            Debug.Log("Attack Ended");
+            MyAnimator.speed = 1f;
+            IsAttacking = false;
+            AttackPoint.gameObject.SetActive(false);
+        }
 
+        private void VerifyAttackCollision()
+        {
             // Detect enemies in range of attack
             Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, AttackRange);
 
@@ -89,13 +116,10 @@ namespace Player
                 {
                     Vector3 attackDirection = (enemy.transform.position - transform.position).normalized;
                     enemy.GetComponent<EnemyBehavior>().TakeDamage(CurrentWeaponDamage, CurrentWeaponKnockback, attackDirection, CurrentKnockbackDuration);
-                    AudioManager.instance.Play("Hit enemy");
                 }
             }
-        
-            AttackPoint.gameObject.SetActive(false);
         }
-
+        
         private Directions GetAnimationDirection()
         {
             float lastMoveX = MyAnimator.GetFloat("lastMoveX");
@@ -148,6 +172,7 @@ namespace Player
                     CurrentWeaponDamage = 12;
                     CurrentWeaponKnockback = 1f;
                     CurrentKnockbackDuration = 0.1f;
+                    CurrentWeaponAttackSpeed = 6f;
                     break;
                
 

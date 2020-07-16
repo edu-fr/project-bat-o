@@ -15,15 +15,15 @@ namespace Game
         #region UnityCallbacks
 
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             Player = GameObject.FindGameObjectWithTag("Player");
             PlayerHealthManager = Player.GetComponent<PlayerHealthManager>();
-            AudioManager.instance.Play("Phase 1 background music");
+            //AudioManager.instance.Play("Phase 1 background music");
         }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
             if(PlayerHealthManager.GetCurrentHp() <= 0)
             {

@@ -18,8 +18,8 @@ namespace Enemy
         #endregion
 
         #region UnityCallbacks
-    
-        void Awake()
+
+        private void Awake()
         {
             Mesh = new Mesh();
             GetComponent<MeshFilter>().mesh = Mesh;
@@ -32,7 +32,7 @@ namespace Enemy
         }
 
         // LateUpdate is called once per frame
-        void LateUpdate()
+        private void LateUpdate()
         {
             float angle = StartingAngle;
             float angleIncrease = FieldOfViewValue / RayCount;

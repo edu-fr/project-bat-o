@@ -11,25 +11,31 @@ namespace Enemy
     public class EnemyBehavior : MonoBehaviour
     {
         #region Enums
-        enum States {Standard, Chasing, Attacking};
+
+        private enum States {Standard, Chasing, Attacking};
 
         #endregion
 
         #region Variables
         // Components
-        Rigidbody2D MyRigidbody;
-        CircleCollider2D MyCircleCollider;
-        Animator MyAnimator;
-        AIDestinationSetter MyAiDestinationSetter;
-        Seeker MySeeker;
-        AIPath MyAiPath;
+        private Rigidbody2D Rigidbody;
+        private CircleCollider2D CircleCollider;
+        private Animator Animator;
+        private AIDestinationSetter AiDestinationSetter;
+        private Seeker Seeker;
+        private AIPath AiPath;
+        private Renderer Renderer;
+        private Material DefaultMaterial;
+        [SerializeField]
+        private Material WhiteMaterial;
 
 
         // Movement
-        Path Path;
-        bool ReachedEndOfPath;
-        float CurrentTimer = 0f; 
-        float MaxTimer = 3f;                // time to move to the next random spot
+        private Path Path;
+        private bool ReachedEndOfPath;
+        private float CurrentTimer = 0f;
+
+        private float MaxTimer = 3f;                // time to move to the next random spot
         // private float speed = 160f;         // walk speed
         private Vector3 HomePosition;       // original position on the level
         private float WalkableRange = 1f;   // Distance it can walk while isnt chasing the player 
@@ -64,6 +70,7 @@ namespace Enemy
 
         // Attack
         private float Damage = 20;
+        private bool Invincible = false;
         
         #endregion
 
@@ -71,28 +78,31 @@ namespace Enemy
 
         private void Awake()
         {
-            MyRigidbody = GetComponent<Rigidbody2D>();
-            MyAnimator = GetComponent<Animator>();
-            MyCircleCollider = GetComponent<CircleCollider2D>();
-            MyAiDestinationSetter = GetComponent<AIDestinationSetter>();
-            MyAiPath = GetComponent<AIPath>();
-            MySeeker = GetComponent<Seeker>();
+            Rigidbody = GetComponent<Rigidbody2D>();
+            Animator = GetComponent<Animator>();
+            CircleCollider = GetComponent<CircleCollider2D>();
+            AiDestinationSetter = GetComponent<AIDestinationSetter>();
+            AiPath = GetComponent<AIPath>();
+            Seeker = GetComponent<Seeker>();
             EnemyHealthManager = GetComponent<EnemyHealthManager>();
             EnemiesLayer = LayerMask.GetMask("Enemies");
+            Renderer = GetComponent<Renderer>();
+            DefaultMaterial = Renderer.material;
+            
         }
 
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             Player = GameObject.FindGameObjectWithTag("Player");
             Target = new GameObject("target " + gameObject.name);
             State = States.Standard;
             // Set initial enemy position according to its initial position
-            HomePosition = MyRigidbody.position;
+            HomePosition = Rigidbody.position;
 
             // Set the first random target movement 
             Target.transform.position = GenerateNewTarget();
-            MyAiDestinationSetter.target = Target.transform;
+            AiDestinationSetter.target = Target.transform;
 
             // Instantiate prefab field of view
             FieldOfViewComponent = Instantiate(PreFabFieldOfView, null).GetComponent<FieldOfView>();
@@ -189,10 +199,10 @@ namespace Enemy
         {
             // Generate new target every maxTimer (three seconds)
 
-            if (MyAiPath.reachedEndOfPath) //if reached desired location, wait three seconds and move to another
+            if (AiPath.reachedEndOfPath) //if reached desired location, wait three seconds and move to another
             {
                 // Animate standing still
-                MyAnimator.SetBool("isMoving", false);
+                Animator.SetBool("isMoving", false);
                 CurrentTimer += Time.deltaTime;
 
                 if (CurrentTimer >= MaxTimer)
@@ -229,14 +239,14 @@ namespace Enemy
                 case (States.Standard):
                     IsWalkingAround = true;
                     TargetPlayer = null;
-                    MyAiDestinationSetter.target = Target.transform;
+                    AiDestinationSetter.target = Target.transform;
                     FieldOfViewComponent.gameObject.SetActive(true);
                     break;
 
                 case (States.Chasing):
                     IsWalkingAround = false;
                     FieldOfViewComponent.gameObject.SetActive(false);
-                    MyAiDestinationSetter.target = TargetPlayer.transform;
+                    AiDestinationSetter.target = TargetPlayer.transform;
                     AstarPath.active.Scan();
                     break;
 
@@ -270,9 +280,9 @@ namespace Enemy
 
         private void SetCurrentFaceDirection()
         {
-            if (MyAnimator.GetBool("isMoving")) // just want to change the facing direction if the object is walking
+            if (Animator.GetBool("isMoving")) // just want to change the facing direction if the object is walking
             {
-                CurrentDirection = MyAiPath.desiredVelocity;
+                CurrentDirection = AiPath.desiredVelocity;
             }
             CurAngle = Utilities.GetAngleFromVectorFloat(CurrentDirection);
             // Actual set of face direction
@@ -281,23 +291,36 @@ namespace Enemy
 
         private void Animate()
         {
-            MyAnimator.SetBool("isMoving", true);
-            MyAnimator.SetFloat("moveX", MyAiPath.velocity.x);
-            MyAnimator.SetFloat("moveY", MyAiPath.velocity.y);
+            Animator.SetBool("isMoving", true);
+            Animator.SetFloat("moveX", AiPath.velocity.x);
+            Animator.SetFloat("moveY", AiPath.velocity.y);
         }
         #endregion
 
         public void TakeDamage(float weaponDamage, float weaponKnockback, Vector3 attackDirection, float knockbackDuration)
         {
-            Debug.Log("tomou dano");
+            if (Invincible) return; // if takes damage recently, dont take damage;
+
+            Invincible = true;
+            
+            // Make hit noise
+            AudioManager.instance.Play("Hit enemy");
+            
+            FlashSprite();
+
             // Decrease health
             EnemyHealthManager.TakeDamage((int) weaponDamage);
            
             // Take knockback
-            MyAiPath.enabled = false;
-            MyRigidbody.AddForce(attackDirection * weaponKnockback, ForceMode2D.Impulse);
+            AiPath.enabled = false;
+            Rigidbody.AddForce(attackDirection * weaponKnockback, ForceMode2D.Impulse);
             StartCoroutine(TakeKnockback(knockbackDuration));
 
+            // Work on it
+            Invoke(nameof(EndFlash), 0.1f);
+            Invoke(nameof(FlashSprite), 0.2f);
+            Invoke(nameof(EndFlash), 0.3f);
+            Invoke(nameof(Endinvincibility), 1f);
         }
 
         public float GetDamage()
@@ -305,7 +328,19 @@ namespace Enemy
             return Damage;
         }
 
-        
+        private void FlashSprite()
+        {
+            Renderer.material = WhiteMaterial;
+        }
+
+        private void EndFlash()
+        {
+            Renderer.material = DefaultMaterial;
+        }
+        private void Endinvincibility ()
+        {
+            Invincible = false;
+        }
         
         private void OnCollisionEnter2D(Collision2D other)
         {
@@ -318,7 +353,7 @@ namespace Enemy
         private IEnumerator TakeKnockback(float knockbackTime)
         {
             yield return new WaitForSeconds(knockbackTime);
-            MyAiPath.enabled = true;
+            AiPath.enabled = true;
         }
     }
 }

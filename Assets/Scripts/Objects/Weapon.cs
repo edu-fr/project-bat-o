@@ -11,12 +11,12 @@ namespace Objects
 
         #region Unity Callbacks
 
-        void Start()
+        private void Start()
         {
         
         }
 
-        void Update()
+        private void Update()
         {
         
         }

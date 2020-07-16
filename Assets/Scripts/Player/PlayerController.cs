@@ -8,28 +8,31 @@ namespace Player
         #region Variables
         private Animator Animator;
         private Rigidbody2D RigidBody;
+        private PlayerAttackManager PlayerAttackManager;
+        
         [SerializeField]
         private float Speed;
 
-    
-        float MoveX;
-        float MoveY;
+
+        private float MoveX;
+        private float MoveY;
         #endregion
 
         #region Unity Callbacks
 
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             Animator = GetComponent<Animator>();
             RigidBody = GetComponent<Rigidbody2D>();
+            PlayerAttackManager = GetComponent<PlayerAttackManager>();
             Speed = 5f;
+            
         }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
-
             HandleMovement();
         }
         #endregion
@@ -37,7 +40,14 @@ namespace Player
         #region Auxiliar Methods
         private void HandleMovement()
         {
+            if (PlayerAttackManager.IsAttacking)
+            {
+                RigidBody.velocity = Vector2.zero;
+                return;
+            }
+            
             RigidBody.velocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized * Speed;
+
             Animator.SetFloat("moveX", RigidBody.velocity.x);
             Animator.SetFloat("moveY", RigidBody.velocity.y);
 

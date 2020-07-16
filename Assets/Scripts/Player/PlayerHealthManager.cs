@@ -16,8 +16,8 @@ namespace Player
         #endregion
 
         #region Unity Callbacks
-        
-        void Start()
+
+        private void Start()
         {
             CurrentHealth = MaxHealth;
             HealthBarScript.SetMaxHealth(MaxHealth);
