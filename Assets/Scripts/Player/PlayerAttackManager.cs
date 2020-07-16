@@ -23,10 +23,14 @@ namespace Player
         private float CurrentWeaponKnockback;
         private float CurrentKnockbackDuration;
         private Animator MyAnimator;
-        [SerializeField] private Transform AttackPoint;
-        [SerializeField] private float AttackRange = 1f;
-        [SerializeField] private float XOffset = 1f;
-        [SerializeField] private float YOffset = 1f;
+        [SerializeField] 
+        private Transform AttackPoint;
+        [SerializeField] 
+        private float AttackRange = 1f;
+        [SerializeField] 
+        private float XOffset = 1f;
+        [SerializeField] 
+        private float YOffset = 1f;
         private LayerMask EnemyLayers;
         private Directions Direction;
 
@@ -56,8 +60,7 @@ namespace Player
             // Set position according to player's direction and give an offset 
             Direction = GetAnimationDirection();
             SetAttackPointPositionAccordToDirection(Direction);
-
-        
+            
             if (HasWeaponEquipped)
             {
                 SetWeaponStats();
@@ -142,7 +145,7 @@ namespace Player
 
                     break;
                 case (WeaponType.Bat):
-                    CurrentWeaponDamage = 25;
+                    CurrentWeaponDamage = 12;
                     CurrentWeaponKnockback = 1f;
                     CurrentKnockbackDuration = 0.1f;
                     break;
@@ -153,10 +156,8 @@ namespace Player
 
         private void OnDrawGizmosSelected()
         {
-            if (AttackPoint == null)
-            {
-                return;
-            }
+            if (AttackPoint == null) return;
+            
             Gizmos.DrawWireSphere(AttackPoint.transform.position, AttackRange);
         }
 
