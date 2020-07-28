@@ -46,24 +46,18 @@ namespace Player
 
             Animator.SetFloat("MoveX", RigidBody.velocity.x);
             Animator.SetFloat("MoveY", RigidBody.velocity.y);
-            
-            Debug.Log("X: " + Animator.GetFloat(("MoveX")));
-            Debug.Log("Y: " + Animator.GetFloat(("MoveY")));
 
-            /*
             if (!PlayerAttackManager.IsAttacking)
             {
-                if (Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Horizontal") == -1)
+                if (Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Horizontal") == -1 || Input.GetAxisRaw("Vertical") == 1 || Input.GetAxisRaw("Vertical") == -1)
                 {
-                    Animator.SetFloat("lastMoveX", Input.GetAxisRaw("Horizontal"));
+                    Animator.SetFloat("LastMoveX", Input.GetAxisRaw("Horizontal"));                    
+                    Animator.SetFloat("LastMoveY", Input.GetAxisRaw("Vertical"));                    
                 }
+                
 
-                if (Input.GetAxisRaw("Vertical") == 1 || Input.GetAxisRaw("Vertical") == -1)
-                {
-                    Animator.SetFloat("lastMoveY", Input.GetAxisRaw("Vertical"));
-                }
             }
-            */
+            
         }
 
         public Vector3 GetPosition()
