@@ -26,7 +26,7 @@ namespace Player
             Animator = GetComponent<Animator>();
             RigidBody = GetComponent<Rigidbody2D>();
             PlayerAttackManager = GetComponent<PlayerAttackManager>();
-            Speed = 5f;
+            Speed = 3f;
             
         }
 
