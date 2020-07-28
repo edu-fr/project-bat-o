@@ -6062,6 +6062,22 @@ PrefabInstance:
       propertyPath: HealthBarScript
       value: 
       objectReference: {fileID: 435377494}
+    - target: {fileID: 6753889184881655938, guid: 58eef81883803ef48a802794ff258dc7,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -830028808969482527, guid: fa91cfeb2f45f674884a6caf3c961e85,
+        type: 3}
+    - target: {fileID: 6753889184881655939, guid: 58eef81883803ef48a802794ff258dc7,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 0be2a0352b20ad64e8a3d0a546d28f83, type: 2}
+    - target: {fileID: 6753889184881655942, guid: 58eef81883803ef48a802794ff258dc7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6753889184881655945, guid: 58eef81883803ef48a802794ff258dc7,
         type: 3}
       propertyPath: m_Name
