@@ -15,8 +15,10 @@ namespace Animation
 
         public void FinishAttackAnimation()
         {
-            Animator.SetBool("isAttacking", false);
-        
+            if(Animator.GetBool("IsAttacking"))
+            {
+                Animator.SetBool("IsAttacking", false);
+            }
         }
     }
 }

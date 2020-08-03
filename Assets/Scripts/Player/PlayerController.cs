@@ -40,25 +40,39 @@ namespace Player
         #region Auxiliar Methods
         private void HandleMovement()
         {
-            RigidBody.velocity = PlayerAttackManager.IsAttacking ? 
+            
+            RigidBody.velocity = Animator.GetBool("IsAttacking") ? 
                 new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized * Speed / 2 : 
                 new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized * Speed;
 
-            Animator.SetFloat("moveX", RigidBody.velocity.x);
-            Animator.SetFloat("moveY", RigidBody.velocity.y);
+            Animator.SetFloat("MoveX", RigidBody.velocity.x);
+            Animator.SetFloat("MoveY", RigidBody.velocity.y);
 
-            if (!PlayerAttackManager.IsAttacking)
+            float lastMoveX = Animator.GetFloat("LastMoveX");
+            float lastMoveY = Animator.GetFloat("LastMoveY");
+
+            if (!Animator.GetBool("IsAttacking"))
             {
-                if (Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Horizontal") == -1)
+                if ((Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Horizontal") == -1) && (Input.GetAxisRaw("Vertical") == 1 || Input.GetAxisRaw("Vertical") == -1))
                 {
-                    Animator.SetFloat("lastMoveX", Input.GetAxisRaw("Horizontal"));
+                    lastMoveX = Input.GetAxisRaw("Horizontal");
+                    lastMoveY = Input.GetAxisRaw("Vertical");
+                }
+                else if(Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Horizontal") == -1)
+                {
+                    lastMoveX = Input.GetAxisRaw("Horizontal");
+                    lastMoveY = 0;
+                } 
+                else if (Input.GetAxisRaw("Vertical") == 1 || Input.GetAxisRaw("Vertical") == -1)
+                {
+                    lastMoveX = 0;
+                    lastMoveY = Input.GetAxisRaw("Vertical");
                 }
 
-                if (Input.GetAxisRaw("Vertical") == 1 || Input.GetAxisRaw("Vertical") == -1)
-                {
-                    Animator.SetFloat("lastMoveY", Input.GetAxisRaw("Vertical"));
-                }
             }
+            
+            Animator.SetFloat("LastMoveX", lastMoveX);
+            Animator.SetFloat("LastMoveY", lastMoveY);
         }
 
         public Vector3 GetPosition()

@@ -70,7 +70,7 @@ namespace Player
             if (HasWeaponEquipped)
             {
                 SetWeaponStats();
-                if(Input.GetKeyDown(KeyCode.Z) && !IsAttacking)
+                if(Input.GetKeyDown(KeyCode.Z) && !MyAnimator.GetBool("IsAttacking"))
                     Attack();
 
                 if (IsAttacking)
@@ -87,20 +87,18 @@ namespace Player
 
         private void Attack()
         {
-            IsAttacking = true;
             AttackPoint.gameObject.SetActive(true);
         
             // Set attack animation
-            MyAnimator.speed = CurrentWeaponAttackSpeed * 0.1f;
+            MyAnimator.speed = CurrentWeaponAttackSpeed * 0.5f;
             MyAnimator.SetTrigger("Attack");
-            
-            
+            MyAnimator.SetBool("IsAttacking", true);
         }
         
         private void AttackEnd()
         {
-            Debug.Log("Attack Ended");
             MyAnimator.speed = 1f;
+            MyAnimator.SetBool("IsAttacking", false);
             IsAttacking = false;
             AttackPoint.gameObject.SetActive(false);
         }
@@ -122,8 +120,8 @@ namespace Player
         
         private Directions GetAnimationDirection()
         {
-            float lastMoveX = MyAnimator.GetFloat("lastMoveX");
-            float lastMoveY = MyAnimator.GetFloat("lastMoveY");
+            float lastMoveX = MyAnimator.GetFloat("LastMoveX");
+            float lastMoveY = MyAnimator.GetFloat("LastMoveY");
             if (lastMoveX < 0 && lastMoveY < 0)
                 return Directions.DownLeft;
             else if (lastMoveX > 0 && lastMoveY < 0)
