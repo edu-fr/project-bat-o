@@ -90,7 +90,7 @@ namespace Player
             AttackPoint.gameObject.SetActive(true);
         
             // Set attack animation
-            MyAnimator.speed = CurrentWeaponAttackSpeed * 0.5f;
+            MyAnimator.speed = CurrentWeaponAttackSpeed * 0.2f;
             MyAnimator.SetTrigger("Attack");
             MyAnimator.SetBool("IsAttacking", true);
         }
