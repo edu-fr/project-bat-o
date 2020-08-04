@@ -71,6 +71,7 @@ namespace Enemy
         // Attack
         private float Damage = 20;
         private bool Invincible = false;
+        private float TimeInvencible = .9f;
         
         #endregion
 
@@ -297,7 +298,7 @@ namespace Enemy
         }
         #endregion
 
-        public void TakeDamage(float weaponDamage, float weaponKnockback, Vector3 attackDirection, float knockbackDuration)
+        public void TakeDamage(float weaponDamage, float weaponKnockback, Vector3 attackDirection, float knockbackDuration, float weaponAttackSpeed)
         {
             if (Invincible) return; // if takes damage recently, dont take damage;
 
@@ -320,7 +321,8 @@ namespace Enemy
             Invoke(nameof(EndFlash), 0.1f);
             Invoke(nameof(FlashSprite), 0.2f);
             Invoke(nameof(EndFlash), 0.3f);
-            Invoke(nameof(Endinvincibility), 1f);
+            Invoke(nameof(Endinvincibility), TimeInvencible/ (weaponAttackSpeed/2));
+            Debug.Log("Invencibility Time: " + TimeInvencible / (weaponAttackSpeed/2));
         }
 
         public float GetDamage()

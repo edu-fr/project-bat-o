@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Security.Cryptography;
 using Enemy;
 using Game;
 using UnityEngine;
@@ -9,9 +10,9 @@ namespace Player
     {
         #region Enums
 
-        private enum Directions {UpperLeft, UpperRight, DownLeft, DownRight}
+        private enum Directions {UpLeft, UpRight, DownLeft, DownRight, Up, Down, Left, Right}
 
-        private enum WeaponType {Bat}
+        private enum WeaponType {Sword}
 
         #endregion
 
@@ -22,21 +23,17 @@ namespace Player
         [HideInInspector]
         public bool IsAttacking { private set; get;} = false;
         
-        private WeaponType CurrentWeaponType = WeaponType.Bat;
+        private WeaponType CurrentWeaponType = WeaponType.Sword;
         private float CurrentWeaponDamage;
         private float CurrentWeaponKnockback;
         private float CurrentWeaponAttackSpeed;
         private float CurrentKnockbackDuration;
 
         private Animator MyAnimator;
-        [SerializeField] 
-        private Transform AttackPoint;
-        [SerializeField] 
-        private float AttackRange = 1f;
-        [SerializeField] 
-        private float XOffset = 1f;
-        [SerializeField] 
-        private float YOffset = 1f;
+
+        [SerializeField]
+        private GameObject SwordHitBox;
+        
         private LayerMask EnemyLayers;
         private Directions Direction;
 
@@ -46,18 +43,6 @@ namespace Player
 
         private void Awake()
         {
-            // Creating an attack point
-            AttackPoint = new GameObject("Attack point").transform;
-        
-            // Make the attack point follows player
-            AttackPoint.parent = this.gameObject.transform;
-
-            // set attack point default position as same as player position
-            AttackPoint.transform.position = transform.position;
-        
-            // set inactive while not attacking
-            AttackPoint.gameObject.SetActive(false);
-
             MyAnimator = GetComponent<Animator>();
         }
 
@@ -65,19 +50,12 @@ namespace Player
         {
             // Set position according to player's direction and give an offset 
             Direction = GetAnimationDirection();
-            SetAttackPointPositionAccordToDirection(Direction);
-            
+
             if (HasWeaponEquipped)
             {
                 SetWeaponStats();
                 if(Input.GetKeyDown(KeyCode.Z) && !MyAnimator.GetBool("IsAttacking"))
                     Attack();
-
-                if (IsAttacking)
-                {
-                    // Detect if hit enemies
-                    VerifyAttackCollision();
-                }
             }
         }
 
@@ -87,8 +65,6 @@ namespace Player
 
         private void Attack()
         {
-            AttackPoint.gameObject.SetActive(true);
-        
             // Set attack animation
             MyAnimator.speed = CurrentWeaponAttackSpeed * 0.2f;
             MyAnimator.SetTrigger("Attack");
@@ -100,63 +76,53 @@ namespace Player
             MyAnimator.speed = 1f;
             MyAnimator.SetBool("IsAttacking", false);
             IsAttacking = false;
-            AttackPoint.gameObject.SetActive(false);
         }
 
-        private void VerifyAttackCollision()
+        public void VerifyAttackCollision(GameObject enemy)
         {
-            // Detect enemies in range of attack
-            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, AttackRange);
-
-            foreach(Collider2D enemy in hitEnemies)
-            {
-                if(enemy.CompareTag("Enemy"))
-                {
-                    Vector3 attackDirection = (enemy.transform.position - transform.position).normalized;
-                    enemy.GetComponent<EnemyBehavior>().TakeDamage(CurrentWeaponDamage, CurrentWeaponKnockback, attackDirection, CurrentKnockbackDuration);
-                }
-            }
+            Vector3 attackDirection = (enemy.transform.position - transform.position).normalized;
+            enemy.GetComponent<EnemyBehavior>().TakeDamage(CurrentWeaponDamage, CurrentWeaponKnockback, attackDirection, CurrentKnockbackDuration,  CurrentWeaponAttackSpeed);
         }
         
         private Directions GetAnimationDirection()
         {
             float lastMoveX = MyAnimator.GetFloat("LastMoveX");
             float lastMoveY = MyAnimator.GetFloat("LastMoveY");
-            if (lastMoveX < 0 && lastMoveY < 0)
-                return Directions.DownLeft;
-            else if (lastMoveX > 0 && lastMoveY < 0)
-                return Directions.DownRight;
-            else if (lastMoveX > 0 && lastMoveY > 0)
-                return Directions.UpperRight;
-            else if (lastMoveX < 0 && lastMoveY > 0)
-                return Direction = Directions.UpperLeft;
-            else
-                return Direction = Directions.DownRight;
-        }
 
-        private void SetAttackPointPositionAccordToDirection(Directions direction)
-        {
-        
-            switch (direction)
+            switch (lastMoveX)
             {
-                default:
-
-                case (Directions.UpperLeft):
-                    AttackPoint.position = transform.position + new Vector3(-XOffset, YOffset, 0);
+                case 1: //Up Right, Right and Down Right
+                    switch (lastMoveY)
+                    {
+                        case 1:
+                            return Directions.UpRight;
+                        
+                        case 0:
+                            return Directions.Right;
+                        
+                        case -1:
+                            return Directions.DownRight;
+                    }
                     break;
-                case (Directions.UpperRight):
-                    AttackPoint.position = transform.position + new Vector3(XOffset, YOffset, 0);
-
-                    break;
-                case (Directions.DownLeft):
-                    AttackPoint.position = transform.position + new Vector3(-XOffset, -YOffset, 0);
-
-                    break;
-                case (Directions.DownRight):
-                    AttackPoint.position = transform.position + new Vector3(XOffset, -YOffset, 0);
-
+                
+                case 0: // Down and Up
+                    return lastMoveY == 1 ? Directions.Up : Directions.Down; 
+                
+                case -1: // Up Left, Left and Down Left
+                    switch (lastMoveY)
+                    {
+                        case 1:
+                            return Directions.UpLeft;
+                        
+                        case 0:
+                            return Directions.Left;
+                        
+                        case -1:
+                            return Directions.DownLeft;
+                    }
                     break;
             }
+            return Directions.Down;
         }
 
         private void SetWeaponStats()
@@ -166,23 +132,17 @@ namespace Player
                 default:
 
                     break;
-                case (WeaponType.Bat):
+                case (WeaponType.Sword):
                     CurrentWeaponDamage = 12;
-                    CurrentWeaponKnockback = 1f;
+                    CurrentWeaponKnockback = 2f;
                     CurrentKnockbackDuration = 0.1f;
-                    CurrentWeaponAttackSpeed = 6f;
+                    CurrentWeaponAttackSpeed = 10f;
                     break;
                
 
             }
         }
-
-        private void OnDrawGizmosSelected()
-        {
-            if (AttackPoint == null) return;
-            
-            Gizmos.DrawWireSphere(AttackPoint.transform.position, AttackRange);
-        }
+        
 
         #endregion
     }

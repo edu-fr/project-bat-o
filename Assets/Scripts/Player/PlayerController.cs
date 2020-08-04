@@ -42,7 +42,7 @@ namespace Player
         {
             
             RigidBody.velocity = Animator.GetBool("IsAttacking") ? 
-                new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized * Speed / 2 : 
+                new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized * Speed / 50 : 
                 new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized * Speed;
 
             Animator.SetFloat("MoveX", RigidBody.velocity.x);
