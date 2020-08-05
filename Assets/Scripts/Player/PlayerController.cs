@@ -26,8 +26,6 @@ namespace Player
             Animator = GetComponent<Animator>();
             RigidBody = GetComponent<Rigidbody2D>();
             PlayerAttackManager = GetComponent<PlayerAttackManager>();
-            Speed = 5f;
-            
         }
 
         // Update is called once per frame
