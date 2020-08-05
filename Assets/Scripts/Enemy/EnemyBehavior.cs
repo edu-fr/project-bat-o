@@ -73,6 +73,9 @@ namespace Enemy
         private bool Invincible = false;
         private float TimeInvencible = .9f;
         
+        // Game Manager
+        private GameManager GameManager;
+        
         #endregion
 
         #region Unity Callbacks
@@ -89,7 +92,6 @@ namespace Enemy
             EnemiesLayer = LayerMask.GetMask("Enemies");
             Renderer = GetComponent<Renderer>();
             DefaultMaterial = Renderer.material;
-            
         }
 
         // Start is called before the first frame update
@@ -112,7 +114,8 @@ namespace Enemy
             FieldOfViewComponent.SetViewDistance(ViewDistance);
             FieldOfViewComponent.SetMyEnemyBehavior(this);
 
-            // Life bar
+            // Game Manager
+            GameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
 
         }
 
@@ -126,6 +129,7 @@ namespace Enemy
                 Destroy(gameObject);
                 Destroy(FieldOfViewComponent.gameObject);
                 Destroy(Target.gameObject);
+                //GameManager.SetEnemiesRemaining(10);
             }
             else
             {
@@ -322,7 +326,6 @@ namespace Enemy
             Invoke(nameof(FlashSprite), 0.2f);
             Invoke(nameof(EndFlash), 0.3f);
             Invoke(nameof(Endinvincibility), TimeInvencible/ (weaponAttackSpeed/6f));
-            Debug.Log("Invencibility Time: " + TimeInvencible / (weaponAttackSpeed/6f));
         }
 
         public float GetDamage()
