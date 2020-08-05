@@ -321,8 +321,8 @@ namespace Enemy
             Invoke(nameof(EndFlash), 0.1f);
             Invoke(nameof(FlashSprite), 0.2f);
             Invoke(nameof(EndFlash), 0.3f);
-            Invoke(nameof(Endinvincibility), TimeInvencible/ (weaponAttackSpeed/2));
-            Debug.Log("Invencibility Time: " + TimeInvencible / (weaponAttackSpeed/2));
+            Invoke(nameof(Endinvincibility), TimeInvencible/ (weaponAttackSpeed/6f));
+            Debug.Log("Invencibility Time: " + TimeInvencible / (weaponAttackSpeed/6f));
         }
 
         public float GetDamage()

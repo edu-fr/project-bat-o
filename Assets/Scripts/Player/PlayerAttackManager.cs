@@ -133,10 +133,10 @@ namespace Player
 
                     break;
                 case (WeaponType.Sword):
-                    CurrentWeaponDamage = 12;
-                    CurrentWeaponKnockback = 2f;
+                    CurrentWeaponDamage = 34;
+                    CurrentWeaponKnockback = 1.7f;
                     CurrentKnockbackDuration = 0.1f;
-                    CurrentWeaponAttackSpeed = 10f;
+                    CurrentWeaponAttackSpeed = 15f;
                     break;
                
 
