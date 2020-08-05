@@ -6062,81 +6062,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 709677847}
     m_Modifications:
-    - target: {fileID: 1547983612, guid: 58eef81883803ef48a802794ff258dc7, type: 3}
-      propertyPath: m_Offset.x
-      value: -0.03537309
-      objectReference: {fileID: 0}
-    - target: {fileID: 1547983612, guid: 58eef81883803ef48a802794ff258dc7, type: 3}
-      propertyPath: m_Size.x
-      value: 0.25008464
-      objectReference: {fileID: 0}
-    - target: {fileID: 1547983612, guid: 58eef81883803ef48a802794ff258dc7, type: 3}
-      propertyPath: m_Offset.y
-      value: -0.031836033
-      objectReference: {fileID: 0}
-    - target: {fileID: 1547983612, guid: 58eef81883803ef48a802794ff258dc7, type: 3}
-      propertyPath: m_Size.y
-      value: 0.22886086
-      objectReference: {fileID: 0}
     - target: {fileID: 385695933423370815, guid: 58eef81883803ef48a802794ff258dc7,
         type: 3}
       propertyPath: HealthBarScript
       value: 
       objectReference: {fileID: 435377494}
-    - target: {fileID: 6753889184881655942, guid: 58eef81883803ef48a802794ff258dc7,
-        type: 3}
-      propertyPath: HasWeaponEquipped
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6753889184881655942, guid: 58eef81883803ef48a802794ff258dc7,
-        type: 3}
-      propertyPath: AttackPoint
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6753889184881655942, guid: 58eef81883803ef48a802794ff258dc7,
-        type: 3}
-      propertyPath: AttackHeight
-      value: 1.24
-      objectReference: {fileID: 0}
-    - target: {fileID: 6753889184881655942, guid: 58eef81883803ef48a802794ff258dc7,
-        type: 3}
-      propertyPath: AttackWidth
-      value: 0.37
-      objectReference: {fileID: 0}
-    - target: {fileID: 6753889184881655942, guid: 58eef81883803ef48a802794ff258dc7,
-        type: 3}
-      propertyPath: XOffset
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6753889184881655942, guid: 58eef81883803ef48a802794ff258dc7,
-        type: 3}
-      propertyPath: YOffset
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 6753889184881655945, guid: 58eef81883803ef48a802794ff258dc7,
         type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 6753889184881655949, guid: 58eef81883803ef48a802794ff258dc7,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6753889184881655949, guid: 58eef81883803ef48a802794ff258dc7,
-        type: 3}
-      propertyPath: m_Offset.y
-      value: -0.31682992
-      objectReference: {fileID: 0}
-    - target: {fileID: 6753889184881655949, guid: 58eef81883803ef48a802794ff258dc7,
-        type: 3}
-      propertyPath: m_Radius
-      value: 0.30405164
-      objectReference: {fileID: 0}
-    - target: {fileID: 6753889184881655949, guid: 58eef81883803ef48a802794ff258dc7,
-        type: 3}
-      propertyPath: m_Offset.x
-      value: -0.0005905628
       objectReference: {fileID: 0}
     - target: {fileID: 6753889184881655950, guid: 58eef81883803ef48a802794ff258dc7,
         type: 3}
