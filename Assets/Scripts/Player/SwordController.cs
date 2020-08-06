@@ -26,16 +26,7 @@ public class SwordController : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            Debug.Log("Colidiu com " + other.gameObject.name);
             PlayerAttackManager.VerifyAttackCollision(other.gameObject);
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Enemy"))
-        {
-            Debug.Log("Parou de colidir com " + other.gameObject.name);
         }
     }
 }

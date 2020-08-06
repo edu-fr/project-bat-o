@@ -9,7 +9,7 @@ namespace Enemy
         private Mesh Mesh;
         private Vector3 Origin;
         private float StartingAngle;
-        private float FieldOfViewValue = 90f;
+        private float FieldOfViewValue = 120f;
         private float ViewDistance =5f;
         private int RayCount = 50;
         [SerializeField] private LayerMask LayerMask = 0;
@@ -24,14 +24,7 @@ namespace Enemy
             Mesh = new Mesh();
             GetComponent<MeshFilter>().mesh = Mesh;
         }
-
-        // Start is called before the first frame update
-        private void Start()
-        {
-
-        }
-
-        // LateUpdate is called once per frame
+        
         private void LateUpdate()
         {
             float angle = StartingAngle;

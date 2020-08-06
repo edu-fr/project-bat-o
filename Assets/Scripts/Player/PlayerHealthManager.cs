@@ -12,10 +12,12 @@ namespace Player
         private Renderer Renderer;
         private Material DefaultMaterial;
         [SerializeField]
-        private Material FlashMaterial;
-        
-        private int MaxHealth = 100;
-        private int CurrentHealth;
+        public Material FlashMaterial;
+
+        public PersistentObject PersistentObject;
+
+        public int MaxHealth { get; set; } = 100;
+        public int CurrentHealth { get; set; }
         private bool Invincible = false;
 
         public HealthBarScript HealthBarScript;
@@ -28,16 +30,27 @@ namespace Player
         {
             Renderer = GetComponent<Renderer>();
             DefaultMaterial = Renderer.material;
+            PersistentObject = GameObject.FindGameObjectWithTag("Persistent").GetComponent<PersistentObject>();
         }
-        
+
         private void Start()
         {
-            CurrentHealth = MaxHealth;
-            HealthBarScript.SetMaxHealth(MaxHealth);
+            if (PersistentObject.PlayerPreviousHp == 0)
+            {
+                Debug.Log("PersistentObject.PlayerPreviousHp " + PersistentObject.PlayerPreviousHp +
+                          " and Persistent.PlayerPreviousMaxHp " + PersistentObject.PlayerPreviousMaxHp);
+                CurrentHealth = MaxHealth;
+                HealthBarScript.SetMaxHealth(MaxHealth);
+            }
         }
 
         #endregion
 
+        private void Update()
+        {
+            HealthBarScript.SetHealth(CurrentHealth);
+        }
+        
         #region Auxiliar Methods
 
         public void TakeDamage(int damage)
@@ -52,7 +65,6 @@ namespace Player
             
             // Lose HP
             CurrentHealth -= damage;
-            HealthBarScript.SetHealth(CurrentHealth);
             
             // Work on it
             Invoke(nameof(EndFlash), 0.1f);
@@ -61,11 +73,6 @@ namespace Player
             Invoke(nameof(FlashSprite), 0.4f);
             Invoke(nameof(EndFlash), 0.5f);
             Invoke(nameof(Endinvincibility), 0.6f);
-        }
-
-        public int GetCurrentHp()
-        {
-            return CurrentHealth;
         }
 
         private void FlashSprite()

@@ -285,4 +285,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FlashMaterial: {fileID: 2100000, guid: 478fe359495af0742b7432b040a1ca38, type: 2}
+  PersistentObject: {fileID: 0}
   HealthBarScript: {fileID: 0}

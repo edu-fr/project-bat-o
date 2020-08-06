@@ -11,7 +11,7 @@ namespace Player
         private PlayerAttackManager PlayerAttackManager;
         
         [SerializeField]
-        private float Speed;
+        private float Speed = 0;
 
 
         private float MoveX;
@@ -24,6 +24,10 @@ namespace Player
         private void Start()
         {
             Animator = GetComponent<Animator>();
+            // Setting player face direction upwards
+            Animator.SetFloat("LastMoveX", 0);
+            Animator.SetFloat("LastMoveY", 1);
+            
             RigidBody = GetComponent<Rigidbody2D>();
             PlayerAttackManager = GetComponent<PlayerAttackManager>();
         }

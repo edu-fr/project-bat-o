@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Game;
+using Objects;
 using Pathfinding;
 using Player;
 using UnityEngine;
@@ -27,7 +28,7 @@ namespace Enemy
         private Renderer Renderer;
         private Material DefaultMaterial;
         [SerializeField]
-        private Material FlashMaterial;
+        public Material FlashMaterial;
 
 
         // Movement
@@ -126,10 +127,11 @@ namespace Enemy
               if(EnemyHealthManager.GetCurrentHp() <= 0)
             {
                 AudioManager.instance.Play("Final blow in the enemy");;
+                GameManager.EnemiesRemaining -= 1;
                 Destroy(gameObject);
                 Destroy(FieldOfViewComponent.gameObject);
                 Destroy(Target.gameObject);
-                //GameManager.SetEnemiesRemaining(10);
+                
             }
             else
             {
@@ -322,10 +324,11 @@ namespace Enemy
             StartCoroutine(TakeKnockback(knockbackDuration));
 
             // Work on it
-            Invoke(nameof(EndFlash), 0.1f);
-            Invoke(nameof(FlashSprite), 0.2f);
-            Invoke(nameof(EndFlash), 0.3f);
-            Invoke(nameof(Endinvincibility), TimeInvencible/ (weaponAttackSpeed/6f));
+            float timeFlashing = TimeInvencible / (weaponAttackSpeed / 6f);
+            Invoke(nameof(EndFlash), timeFlashing / 3);
+            Invoke(nameof(FlashSprite), timeFlashing / 2);
+            Invoke(nameof(EndFlash), timeFlashing);
+            Invoke(nameof(Endinvincibility), timeFlashing - 0.05f);
         }
 
         public float GetDamage()

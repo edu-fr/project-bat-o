@@ -28,7 +28,7 @@ namespace Game
                 return;
             }
             
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
             
             foreach (Sound s in Sounds)
             {
