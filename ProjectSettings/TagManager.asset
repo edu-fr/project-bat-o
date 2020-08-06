@@ -9,6 +9,7 @@ TagManager:
   - Roadblock
   - Persistent
   - HealthBar
+  - PauseMenuUI
   layers:
   - Default
   - TransparentFX

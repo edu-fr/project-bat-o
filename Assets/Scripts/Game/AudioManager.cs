@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Audio;
 using System;
+using UI;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
@@ -57,6 +58,12 @@ namespace Game
             // adding some randomness to the volume and pitch of the sfx
             s.Source.volume = s.Volume * (1f + Random.Range(-s.VolumeVariance, s.VolumeVariance));
             s.Source.pitch = s.Pitch * (1f + Random.Range(-s.PitchVariance, s.PitchVariance));
+
+            if (PauseMenu.GameIsPaused)
+            {
+                s.Source.pitch *= .5f;
+            }
+             
             
             s.Source.Play();
         }

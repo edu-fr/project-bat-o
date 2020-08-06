@@ -11,6 +11,8 @@ namespace Game
         private PlayerHealthManager PlayerHealthManager;
         private RoadblockController RoadblockController;
         public PersistentObject PersistentObject { get; private set; }
+        
+        public PersistentObject PersistentPrefab;
         public int EnemiesRemaining { get; set; }
 
         #endregion
@@ -28,6 +30,11 @@ namespace Game
             EnemiesRemaining = GameObject.FindGameObjectsWithTag("Enemy").Length;
 
             PersistentObject = GameObject.FindGameObjectWithTag("Persistent").GetComponent<PersistentObject>();
+
+            if (PersistentObject == null)
+            {
+                PersistentObject = Instantiate(PersistentPrefab);
+            }
             // Set player's health accordly to previous level
 
             if (PersistentObject.PlayerPreviousHp != 0)
@@ -42,8 +49,7 @@ namespace Game
             if(PlayerHealthManager.CurrentHealth <= 0) // Player died
             {
                 AudioManager.instance.Play("Player dying");
-                PersistentObject.PlayerPreviousHp = 0;
-                PersistentObject.PlayerPreviousMaxHp = 0;
+                Destroy(PersistentObject);
                 SceneManager.LoadScene(0);
                 
             }

@@ -12,9 +12,8 @@ namespace Game
         private HealthBarScript HealthBarScript;
         
         // Player Stats
-        [NonSerialized]
+
         public int PlayerPreviousHp;
-        [NonSerialized]
         public int PlayerPreviousMaxHp;
 
         private void Awake()
@@ -26,7 +25,7 @@ namespace Game
             }
         }
         
-        private  void Start()
+        private void Start()
         {
             DontDestroyOnLoad(this.gameObject);
             PlayerHealthManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthManager>();
@@ -37,6 +36,7 @@ namespace Game
         {
             PlayerPreviousHp = PlayerHealthManager.CurrentHealth;
             PlayerPreviousMaxHp = PlayerHealthManager.MaxHealth;
+            Debug.Log("Saved on " + SceneManager.GetActiveScene().name);
         }
 
         public void LoadPlayerStats()
@@ -44,13 +44,21 @@ namespace Game
             GetCurrentSceneComponents();
             PlayerHealthManager.CurrentHealth = PlayerPreviousHp;
             PlayerHealthManager.MaxHealth = PlayerPreviousMaxHp;
-            
+            Debug.Log("Loaded on " + SceneManager.GetActiveScene().name);   
         }
 
         void GetCurrentSceneComponents()
         {
             // Player Health Manager
             PlayerHealthManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthManager>();
+            Debug.Log("Get Components on " + SceneManager.GetActiveScene().name);
         }
+
+        public void Reset()
+        {
+            PlayerPreviousHp = 0;
+            PlayerPreviousMaxHp = 0;
+        }
+        
     }
 }

@@ -37,8 +37,6 @@ namespace Player
         {
             if (PersistentObject.PlayerPreviousHp == 0)
             {
-                Debug.Log("PersistentObject.PlayerPreviousHp " + PersistentObject.PlayerPreviousHp +
-                          " and Persistent.PlayerPreviousMaxHp " + PersistentObject.PlayerPreviousMaxHp);
                 CurrentHealth = MaxHealth;
                 HealthBarScript.SetMaxHealth(MaxHealth);
             }
