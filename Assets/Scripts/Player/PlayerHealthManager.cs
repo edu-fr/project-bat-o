@@ -30,11 +30,15 @@ namespace Player
         {
             Renderer = GetComponent<Renderer>();
             DefaultMaterial = Renderer.material;
-            PersistentObject = GameObject.FindGameObjectWithTag("Persistent").GetComponent<PersistentObject>();
+            
         }
 
         private void Start()
         {
+            // Only call at Start cause Game Manager create the persistent instance on Awake
+            PersistentObject = GameObject.FindGameObjectWithTag("Persistent").GetComponent<PersistentObject>();
+            
+            
             if (PersistentObject.PlayerPreviousHp == 0)
             {
                 CurrentHealth = MaxHealth;

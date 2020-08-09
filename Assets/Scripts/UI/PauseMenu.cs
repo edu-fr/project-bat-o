@@ -10,8 +10,9 @@ namespace UI
         public GameObject PauseMenuUI;
         private PersistentObject PersistentObject;
 
-        private void Awake()
+        private void Start()
         {
+            // Only call at Start cause Game Manager create the persistent instance on Awake
             PersistentObject = GameObject.FindGameObjectWithTag("Persistent").GetComponent<PersistentObject>();
         }
 
@@ -40,7 +41,7 @@ namespace UI
 
         public void LoadMenu()
         {
-            Destroy(PersistentObject);
+            PersistentObject.Reset();
             SceneManager.LoadScene(0);
             Resume();
         }

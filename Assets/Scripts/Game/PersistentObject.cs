@@ -8,6 +8,7 @@ namespace Game
 {
     public class PersistentObject : MonoBehaviour
     {
+        private int Id;
         private PlayerHealthManager PlayerHealthManager;
         private HealthBarScript HealthBarScript;
         
@@ -15,15 +16,6 @@ namespace Game
 
         public int PlayerPreviousHp;
         public int PlayerPreviousMaxHp;
-
-        private void Awake()
-        {
-            GameObject[] persistentObjects = GameObject.FindGameObjectsWithTag("Persistent");
-            if (persistentObjects.Length > 1)
-            {
-                Destroy(this.gameObject);
-            }
-        }
         
         private void Start()
         {

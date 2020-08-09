@@ -10,14 +10,27 @@ namespace Game
         private GameObject Player;
         private PlayerHealthManager PlayerHealthManager;
         private RoadblockController RoadblockController;
+        
+        public GameObject Persistent { get; private set; }
         public PersistentObject PersistentObject { get; private set; }
         
-        public PersistentObject PersistentPrefab;
+        public Transform PersistentPrefab;
         public int EnemiesRemaining { get; set; }
 
         #endregion
 
         #region UnityCallbacks
+
+        private void Awake()
+        {
+            Persistent = GameObject.FindGameObjectWithTag("Persistent");
+
+            if (Persistent == null)
+            {
+                Persistent = Instantiate(PersistentPrefab, null).gameObject;
+            }
+            PersistentObject = Persistent.GetComponent<PersistentObject>();
+        }
 
         // Start is called before the first frame update
         private void Start()
@@ -29,12 +42,6 @@ namespace Game
             
             EnemiesRemaining = GameObject.FindGameObjectsWithTag("Enemy").Length;
 
-            PersistentObject = GameObject.FindGameObjectWithTag("Persistent").GetComponent<PersistentObject>();
-
-            if (PersistentObject == null)
-            {
-                PersistentObject = Instantiate(PersistentPrefab);
-            }
             // Set player's health accordly to previous level
 
             if (PersistentObject.PlayerPreviousHp != 0)
@@ -49,7 +56,7 @@ namespace Game
             if(PlayerHealthManager.CurrentHealth <= 0) // Player died
             {
                 AudioManager.instance.Play("Player dying");
-                Destroy(PersistentObject);
+                PersistentObject.Reset();
                 SceneManager.LoadScene(0);
                 
             }
