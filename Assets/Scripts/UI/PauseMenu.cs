@@ -42,8 +42,6 @@ namespace UI
         public void LoadMenu()
         {
             PersistentObject.Reset();
-            Debug.Log("Objeto Persistente Resetado no cenário: " + SceneManager.GetActiveScene().name + ". Valores atuais: HP: " + PersistentObject.PlayerPreviousHp +
-                      " MAX HP: " + PersistentObject.PlayerPreviousMaxHp);
             SceneManager.LoadScene(0);
             Resume();
         }

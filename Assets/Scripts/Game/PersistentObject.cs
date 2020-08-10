@@ -17,11 +17,6 @@ namespace Game
         public int PlayerPreviousHp;
         public int PlayerPreviousMaxHp;
 
-        private void Awake()
-        {
-            Debug.Log("Objeto Persistente CRIADO no cenário: " + SceneManager.GetActiveScene());
-        }
-        
         private void Start()
         {
             DontDestroyOnLoad(this.gameObject);
@@ -33,7 +28,7 @@ namespace Game
         {
             PlayerPreviousHp = PlayerHealthManager.CurrentHealth;
             PlayerPreviousMaxHp = PlayerHealthManager.MaxHealth;
-            Debug.Log("Salvo na cena " + SceneManager.GetActiveScene().name);
+            
         }
 
         public void LoadPlayerStats()
@@ -41,15 +36,14 @@ namespace Game
             GetCurrentSceneComponents();
             PlayerHealthManager.CurrentHealth = PlayerPreviousHp;
             PlayerHealthManager.MaxHealth = PlayerPreviousMaxHp;
-            Debug.Log("Carregado na " + SceneManager.GetActiveScene().name);   
+           
         }
 
         void GetCurrentSceneComponents()
         {
             // Player Health Manager
             PlayerHealthManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthManager>();
-            Debug.Log("Get Components na cena " + SceneManager.GetActiveScene().name + "VALORES DA CENA: HP: " +
-                      PlayerHealthManager.CurrentHealth + " MAX HP: " + PlayerHealthManager.MaxHealth);
+            
         }
 
         public void Reset()
