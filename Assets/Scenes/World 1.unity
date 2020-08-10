@@ -5539,6 +5539,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 552024967755305218, guid: bb590befd438a734cb1f36717182dd31,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 552024968782291841, guid: bb590befd438a734cb1f36717182dd31,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5648,6 +5653,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 552024968782291853, guid: bb590befd438a734cb1f36717182dd31,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb590befd438a734cb1f36717182dd31, type: 3}
@@ -5801,6 +5811,11 @@ PrefabInstance:
       propertyPath: HealthBarScript
       value: 
       objectReference: {fileID: 652902151}
+    - target: {fileID: 6753889184881655939, guid: 58eef81883803ef48a802794ff258dc7,
+        type: 3}
+      propertyPath: m_UpdateMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6753889184881655945, guid: 58eef81883803ef48a802794ff258dc7,
         type: 3}
       propertyPath: m_Name
