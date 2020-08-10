@@ -149,7 +149,7 @@ namespace Enemy
                         FieldOfViewComponent.SetAimDirection(FaceDirection);
                         FieldOfViewComponent.SetOrigin(transform.position);
                         // Looking for the player
-                        if(TargetPlayer != null)
+                        if (TargetPlayer != null)
                         {
                             ChangeState(States.Chasing);
                         }
@@ -167,7 +167,7 @@ namespace Enemy
                             SetCurrentFaceDirection();
 
                             // Return to Standard state
-                            if(Vector2.Distance(transform.position, TargetPlayer.transform.position) > 7f)
+                            if (Vector2.Distance(transform.position, TargetPlayer.transform.position) > 7f)
                             {
                                 TargetPlayer = null;
                             }
