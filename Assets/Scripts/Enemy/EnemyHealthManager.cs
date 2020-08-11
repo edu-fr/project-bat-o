@@ -6,8 +6,8 @@ namespace Enemy
     {
         #region Variables
 
-        private int MaxHealth = 100;
-        private int CurrentHealth;
+        public int MaxHealth = 200;
+        public int CurrentHealth;
         
         #endregion
 

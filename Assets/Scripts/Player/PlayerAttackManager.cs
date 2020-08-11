@@ -29,7 +29,9 @@ namespace Player
         private float CurrentWeaponAttackSpeed;
         private float CurrentKnockbackDuration;
 
-        private Animator MyAnimator;
+        private Animator Animator;
+
+        private PowerUpController PowerUpController;
 
         [SerializeField]
         private GameObject SwordHitBox;
@@ -43,7 +45,8 @@ namespace Player
 
         private void Awake()
         {
-            MyAnimator = GetComponent<Animator>();
+            Animator = GetComponent<Animator>();
+            PowerUpController = GetComponent<PowerUpController>();
         }
 
         private void Update()
@@ -54,7 +57,7 @@ namespace Player
             if (HasWeaponEquipped)
             {
                 SetWeaponStats();
-                if(Input.GetKeyDown(KeyCode.Z) && !MyAnimator.GetBool("IsAttacking"))
+                if(Input.GetKeyDown(KeyCode.Z) && !Animator.GetBool("IsAttacking"))
                     Attack();
             }
         }
@@ -66,15 +69,15 @@ namespace Player
         private void Attack()
         {
             // Set attack animation
-            MyAnimator.speed = CurrentWeaponAttackSpeed * 0.2f;
-            MyAnimator.SetTrigger("Attack");
-            MyAnimator.SetBool("IsAttacking", true);
+            Animator.speed = CurrentWeaponAttackSpeed * 0.2f;
+            Animator.SetTrigger("Attack");
+            Animator.SetBool("IsAttacking", true);
         }
         
         private void AttackEnd()
         {
-            MyAnimator.speed = 1f;
-            MyAnimator.SetBool("IsAttacking", false);
+            Animator.speed = 1f;
+            Animator.SetBool("IsAttacking", false);
             IsAttacking = false;
         }
 
@@ -82,14 +85,13 @@ namespace Player
         {
             Vector3 attackDirection = (enemy.transform.position - transform.position).normalized;
             enemy.GetComponent<EnemyBehavior>().TakeDamage(CurrentWeaponDamage, CurrentWeaponKnockback, attackDirection, CurrentKnockbackDuration,  CurrentWeaponAttackSpeed);
-            
-            // appply effects on enemy
+            PowerUpController.ApplyEffects(enemy);
         }
         
         private Directions GetAnimationDirection()
         {
-            float lastMoveX = MyAnimator.GetFloat("LastMoveX");
-            float lastMoveY = MyAnimator.GetFloat("LastMoveY");
+            float lastMoveX = Animator.GetFloat("LastMoveX");
+            float lastMoveY = Animator.GetFloat("LastMoveY");
 
             switch (lastMoveX)
             {

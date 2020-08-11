@@ -27,8 +27,10 @@ namespace Enemy
         private AIPath AiPath;
         private Renderer Renderer;
         private Material DefaultMaterial;
-        [SerializeField]
+        private Material CurrentMaterial;
         public Material FlashMaterial;
+        public Material BurnedMaterial;
+        public Material FrozenMaterial;
 
 
         // Movement
@@ -141,6 +143,20 @@ namespace Enemy
             }
             else
             {
+                if (IsOnFire)
+                {
+                    CurrentMaterial = BurnedMaterial;
+                }
+                else if (IsFrozen)
+                {
+                    CurrentMaterial = FrozenMaterial;
+                }
+                else
+                {
+                    CurrentMaterial = DefaultMaterial;
+                    Renderer.material = CurrentMaterial;
+                }
+                
                 #region State Machine
                 switch (State)
                 {
@@ -349,7 +365,7 @@ namespace Enemy
 
         private void EndFlash()
         {
-            Renderer.material = DefaultMaterial;
+            Renderer.material = CurrentMaterial;
         }
         private void Endinvincibility ()
         {
