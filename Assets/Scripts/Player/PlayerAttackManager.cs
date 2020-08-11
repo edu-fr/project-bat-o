@@ -24,10 +24,10 @@ namespace Player
         public bool IsAttacking { private set; get;} = false;
         
         private WeaponType CurrentWeaponType = WeaponType.Sword;
-        private float CurrentWeaponDamage;
-        private float CurrentWeaponKnockback;
-        private float CurrentWeaponAttackSpeed;
-        private float CurrentKnockbackDuration;
+        public float CurrentWeaponDamage;
+        public float CurrentWeaponKnockback;
+        public float CurrentWeaponAttackSpeed;
+        public float CurrentKnockbackDuration;
 
         private Animator Animator;
 

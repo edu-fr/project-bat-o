@@ -8,7 +8,9 @@ namespace Player
         // Variables
         public bool HaveFireLv1 = false;
         public int OddsFireLv1 = 25;
-        
+
+        public int FireDamageLv1 = 25;
+        public int FireDamageLv2 = 40;
         public bool HaveFireLv2 = false;
         
         public bool HaveIceLv1 = false;
@@ -45,13 +47,14 @@ namespace Player
 
             if (HaveFireLv1)
             {
+                
                 // FIRE LV 1
                 if (Random.Range(1, 100) < 100 /* OddsFireLv1 */ )
                 {
-                    PowerUpEffects.BurnEnemy(enemy);
+                    PowerUpEffects.BurnEnemy(enemy, HaveFireLv2 ? FireDamageLv2 : FireDamageLv1);
                 }
 
-                if (HaveFireLv2 && enemyBehavior.IsOnFire)
+                if (HaveFireLv2 && enemyBehavior.IsOnFire && enemyBehavior.WillDieBurned)
                 {
                     // FIRE LV 2
                     PowerUpEffects.BurnEnemyToDeath(enemy);

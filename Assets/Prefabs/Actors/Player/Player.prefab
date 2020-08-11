@@ -88,8 +88,8 @@ GameObject:
   - component: {fileID: 6753889184881655942}
   - component: {fileID: 6753889184881655943}
   - component: {fileID: 385695933423370815}
-  - component: {fileID: 2332716201883859551}
   - component: {fileID: 4396048941111737139}
+  - component: {fileID: 555801312}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3d7280bb3e9b3e469427cc4efd75ff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 3
+  Speed: 4
 --- !u!114 &6753889184881655937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,6 +261,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HasWeaponEquipped: 1
+  CurrentWeaponDamage: 0
+  CurrentWeaponKnockback: 0
+  CurrentWeaponAttackSpeed: 0
+  CurrentKnockbackDuration: 0
   SwordHitBox: {fileID: 1547983610}
 --- !u!114 &6753889184881655943
 MonoBehaviour:
@@ -289,18 +293,6 @@ MonoBehaviour:
   FlashMaterial: {fileID: 2100000, guid: 478fe359495af0742b7432b040a1ca38, type: 2}
   PersistentObject: {fileID: 0}
   HealthBarScript: {fileID: 0}
---- !u!114 &2332716201883859551
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6753889184881655945}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc6c4de849fb3604cbe019d6213f0981, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4396048941111737139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,3 +305,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80ce8d383d148794796f86a0bbecbddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BurnTickTimers: 
+--- !u!114 &555801312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6753889184881655945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc6c4de849fb3604cbe019d6213f0981, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HaveFireLv1: 1
+  OddsFireLv1: 25
+  FireDamageLv1: 25
+  FireDamageLv2: 40
+  HaveFireLv2: 0
+  HaveIceLv1: 0
+  OddsIceLv1: 15
+  HaveIceLv2: 0
+  HaveThunderLv1: 0
+  OddsThunderLv1: 20
+  HaveThunderLv2: 0
+  OddsThunderLv2: 25
+  DamageUp: 0
+  HpUp: 0
+  Heal: 0

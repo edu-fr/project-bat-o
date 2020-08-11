@@ -336,37 +336,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &555801302 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6753889184881655945, guid: 58eef81883803ef48a802794ff258dc7,
-    type: 3}
-  m_PrefabInstance: {fileID: 6753889185223546122}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &555801312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 555801302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc6c4de849fb3604cbe019d6213f0981, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HaveFireLv1: 1
-  OddsFireLv1: 25
-  HaveFireLv2: 0
-  HaveIceLv1: 0
-  OddsIceLv1: 15
-  HaveIceLv2: 0
-  HaveThunderLv1: 0
-  OddsThunderLv1: 20
-  HaveThunderLv2: 0
-  OddsThunderLv2: 25
-  DamageUp: 0
-  HpUp: 0
-  Heal: 0
 --- !u!4 &640715908 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4524374165659445774, guid: 43b60dba12dc8cc41a0eb43ec84e45b9,
@@ -3349,12 +3318,12 @@ PrefabInstance:
     - target: {fileID: 4955097571060270803, guid: 8d3f99698f447a94b8c233f974de7e1b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 88.29
+      value: 88.6
       objectReference: {fileID: 0}
     - target: {fileID: 4955097571060270803, guid: 8d3f99698f447a94b8c233f974de7e1b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 90.15
+      value: 89.62
       objectReference: {fileID: 0}
     - target: {fileID: 4955097571060270803, guid: 8d3f99698f447a94b8c233f974de7e1b,
         type: 3}
@@ -5837,16 +5806,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 709677847}
     m_Modifications:
+    - target: {fileID: 555801312, guid: 58eef81883803ef48a802794ff258dc7, type: 3}
+      propertyPath: HaveFireLv1
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 385695933423370815, guid: 58eef81883803ef48a802794ff258dc7,
         type: 3}
       propertyPath: HealthBarScript
       value: 
       objectReference: {fileID: 652902151}
-    - target: {fileID: 6753889184881655939, guid: 58eef81883803ef48a802794ff258dc7,
-        type: 3}
-      propertyPath: m_UpdateMode
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6753889184881655945, guid: 58eef81883803ef48a802794ff258dc7,
         type: 3}
       propertyPath: m_Name
@@ -5907,11 +5875,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6753889184881655951, guid: 58eef81883803ef48a802794ff258dc7,
-        type: 3}
-      propertyPath: Speed
-      value: 4
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2332716201883859551, guid: 58eef81883803ef48a802794ff258dc7, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58eef81883803ef48a802794ff258dc7, type: 3}

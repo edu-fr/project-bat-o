@@ -29,12 +29,26 @@ public class PowerUpEffects : MonoBehaviour
             
     }
 
-    public void BurnEnemy(GameObject enemy)
+    public void BurnEnemy(GameObject enemy, int fireDamage)
     {
+        EnemyHealthManager enemyHealthManager = enemy.GetComponent<EnemyHealthManager>();
+        EnemyBehavior enemyBehavior = enemy.GetComponent<EnemyBehavior>();
+        
+        if (enemyHealthManager.CurrentHealth < fireDamage)
+        {
+            enemyBehavior.WillDieBurned = true;
+            Debug.Log("WILL DIE BURNED");
+        }
+        else
+        {
+            enemyBehavior.WillDieBurned = false;
+            Debug.Log("WONT");
+        }
+        
         if (BurnTickTimers.Count <= 0)
         {
               BurnTickTimers.Add(4);
-              StartCoroutine(ApplyBurn(enemy));
+              StartCoroutine(ApplyBurn(enemy, fireDamage));
         }
         else
         {
@@ -42,10 +56,11 @@ public class PowerUpEffects : MonoBehaviour
         }
     }
     
-    public IEnumerator ApplyBurn(GameObject enemy)
+    public IEnumerator ApplyBurn(GameObject enemy, int fireDamage)
     {
         EnemyHealthManager enemyHealthManager = enemy.GetComponent<EnemyHealthManager>();
         EnemyBehavior enemyBehavior = enemy.GetComponent<EnemyBehavior>();
+        
         
         while (BurnTickTimers.Count > 0)
         {
@@ -54,7 +69,7 @@ public class PowerUpEffects : MonoBehaviour
             {
                 BurnTickTimers[i]--;
             }
-            enemyHealthManager.TakeDamage(30/4);
+            enemyHealthManager.TakeDamage(fireDamage/4);
             BurnTickTimers.RemoveAll(i => i == 0);
             yield return new WaitForSeconds(0.5f);
         }
@@ -75,7 +90,8 @@ public class PowerUpEffects : MonoBehaviour
 
     public void BurnEnemyToDeath(GameObject enemy)
     {
-            
+        enemy.GetComponent<EnemyBehavior>().ChangeState(EnemyBehavior.States.DyingBurned);
+        Debug.Log("Mudei pra Dying burned");
     }
 
     public void ShatterEnemy(GameObject enemy)

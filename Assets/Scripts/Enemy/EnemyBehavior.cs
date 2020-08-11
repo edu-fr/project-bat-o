@@ -13,17 +13,18 @@ namespace Enemy
     {
         #region Enums
 
-        private enum States {Standard, Chasing, Attacking};
+        public enum States {Standard, Chasing, Attacking, DyingBurned};
 
         #endregion
 
         #region Variables
+
+      
         // Components
         private Rigidbody2D Rigidbody;
         private CircleCollider2D CircleCollider;
         private Animator Animator;
         private AIDestinationSetter AiDestinationSetter;
-        private Seeker Seeker;
         private AIPath AiPath;
         private Renderer Renderer;
         private Material DefaultMaterial;
@@ -39,7 +40,9 @@ namespace Enemy
         private float CurrentTimer = 0f;
 
         private float MaxTimer = 3f;                // time to move to the next random spot
-        // private float speed = 160f;         // walk speed
+        public float WalkingAroundSpeed = 2;         // walk speed
+        public float ChasingSpeed = 3.5f;         // walk speed
+        public float DyingBurnedSpeed = 4.5f;         // walk speed
         private Vector3 HomePosition;       // original position on the level
         private float WalkableRange = 1f;   // Distance it can walk while isnt chasing the player 
         public GameObject Target;
@@ -68,6 +71,7 @@ namespace Enemy
         public bool IsOnFire = false;
         public bool IsPrimaryTarget = false;
         public bool IsParalyzed = false;
+        public bool WillDieBurned = false;
         
 
         // Health
@@ -96,7 +100,7 @@ namespace Enemy
             CircleCollider = GetComponent<CircleCollider2D>();
             AiDestinationSetter = GetComponent<AIDestinationSetter>();
             AiPath = GetComponent<AIPath>();
-            Seeker = GetComponent<Seeker>();
+            GetComponent<Seeker>();
             EnemyHealthManager = GetComponent<EnemyHealthManager>();
             EnemiesLayer = LayerMask.GetMask("Enemies");
             Renderer = GetComponent<Renderer>();
@@ -139,7 +143,6 @@ namespace Enemy
                 Destroy(gameObject);
                 Destroy(FieldOfViewComponent.gameObject);
                 Destroy(Target.gameObject);
-                
             }
             else
             {
@@ -180,7 +183,7 @@ namespace Enemy
 
                     case States.Chasing:
                         // Verify if there is close enemies chasing the player
-                    
+                        
 
 
                         if (TargetPlayer != null) // Know where the player is
@@ -203,6 +206,12 @@ namespace Enemy
                     case States.Attacking:
 
                         break;
+                    
+                    case States.DyingBurned:
+                        Animate();
+                        SetCurrentFaceDirection();
+                        
+                        break;
 
                 }
                 #endregion
@@ -222,6 +231,28 @@ namespace Enemy
         private Vector3 GenerateNewTarget()
         {
             return new Vector3(HomePosition.x + (WalkableRange * Random.Range(-1, 2)), HomePosition.y + (WalkableRange * Random.Range(-1, 2)), transform.position.z);
+        }
+
+        private void RunFromThePlayer()
+        {
+            Vector3 oldTargetPosition =
+                TargetPlayer != null ? TargetPlayer.transform.position : Target.transform.position;
+            
+            Vector3 newTarget = new Vector3(0, 0, 0);
+
+            newTarget.x = transform.position.x > oldTargetPosition.x
+                ? transform.position.x + 20
+                : transform.position.x - 20;
+            
+            newTarget.y = transform.position.y > oldTargetPosition.y
+                ? transform.position.y + 20
+                : transform.position.y - 20;
+
+            // Set A* target
+            Target.transform.position = newTarget;
+            
+            // Active A*
+            AstarPath.active.Scan();
         }
     
         private void WalkAround()
@@ -259,7 +290,7 @@ namespace Enemy
             this.TargetPlayer = player;
         }
    
-        private void ChangeState(States state)
+        public void ChangeState(States state)
         {
             switch (state)
             {
@@ -268,18 +299,34 @@ namespace Enemy
                 case (States.Standard):
                     IsWalkingAround = true;
                     TargetPlayer = null;
+                    AiPath.maxSpeed = WalkingAroundSpeed;
                     AiDestinationSetter.target = Target.transform;
                     FieldOfViewComponent.gameObject.SetActive(true);
                     break;
 
                 case (States.Chasing):
                     IsWalkingAround = false;
+                    AiPath.maxSpeed = ChasingSpeed;
                     FieldOfViewComponent.gameObject.SetActive(false);
                     AiDestinationSetter.target = TargetPlayer.transform;
                     AstarPath.active.Scan();
                     break;
 
                 case (States.Attacking):
+                    
+                    break;
+                
+                case (States.DyingBurned):
+                    IsWalkingAround = false;
+                    AiPath.maxSpeed = DyingBurnedSpeed;
+                    
+                    if (FieldOfViewComponent.gameObject != null)
+                    {
+                        FieldOfViewComponent.gameObject.SetActive(false);
+                    }
+                    RunFromThePlayer();
+                    AiDestinationSetter.target = Target.transform;
+                    
                     break;
             }
             this.State = state;
@@ -384,5 +431,6 @@ namespace Enemy
             yield return new WaitForSeconds(knockbackTime);
             AiPath.enabled = true;
         }
+        
     }
 }
