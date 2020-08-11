@@ -61,6 +61,12 @@ namespace Enemy
         // State machine
         private States State;
         private bool IsWalkingAround = false;
+        
+        public bool IsFrozen = false;
+        public bool IsOnFire = false;
+        public bool IsPrimaryTarget = false;
+        public bool IsParalyzed = false;
+        
 
         // Health
         private EnemyHealthManager EnemyHealthManager;

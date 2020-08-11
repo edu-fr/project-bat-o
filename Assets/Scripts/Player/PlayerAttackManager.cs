@@ -82,6 +82,8 @@ namespace Player
         {
             Vector3 attackDirection = (enemy.transform.position - transform.position).normalized;
             enemy.GetComponent<EnemyBehavior>().TakeDamage(CurrentWeaponDamage, CurrentWeaponKnockback, attackDirection, CurrentKnockbackDuration,  CurrentWeaponAttackSpeed);
+            
+            // appply effects on enemy
         }
         
         private Directions GetAnimationDirection()
