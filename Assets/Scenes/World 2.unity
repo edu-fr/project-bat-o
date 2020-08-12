@@ -4183,6 +4183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 902c0a2effb0b714ca5f83572e6ee171, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PersistentPrefab: {fileID: 0}
 --- !u!4 &1013997907
 Transform:
   m_ObjectHideFlags: 0
@@ -6281,6 +6282,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 552024967755305218, guid: bb590befd438a734cb1f36717182dd31,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 552024968782291841, guid: bb590befd438a734cb1f36717182dd31,
         type: 3}
       propertyPath: m_LocalPosition.x

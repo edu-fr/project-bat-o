@@ -159,9 +159,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00396018ff43e984da61fd69b2b89879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CircleCollider: {fileID: 0}
   FlashMaterial: {fileID: 2100000, guid: 93729dd49b58a61438d5c2acee37878e, type: 2}
   BurnedMaterial: {fileID: 2100000, guid: 0ac5bed22d66bbf48a842a71fa085130, type: 2}
   FrozenMaterial: {fileID: 2100000, guid: 46129f794c290cf4f8e7f405d0a945d1, type: 2}
+  ParalyzedMaterial: {fileID: 2100000, guid: a544983478092fd4985c8aeaddb03fb7, type: 2}
+  WalkingAroundSpeed: 2
+  ChasingSpeed: 3.5
+  DyingBurnedSpeed: 4.5
   Target: {fileID: 0}
   PreFabFieldOfView: {fileID: 9167951023041480134, guid: e930f2e8319ea2341896d1f240a2de08,
     type: 3}
@@ -170,9 +175,14 @@ MonoBehaviour:
   TargetPlayer: {fileID: 0}
   SurroundingDistance: 2
   IsFrozen: 0
+  DefrostCurrentTimer: 0
+  DefrostTime: 0
   IsOnFire: 0
   IsPrimaryTarget: 0
   IsParalyzed: 0
+  ParalyzeHealCurrentTimer: 0
+  ParalyzeHealTime: 0
+  WillDieBurned: 0
 --- !u!114 &145693348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,7 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b57aa1e862ac83745a4e8df63fb791ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 200
+  MaxHealth: 300
   CurrentHealth: 0
 --- !u!114 &4955097571060270801
 MonoBehaviour:

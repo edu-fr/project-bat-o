@@ -260,7 +260,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de6e46098e12e4443b13b2f5563617e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HasWeaponEquipped: 1
   CurrentWeaponDamage: 0
   CurrentWeaponKnockback: 0
   CurrentWeaponAttackSpeed: 0
@@ -321,15 +320,22 @@ MonoBehaviour:
   HaveFireLv1: 1
   OddsFireLv1: 25
   FireDamageLv1: 25
-  FireDamageLv2: 40
-  HaveFireLv2: 0
-  HaveIceLv1: 0
+  FireDamageLv2: 35
+  HaveFireLv2: 1
+  HaveIceLv1: 1
+  DefrostTimeLv1: 1
+  DefrostTimeLv2: 1.5
   OddsIceLv1: 15
-  HaveIceLv2: 0
-  HaveThunderLv1: 0
+  ShatterDamage: 50
+  HaveIceLv2: 1
+  HaveThunderLv1: 1
   OddsThunderLv1: 20
-  HaveThunderLv2: 0
-  OddsThunderLv2: 25
+  ElectricRange: 1.7
+  ElectricDamageLv1: 10
+  ElectricDamageLv2: 15
+  HaveThunderLv2: 1
+  ParalyzeTime: 7
+  OddsThunderLv2: 50
   DamageUp: 0
   HpUp: 0
   Heal: 0

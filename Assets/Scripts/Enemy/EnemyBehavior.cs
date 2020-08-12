@@ -4,6 +4,7 @@ using Game;
 using Objects;
 using Pathfinding;
 using Player;
+using UnityEditor.U2D;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -13,7 +14,7 @@ namespace Enemy
     {
         #region Enums
 
-        public enum States {Standard, Chasing, Attacking, DyingBurned, Frozen};
+        public enum States {Standard, Chasing, Attacking, DyingBurned, Frozen, Paralyzed};
 
         #endregion
 
@@ -22,7 +23,7 @@ namespace Enemy
       
         // Components
         private Rigidbody2D Rigidbody;
-        private CircleCollider2D CircleCollider;
+        public CircleCollider2D CircleCollider;
         private Animator Animator;
         private AIDestinationSetter AiDestinationSetter;
         private AIPath AiPath;
@@ -32,6 +33,7 @@ namespace Enemy
         public Material FlashMaterial;
         public Material BurnedMaterial;
         public Material FrozenMaterial;
+        public Material ParalyzedMaterial;
 
 
         // Movement
@@ -74,6 +76,9 @@ namespace Enemy
         public bool IsOnFire = false;
         public bool IsPrimaryTarget = false;
         public bool IsParalyzed = false;
+        public float ParalyzeHealCurrentTimer;
+        public float ParalyzeHealTime;
+        
         public bool WillDieBurned = false;
         
 
@@ -133,6 +138,9 @@ namespace Enemy
             // Game Manager
             GameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
 
+            // Current sprite material
+            CurrentMaterial = DefaultMaterial;
+
         }
 
         // Update is called once per frame
@@ -149,6 +157,7 @@ namespace Enemy
             }
             else
             {
+                
                 if (IsOnFire)
                 {
                     CurrentMaterial = BurnedMaterial;
@@ -157,12 +166,16 @@ namespace Enemy
                 {
                     CurrentMaterial = FrozenMaterial;
                 }
+                else if (IsParalyzed)
+                {
+                    CurrentMaterial = ParalyzedMaterial;
+                }
                 else
                 {
                     CurrentMaterial = DefaultMaterial;
                     Renderer.material = CurrentMaterial;
                 }
-                
+
                 #region State Machine
                 switch (State)
                 {
@@ -180,6 +193,7 @@ namespace Enemy
                             ChangeState(States.Chasing);
                         }
                         break;
+                        
                 
 
                     case States.Chasing:
@@ -220,7 +234,7 @@ namespace Enemy
                         if (DefrostCurrentTimer >= DefrostTime)
                         {
                             DefrostCurrentTimer = 0;
-                            if (PreviousState == States.Frozen)
+                            if (PreviousState == States.Frozen || PreviousState == States.Paralyzed)
                             {
                                ChangeState(States.Chasing); 
                             }
@@ -232,6 +246,22 @@ namespace Enemy
                         }
                         break;
 
+                    case States.Paralyzed:
+                        ParalyzeHealCurrentTimer += Time.deltaTime;
+                        if (ParalyzeHealCurrentTimer >= ParalyzeHealTime)
+                        {
+                            ParalyzeHealCurrentTimer = 0;
+                            if (PreviousState == States.Frozen || PreviousState == States.Paralyzed)
+                            {
+                                ChangeState(States.Chasing);
+                            }
+                            else
+                            {
+                                ChangeState(PreviousState);
+                            }
+                            IsParalyzed = false;
+                        }
+                        break;
                 }
                 #endregion
             }
@@ -252,9 +282,11 @@ namespace Enemy
             PreviousState = this.State;
             switch (state)
             {
-                default:
-
                 case (States.Standard):
+                    // Making sure that is not frozen or paralyzed
+                    IsFrozen = false;
+                    IsParalyzed = false;
+                    
                     IsWalkingAround = true;
                     Animator.speed = 1;
                     TargetPlayer = null;
@@ -264,6 +296,10 @@ namespace Enemy
                     break;
 
                 case (States.Chasing):
+                    // Making sure that it isn't frozen or paralyzed
+                    IsFrozen = false;
+                    IsParalyzed = false;
+                    
                     Animator.speed = 1.2f;
                     IsWalkingAround = false;
                     AiPath.maxSpeed = ChasingSpeed;
@@ -277,6 +313,10 @@ namespace Enemy
                     break;
                 
                 case (States.DyingBurned):
+                    // Making sure that isn't frozen or paralyzed
+                    IsFrozen = false;
+                    IsParalyzed = false;
+                    
                     IsWalkingAround = false;
                     AiPath.maxSpeed = DyingBurnedSpeed;
                     
@@ -287,12 +327,22 @@ namespace Enemy
                     RunFromThePlayer();
                     Animator.speed = 1.5f;
                     AiDestinationSetter.target = Target.transform;
-                    
                     break;
                 
                 case (States.Frozen):
                     IsWalkingAround = false;
                     IsFrozen = true;
+                    Animator.speed = 0;
+                    AiPath.maxSpeed = 0;
+                    if (FieldOfViewComponent.gameObject != null)
+                    {
+                        FieldOfViewComponent.gameObject.SetActive(false);
+                    }
+                    break;
+                
+                case (States.Paralyzed):
+                    IsWalkingAround = false;
+                    IsParalyzed = true;
                     Animator.speed = 0;
                     AiPath.maxSpeed = 0;
                     if (FieldOfViewComponent.gameObject != null)
@@ -467,6 +517,10 @@ namespace Enemy
             yield return new WaitForSeconds(knockbackTime);
             AiPath.enabled = true;
         }
-        
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawWireSphere(gameObject.transform.position, 1.7f);
+        }
     }
 }
