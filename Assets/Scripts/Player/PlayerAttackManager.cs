@@ -18,8 +18,8 @@ namespace Player
 
         #region Variables
 
-        [SerializeField] 
-        private bool HasWeaponEquipped = true;
+       
+        //private bool HasWeaponEquipped = true; 
         [HideInInspector]
         public bool IsAttacking { private set; get;} = false;
         
@@ -49,17 +49,17 @@ namespace Player
             PowerUpController = GetComponent<PowerUpController>();
         }
 
+        private void Start()
+        {
+            SetWeaponStats();
+        }
+        
         private void Update()
         {
             // Set position according to player's direction and give an offset 
             Direction = GetAnimationDirection();
-
-            if (HasWeaponEquipped)
-            {
-                SetWeaponStats();
-                if(Input.GetKeyDown(KeyCode.Z) && !Animator.GetBool("IsAttacking"))
+            if(Input.GetKeyDown(KeyCode.Z) && !Animator.GetBool("IsAttacking"))
                     Attack();
-            }
         }
 
         #endregion

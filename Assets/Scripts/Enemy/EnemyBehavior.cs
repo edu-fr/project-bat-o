@@ -13,7 +13,7 @@ namespace Enemy
     {
         #region Enums
 
-        public enum States {Standard, Chasing, Attacking, DyingBurned};
+        public enum States {Standard, Chasing, Attacking, DyingBurned, Frozen};
 
         #endregion
 
@@ -39,12 +39,12 @@ namespace Enemy
         private bool ReachedEndOfPath;
         private float CurrentTimer = 0f;
 
-        private float MaxTimer = 3f;                // time to move to the next random spot
-        public float WalkingAroundSpeed = 2;         // walk speed
-        public float ChasingSpeed = 3.5f;         // walk speed
-        public float DyingBurnedSpeed = 4.5f;         // walk speed
-        private Vector3 HomePosition;       // original position on the level
-        private float WalkableRange = 1f;   // Distance it can walk while isnt chasing the player 
+        private float MaxTimer = 3f;            // time to move to the next random spot
+        public float WalkingAroundSpeed = 2;    // walk speed
+        public float ChasingSpeed = 3.5f;       // chasing speed
+        public float DyingBurnedSpeed = 4.5f;   // running on fire speed
+        private Vector3 HomePosition;           // original position on the level
+        private float WalkableRange = 1f;       // Distance it can walk while isnt chasing the player 
         public GameObject Target;
 
    
@@ -65,9 +65,12 @@ namespace Enemy
 
         // State machine
         private States State;
+        private States PreviousState;
         private bool IsWalkingAround = false;
         
         public bool IsFrozen = false;
+        public float DefrostCurrentTimer;
+        public float DefrostTime;
         public bool IsOnFire = false;
         public bool IsPrimaryTarget = false;
         public bool IsParalyzed = false;
@@ -163,8 +166,6 @@ namespace Enemy
                 #region State Machine
                 switch (State)
                 {
-                    default:
-
                     case States.Standard:
                         IsWalkingAround = true;
                         // Checking if player is close
@@ -212,6 +213,24 @@ namespace Enemy
                         SetCurrentFaceDirection();
                         
                         break;
+                    
+                    case States.Frozen:
+                        DefrostCurrentTimer += Time.deltaTime;
+
+                        if (DefrostCurrentTimer >= DefrostTime)
+                        {
+                            DefrostCurrentTimer = 0;
+                            if (PreviousState == States.Frozen)
+                            {
+                               ChangeState(States.Chasing); 
+                            }
+                            else
+                            {
+                                ChangeState(PreviousState);
+                            }
+                            IsFrozen = false;
+                        }
+                        break;
 
                 }
                 #endregion
@@ -228,6 +247,64 @@ namespace Enemy
 
         #region Auxiliar Methods
 
+         public void ChangeState(States state)
+        {
+            PreviousState = this.State;
+            switch (state)
+            {
+                default:
+
+                case (States.Standard):
+                    IsWalkingAround = true;
+                    Animator.speed = 1;
+                    TargetPlayer = null;
+                    AiPath.maxSpeed = WalkingAroundSpeed;
+                    AiDestinationSetter.target = Target.transform;
+                    FieldOfViewComponent.gameObject.SetActive(true);
+                    break;
+
+                case (States.Chasing):
+                    Animator.speed = 1.2f;
+                    IsWalkingAround = false;
+                    AiPath.maxSpeed = ChasingSpeed;
+                    FieldOfViewComponent.gameObject.SetActive(false);
+                    AiDestinationSetter.target = TargetPlayer.transform;
+                    AstarPath.active.Scan();
+                    break;
+
+                case (States.Attacking):
+                    
+                    break;
+                
+                case (States.DyingBurned):
+                    IsWalkingAround = false;
+                    AiPath.maxSpeed = DyingBurnedSpeed;
+                    
+                    if (FieldOfViewComponent.gameObject != null)
+                    {
+                        FieldOfViewComponent.gameObject.SetActive(false);
+                    }
+                    RunFromThePlayer();
+                    Animator.speed = 1.5f;
+                    AiDestinationSetter.target = Target.transform;
+                    
+                    break;
+                
+                case (States.Frozen):
+                    IsWalkingAround = false;
+                    IsFrozen = true;
+                    Animator.speed = 0;
+                    AiPath.maxSpeed = 0;
+                    if (FieldOfViewComponent.gameObject != null)
+                    {
+                        FieldOfViewComponent.gameObject.SetActive(false);
+                    }
+                    break;
+            }
+            this.State = state;
+        }
+
+        
         private Vector3 GenerateNewTarget()
         {
             return new Vector3(HomePosition.x + (WalkableRange * Random.Range(-1, 2)), HomePosition.y + (WalkableRange * Random.Range(-1, 2)), transform.position.z);
@@ -290,48 +367,7 @@ namespace Enemy
             this.TargetPlayer = player;
         }
    
-        public void ChangeState(States state)
-        {
-            switch (state)
-            {
-                default:
-
-                case (States.Standard):
-                    IsWalkingAround = true;
-                    TargetPlayer = null;
-                    AiPath.maxSpeed = WalkingAroundSpeed;
-                    AiDestinationSetter.target = Target.transform;
-                    FieldOfViewComponent.gameObject.SetActive(true);
-                    break;
-
-                case (States.Chasing):
-                    IsWalkingAround = false;
-                    AiPath.maxSpeed = ChasingSpeed;
-                    FieldOfViewComponent.gameObject.SetActive(false);
-                    AiDestinationSetter.target = TargetPlayer.transform;
-                    AstarPath.active.Scan();
-                    break;
-
-                case (States.Attacking):
-                    
-                    break;
-                
-                case (States.DyingBurned):
-                    IsWalkingAround = false;
-                    AiPath.maxSpeed = DyingBurnedSpeed;
-                    
-                    if (FieldOfViewComponent.gameObject != null)
-                    {
-                        FieldOfViewComponent.gameObject.SetActive(false);
-                    }
-                    RunFromThePlayer();
-                    AiDestinationSetter.target = Target.transform;
-                    
-                    break;
-            }
-            this.State = state;
-        }
-
+       
         private void CheckSurroundings()
         {
             if(Vector2.Distance(Player.transform.position, this.transform.position) < SurroundingDistance)

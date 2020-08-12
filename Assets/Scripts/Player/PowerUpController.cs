@@ -14,7 +14,10 @@ namespace Player
         public bool HaveFireLv2 = false;
         
         public bool HaveIceLv1 = false;
+        public float DefrostTimeLv1 = 1f;
+        public float DefrostTimeLv2 = 1.5f;
         public int OddsIceLv1 = 15;
+        public int ShatterDamage = 50;
         
         public bool HaveIceLv2 = false;
 
@@ -49,7 +52,7 @@ namespace Player
             {
                 
                 // FIRE LV 1
-                if (Random.Range(1, 100) < 100 /* OddsFireLv1 */ )
+                if (Random.Range(1, 100) < OddsFireLv1)
                 {
                     PowerUpEffects.BurnEnemy(enemy, HaveFireLv2 ? FireDamageLv2 : FireDamageLv1);
                 }
@@ -63,17 +66,20 @@ namespace Player
 
             if (HaveIceLv1)
             {
-                // ICE  LV 1
-                if (Random.Range(1, 100) < OddsIceLv1)
-                {
-                    PowerUpEffects.FreezeEnemy(enemy);    
-                }
                 
                 // ICE LV 2
                 if (HaveIceLv2 && enemyBehavior.IsFrozen)
                 {
-                    PowerUpEffects.ShatterEnemy(enemy);
+                    PowerUpEffects.ShatterEnemy(enemy, ShatterDamage);
                 }
+                
+                // ICE  LV 1
+                if (Random.Range(1, 100) < OddsIceLv1)
+                {
+                    PowerUpEffects.FreezeEnemy(enemy, HaveIceLv2 ? DefrostTimeLv2 : DefrostTimeLv1);    
+                }
+                
+                
             }
 
             if (HaveThunderLv1)

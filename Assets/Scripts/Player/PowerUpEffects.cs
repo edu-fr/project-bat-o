@@ -6,19 +6,7 @@ using UnityEngine;
 public class PowerUpEffects : MonoBehaviour
 {
     public List<int> BurnTickTimers = new List<int>();
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-   
     public void IncreasePlayerAttack()
     {
             
@@ -33,18 +21,9 @@ public class PowerUpEffects : MonoBehaviour
     {
         EnemyHealthManager enemyHealthManager = enemy.GetComponent<EnemyHealthManager>();
         EnemyBehavior enemyBehavior = enemy.GetComponent<EnemyBehavior>();
-        
-        if (enemyHealthManager.CurrentHealth < fireDamage)
-        {
-            enemyBehavior.WillDieBurned = true;
-            Debug.Log("WILL DIE BURNED");
-        }
-        else
-        {
-            enemyBehavior.WillDieBurned = false;
-            Debug.Log("WONT");
-        }
-        
+
+        enemyBehavior.WillDieBurned = enemyHealthManager.CurrentHealth < fireDamage ? true : false;
+
         if (BurnTickTimers.Count <= 0)
         {
               BurnTickTimers.Add(4);
@@ -78,9 +57,12 @@ public class PowerUpEffects : MonoBehaviour
     
    
         
-    public void FreezeEnemy(GameObject enemy)
+    public void FreezeEnemy(GameObject enemy, float defrostTime)
     {
-            
+        EnemyBehavior enemyBehavior = enemy.GetComponent<EnemyBehavior>(); 
+        enemyBehavior.DefrostCurrentTimer = 0f;
+        enemyBehavior.DefrostTime = defrostTime;
+        enemyBehavior.ChangeState(EnemyBehavior.States.Frozen);
     }
         
     public void ElectrifyEnemy(GameObject enemy)
@@ -91,12 +73,14 @@ public class PowerUpEffects : MonoBehaviour
     public void BurnEnemyToDeath(GameObject enemy)
     {
         enemy.GetComponent<EnemyBehavior>().ChangeState(EnemyBehavior.States.DyingBurned);
-        Debug.Log("Mudei pra Dying burned");
     }
 
-    public void ShatterEnemy(GameObject enemy)
+    public void ShatterEnemy(GameObject enemy, int shatterDamage)
     {
-            
+        EnemyBehavior enemyBehavior = enemy.GetComponent<EnemyBehavior>();
+        EnemyHealthManager enemyHealthManager = enemy.GetComponent<EnemyHealthManager>();
+        enemyBehavior.DefrostCurrentTimer = enemyBehavior.DefrostTime;
+        enemyHealthManager.TakeDamage(shatterDamage);
     }
 
     public void ParalyzeEnemy(GameObject enemy)
