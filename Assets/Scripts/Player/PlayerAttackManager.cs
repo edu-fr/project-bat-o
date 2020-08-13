@@ -29,6 +29,8 @@ namespace Player
         public float CurrentWeaponAttackSpeed;
         public float CurrentKnockbackDuration;
 
+        public PowerUpController.Effects CurrentEffect = PowerUpController.Effects.None;
+        
         private Animator Animator;
 
         private PowerUpController PowerUpController;
@@ -58,24 +60,10 @@ namespace Player
         {
             // Set position according to player's direction and give an offset 
             Direction = GetAnimationDirection();
-            if(Input.GetKeyDown(KeyCode.Z) && !Animator.GetBool("IsAttacking"))
-                    Attack();
-
-            // Testing some power ups
-            
-            if (Input.GetKeyDown(KeyCode.H))
+            if (Input.GetKeyDown(KeyCode.Z) && !Animator.GetBool("IsAttacking"))
             {
-                PowerUpController.HealPlayerHP();
-            }
-
-            if (Input.GetKeyDown(KeyCode.I))
-            {
-                PowerUpController.IncreasePlayerMaxHP();
-            }
-
-            if (Input.GetKeyDown(KeyCode.Plus))
-            {
-                PowerUpController.IncreasePlayerDamage();
+                CurrentEffect = PowerUpController.GenerateEffect();
+                Attack();
             }
         }
 
@@ -102,7 +90,7 @@ namespace Player
         {
             Vector3 attackDirection = (enemy.transform.position - transform.position).normalized;
             enemy.GetComponent<EnemyBehavior>().TakeDamage(CurrentWeaponDamage, CurrentWeaponKnockback, attackDirection, CurrentKnockbackDuration,  CurrentWeaponAttackSpeed);
-            PowerUpController.ApplyEffects(enemy);
+            PowerUpController.ApplyEffectsOnEnemies(enemy, CurrentEffect);
         }
         
         private Directions GetAnimationDirection()
