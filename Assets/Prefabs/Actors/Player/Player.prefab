@@ -291,6 +291,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FlashMaterial: {fileID: 2100000, guid: 478fe359495af0742b7432b040a1ca38, type: 2}
   PersistentObject: {fileID: 0}
+  MaxHealth: 100
+  CurrentHealth: 0
   HealthBarScript: {fileID: 0}
 --- !u!114 &4396048941111737139
 MonoBehaviour:
@@ -323,8 +325,8 @@ MonoBehaviour:
   FireDamageLv2: 35
   HaveFireLv2: 1
   HaveIceLv1: 1
-  DefrostTimeLv1: 1
-  DefrostTimeLv2: 1.5
+  DefrostTimeLv1: 0.5
+  DefrostTimeLv2: 1
   OddsIceLv1: 15
   ShatterDamage: 50
   HaveIceLv2: 1
@@ -334,8 +336,8 @@ MonoBehaviour:
   ElectricDamageLv1: 10
   ElectricDamageLv2: 15
   HaveThunderLv2: 1
-  ParalyzeTime: 7
+  ParalyzeTime: 1
   OddsThunderLv2: 50
-  DamageUp: 0
-  HpUp: 0
-  Heal: 0
+  DamageUpMultiplier: 0.15
+  HPUpMultiplier: 0.1
+  HealPercentage: 0.4

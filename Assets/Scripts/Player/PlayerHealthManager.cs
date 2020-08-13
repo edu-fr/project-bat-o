@@ -15,9 +15,10 @@ namespace Player
         public Material FlashMaterial;
 
         public PersistentObject PersistentObject;
-
-        public int MaxHealth { get; set; } = 100;
-        public int CurrentHealth { get; set; }
+        
+      
+        public int MaxHealth = 100;
+        public int CurrentHealth;
         private bool Invincible = false;
 
         public HealthBarScript HealthBarScript;
@@ -43,6 +44,7 @@ namespace Player
             {
                 CurrentHealth = MaxHealth;
                 HealthBarScript.SetMaxHealth(MaxHealth);
+                HealthBarScript.SetHealth(MaxHealth);
             }
         }
 
@@ -50,11 +52,17 @@ namespace Player
 
         private void Update()
         {
+            if (CurrentHealth > MaxHealth)
+            {
+                CurrentHealth = MaxHealth;
+            }
+            
             HealthBarScript.SetHealth(CurrentHealth);
         }
         
         #region Auxiliar Methods
 
+        
         public void TakeDamage(int damage)
         {
             if (Invincible) return;
@@ -77,6 +85,21 @@ namespace Player
             Invoke(nameof(Endinvincibility), 0.6f);
         }
 
+        public void IncreaseMaxHP(int value)
+        {
+            MaxHealth += value;
+            HealthBarScript.SetMaxHealth(MaxHealth);
+        }
+
+        public void Heal(int healValue)
+        {
+            CurrentHealth = CurrentHealth + healValue;
+            if (CurrentHealth > MaxHealth)
+            {
+                CurrentHealth = MaxHealth;
+            }
+        }
+         
         private void FlashSprite()
         {
             Renderer.material = FlashMaterial;

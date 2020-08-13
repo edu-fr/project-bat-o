@@ -60,6 +60,23 @@ namespace Player
             Direction = GetAnimationDirection();
             if(Input.GetKeyDown(KeyCode.Z) && !Animator.GetBool("IsAttacking"))
                     Attack();
+
+            // Testing some power ups
+            
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                PowerUpController.HealPlayerHP();
+            }
+
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                PowerUpController.IncreasePlayerMaxHP();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Plus))
+            {
+                PowerUpController.IncreasePlayerDamage();
+            }
         }
 
         #endregion

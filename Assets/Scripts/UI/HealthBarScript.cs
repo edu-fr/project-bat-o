@@ -25,7 +25,6 @@ namespace UI
         public void SetMaxHealth(int maxHealth)
         {
             Slider.maxValue = maxHealth;
-            Slider.value = maxHealth;
         }
     
         #endregion
