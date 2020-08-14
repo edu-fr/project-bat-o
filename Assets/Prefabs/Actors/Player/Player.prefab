@@ -131,7 +131,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 05ca7a78f0c9ccf46a428747630aa292, type: 2}
+  - {fileID: 2100000, guid: b48f0ca1f8b777b48b7e94d23c80df9b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -264,6 +264,7 @@ MonoBehaviour:
   CurrentWeaponKnockback: 0
   CurrentWeaponAttackSpeed: 0
   CurrentKnockbackDuration: 0
+  CurrentEffect: 3
   SwordHitBox: {fileID: 1547983610}
 --- !u!114 &6753889184881655943
 MonoBehaviour:
