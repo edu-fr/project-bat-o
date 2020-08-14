@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Security.Cryptography;
 using Enemy;
 using Game;
@@ -33,6 +34,11 @@ namespace Player
         public PowerUpController.Effects CurrentEffect = PowerUpController.Effects.None;
         
         private Animator Animator;
+        public Material StandardMaterial;
+        public Material FireMaterial;
+        public Material IceMaterial;
+        public Material ThunderMaterial;
+        private Renderer Renderer;
 
         private PowerUpController PowerUpController;
 
@@ -50,6 +56,7 @@ namespace Player
         {
             Animator = GetComponent<Animator>();
             PowerUpController = GetComponent<PowerUpController>();
+            Renderer = GetComponent<Renderer>();
         }
 
         private void Start()
@@ -64,6 +71,25 @@ namespace Player
             if (Input.GetKeyDown(KeyCode.Z) && !Animator.GetBool("IsAttacking"))
             {
                 CurrentEffect = PowerUpController.GenerateEffect();
+                switch(CurrentEffect)
+                {
+                    case (PowerUpController.Effects.Fire):
+                        Renderer.material = FireMaterial;
+
+                        break;
+                    
+                    case (PowerUpController.Effects.Ice):
+                        Renderer.material = IceMaterial;
+                        break;
+                    
+                    case (Player.PowerUpController.Effects.Thunder):
+                        Renderer.material = ThunderMaterial;
+                        break;
+                    
+                    default:
+                        Renderer.material = StandardMaterial;
+                        break;
+                }
                 Attack();
             }
         }
@@ -85,6 +111,7 @@ namespace Player
             Animator.speed = 1f;
             Animator.SetBool("IsAttacking", false);
             IsAttacking = false;
+            Renderer.material = StandardMaterial;
         }
 
         public void VerifyAttackCollision(GameObject enemy)

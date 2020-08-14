@@ -265,6 +265,10 @@ MonoBehaviour:
   CurrentWeaponAttackSpeed: 0
   CurrentKnockbackDuration: 0
   CurrentEffect: 3
+  StandardMaterial: {fileID: 2100000, guid: 05ca7a78f0c9ccf46a428747630aa292, type: 2}
+  FireMaterial: {fileID: 2100000, guid: b48f0ca1f8b777b48b7e94d23c80df9b, type: 2}
+  IceMaterial: {fileID: 2100000, guid: 897af51100febe24ba281190347776d6, type: 2}
+  ThunderMaterial: {fileID: 2100000, guid: b09a1d44807edfd4ca2575ed17bc2391, type: 2}
   SwordHitBox: {fileID: 1547983610}
 --- !u!114 &6753889184881655943
 MonoBehaviour:
