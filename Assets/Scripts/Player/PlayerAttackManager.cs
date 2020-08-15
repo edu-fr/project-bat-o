@@ -4,6 +4,9 @@ using System.Security.Cryptography;
 using Enemy;
 using Game;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+using Debug = UnityEngine.Debug;
 
 
 namespace Player
@@ -19,10 +22,6 @@ namespace Player
         #endregion
 
         #region Variables
-
-       
-        //private bool HasWeaponEquipped = true; 
-        [HideInInspector]
         public bool IsAttacking { private set; get;} = false;
         
         private WeaponType CurrentWeaponType = WeaponType.Sword;
@@ -75,7 +74,6 @@ namespace Player
                 {
                     case (PowerUpController.Effects.Fire):
                         Renderer.material = FireMaterial;
-
                         break;
                     
                     case (PowerUpController.Effects.Ice):
