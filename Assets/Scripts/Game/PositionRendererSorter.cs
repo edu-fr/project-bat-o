@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Game
 {
@@ -24,6 +25,7 @@ namespace Game
 
         private void LateUpdate()
         {
+            
             MyRenderer.sortingOrder = (int)(SortingOrderBase - transform.position.y - Offset);
             if(RunOnlyOnce)
             {
@@ -36,5 +38,10 @@ namespace Game
         #region Auxiliar Methods
 
         #endregion
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawWireCube( new Vector3(transform.position.x,transform.position.y - Offset, 0), new Vector3(0.1f, 0.1f, 0.1f));
+        }
     }
 }

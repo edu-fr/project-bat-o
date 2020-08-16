@@ -11,6 +11,7 @@ TagManager:
   - HealthBar
   - PauseMenuUI
   - Volume
+  - Scene objects
   layers:
   - Default
   - TransparentFX
@@ -51,9 +52,9 @@ TagManager:
   - name: Floor
     uniqueID: 2986499487
     locked: 0
-  - name: Objects
-    uniqueID: 2852498383
-    locked: 0
   - name: Player
     uniqueID: 751710841
+    locked: 0
+  - name: Objects
+    uniqueID: 2852498383
     locked: 0

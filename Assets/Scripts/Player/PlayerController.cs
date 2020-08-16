@@ -9,7 +9,7 @@ namespace Player
         private Animator Animator;
         private Rigidbody2D RigidBody;
         private PlayerAttackManager PlayerAttackManager;
-        
+
         [SerializeField]
         private float Speed = 0;
 
