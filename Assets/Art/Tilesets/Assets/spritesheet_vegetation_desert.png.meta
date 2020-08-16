@@ -209,12 +209,12 @@ TextureImporter:
       name: bones
       rect:
         serializedVersion: 2
-        x: 88
-        y: 0
-        width: 44
-        height: 44
+        x: 99
+        y: 10
+        width: 20
+        height: 18
       alignment: 9
-      pivot: {x: 0.4490204, y: 0.42862883}
+      pivot: {x: 0.45454547, y: 0.4318182}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
