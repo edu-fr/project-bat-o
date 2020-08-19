@@ -389,7 +389,7 @@ namespace Enemy
             if (AiPath.reachedEndOfPath) //if reached desired location, wait three seconds and move to another
             {
                 // Animate standing still
-                Animator.SetBool("isMoving", false);
+                Animator.SetBool("IsMoving", false);
                 CurrentTimer += Time.deltaTime;
 
                 if (CurrentTimer >= MaxTimer)
@@ -442,7 +442,7 @@ namespace Enemy
 
         private void SetCurrentFaceDirection()
         {
-            if (Animator.GetBool("isMoving")) // just want to change the facing direction if the object is walking
+            if (Animator.GetBool("IsMoving")) // just want to change the facing direction if the object is walking
             {
                 CurrentDirection = AiPath.desiredVelocity;
             }
@@ -453,9 +453,9 @@ namespace Enemy
 
         private void Animate()
         {
-            Animator.SetBool("isMoving", true);
-            Animator.SetFloat("moveX", AiPath.velocity.x);
-            Animator.SetFloat("moveY", AiPath.velocity.y);
+            Animator.SetBool("IsMoving", true);
+            Animator.SetFloat("MoveX", AiPath.velocity.x);
+            Animator.SetFloat("MoveY", AiPath.velocity.y);
         }
         #endregion
 

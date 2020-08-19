@@ -1,0 +1,972 @@
+fileFormatVersion: 2
+guid: 20123bd425abe6f4895491fb855d136c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5034190101461345311
+    second: Standing_Down_1
+  - first:
+      213: 7755222103903309373
+    second: Standing_Down_2
+  - first:
+      213: 452623855620815433
+    second: Dash_Down_1
+  - first:
+      213: -699956191188207707
+    second: Dash_Down_2
+  - first:
+      213: -5909975305765842935
+    second: Dash_Down_3
+  - first:
+      213: -6619347381710447925
+    second: Dash_Down_4
+  - first:
+      213: -4298620446556107980
+    second: Dash_Down_5
+  - first:
+      213: 60118487480636501
+    second: Dash_Down_6
+  - first:
+      213: 8537691256806823797
+    second: Standing_Up_1
+  - first:
+      213: -7783999708851358680
+    second: Standing_Up_2
+  - first:
+      213: 7249559802175172335
+    second: Dash_Up_1
+  - first:
+      213: 2062144993637021588
+    second: Dash_Up_2
+  - first:
+      213: 9192006736778654910
+    second: Dash_Up_3
+  - first:
+      213: 4084860311954696887
+    second: Dash_Up_4
+  - first:
+      213: -5985852292223277962
+    second: Dash_Up_5
+  - first:
+      213: -4956225309008553704
+    second: Dash_Up_6
+  - first:
+      213: 1209368616078731414
+    second: Standing_Right_1
+  - first:
+      213: -8771221033766707935
+    second: Standing_Right_2
+  - first:
+      213: 8006727050906557960
+    second: Standing_Left_1
+  - first:
+      213: 5683862887864972244
+    second: Standing_Left_2
+  - first:
+      213: -7237374021069680172
+    second: Dash_Right_1
+  - first:
+      213: -4918853277337691523
+    second: Dash_Right_2
+  - first:
+      213: 5991805482238299004
+    second: Dash_Right_3
+  - first:
+      213: 137645835594201669
+    second: Dash_Right_4
+  - first:
+      213: -373968952201622903
+    second: Dash_Right_5
+  - first:
+      213: 925332119269564298
+    second: Dash_Right_6
+  - first:
+      213: -5493789631888271959
+    second: Dash_Left_1
+  - first:
+      213: 2066944479674088790
+    second: Dash_Left_2
+  - first:
+      213: -352616507256849356
+    second: Dash_Left_3
+  - first:
+      213: 169141879404690672
+    second: Dash_Left_4
+  - first:
+      213: -6295747972581184727
+    second: Dash_Left_5
+  - first:
+      213: -8205539092772886153
+    second: Dash_Left_6
+  - first:
+      213: -3534437695278314308
+    second: Enemy Skull_32
+  - first:
+      213: -5013166159116749305
+    second: Enemy Skull_33
+  - first:
+      213: -8954778529310191059
+    second: Enemy Skull_34
+  - first:
+      213: -5576353598948091276
+    second: Enemy Skull_35
+  - first:
+      213: -4690148999124004129
+    second: Enemy Skull_36
+  - first:
+      213: 5108817864391709508
+    second: Enemy Skull_37
+  - first:
+      213: -3962196575274473918
+    second: Enemy Skull_38
+  - first:
+      213: 670655799138173738
+    second: Enemy Skull_39
+  - first:
+      213: -2279151578234177850
+    second: Enemy Skull_40
+  - first:
+      213: -7038067811989122824
+    second: Enemy Skull_41
+  - first:
+      213: -1703215480921069105
+    second: Enemy Skull_42
+  - first:
+      213: -8140185249310822724
+    second: Enemy Skull_43
+  - first:
+      213: 1539530677699374673
+    second: Enemy Skull_44
+  - first:
+      213: -813168417559810842
+    second: Enemy Skull_45
+  - first:
+      213: 5170875180596664290
+    second: Enemy Skull_46
+  - first:
+      213: -4385532154684302507
+    second: Enemy Skull_47
+  - first:
+      213: -9147286578749091208
+    second: Enemy Skull_48
+  - first:
+      213: -3533822051323569403
+    second: Enemy Skull_49
+  - first:
+      213: 6172239655208966910
+    second: Enemy Skull_50
+  - first:
+      213: -3297558600946209102
+    second: Enemy Skull_51
+  - first:
+      213: -1104136660535476855
+    second: Enemy Skull_52
+  - first:
+      213: 1791110773107444503
+    second: Enemy Skull_53
+  - first:
+      213: -668192194176872814
+    second: Enemy Skull_54
+  - first:
+      213: 2562789261945512590
+    second: Enemy Skull_55
+  - first:
+      213: 8114025193326710157
+    second: Enemy Skull_56
+  - first:
+      213: -3097320300159203785
+    second: Enemy Skull_57
+  - first:
+      213: -4266346723194546726
+    second: Enemy Skull_58
+  - first:
+      213: -8451473472793950962
+    second: Enemy Skull_59
+  - first:
+      213: 4916668566157136148
+    second: Enemy Skull_60
+  - first:
+      213: 3392696812432693950
+    second: Enemy Skull_61
+  - first:
+      213: -2917539587414720534
+    second: Enemy Skull_62
+  - first:
+      213: -6834304003107434572
+    second: Enemy Skull_63
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 22
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Standing_Down_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.5, y: 0.54545456}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ebdb9666c6f22ab0800000000000000
+      internalID: -5034190101461345311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Standing_Down_2
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 0
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.5, y: 0.54545456}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3e0a612a6510ab60800000000000000
+      internalID: 7755222103903309373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dash_Down_1
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 0
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.5, y: 0.6136364}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94a7523affa084600800000000000000
+      internalID: 452623855620815433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dash_Down_2
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 0
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.5, y: 0.6363636}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a734e97d814946f0800000000000000
+      internalID: -699956191188207707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dash_Down_3
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 0
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.5, y: 0.65909094}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9001f7495cc8bfda0800000000000000
+      internalID: -5909975305765842935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dash_Down_4
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 0
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.5, y: 0.40909094}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bca9c3c80aa5324a0800000000000000
+      internalID: -6619347381710447925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dash_Down_5
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 0
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.5, y: 0.27272728}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43bcaca9a7b3854c0800000000000000
+      internalID: -4298620446556107980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dash_Down_6
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 0
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.5, y: 0.29545456}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55497b2227595d000800000000000000
+      internalID: 60118487480636501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Standing_Up_1
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 0
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5909091}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 577dde3a6f8fb7670800000000000000
+      internalID: 8537691256806823797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Standing_Up_2
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 0
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5909091}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 824bb26918da9f390800000000000000
+      internalID: -7783999708851358680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dash_Up_1
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 0
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36363637}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fee2a92fa3c9b9460800000000000000
+      internalID: 7249559802175172335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dash_Up_2
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 0
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3409091}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 497b51d22f53e9c10800000000000000
+      internalID: 2062144993637021588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dash_Up_3
+      rect:
+        serializedVersion: 2
+        x: 528
+        y: 0
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3181818}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb470befc61909f70800000000000000
+      internalID: 9192006736778654910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dash_Up_4
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 0
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.5, y: 0.45454547}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7baa62bafc650b830800000000000000
+      internalID: 4084860311954696887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dash_Up_5
+      rect:
+        serializedVersion: 2
+        x: 616
+        y: 0
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.5, y: 0.6818182}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 674e21cfd0bfdeca0800000000000000
+      internalID: -5985852292223277962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dash_Up_6
+      rect:
+        serializedVersion: 2
+        x: 660
+        y: 0
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.5, y: 0.65909094}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8199eb53753f73bb0800000000000000
+      internalID: -4956225309008553704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Standing_Right_1
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 0
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.47727275, y: 0.54545456}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 698e0eb495a88c010800000000000000
+      internalID: 1209368616078731414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Standing_Right_2
+      rect:
+        serializedVersion: 2
+        x: 748
+        y: 0
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.47727275, y: 0.54545456}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12d96e311fc564680800000000000000
+      internalID: -8771221033766707935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Standing_Left_1
+      rect:
+        serializedVersion: 2
+        x: 792
+        y: 0
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.5, y: 0.54545456}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80edbc2d4db9d1f60800000000000000
+      internalID: 8006727050906557960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Standing_Left_2
+      rect:
+        serializedVersion: 2
+        x: 836
+        y: 0
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.5, y: 0.54545456}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d3b73f9e2321ee40800000000000000
+      internalID: 5683862887864972244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dash_Right_1
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 0
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.20454547, y: 0.54545456}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d1508f4caeaf8b90800000000000000
+      internalID: -7237374021069680172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dash_Right_2
+      rect:
+        serializedVersion: 2
+        x: 924
+        y: 0
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.18181819, y: 0.54545456}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7a55066109bcbbb0800000000000000
+      internalID: -4918853277337691523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dash_Right_3
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 0
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.1590909, y: 0.54545456}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7b4d04175b272350800000000000000
+      internalID: 5991805482238299004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dash_Right_4
+      rect:
+        serializedVersion: 2
+        x: 1012
+        y: 0
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5227273}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54a776f782409e100800000000000000
+      internalID: 137645835594201669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dash_Right_5
+      rect:
+        serializedVersion: 2
+        x: 1056
+        y: 0
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.72727275, y: 0.54545456}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98a4ff628356fcaf0800000000000000
+      internalID: -373968952201622903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dash_Right_6
+      rect:
+        serializedVersion: 2
+        x: 1100
+        y: 0
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.7045455, y: 0.54545456}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8f525ce8a077dc00800000000000000
+      internalID: 925332119269564298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dash_Left_1
+      rect:
+        serializedVersion: 2
+        x: 1144
+        y: 0
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.7727273, y: 0.54545456}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a55398ef6322c3b0800000000000000
+      internalID: -5493789631888271959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dash_Left_2
+      rect:
+        serializedVersion: 2
+        x: 1188
+        y: 0
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.79545456, y: 0.54545456}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65dbd699d034fac10800000000000000
+      internalID: 2066944479674088790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dash_Left_3
+      rect:
+        serializedVersion: 2
+        x: 1232
+        y: 0
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.8181819, y: 0.54545456}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43c3407a7214b1bf0800000000000000
+      internalID: -352616507256849356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dash_Left_4
+      rect:
+        serializedVersion: 2
+        x: 1276
+        y: 0
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.47727275, y: 0.5227273}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fcfe86a4a9e85200800000000000000
+      internalID: 169141879404690672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dash_Left_5
+      rect:
+        serializedVersion: 2
+        x: 1320
+        y: 0
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.25, y: 0.54545456}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92ba9e2439201a8a0800000000000000
+      internalID: -6295747972581184727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dash_Left_6
+      rect:
+        serializedVersion: 2
+        x: 1364
+        y: 0
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.27272728, y: 0.54545456}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 779e0b08ba1102e80800000000000000
+      internalID: -8205539092772886153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
