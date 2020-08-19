@@ -8,22 +8,12 @@ public class PowerUpEffects : MonoBehaviour
 {
     public List<int> BurnTickTimers = new List<int>();
 
-    public void IncreasePlayerAttack()
-    {
-            
-    }
-
-    public void IncreasePlayerHp()
-    {
-            
-    }
-
     public void BurnEnemy(GameObject enemy, int fireDamage)
     {
         EnemyHealthManager enemyHealthManager = enemy.GetComponent<EnemyHealthManager>();
-        EnemyBehavior enemyBehavior = enemy.GetComponent<EnemyBehavior>();
+        EnemyStateMachine enemyStateMachine = enemy.GetComponent<EnemyStateMachine>();
 
-        enemyBehavior.WillDieBurned = enemyHealthManager.CurrentHealth < fireDamage ? true : false;
+        enemyStateMachine.WillDieBurned = enemyHealthManager.CurrentHealth < fireDamage ? true : false;
 
         if (BurnTickTimers.Count <= 0)
         {
@@ -39,12 +29,12 @@ public class PowerUpEffects : MonoBehaviour
     public IEnumerator ApplyBurn(GameObject enemy, int fireDamage)
     {
         EnemyHealthManager enemyHealthManager = enemy.GetComponent<EnemyHealthManager>();
-        EnemyBehavior enemyBehavior = enemy.GetComponent<EnemyBehavior>();
+        EnemyStateMachine enemyStateMachine = enemy.GetComponent<EnemyStateMachine>();
         
         
         while (BurnTickTimers.Count > 0)
         {
-            enemyBehavior.IsOnFire = true;
+            enemyStateMachine.IsOnFire = true;
             for (int i = 0; i < BurnTickTimers.Count; i++)
             {
                 BurnTickTimers[i]--;
@@ -53,23 +43,26 @@ public class PowerUpEffects : MonoBehaviour
             BurnTickTimers.RemoveAll(i => i == 0);
             yield return new WaitForSeconds(0.5f);
         }
-        enemyBehavior.IsOnFire = false;
+        enemyStateMachine.IsOnFire = false;
     }
     
    
         
     public void FreezeEnemy(GameObject enemy, float defrostTime)
     {
-        EnemyBehavior enemyBehavior = enemy.GetComponent<EnemyBehavior>(); 
-        enemyBehavior.DefrostCurrentTimer = 0f;
-        enemyBehavior.DefrostTime = defrostTime;
-        enemyBehavior.ChangeState(EnemyBehavior.States.Frozen);
+        EnemyStateMachine enemyStateMachine = enemy.GetComponent<EnemyStateMachine>(); 
+        
+        enemyStateMachine.DefrostCurrentTimer = 0f;
+        enemyStateMachine.DefrostTime = defrostTime;
+        enemyStateMachine.ChangeState(EnemyStateMachine.States.Frozen);
     }
         
     public void FindCloseEnemies(GameObject enemy, float electricRange, int electricDamage)
     {
+        EnemyStateMachine enemyStateMachine = enemy.GetComponent<EnemyStateMachine>();
+        enemyStateMachine.IsPrimaryTarget = true;
         EnemyBehavior enemyBehavior = enemy.GetComponent<EnemyBehavior>();
-        enemyBehavior.IsPrimaryTarget = true;
+
         float closestEnemyDistance = 1000f;
         Collider2D closestEnemy = null; 
         
@@ -125,22 +118,22 @@ public class PowerUpEffects : MonoBehaviour
     
     public void BurnEnemyToDeath(GameObject enemy)
     {
-        enemy.GetComponent<EnemyBehavior>().ChangeState(EnemyBehavior.States.DyingBurned);
+        enemy.GetComponent<EnemyStateMachine>().ChangeState(EnemyStateMachine.States.DyingBurned);
     }
 
     public void ShatterEnemy(GameObject enemy, int shatterDamage)
     {
-        EnemyBehavior enemyBehavior = enemy.GetComponent<EnemyBehavior>();
+        EnemyStateMachine enemyStateMachine = enemy.GetComponent<EnemyStateMachine>();
         EnemyHealthManager enemyHealthManager = enemy.GetComponent<EnemyHealthManager>();
-        enemyBehavior.DefrostCurrentTimer = enemyBehavior.DefrostTime;
+        enemyStateMachine.DefrostCurrentTimer = enemyStateMachine.DefrostTime;
         enemyHealthManager.TakeDamage(shatterDamage);
     }
 
     public void ParalyzeEnemy(GameObject enemy, float paralyzeTime)
     {
-        EnemyBehavior enemyBehavior = enemy.GetComponent<EnemyBehavior>();
-        enemyBehavior.ParalyzeHealCurrentTimer = 0;
-        enemyBehavior.ParalyzeHealTime = paralyzeTime;
-        enemyBehavior.ChangeState(EnemyBehavior.States.Paralyzed);
+        EnemyStateMachine enemyStateMachine = enemy.GetComponent<EnemyStateMachine>();
+        enemyStateMachine.ParalyzeHealCurrentTimer = 0;
+        enemyStateMachine.ParalyzeHealTime = paralyzeTime;
+        enemyStateMachine.ChangeState(EnemyStateMachine.States.Paralyzed);
     }
 }

@@ -10,7 +10,7 @@ using UnityEngine.UI;
 /*
      * Various assorted utilities functions
      * */
-public static class Utilities
+public static class UtilitiesClass
 {
 
     public static Vector3 GetVectorFromAngle(float angle)

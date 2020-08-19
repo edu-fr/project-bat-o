@@ -117,7 +117,6 @@ namespace Player
 
             if (activatedEffects.Count > 0)
             {
-                Debug.Log(activatedEffects[effectNumber]);
                 return activatedEffects[effectNumber];
             }
 
@@ -126,13 +125,13 @@ namespace Player
 
         public void ApplyEffectsOnEnemies(GameObject enemy, Effects activatedEffect)
         {
-            EnemyBehavior enemyBehavior = enemy.GetComponent<EnemyBehavior>();
+            EnemyStateMachine enemyStateMachine = enemy.GetComponent<EnemyStateMachine>();
             EnemyHealthManager enemyHealthManager = enemy.GetComponent<EnemyHealthManager>();
 
             // Even when the list is empty
 
             // ICE LV 2 doesn't needs ICE LV 1 to happen in the same attack
-            if (HaveIceLv2 && enemyBehavior.IsFrozen)
+            if (HaveIceLv2 && enemyStateMachine.IsFrozen)
             {
                 //Debug.Log("SHATTERING ENEMY");
                 PowerUpEffects.ShatterEnemy(enemy, ShatterDamage);
@@ -147,7 +146,7 @@ namespace Player
 
                     PowerUpEffects.BurnEnemy(enemy, HaveFireLv2 ? FireDamageLv2 : FireDamageLv1);
 
-                    if (HaveFireLv2 && enemyBehavior.IsOnFire && enemyBehavior.WillDieBurned)
+                    if (HaveFireLv2 && enemyStateMachine.IsOnFire && enemyStateMachine.WillDieBurned)
                     {
                         // FIRE LV 2
                         //Debug.Log("BURNING ENEMY TO THE DEATH");
@@ -159,7 +158,7 @@ namespace Player
                 case Effects.Ice:
                     //Debug.Log("ICE CHOSEN");
                     
-                    if (!enemyBehavior.IsParalyzed)
+                    if (!enemyStateMachine.IsParalyzed)
                     {
                         PowerUpEffects.FreezeEnemy(enemy, HaveIceLv2 ? DefrostTimeLv2 : DefrostTimeLv1);
                     }
@@ -174,16 +173,16 @@ namespace Player
                     // THUNDER LV 2
                     if (HaveThunderLv2)
                     {
-                        if (enemyBehavior.IsPrimaryTarget && Random.Range(1, 100) < OddsThunderLv2)
+                        if (enemyStateMachine.IsPrimaryTarget && Random.Range(1, 100) < OddsThunderLv2)
                         {
-                            if (!enemyBehavior.IsFrozen)
+                            if (!enemyStateMachine.IsFrozen)
                             {
                                 PowerUpEffects.ParalyzeEnemy(enemy, ParalyzeTime);
                                 //Debug.Log("PARALIZADO");    
                             }
                         }
                     }
-                    enemyBehavior.IsPrimaryTarget = false;
+                    enemyStateMachine.IsPrimaryTarget = false;
                     break;
             }
         }

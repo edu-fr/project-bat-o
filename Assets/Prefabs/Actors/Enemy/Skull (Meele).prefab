@@ -102,6 +102,9 @@ GameObject:
   - component: {fileID: 4955097571060270807}
   - component: {fileID: 4955097571060270800}
   - component: {fileID: 4392494387670825045}
+  - component: {fileID: -7841970280595474339}
+  - component: {fileID: -3329415677510676803}
+  - component: {fileID: 1083760840016041595}
   m_Layer: 9
   m_Name: Skull (Meele)
   m_TagString: Enemy
@@ -244,30 +247,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00396018ff43e984da61fd69b2b89879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Rigidbody: {fileID: 0}
   CircleCollider: {fileID: 0}
-  FlashMaterial: {fileID: 2100000, guid: 93729dd49b58a61438d5c2acee37878e, type: 2}
-  BurnedMaterial: {fileID: 2100000, guid: 0ac5bed22d66bbf48a842a71fa085130, type: 2}
-  FrozenMaterial: {fileID: 2100000, guid: 46129f794c290cf4f8e7f405d0a945d1, type: 2}
-  ParalyzedMaterial: {fileID: 2100000, guid: a544983478092fd4985c8aeaddb03fb7, type: 2}
+  Animator: {fileID: 0}
+  AiDestinationSetter: {fileID: 0}
+  AiPath: {fileID: 0}
+  EnemyStateMachine: {fileID: 0}
+  ReachedEndOfPath: 0
+  CurrentTimer: 0
   WalkingAroundSpeed: 2
   ChasingSpeed: 3.5
   DyingBurnedSpeed: 4.5
   Target: {fileID: 0}
   PreFabFieldOfView: {fileID: 9167951023041480134, guid: e930f2e8319ea2341896d1f240a2de08,
     type: 3}
+  FieldOfViewComponent: {fileID: 0}
   FieldOfViewValue: 0
   ViewDistance: 0
   TargetPlayer: {fileID: 0}
+  Player: {fileID: 0}
   SurroundingDistance: 2
-  IsFrozen: 0
-  DefrostCurrentTimer: 0
-  DefrostTime: 0
-  IsOnFire: 0
-  IsPrimaryTarget: 0
-  IsParalyzed: 0
-  ParalyzeHealCurrentTimer: 0
-  ParalyzeHealTime: 0
-  WillDieBurned: 0
+  FaceDirection: {x: 0, y: 0, z: 0}
+  DefaultMaterial: {fileID: 0}
+  CurrentMaterial: {fileID: 0}
+  FlashMaterial: {fileID: 2100000, guid: 93729dd49b58a61438d5c2acee37878e, type: 2}
+  BurnedMaterial: {fileID: 2100000, guid: 0ac5bed22d66bbf48a842a71fa085130, type: 2}
+  FrozenMaterial: {fileID: 2100000, guid: 46129f794c290cf4f8e7f405d0a945d1, type: 2}
+  ParalyzedMaterial: {fileID: 2100000, guid: a544983478092fd4985c8aeaddb03fb7, type: 2}
+  Renderer: {fileID: 0}
 --- !u!114 &145693348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,3 +394,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b43e9415a87f80c439e6fc82ec8daafb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-7841970280595474339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4955097571060270792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b43e9415a87f80c439e6fc82ec8daafb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-3329415677510676803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4955097571060270792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81804739d3f6d4c419bc2bd73045efcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  State: 0
+  PreviousState: 0
+  IsWalkingAround: 0
+  IsFrozen: 0
+  DefrostCurrentTimer: 0
+  DefrostTime: 0
+  IsOnFire: 0
+  IsPrimaryTarget: 0
+  IsParalyzed: 0
+  ParalyzeHealCurrentTimer: 0
+  ParalyzeHealTime: 0
+  WillDieBurned: 0
+  EnemyBehavior: {fileID: 0}
+--- !u!114 &1083760840016041595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4955097571060270792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daac7301907d22346ba37d8fd637dd9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Rigidbody2D: {fileID: 0}
+  Damage: 20
+  TimeInvincible: 0.9

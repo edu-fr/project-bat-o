@@ -43,11 +43,11 @@ namespace Enemy
             {
                 Vector3 vertex;
 
-                RaycastHit2D raycastHit2D = Physics2D.Raycast(Origin, Utilities.GetVectorFromAngle(angle), ViewDistance, LayerMask);
+                RaycastHit2D raycastHit2D = Physics2D.Raycast(Origin, UtilitiesClass.GetVectorFromAngle(angle), ViewDistance, LayerMask);
                 if (raycastHit2D.collider == null)
                 {
                     // No hit
-                    vertex = Origin + Utilities.GetVectorFromAngle(angle) * ViewDistance;
+                    vertex = Origin + UtilitiesClass.GetVectorFromAngle(angle) * ViewDistance;
                 }
                 else
                 {
@@ -91,7 +91,7 @@ namespace Enemy
 
         public void SetAimDirection(Vector3 aimDirection)
         {
-            StartingAngle = Utilities.GetAngleFromVectorFloat(aimDirection) + FieldOfViewValue / 2f;
+            StartingAngle = UtilitiesClass.GetAngleFromVectorFloat(aimDirection) + FieldOfViewValue / 2f;
         }
 
         public void SetFieldOfView(float fieldOfView)

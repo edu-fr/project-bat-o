@@ -115,7 +115,7 @@ namespace Player
         public void VerifyAttackCollision(GameObject enemy)
         {
             Vector3 attackDirection = (enemy.transform.position - transform.position).normalized;
-            enemy.GetComponent<EnemyBehavior>().TakeDamage(CurrentWeaponDamage, CurrentWeaponKnockback, attackDirection, CurrentKnockbackDuration,  CurrentWeaponAttackSpeed);
+            enemy.GetComponent<EnemyCombatManager>().TakeDamage(CurrentWeaponDamage, CurrentWeaponKnockback, attackDirection, CurrentKnockbackDuration,  CurrentWeaponAttackSpeed);
             PowerUpController.ApplyEffectsOnEnemies(enemy, CurrentEffect);
         }
         
