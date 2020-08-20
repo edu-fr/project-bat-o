@@ -27,8 +27,11 @@ namespace Enemy
         public float ParalyzeHealCurrentTimer;
         public float ParalyzeHealTime;
         public bool WillDieBurned = false;
+        public bool IsAttacking;
         
         public EnemyBehavior EnemyBehavior;
+        public EnemyMeleeAttackManager EnemyMeleeAttackManager;
+        public EnemyRangedAttackManager EnemyRangedAttackManager;
         
         private void Awake()
         {
@@ -42,6 +45,7 @@ namespace Enemy
 
         private void Update()
         {
+            EnemyBehavior.UpdateMaterial();
             switch (State)
             {
                 case States.Standard:
@@ -68,6 +72,13 @@ namespace Enemy
                         EnemyBehavior.Animate();
                         EnemyBehavior.SetCurrentFaceDirection();
 
+                        // If enemy is in a certain distance to the player
+                        if (Vector2.Distance(transform.position, EnemyBehavior.TargetPlayer.transform.position) < 2f)
+                        {
+                            ChangeState(States.Attacking);
+                            break;
+                        }
+                        
                         // Return to Standard state
                         if (Vector2.Distance(transform.position, EnemyBehavior.TargetPlayer.transform.position) > 7f)
                         {
@@ -82,7 +93,29 @@ namespace Enemy
                     break;
 
                 case States.Attacking:
+                    if (EnemyBehavior.TargetPlayer == null)
+                    {
+                        // Perdeu o player de vista 
+                        Debug.Log("Perdeu o player de vista de algum modo");
+                        ChangeState(PreviousState);    
+                    } 
+                    
+                    if(IsAttacking) return;
 
+                    if (EnemyMeleeAttackManager != null)
+                    {
+                        IsAttacking = true;
+                        Vector3 playerDirection = (EnemyBehavior.TargetPlayer.transform.position - transform.position).normalized;
+                        EnemyBehavior.Animator.SetFloat("AttackDirX", playerDirection.x);
+                        EnemyBehavior.Animator.SetFloat("AttackDirY", playerDirection.y);
+                        EnemyBehavior.Animator.SetTrigger("Attack");
+                        EnemyMeleeAttackManager.Attack(playerDirection);
+                    } 
+                    else 
+                    {
+                        //EnemyRangedAttackManager.Attack(EnemyBehavior.TargetPlayer);
+                    }
+                    
                     break;
 
                 case States.DyingBurned:
@@ -165,6 +198,9 @@ namespace Enemy
                     break;
 
                 case (States.Attacking):
+                    IsWalkingAround = false;
+                    EnemyBehavior.FieldOfViewComponent.gameObject.SetActive(false);
+                    EnemyBehavior.AiDestinationSetter.target = null;
                     
                     break;
                 

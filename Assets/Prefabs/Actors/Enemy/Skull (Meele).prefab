@@ -394,6 +394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b43e9415a87f80c439e6fc82ec8daafb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AttackVelocity: 30
 --- !u!114 &-7841970280595474339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,6 +407,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b43e9415a87f80c439e6fc82ec8daafb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AttackVelocity: 30
 --- !u!114 &-3329415677510676803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -430,7 +432,10 @@ MonoBehaviour:
   ParalyzeHealCurrentTimer: 0
   ParalyzeHealTime: 0
   WillDieBurned: 0
+  IsAttacking: 0
   EnemyBehavior: {fileID: 0}
+  EnemyMeleeAttackManager: {fileID: 4392494387670825045}
+  EnemyRangedAttackManager: {fileID: 0}
 --- !u!114 &1083760840016041595
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -122,8 +122,6 @@ namespace Enemy
                 Destroy(FieldOfViewComponent.gameObject);
                 Destroy(Target.gameObject);
             }
-            
-            UpdateMaterial();
         }
 
         // Fixed Update its used to treat physics matters

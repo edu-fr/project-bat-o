@@ -42,7 +42,7 @@ namespace Enemy
             // Take knockback
             EnemyBehavior.AiPath.enabled = false;
             Rigidbody2D.AddForce(attackDirection * weaponKnockback, ForceMode2D.Impulse);
-            StartCoroutine(TakeKnockback(knockBackDuration));
+            StartCoroutine(TakeKnockBack(knockBackDuration));
 
             // Work on it
             float timeFlashing = TimeInvincible / (weaponAttackSpeed / 6f);
@@ -73,9 +73,9 @@ namespace Enemy
 
         }
 
-        private IEnumerator TakeKnockback(float knockbackTime)
+        private IEnumerator TakeKnockBack(float knockBackTime)
         {
-            yield return new WaitForSeconds(knockbackTime);
+            yield return new WaitForSeconds(knockBackTime);
             EnemyBehavior.AiPath.enabled = true;
         }
     }
