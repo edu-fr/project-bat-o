@@ -28,7 +28,11 @@ namespace Enemy
         public float ParalyzeHealTime;
         public bool WillDieBurned = false;
         public bool IsAttacking;
-        
+        public float AttackPreparationTime = 0.75f;
+        public float AttackPreparationCurrentTime = 0;
+
+        private Vector3 PlayerDirection;
+
         public EnemyBehavior EnemyBehavior;
         public EnemyMeleeAttackManager EnemyMeleeAttackManager;
         public EnemyRangedAttackManager EnemyRangedAttackManager;
@@ -78,7 +82,7 @@ namespace Enemy
                             ChangeState(States.Attacking);
                             break;
                         }
-                        
+
                         // Return to Standard state
                         if (Vector2.Distance(transform.position, EnemyBehavior.TargetPlayer.transform.position) > 7f)
                         {
@@ -93,29 +97,35 @@ namespace Enemy
                     break;
 
                 case States.Attacking:
+
+                    if (IsAttacking)
+                    {
+                        return;
+                    }
                     if (EnemyBehavior.TargetPlayer == null)
                     {
                         // Perdeu o player de vista 
-                        Debug.Log("Perdeu o player de vista de algum modo");
-                        ChangeState(PreviousState);    
-                    } 
-                    
-                    if(IsAttacking) return;
-
-                    if (EnemyMeleeAttackManager != null)
-                    {
-                        IsAttacking = true;
-                        Vector3 playerDirection = (EnemyBehavior.TargetPlayer.transform.position - transform.position).normalized;
-                        EnemyBehavior.Animator.SetFloat("AttackDirX", playerDirection.x);
-                        EnemyBehavior.Animator.SetFloat("AttackDirY", playerDirection.y);
-                        EnemyBehavior.Animator.SetTrigger("Attack");
-                        EnemyMeleeAttackManager.Attack(playerDirection);
-                    } 
-                    else 
-                    {
-                        //EnemyRangedAttackManager.Attack(EnemyBehavior.TargetPlayer);
+                        ChangeState(PreviousState);
+                        return; 
                     }
                     
+                    EnemyBehavior.Rigidbody.velocity = Vector2.zero;
+
+                    AttackPreparationCurrentTime += Time.deltaTime;
+
+                    if (AttackPreparationCurrentTime > AttackPreparationTime)
+                    {
+                        AttackPreparationCurrentTime = 0;
+                        if (EnemyMeleeAttackManager != null)
+                        {
+                            IsAttacking = true;
+                            EnemyMeleeAttackManager.Attack(PlayerDirection);
+                        } 
+                        else 
+                        {
+                            //EnemyRangedAttackManager.Attack(EnemyBehavior.TargetPlayer);
+                        }
+                    }
                     break;
 
                 case States.DyingBurned:
@@ -200,8 +210,10 @@ namespace Enemy
                 case (States.Attacking):
                     IsWalkingAround = false;
                     EnemyBehavior.FieldOfViewComponent.gameObject.SetActive(false);
+                    EnemyBehavior.AiPath.enabled = false;
                     EnemyBehavior.AiDestinationSetter.target = null;
-                    
+                    PlayerDirection = (EnemyBehavior.TargetPlayer.transform.position - transform.position).normalized;
+
                     break;
                 
                 case (States.DyingBurned):

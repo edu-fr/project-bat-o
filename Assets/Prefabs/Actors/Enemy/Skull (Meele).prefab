@@ -102,7 +102,6 @@ GameObject:
   - component: {fileID: 4955097571060270807}
   - component: {fileID: 4955097571060270800}
   - component: {fileID: 4392494387670825045}
-  - component: {fileID: -7841970280595474339}
   - component: {fileID: -3329415677510676803}
   - component: {fileID: 1083760840016041595}
   m_Layer: 9
@@ -120,7 +119,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4955097571060270792}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 87.26045, y: 83.57544, z: 2901}
+  m_LocalPosition: {x: 87.26045, y: 83.57544, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1118065618}
@@ -211,7 +210,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0.25
+  m_LinearDrag: 1.5
   m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -394,20 +393,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b43e9415a87f80c439e6fc82ec8daafb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackVelocity: 30
---- !u!114 &-7841970280595474339
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4955097571060270792}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b43e9415a87f80c439e6fc82ec8daafb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AttackVelocity: 30
 --- !u!114 &-3329415677510676803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -433,6 +418,8 @@ MonoBehaviour:
   ParalyzeHealTime: 0
   WillDieBurned: 0
   IsAttacking: 0
+  AttackPreparationTime: 1.5
+  AttackPreparationCurrentTime: 0
   EnemyBehavior: {fileID: 0}
   EnemyMeleeAttackManager: {fileID: 4392494387670825045}
   EnemyRangedAttackManager: {fileID: 0}

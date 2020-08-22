@@ -119,7 +119,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4955097571060270792}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 87.26045, y: 83.57544, z: 2901}
+  m_LocalPosition: {x: 87.26045, y: 83.57544, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1118065618}
@@ -432,4 +432,9 @@ MonoBehaviour:
   ParalyzeHealCurrentTimer: 0
   ParalyzeHealTime: 0
   WillDieBurned: 0
+  IsAttacking: 0
+  AttackPreparationTime: 1.5
+  AttackPreparationCurrentTime: 0
   EnemyBehavior: {fileID: 0}
+  EnemyMeleeAttackManager: {fileID: 0}
+  EnemyRangedAttackManager: {fileID: 0}

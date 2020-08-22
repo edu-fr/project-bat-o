@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 namespace Enemy
@@ -7,29 +8,47 @@ namespace Enemy
     {
         private EnemyCombatManager EnemyCombatManager;
         private EnemyStateMachine EnemyStateMachine;
-        public float AttackVelocity = 50f;
+        private EnemyBehavior EnemyBehavior;
+        private float AttackVelocity = 6f;
+        private bool AttackEnded = false;
+        private float AttackCurrentRecoveryTime = 0;
+        private float AttackRecoveryTime = 2f;
+
         private void Awake()
         {
             EnemyCombatManager = GetComponent<EnemyCombatManager>();
             EnemyStateMachine = GetComponent<EnemyStateMachine>();
+            EnemyBehavior = GetComponent<EnemyBehavior>();
         }
 
         private void Update()
         {
-        
+            if (AttackEnded)
+            {
+                AttackCurrentRecoveryTime += Time.deltaTime;
+                if (AttackCurrentRecoveryTime > AttackRecoveryTime)
+                {
+                    AttackCurrentRecoveryTime = 0;
+                    AttackEnded = false;
+                    EnemyStateMachine.IsAttacking = false;
+                    EnemyBehavior.AiPath.enabled = true;
+                    EnemyStateMachine.ChangeState(EnemyStateMachine.States.Chasing);
+                }
+            }
         } 
         
         public void Attack(Vector3 playerDirection)
         {
-            Debug.Log("Atacou!");
+            EnemyBehavior.Animator.SetFloat("AttackDirX", playerDirection.x);
+            EnemyBehavior.Animator.SetFloat("AttackDirY", playerDirection.y);
+            EnemyBehavior.Animator.speed = 1f;
+            EnemyBehavior.Animator.SetTrigger("Attack");
             EnemyCombatManager.Rigidbody2D.AddForce(playerDirection * AttackVelocity, ForceMode2D.Impulse);
         }
 
         public void AttackEnd()
         {
-            EnemyStateMachine.ChangeState(EnemyStateMachine.PreviousState);
-            EnemyStateMachine.IsAttacking = false;
-            Debug.Log("FIM DO ATAQUE");
+            AttackEnded = true;
         }
         
     }
