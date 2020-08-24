@@ -1,3 +1,4 @@
+using Unity.Collections;
 using UnityEngine;
 
 namespace Enemy
@@ -8,10 +9,11 @@ namespace Enemy
         {
             Standard,
             Chasing,
+            PreparingAttack,
             Attacking,
             DyingBurned,
             Frozen,
-            Paralyzed
+            Paralyzed,
         };
         
         public States State;
@@ -28,8 +30,10 @@ namespace Enemy
         public float ParalyzeHealTime;
         public bool WillDieBurned = false;
         public bool IsAttacking;
-        public float AttackPreparationTime = 0.75f;
-        public float AttackPreparationCurrentTime = 0;
+
+        private float AttackPreparationTime = 0.95f;
+        private float AttackPreparationCurrentTime = 0;
+        private float PreparationDistance = 1f;
 
         private Vector3 PlayerDirection;
 
@@ -77,9 +81,9 @@ namespace Enemy
                         EnemyBehavior.SetCurrentFaceDirection();
 
                         // If enemy is in a certain distance to the player
-                        if (Vector2.Distance(transform.position, EnemyBehavior.TargetPlayer.transform.position) < 2f)
+                        if (Vector2.Distance(transform.position, EnemyBehavior.TargetPlayer.transform.position) < 1.3f)
                         {
-                            ChangeState(States.Attacking);
+                            ChangeState(States.PreparingAttack);
                             break;
                         }
 
@@ -96,36 +100,49 @@ namespace Enemy
 
                     break;
 
-                case States.Attacking:
-
-                    if (IsAttacking)
-                    {
-                        return;
-                    }
-                    if (EnemyBehavior.TargetPlayer == null)
-                    {
-                        // Perdeu o player de vista 
-                        ChangeState(PreviousState);
-                        return; 
-                    }
+                case States.PreparingAttack:
                     
-                    EnemyBehavior.Rigidbody.velocity = Vector2.zero;
-
                     AttackPreparationCurrentTime += Time.deltaTime;
-
+                    
                     if (AttackPreparationCurrentTime > AttackPreparationTime)
                     {
                         AttackPreparationCurrentTime = 0;
                         if (EnemyMeleeAttackManager != null)
                         {
-                            IsAttacking = true;
-                            EnemyMeleeAttackManager.Attack(PlayerDirection);
+                            ChangeState(States.Attacking);
                         } 
                         else 
                         {
                             //EnemyRangedAttackManager.Attack(EnemyBehavior.TargetPlayer);
                         }
                     }
+                    else
+                    {
+                        // taking distance before dashing
+                        if (EnemyMeleeAttackManager != null)
+                        {
+                            EnemyBehavior.Rigidbody.AddForce(-PlayerDirection * PreparationDistance, ForceMode2D.Force);
+                        }
+                        else // ranged attack
+                        {
+                            
+                        }
+                        
+                    }
+
+
+                    
+                    break;
+                
+                case States.Attacking:
+                    // Return if already start the attack
+                    if (IsAttacking) return;
+                    
+                    IsAttacking = true; 
+                    
+                    // do only once
+                    EnemyMeleeAttackManager.Attack(PlayerDirection);
+                    
                     break;
 
                 case States.DyingBurned:
@@ -140,16 +157,8 @@ namespace Enemy
                     if (DefrostCurrentTimer >= DefrostTime)
                     {
                         DefrostCurrentTimer = 0;
-                        if (PreviousState == States.Frozen || PreviousState == States.Paralyzed)
-                        {
-                            ChangeState(States.Chasing);
-                        }
-                        else
-                        {
-                            ChangeState(PreviousState);
-                        }
-
                         IsFrozen = false;
+                        ChangeState(States.Chasing);
                     }
 
                     break;
@@ -159,16 +168,8 @@ namespace Enemy
                     if (ParalyzeHealCurrentTimer >= ParalyzeHealTime)
                     {
                         ParalyzeHealCurrentTimer = 0;
-                        if (PreviousState == States.Frozen || PreviousState == States.Paralyzed)
-                        {
-                            ChangeState(States.Chasing);
-                        }
-                        else
-                        {
-                            ChangeState(PreviousState);
-                        }
-
                         IsParalyzed = false;
+                        ChangeState(States.Chasing);
                     }
 
                     break;
@@ -207,13 +208,24 @@ namespace Enemy
                     AstarPath.active.Scan();
                     break;
 
-                case (States.Attacking):
+                case (States.PreparingAttack):
                     IsWalkingAround = false;
+                    EnemyBehavior.Rigidbody.velocity = Vector2.zero;
                     EnemyBehavior.FieldOfViewComponent.gameObject.SetActive(false);
                     EnemyBehavior.AiPath.enabled = false;
                     EnemyBehavior.AiDestinationSetter.target = null;
                     PlayerDirection = (EnemyBehavior.TargetPlayer.transform.position - transform.position).normalized;
-
+                    EnemyBehavior.SetCurrentFaceDirectionTo(PlayerDirection);
+                    
+                    break;
+                
+                case (States.Attacking):
+                    IsWalkingAround = false;
+                    EnemyBehavior.Rigidbody.velocity = Vector2.zero;
+                    EnemyBehavior.FieldOfViewComponent.gameObject.SetActive(false);
+                    EnemyBehavior.AiPath.enabled = false;
+                    EnemyBehavior.AiDestinationSetter.target = null;
+                    
                     break;
                 
                 case (States.DyingBurned):

@@ -9,10 +9,10 @@ namespace Enemy
         private EnemyCombatManager EnemyCombatManager;
         private EnemyStateMachine EnemyStateMachine;
         private EnemyBehavior EnemyBehavior;
-        private float AttackVelocity = 6f;
+        private float AttackVelocity = 12f;
         private bool AttackEnded = false;
         private float AttackCurrentRecoveryTime = 0;
-        private float AttackRecoveryTime = 2f;
+        private float AttackRecoveryTime = 1.5f;
 
         private void Awake()
         {
@@ -41,14 +41,16 @@ namespace Enemy
         {
             EnemyBehavior.Animator.SetFloat("AttackDirX", playerDirection.x);
             EnemyBehavior.Animator.SetFloat("AttackDirY", playerDirection.y);
-            EnemyBehavior.Animator.speed = 1f;
+            EnemyBehavior.Animator.speed = 3.5f;
             EnemyBehavior.Animator.SetTrigger("Attack");
             EnemyCombatManager.Rigidbody2D.AddForce(playerDirection * AttackVelocity, ForceMode2D.Impulse);
         }
 
         public void AttackEnd()
         {
+            // Called by animation end
             AttackEnded = true;
+            EnemyBehavior.Animator.speed = 1f;
         }
         
     }

@@ -242,6 +242,15 @@ namespace Enemy
             // Actual set of face direction
             FaceDirection = UtilitiesClass.GetDirectionFromAngle(CurAngle);
         }
+        
+        public void SetCurrentFaceDirectionTo(Vector3 desiredDirection)
+        {
+            CurAngle = UtilitiesClass.GetAngleFromVectorFloat(desiredDirection);
+            // Actual set of face direction
+            FaceDirection = UtilitiesClass.GetDirectionFromAngle(CurAngle);
+            Animator.SetFloat("MoveX", FaceDirection.x);
+            Animator.SetFloat("MoveY", FaceDirection.y);
+        }
 
         public void Animate()
         {

@@ -210,7 +210,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 1.5
+  m_LinearDrag: 4
   m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -418,8 +418,6 @@ MonoBehaviour:
   ParalyzeHealTime: 0
   WillDieBurned: 0
   IsAttacking: 0
-  AttackPreparationTime: 1.5
-  AttackPreparationCurrentTime: 0
   EnemyBehavior: {fileID: 0}
   EnemyMeleeAttackManager: {fileID: 4392494387670825045}
   EnemyRangedAttackManager: {fileID: 0}
