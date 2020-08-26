@@ -1,18 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyRangedAttackManager : MonoBehaviour
+namespace Enemy
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public class EnemyRangedAttackManager : MonoBehaviour
+    { 
+        public ParticleSystem ParticleSystem;
+        private ArrowParticleScript ArrowParticleScript;
 
-    // Update is called once per frame
-    void Update()
-    {
+        private void Awake()
+        {
+            ArrowParticleScript = ParticleSystem.GetComponent<ArrowParticleScript>();
+        }
         
+        public void Attack()
+        {
+            ArrowParticleScript.ShootArrow();
+        }
     }
 }
