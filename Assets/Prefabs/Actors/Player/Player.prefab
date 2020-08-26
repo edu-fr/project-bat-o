@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1547983611}
   - component: {fileID: 1547983612}
   - component: {fileID: 1547983613}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: SwordHitBox
   m_TagString: HitBox
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1875668798}
   - component: {fileID: 1875668799}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +172,7 @@ GameObject:
   - component: {fileID: 4396048941111737139}
   - component: {fileID: 555801312}
   - component: {fileID: 616445933}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}

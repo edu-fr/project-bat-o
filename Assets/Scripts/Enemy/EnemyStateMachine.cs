@@ -113,7 +113,7 @@ namespace Enemy
                         } 
                         else 
                         {
-                            //EnemyRangedAttackManager.Attack(EnemyBehavior.TargetPlayer);
+                            EnemyRangedAttackManager.Attack();
                         }
                     }
                     else
