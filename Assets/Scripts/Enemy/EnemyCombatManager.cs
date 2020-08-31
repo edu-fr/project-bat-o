@@ -15,7 +15,8 @@ namespace Enemy
         
         
         // Attack
-        public float Damage = 20;
+        public float MeleeDamage { private set; get; } = 20;
+        public float RangedDamage { private set; get; } = 200f;
         private bool Invincible = false;
         public float TimeInvincible = .9f;
         private void Awake()
@@ -69,7 +70,7 @@ namespace Enemy
         private void OnCollisionStay2D(Collision2D other)
         {
             if (!other.gameObject.CompareTag("Player")) return;
-            other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage((int)Damage);
+            other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage((int)MeleeDamage);
 
         }
 

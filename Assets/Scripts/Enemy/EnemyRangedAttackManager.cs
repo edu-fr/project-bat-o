@@ -6,15 +6,48 @@ namespace Enemy
     { 
         public ParticleSystem ParticleSystem;
         private ArrowParticleScript ArrowParticleScript;
+        private EnemyCombatManager EnemyCombatManager;
+        private EnemyStateMachine EnemyStateMachine;
+        private EnemyBehavior EnemyBehavior;
+        private bool AttackEnded = false;
+        private float AttackCurrentRecoveryTime = 0;
+        private float AttackRecoveryTime = 10f;
 
         private void Awake()
         {
             ArrowParticleScript = ParticleSystem.GetComponent<ArrowParticleScript>();
+            EnemyCombatManager = GetComponent<EnemyCombatManager>();
+            EnemyStateMachine = GetComponent<EnemyStateMachine>();
+            EnemyBehavior = GetComponent<EnemyBehavior>();
+        }
+
+        private void Update()
+        {
+            if (AttackEnded)
+            {
+                AttackCurrentRecoveryTime += Time.deltaTime;
+                if (AttackCurrentRecoveryTime > AttackRecoveryTime)
+                {
+                    AttackCurrentRecoveryTime = 0;
+                    AttackEnded = true;
+                    EnemyStateMachine.IsAttacking = false;
+                    EnemyBehavior.AiPath.enabled = true;
+                    EnemyStateMachine.ChangeState(EnemyStateMachine.States.Chasing);
+                }
+            }
         }
         
-        public void Attack()
+        
+        public void Attack(Vector3 playerDirection)
         {
-            ArrowParticleScript.ShootArrow();
+            ArrowParticleScript.ShootArrow(playerDirection);
+        }
+
+        public void AttackEnd()
+        {
+            // Called by animation end
+            AttackEnded = true;
+            EnemyBehavior.Animator.speed = 1f; 
         }
     }
 }
