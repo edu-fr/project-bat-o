@@ -15,10 +15,19 @@ namespace Enemy
             Frozen,
             Paralyzed,
         };
-        
+
+        public enum Type
+        {
+            Ranged,
+            Melee
+        };
+
         public States State;
         public States PreviousState;
-        public bool IsWalkingAround = false;
+        public Type EnemyType;
+        
+        public bool IsWalkingAround = false;   
+        
 
         public bool IsFrozen = false;
         public float DefrostCurrentTimer;
@@ -48,6 +57,7 @@ namespace Enemy
 
         private void Start()
         {
+            EnemyType = EnemyMeleeAttackManager != null ? Type.Melee : Type.Ranged;
             State = States.Standard;
         }
 
@@ -91,10 +101,12 @@ namespace Enemy
                         if (Vector2.Distance(transform.position, EnemyBehavior.TargetPlayer.transform.position) > 7f)
                         {
                             EnemyBehavior.TargetPlayer = null;
+                            Debug.Log("ANULEI O PLAYER");
                         }
                     }
                     else // Lost sight of player
                     {
+                        Debug.Log("PERDI VISAO DO PLAYER");
                         ChangeState(States.Standard);
                     }
 
@@ -107,30 +119,20 @@ namespace Enemy
                     if (AttackPreparationCurrentTime > AttackPreparationTime)
                     {
                         AttackPreparationCurrentTime = 0;
-                        if (EnemyMeleeAttackManager != null)
-                        {
-                            ChangeState(States.Attacking);
-                        } 
-                        else 
-                        {
-                            EnemyRangedAttackManager.Attack();
-                        }
+                        ChangeState(States.Attacking);
                     }
                     else
                     {
-                        // taking distance before dashing
-                        if (EnemyMeleeAttackManager != null)
+                        if (EnemyType == Type.Melee)
                         {
+                            // taking distance before dashing
                             EnemyBehavior.Rigidbody.AddForce(-PlayerDirection * PreparationDistance, ForceMode2D.Force);
                         }
-                        else // ranged attack
+                        else //ranged 
                         {
-                            
+                            // make noise to warning about attack
                         }
-                        
                     }
-
-
                     
                     break;
                 
@@ -141,7 +143,14 @@ namespace Enemy
                     IsAttacking = true; 
                     
                     // do only once
-                    EnemyMeleeAttackManager.Attack(PlayerDirection);
+                    if (EnemyType == Type.Melee)
+                    {
+                        EnemyMeleeAttackManager.Attack(PlayerDirection);
+                    }
+                    else
+                    {
+                        EnemyRangedAttackManager.Attack(PlayerDirection);
+                    }
                     
                     break;
 
