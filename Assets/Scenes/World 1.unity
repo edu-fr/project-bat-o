@@ -1260,6 +1260,26 @@ PrefabInstance:
       propertyPath: m_UseCustomVertexStreams
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1222341645077511779, guid: c53cc6c2e82d083409dbcad3459ada71,
+        type: 3}
+      propertyPath: m_RenderAlignment
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1222341645077511779, guid: c53cc6c2e82d083409dbcad3459ada71,
+        type: 3}
+      propertyPath: m_Flip.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1222341645077511779, guid: c53cc6c2e82d083409dbcad3459ada71,
+        type: 3}
+      propertyPath: m_Flip.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1222341645077511779, guid: c53cc6c2e82d083409dbcad3459ada71,
+        type: 3}
+      propertyPath: m_Flip.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4567314507821680410, guid: c53cc6c2e82d083409dbcad3459ada71,
         type: 3}
       propertyPath: CollisionModule.collidesWith.m_Bits
@@ -1283,6 +1303,16 @@ PrefabInstance:
     - target: {fileID: 4567314507821680410, guid: c53cc6c2e82d083409dbcad3459ada71,
         type: 3}
       propertyPath: CollisionModule.multiplyColliderForceByParticleSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4567314507821680410, guid: c53cc6c2e82d083409dbcad3459ada71,
+        type: 3}
+      propertyPath: InitialModule.startRotation.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4567314507821680410, guid: c53cc6c2e82d083409dbcad3459ada71,
+        type: 3}
+      propertyPath: InitialModule.randomizeRotationDirection
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4955097571060270792, guid: c53cc6c2e82d083409dbcad3459ada71,

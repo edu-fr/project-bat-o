@@ -28,18 +28,17 @@ namespace Enemy
         {
             int events = ParticleSystem.GetCollisionEvents(other, CollisionEvents);
 
-            Debug.Log("COLIDIU");
-
             if (other.TryGetComponent(out PlayerHealthManager playerHealthManager))
             {
-                Debug.Log("Colidiu com o player");
                 playerHealthManager.TakeDamage((int) EnemyCombatManager.RangedDamage);
             }
         }
 
         public void ShootArrow(Vector3 playerDirection)
         {
-            ParticleSystem.transform.Rotate(playerDirection);
+            ParticleSystem.transform.forward = playerDirection;
+            ParticleSystem.MainModule particleSystemMain = ParticleSystem.main;
+            particleSystemMain.startRotation = ((playerDirection.x * playerDirection.x) + (playerDirection.y + playerDirection.y))/2;
             ParticleSystem.Play();
         }
     }
