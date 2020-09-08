@@ -232,7 +232,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rigidbody2D: {fileID: 0}
-  Damage: 20
   TimeInvincible: 0.9
 --- !u!58 &4955097571060270802
 CircleCollider2D:
@@ -410,6 +409,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParticleSystem: {fileID: 4567314507821680410}
+  Animator: {fileID: 4955097571060270797}
 --- !u!114 &3914972206634834700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,6 +424,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   State: 0
   PreviousState: 0
+  EnemyType: 0
   IsWalkingAround: 0
   IsFrozen: 0
   DefrostCurrentTimer: 0

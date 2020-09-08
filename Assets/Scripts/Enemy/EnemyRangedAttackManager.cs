@@ -11,7 +11,9 @@ namespace Enemy
         private EnemyBehavior EnemyBehavior;
         private bool AttackEnded = false;
         private float AttackCurrentRecoveryTime = 0;
-        private float AttackRecoveryTime = 10f;
+        private float AttackRecoveryTime = 1.5f;
+        private Vector3 PlayerDirection;
+        
 
         private void Awake()
         {
@@ -33,21 +35,30 @@ namespace Enemy
                     EnemyStateMachine.IsAttacking = false;
                     EnemyBehavior.AiPath.enabled = true;
                     EnemyStateMachine.ChangeState(EnemyStateMachine.States.Chasing);
+                    
                 }
             }
         }
         
         
         public void Attack(Vector3 playerDirection)
-        {
-            ArrowParticleScript.ShootArrow(playerDirection);
+        {   
+            EnemyBehavior.Animator.SetFloat("AttackDirX", playerDirection.x);
+            EnemyBehavior.Animator.SetFloat("AttackDirY", playerDirection.y);
+            EnemyBehavior.Animator.SetTrigger("Attack");
+            PlayerDirection = playerDirection;
         }
 
-        public void AttackEnd()
+        public void ShootArrowDuringAnimation()
+        {
+            ArrowParticleScript.ShootArrow(PlayerDirection);
+        }
+
+        public void AttackEndRanged()
         {
             // Called by animation end
             AttackEnded = true;
-            EnemyBehavior.Animator.speed = 1f; 
+            EnemyBehavior.Animator.speed = 1f;
         }
     }
 }

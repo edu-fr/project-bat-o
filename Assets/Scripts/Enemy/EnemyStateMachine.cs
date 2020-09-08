@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Unity.Collections;
 using UnityEngine;
 
@@ -64,6 +65,10 @@ namespace Enemy
         private void Update()
         {
             EnemyBehavior.UpdateMaterial();
+            if (EnemyType == Type.Ranged)
+            {
+              //  Debug.Log("STATE: " + State);
+            }
             switch (State)
             {
                 case States.Standard:
@@ -101,12 +106,10 @@ namespace Enemy
                         if (Vector2.Distance(transform.position, EnemyBehavior.TargetPlayer.transform.position) > 7f)
                         {
                             EnemyBehavior.TargetPlayer = null;
-                            Debug.Log("ANULEI O PLAYER");
                         }
                     }
                     else // Lost sight of player
                     {
-                        Debug.Log("PERDI VISAO DO PLAYER");
                         ChangeState(States.Standard);
                     }
 
