@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 430b506b87a2ddf409e2649081510a32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layerMask:
+  LayerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 1536
 --- !u!33 &9167951023041480152
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -55,7 +55,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9167951023041480154}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &9167951023041480153
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -71,6 +71,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -95,3 +96,4 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}

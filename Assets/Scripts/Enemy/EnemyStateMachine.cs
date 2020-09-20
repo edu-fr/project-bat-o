@@ -90,6 +90,7 @@ namespace Enemy
                 case States.Chasing:
                     // Verify if there is close enemies chasing the player
 
+                    
                     if (EnemyBehavior.TargetPlayer != null) // Know where the player is
                     {
                         EnemyBehavior.Animate();
