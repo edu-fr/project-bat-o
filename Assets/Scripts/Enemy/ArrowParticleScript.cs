@@ -38,7 +38,7 @@ namespace Enemy
         {
             ParticleSystem.transform.forward = playerDirection;
             ParticleSystem.MainModule particleSystemMain = ParticleSystem.main;
-            particleSystemMain.startRotation = ((playerDirection.x * playerDirection.x) + (playerDirection.y + playerDirection.y))/2;
+            particleSystemMain.startRotation = -UtilitiesClass.GetAngleFromVectorFloat(playerDirection) * Mathf.Deg2Rad;
             ParticleSystem.Play();
         }
     }
