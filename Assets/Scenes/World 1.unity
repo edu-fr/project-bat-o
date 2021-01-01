@@ -587,18 +587,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43b60dba12dc8cc41a0eb43ec84e45b9, type: 3}
---- !u!114 &438562108 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1868037943131234362, guid: c53cc6c2e82d083409dbcad3459ada71,
-    type: 3}
-  m_PrefabInstance: {fileID: 750794335}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daac7301907d22346ba37d8fd637dd9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &463702391
 GameObject:
   m_ObjectHideFlags: 0
@@ -1250,75 +1238,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 709677847}
     m_Modifications:
-    - target: {fileID: 1222341645077511779, guid: c53cc6c2e82d083409dbcad3459ada71,
-        type: 3}
-      propertyPath: m_MaskInteraction
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1222341645077511779, guid: c53cc6c2e82d083409dbcad3459ada71,
-        type: 3}
-      propertyPath: m_UseCustomVertexStreams
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1222341645077511779, guid: c53cc6c2e82d083409dbcad3459ada71,
-        type: 3}
-      propertyPath: m_RenderAlignment
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1222341645077511779, guid: c53cc6c2e82d083409dbcad3459ada71,
-        type: 3}
-      propertyPath: m_Flip.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1222341645077511779, guid: c53cc6c2e82d083409dbcad3459ada71,
-        type: 3}
-      propertyPath: m_Flip.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1222341645077511779, guid: c53cc6c2e82d083409dbcad3459ada71,
-        type: 3}
-      propertyPath: m_Flip.x
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4567314507821680410, guid: c53cc6c2e82d083409dbcad3459ada71,
         type: 3}
-      propertyPath: CollisionModule.collidesWith.m_Bits
-      value: 1280
-      objectReference: {fileID: 0}
-    - target: {fileID: 4567314507821680410, guid: c53cc6c2e82d083409dbcad3459ada71,
-        type: 3}
-      propertyPath: CollisionModule.radiusScale
-      value: 0.49
-      objectReference: {fileID: 0}
-    - target: {fileID: 4567314507821680410, guid: c53cc6c2e82d083409dbcad3459ada71,
-        type: 3}
-      propertyPath: CollisionModule.m_Dampen.scalar
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4567314507821680410, guid: c53cc6c2e82d083409dbcad3459ada71,
-        type: 3}
-      propertyPath: CollisionModule.colliderForce
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4567314507821680410, guid: c53cc6c2e82d083409dbcad3459ada71,
-        type: 3}
-      propertyPath: CollisionModule.multiplyColliderForceByParticleSpeed
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4567314507821680410, guid: c53cc6c2e82d083409dbcad3459ada71,
-        type: 3}
-      propertyPath: InitialModule.startRotation.scalar
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4567314507821680410, guid: c53cc6c2e82d083409dbcad3459ada71,
-        type: 3}
-      propertyPath: InitialModule.randomizeRotationDirection
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4567314507821680410, guid: c53cc6c2e82d083409dbcad3459ada71,
-        type: 3}
-      propertyPath: simulationSpeed
-      value: 1.5
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4955097571060270792, guid: c53cc6c2e82d083409dbcad3459ada71,
         type: 3}
@@ -1380,11 +1303,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5740448995815226296, guid: c53cc6c2e82d083409dbcad3459ada71,
-        type: 3}
-      propertyPath: EnemyCombatManager
-      value: 
-      objectReference: {fileID: 438562108}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c53cc6c2e82d083409dbcad3459ada71, type: 3}
 --- !u!1001 &777515796

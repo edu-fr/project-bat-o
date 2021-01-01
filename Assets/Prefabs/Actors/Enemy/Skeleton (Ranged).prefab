@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1118065617}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.021, y: -0.222, z: 0}
+  m_LocalPosition: {x: -0.045, y: -0.222, z: 0}
   m_LocalScale: {x: 0.36740923, y: 0.31118262, z: 1}
   m_Children: []
   m_Father: {fileID: 4955097571060270803}
@@ -276,10 +276,10 @@ MonoBehaviour:
   Target: {fileID: 0}
   FieldOfViewComponent: {fileID: 8389403003709841540}
   FieldOfViewValue: 50
-  ViewDistance: 16
+  ViewDistance: 12
   TargetPlayer: {fileID: 0}
   Player: {fileID: 0}
-  SurroundingDistance: 2
+  SurroundingDistance: 0.5
   FaceDirection: {x: 0, y: 0, z: 0}
   DefaultMaterial: {fileID: 0}
   CurrentMaterial: {fileID: 0}
