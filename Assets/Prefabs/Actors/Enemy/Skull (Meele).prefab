@@ -260,8 +260,8 @@ MonoBehaviour:
   DyingBurnedSpeed: 4.5
   Target: {fileID: 0}
   FieldOfViewComponent: {fileID: 5083348610249324453}
-  FieldOfViewValue: 90
-  ViewDistance: 50
+  FieldOfViewValue: 50
+  ViewDistance: 7
   TargetPlayer: {fileID: 0}
   Player: {fileID: 0}
   SurroundingDistance: 2

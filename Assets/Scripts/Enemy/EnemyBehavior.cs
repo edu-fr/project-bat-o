@@ -37,9 +37,9 @@ namespace Enemy
 
         // Searching for player
         public FieldOfView FieldOfViewComponent;
-        public float FieldOfViewValue = 0;
-        public float ViewDistance = 0;
-        public GameObject TargetPlayer = null;
+        public float FieldOfViewValue;
+        public float ViewDistance;
+        public GameObject TargetPlayer;
         public GameObject Player;
         public float SurroundingDistance = 2f;
 
@@ -95,7 +95,7 @@ namespace Enemy
 
             // config field of view component
             FieldOfViewComponent.SetFieldOfView(FieldOfViewValue);
-            FieldOfViewComponent.SetViewDistance(EnemyStateMachine.EnemyType == EnemyStateMachine.Type.Melee ? ViewDistance : ViewDistance * 2); // Ranged enemies has twice the view distance than melee enemies
+            FieldOfViewComponent.SetViewDistance(ViewDistance);
             FieldOfViewComponent.SetMyEnemyBehavior(this);
 
             // Game Manager

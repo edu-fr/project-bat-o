@@ -78,7 +78,7 @@ namespace Enemy
 
                     // Updating field of view
                     EnemyBehavior.FieldOfViewComponent.SetAimDirection(EnemyBehavior.FaceDirection);
-                    EnemyBehavior.FieldOfViewComponent.SetOrigin(transform.position);
+                    //EnemyBehavior.FieldOfViewComponent.SetOrigin(transform.position);
                     // Looking for the player
                     if (EnemyBehavior.TargetPlayer.gameObject != null)
                     {
@@ -216,7 +216,7 @@ namespace Enemy
                     EnemyBehavior.Animator.speed = 1.2f;
                     IsWalkingAround = false;
                     EnemyBehavior.AiPath.maxSpeed = EnemyBehavior.ChasingSpeed;
-                    //EnemyBehavior.FieldOfViewComponent.gameObject.SetActive(false);
+                    EnemyBehavior.FieldOfViewComponent.gameObject.SetActive(false);
                     EnemyBehavior.AiDestinationSetter.target = EnemyBehavior.TargetPlayer.transform;
                     AstarPath.active.Scan();
                     break;
@@ -224,7 +224,7 @@ namespace Enemy
                 case (States.PreparingAttack):
                     IsWalkingAround = false;
                     EnemyBehavior.Rigidbody.velocity = Vector2.zero;
-                    //EnemyBehavior.FieldOfViewComponent.gameObject.SetActive(false);
+                    EnemyBehavior.FieldOfViewComponent.gameObject.SetActive(false);
                     EnemyBehavior.AiPath.enabled = false;
                     EnemyBehavior.AiDestinationSetter.target = null;
                     PlayerDirection = (EnemyBehavior.TargetPlayer.transform.position - transform.position).normalized;
@@ -235,7 +235,7 @@ namespace Enemy
                 case (States.Attacking):
                     IsWalkingAround = false;
                     EnemyBehavior.Rigidbody.velocity = Vector2.zero;
-                    //EnemyBehavior.FieldOfViewComponent.gameObject.SetActive(false);
+                    EnemyBehavior.FieldOfViewComponent.gameObject.SetActive(false);
                     EnemyBehavior.AiPath.enabled = false;
                     EnemyBehavior.AiDestinationSetter.target = null;
                     
@@ -248,12 +248,12 @@ namespace Enemy
                     
                     IsWalkingAround = false;
                     EnemyBehavior.AiPath.maxSpeed = EnemyBehavior.DyingBurnedSpeed;
-                    /*
+                    
                     if (EnemyBehavior.FieldOfViewComponent.gameObject != null)
                     {
                         EnemyBehavior.FieldOfViewComponent.gameObject.SetActive(false);
                     }
-                    */
+                   
                     EnemyBehavior.RunFromThePlayer();
                     EnemyBehavior.Animator.speed = 1.5f;
                     EnemyBehavior.AiDestinationSetter.target = EnemyBehavior.Target.transform;
@@ -264,12 +264,12 @@ namespace Enemy
                     IsFrozen = true;
                     EnemyBehavior.Animator.speed = 0;
                     EnemyBehavior.AiPath.maxSpeed = 0;
-                    /*
+                   
                     if (EnemyBehavior.FieldOfViewComponent.gameObject != null)
                     {
                         EnemyBehavior.FieldOfViewComponent.gameObject.SetActive(false);
                     }
-                    */
+                    
                     break;
                 
                 case (States.Paralyzed):
@@ -277,12 +277,12 @@ namespace Enemy
                     IsParalyzed = true;
                     EnemyBehavior.Animator.speed = 0;
                     EnemyBehavior.AiPath.maxSpeed = 0;
-                    /*
+                    
                     if (EnemyBehavior.FieldOfViewComponent.gameObject != null)
                     {
                         EnemyBehavior.FieldOfViewComponent.gameObject.SetActive(false);
                     }
-                    */
+                    
                     break;
             }
             this.State = state;
