@@ -1315,6 +1315,11 @@ PrefabInstance:
       propertyPath: InitialModule.randomizeRotationDirection
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4567314507821680410, guid: c53cc6c2e82d083409dbcad3459ada71,
+        type: 3}
+      propertyPath: simulationSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4955097571060270792, guid: c53cc6c2e82d083409dbcad3459ada71,
         type: 3}
       propertyPath: m_Name
@@ -5442,12 +5447,12 @@ PrefabInstance:
     - target: {fileID: 4955097571060270803, guid: 8d3f99698f447a94b8c233f974de7e1b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 89.84
+      value: 95.1
       objectReference: {fileID: 0}
     - target: {fileID: 4955097571060270803, guid: 8d3f99698f447a94b8c233f974de7e1b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 78.28
+      value: 84.84
       objectReference: {fileID: 0}
     - target: {fileID: 4955097571060270803, guid: 8d3f99698f447a94b8c233f974de7e1b,
         type: 3}
