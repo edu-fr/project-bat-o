@@ -12,7 +12,7 @@ namespace Enemy
 {
     public class EnemyBehavior : MonoBehaviour
     {
-        
+
         // Components
         public Rigidbody2D Rigidbody;
         public CircleCollider2D CircleCollider;
@@ -21,23 +21,22 @@ namespace Enemy
         public AIPath AiPath;
 
         public EnemyStateMachine EnemyStateMachine;
-        
+
         // Movement
         public Path Path;
         public bool ReachedEndOfPath;
         public float CurrentTimer = 0f;
 
-        private float MaxTimer = 3f;            // time to move to the next random spot
-        public float WalkingAroundSpeed = 2;    // walk speed
-        public float ChasingSpeed = 3.5f;       // chasing speed
-        public float DyingBurnedSpeed = 4.5f;   // running on fire speed
-        private Vector3 HomePosition;           // original position on the level
-        private float WalkableRange = 1f;       // Distance it can walk while isnt chasing the player 
+        private float MaxTimer = 3f; // time to move to the next random spot
+        public float WalkingAroundSpeed = 2; // walk speed
+        public float ChasingSpeed = 3.5f; // chasing speed
+        public float DyingBurnedSpeed = 4.5f; // running on fire speed
+        private Vector3 HomePosition; // original position on the level
+        private float WalkableRange = 1f; // Distance it can walk while isnt chasing the player 
         public GameObject Target;
 
         // Searching for player
-        public Transform PreFabFieldOfView = null;
-        public FieldOfView FieldOfViewComponent = null;
+        public FieldOfView FieldOfViewComponent;
         public float FieldOfViewValue = 0;
         public float ViewDistance = 0;
         public GameObject TargetPlayer = null;
@@ -94,9 +93,7 @@ namespace Enemy
             Target.transform.position = GenerateNewTarget();
             AiDestinationSetter.target = Target.transform;
 
-            // Instantiate prefab field of view
-            FieldOfViewComponent = Instantiate(PreFabFieldOfView, null).GetComponent<FieldOfView>();
-            FieldOfViewComponent.gameObject.name = "Field of view" + gameObject.name;
+            // config field of view component
             FieldOfViewComponent.SetFieldOfView(FieldOfViewValue);
             FieldOfViewComponent.SetViewDistance(EnemyStateMachine.EnemyType == EnemyStateMachine.Type.Melee ? ViewDistance : ViewDistance * 2); // Ranged enemies has twice the view distance than melee enemies
             FieldOfViewComponent.SetMyEnemyBehavior(this);
