@@ -54,6 +54,7 @@ namespace Enemy
         public Material BurnedMaterial;
         public Material FrozenMaterial;
         public Material ParalyzedMaterial;
+        public Material TargetedMaterial;
         public Renderer Renderer;
 
         // Health
@@ -130,7 +131,12 @@ namespace Enemy
 
         public void UpdateMaterial()
         {
-            if (EnemyStateMachine.IsOnFire)
+            if (EnemyStateMachine.IsTargeted)
+            {
+                Debug.Log("TARGETED!");
+                CurrentMaterial = TargetedMaterial;
+            } 
+            else if (EnemyStateMachine.IsOnFire)
             {
                 CurrentMaterial = BurnedMaterial;
             }
@@ -145,9 +151,9 @@ namespace Enemy
             else
             {
                 CurrentMaterial = DefaultMaterial;
+            }
                 Renderer.material = CurrentMaterial;
             }
-        }
 
         private Vector3 GenerateNewTarget()
         {

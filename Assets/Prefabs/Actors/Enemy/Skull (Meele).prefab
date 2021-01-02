@@ -272,6 +272,7 @@ MonoBehaviour:
   BurnedMaterial: {fileID: 2100000, guid: 0ac5bed22d66bbf48a842a71fa085130, type: 2}
   FrozenMaterial: {fileID: 2100000, guid: 46129f794c290cf4f8e7f405d0a945d1, type: 2}
   ParalyzedMaterial: {fileID: 2100000, guid: a544983478092fd4985c8aeaddb03fb7, type: 2}
+  TargetedMaterial: {fileID: 2100000, guid: 940276883867007469486ff9be41c2fb, type: 2}
   Renderer: {fileID: 0}
 --- !u!114 &145693348
 MonoBehaviour:
@@ -408,6 +409,7 @@ MonoBehaviour:
   PreviousState: 0
   EnemyType: 0
   IsWalkingAround: 0
+  IsBeenTargeted: 0
   IsFrozen: 0
   DefrostCurrentTimer: 0
   DefrostTime: 0

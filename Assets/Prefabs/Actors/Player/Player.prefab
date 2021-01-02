@@ -299,6 +299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3d7280bb3e9b3e469427cc4efd75ff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerCollider: {fileID: 616445933}
   Speed: 4
 --- !u!114 &6753889184881655937
 MonoBehaviour:

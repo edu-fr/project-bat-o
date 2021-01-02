@@ -27,9 +27,9 @@ namespace Enemy
         public States PreviousState;
         public Type EnemyType;
         
-        public bool IsWalkingAround = false;   
-        
+        public bool IsWalkingAround = false;
 
+        public bool IsTargeted = false;
         public bool IsFrozen = false;
         public float DefrostCurrentTimer;
         public float DefrostTime;
