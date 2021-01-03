@@ -27,9 +27,9 @@ namespace Enemy
         public States PreviousState;
         public Type EnemyType;
         
-        public bool IsWalkingAround = false;   
-        
+        public bool IsWalkingAround = false;
 
+        public bool IsTargeted = false;
         public bool IsFrozen = false;
         public float DefrostCurrentTimer;
         public float DefrostTime;
@@ -44,7 +44,9 @@ namespace Enemy
         private float AttackPreparationTime = 0.95f;
         private float AttackPreparationCurrentTime = 0;
         private float PreparationDistance = 1f;
-
+        private float DistanceToAttack;
+        private float DistanceToLosePlayerSight;
+        
         private Vector3 PlayerDirection;
 
         public EnemyBehavior EnemyBehavior;
@@ -59,6 +61,19 @@ namespace Enemy
         private void Start()
         {
             EnemyType = EnemyMeleeAttackManager != null ? Type.Melee : Type.Ranged;
+            switch (EnemyType)
+            {
+                case Type.Melee:
+                    DistanceToAttack = 1.3f;
+                    DistanceToLosePlayerSight = 9f;
+                    break;
+                
+                case Type.Ranged:
+                    DistanceToAttack = 6f;
+                    DistanceToLosePlayerSight = 10f;
+                    break;
+                
+            }
             State = States.Standard;
         }
 
@@ -78,7 +93,6 @@ namespace Enemy
 
                     // Updating field of view
                     EnemyBehavior.FieldOfViewComponent.SetAimDirection(EnemyBehavior.FaceDirection);
-                    EnemyBehavior.FieldOfViewComponent.SetOrigin(transform.position);
                     // Looking for the player
                     if (EnemyBehavior.TargetPlayer.gameObject != null)
                     {
@@ -90,21 +104,20 @@ namespace Enemy
                 case States.Chasing:
                     // Verify if there is close enemies chasing the player
 
-                    
                     if (EnemyBehavior.TargetPlayer != null) // Know where the player is
                     {
                         EnemyBehavior.Animate();
                         EnemyBehavior.SetCurrentFaceDirection();
 
                         // If enemy is in a certain distance to the player
-                        if (Vector2.Distance(transform.position, EnemyBehavior.TargetPlayer.transform.position) < 1.3f)
+                        if (Vector2.Distance(transform.position, EnemyBehavior.TargetPlayer.transform.position) < DistanceToAttack)
                         {
                             ChangeState(States.PreparingAttack);
                             break;
                         }
 
                         // Return to Standard state
-                        if (Vector2.Distance(transform.position, EnemyBehavior.TargetPlayer.transform.position) > 7f)
+                        if (Vector2.Distance(transform.position, EnemyBehavior.TargetPlayer.transform.position) > DistanceToLosePlayerSight)
                         {
                             EnemyBehavior.TargetPlayer = null;
                         }
@@ -117,7 +130,6 @@ namespace Enemy
                     break;
 
                 case States.PreparingAttack:
-                    
                     AttackPreparationCurrentTime += Time.deltaTime;
                     
                     if (AttackPreparationCurrentTime > AttackPreparationTime)
@@ -222,6 +234,7 @@ namespace Enemy
                     break;
 
                 case (States.PreparingAttack):
+                    EnemyBehavior.Animator.SetBool("IsMoving", false);
                     IsWalkingAround = false;
                     EnemyBehavior.Rigidbody.velocity = Vector2.zero;
                     EnemyBehavior.FieldOfViewComponent.gameObject.SetActive(false);
@@ -253,6 +266,7 @@ namespace Enemy
                     {
                         EnemyBehavior.FieldOfViewComponent.gameObject.SetActive(false);
                     }
+                   
                     EnemyBehavior.RunFromThePlayer();
                     EnemyBehavior.Animator.speed = 1.5f;
                     EnemyBehavior.AiDestinationSetter.target = EnemyBehavior.Target.transform;
@@ -263,10 +277,12 @@ namespace Enemy
                     IsFrozen = true;
                     EnemyBehavior.Animator.speed = 0;
                     EnemyBehavior.AiPath.maxSpeed = 0;
+                   
                     if (EnemyBehavior.FieldOfViewComponent.gameObject != null)
                     {
                         EnemyBehavior.FieldOfViewComponent.gameObject.SetActive(false);
                     }
+                    
                     break;
                 
                 case (States.Paralyzed):
@@ -274,10 +290,12 @@ namespace Enemy
                     IsParalyzed = true;
                     EnemyBehavior.Animator.speed = 0;
                     EnemyBehavior.AiPath.maxSpeed = 0;
+                    
                     if (EnemyBehavior.FieldOfViewComponent.gameObject != null)
                     {
                         EnemyBehavior.FieldOfViewComponent.gameObject.SetActive(false);
                     }
+                    
                     break;
             }
             this.State = state;

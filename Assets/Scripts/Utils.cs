@@ -33,9 +33,22 @@ public static class UtilitiesClass
     public static Vector3 GetDirectionFromAngle(float angle)
     {
         if (angle >= 315 || angle < 45) return new Vector3(1, 0);
-        else if (angle >= 45 && angle < 135) return new Vector3(0, 1);
-        else if (angle >= 135 && angle < 225) return new Vector3(-1, 0);
-        else /*if (angle >= 225 && angle < 315)*/ return new Vector3(0, -1);
+        if (angle >= 45 && angle < 135) return new Vector3(0, 1);
+        if (angle >= 135 && angle < 225) return new Vector3(-1, 0);
+        return new Vector3(0, -1);
 
+    }
+
+    public static Vector3 Get8DirectionFromAngle(float angle)
+    {
+        if (angle >= 330 || angle < 30) return new Vector3(1, 0);    // Right
+        if (angle >= 30 && angle < 60) return new Vector3(1, 1);     // Right + Up
+        if (angle >= 60 && angle < 120) return new Vector3(0, 1);    // Up
+        if (angle >= 120 && angle < 150) return new Vector3(-1, 1);  // Left + Up
+        if (angle >= 150 && angle < 210) return new Vector3(-1, 0);  // Left
+        if (angle >= 210 && angle < 240) return new Vector3(-1, -1); // Left + Down
+        if (angle >= 240 && angle < 300) return new Vector3(0, -1);  // Down
+        return new Vector3(0, -1);                                   // Right + Down
+       
     }
 }

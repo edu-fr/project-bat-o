@@ -11,7 +11,7 @@ namespace Enemy
         private EnemyBehavior EnemyBehavior;
         private bool AttackEnded = false;
         private float AttackCurrentRecoveryTime = 0;
-        private float AttackRecoveryTime = 3f;
+        private float AttackRecoveryTime = 0.3f;
         private Vector3 PlayerDirection;
         
 

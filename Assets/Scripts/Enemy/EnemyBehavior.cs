@@ -12,7 +12,7 @@ namespace Enemy
 {
     public class EnemyBehavior : MonoBehaviour
     {
-        
+
         // Components
         public Rigidbody2D Rigidbody;
         public CircleCollider2D CircleCollider;
@@ -21,26 +21,25 @@ namespace Enemy
         public AIPath AiPath;
 
         public EnemyStateMachine EnemyStateMachine;
-        
+
         // Movement
         public Path Path;
         public bool ReachedEndOfPath;
         public float CurrentTimer = 0f;
 
-        private float MaxTimer = 3f;            // time to move to the next random spot
-        public float WalkingAroundSpeed = 2;    // walk speed
-        public float ChasingSpeed = 3.5f;       // chasing speed
-        public float DyingBurnedSpeed = 4.5f;   // running on fire speed
-        private Vector3 HomePosition;           // original position on the level
-        private float WalkableRange = 1f;       // Distance it can walk while isnt chasing the player 
+        private float MaxTimer = 3f; // time to move to the next random spot
+        public float WalkingAroundSpeed = 2; // walk speed
+        public float ChasingSpeed = 3.5f; // chasing speed
+        public float DyingBurnedSpeed = 4.5f; // running on fire speed
+        private Vector3 HomePosition; // original position on the level
+        private float WalkableRange = 1f; // Distance it can walk while isnt chasing the player 
         public GameObject Target;
 
         // Searching for player
-        public Transform PreFabFieldOfView = null;
-        public FieldOfView FieldOfViewComponent = null;
-        public float FieldOfViewValue = 0;
-        public float ViewDistance = 0;
-        public GameObject TargetPlayer = null;
+        public FieldOfView FieldOfViewComponent;
+        public float FieldOfViewValue;
+        public float ViewDistance;
+        public GameObject TargetPlayer;
         public GameObject Player;
         public float SurroundingDistance = 2f;
 
@@ -55,6 +54,7 @@ namespace Enemy
         public Material BurnedMaterial;
         public Material FrozenMaterial;
         public Material ParalyzedMaterial;
+        public Material TargetedMaterial;
         public Renderer Renderer;
 
         // Health
@@ -94,9 +94,7 @@ namespace Enemy
             Target.transform.position = GenerateNewTarget();
             AiDestinationSetter.target = Target.transform;
 
-            // Instantiate prefab field of view
-            FieldOfViewComponent = Instantiate(PreFabFieldOfView, null).GetComponent<FieldOfView>();
-            FieldOfViewComponent.gameObject.name = "Field of view" + gameObject.name;
+            // config field of view component
             FieldOfViewComponent.SetFieldOfView(FieldOfViewValue);
             FieldOfViewComponent.SetViewDistance(EnemyStateMachine.EnemyType == EnemyStateMachine.Type.Melee ? ViewDistance : ViewDistance * 2); // Ranged enemies has twice the view distance than melee enemies
             FieldOfViewComponent.SetMyEnemyBehavior(this);
@@ -133,7 +131,12 @@ namespace Enemy
 
         public void UpdateMaterial()
         {
-            if (EnemyStateMachine.IsOnFire)
+            if (EnemyStateMachine.IsTargeted)
+            {
+                Debug.Log("TARGETED!");
+                CurrentMaterial = TargetedMaterial;
+            } 
+            else if (EnemyStateMachine.IsOnFire)
             {
                 CurrentMaterial = BurnedMaterial;
             }
@@ -148,9 +151,9 @@ namespace Enemy
             else
             {
                 CurrentMaterial = DefaultMaterial;
+            }
                 Renderer.material = CurrentMaterial;
             }
-        }
 
         private Vector3 GenerateNewTarget()
         {

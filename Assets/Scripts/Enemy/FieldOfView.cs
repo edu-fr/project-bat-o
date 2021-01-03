@@ -9,11 +9,11 @@ namespace Enemy
         private Mesh Mesh;
         private Vector3 Origin;
         private float StartingAngle;
-        private float FieldOfViewValue = 120f;
-        private float ViewDistance =5f;
+        private float FieldOfViewValue;
+        private float ViewDistance;
         private int RayCount = 50;
         [SerializeField] private LayerMask LayerMask;
-        private EnemyBehavior MyEnemyBehavior;
+        private EnemyBehavior EnemyBehavior;
 
         #endregion
 
@@ -54,7 +54,7 @@ namespace Enemy
                     // Hit object
                     if (raycastHit2D.collider.gameObject.CompareTag("Player"))
                     {
-                        MyEnemyBehavior.SetTargetPlayer(raycastHit2D.collider.gameObject);
+                        EnemyBehavior.SetTargetPlayer(raycastHit2D.collider.gameObject);
                     }
                     vertex = raycastHit2D.point;
                 }
@@ -106,7 +106,7 @@ namespace Enemy
 
         public void SetMyEnemyBehavior(EnemyBehavior enemyBehavior)
         {
-            this.MyEnemyBehavior = enemyBehavior;
+            this.EnemyBehavior = enemyBehavior;
         }
         #endregion
     }
