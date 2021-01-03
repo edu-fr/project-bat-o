@@ -301,10 +301,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerCollider: {fileID: 616445933}
   StandardMoveSpeed: 5
-  MoveSpeedMultiplier: 1
   AttackingMoveSpeedMultiplier: 0.07
   ZTargetingMoveSpeedMultiplier: 0.73
+  DashInitialMoveSpeedMultiplier: 2.5
   MoveSpeed: 0
+  ZTargetingRadius: 3
+  MaxNumEnemiesNearby: 10
+  DashMoveSpeedDecreaseMultiplier: 10
+  DashCooldown: 2
+  DashCurrentCooldown: 0
 --- !u!114 &6753889184881655937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -370,7 +375,8 @@ MonoBehaviour:
   PersistentObject: {fileID: 0}
   MaxHealth: 10000
   CurrentHealth: 0
-  HealthBarScript: {fileID: 0}
+  HealthBarScript: {fileID: 2807595125430958419, guid: 49b0bafece7f3bc488d8687529009eea,
+    type: 3}
 --- !u!114 &4396048941111737139
 MonoBehaviour:
   m_ObjectHideFlags: 0
