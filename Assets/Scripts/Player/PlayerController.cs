@@ -13,8 +13,11 @@
                 private PlayerAttackManager PlayerAttackManager;
                 public Collider2D PlayerCollider;
 
-                [SerializeField]
-                private float Speed = 0;
+                [SerializeField] private float StandardMoveSpeed = 4;
+                [SerializeField] private float MoveSpeedMultiplier = 1;
+                [SerializeField] private float AttackingMoveSpeedMultiplier = 0.05f;
+                [SerializeField] private float ZTargetingMoveSpeedMultiplier = 0.5f;
+                [SerializeField] private float MoveSpeed; 
 
                 // Z-targeting
                 private float ZTargetingRadius = 2f;
@@ -58,15 +61,14 @@
                 #region Auxiliar Methods
                 private void HandleMovement()
                 {
-                    if (IsZTargeting && TargetedEnemy == null)
+                    if (IsZTargeting && TargetedEnemy == null) // Verify if the targeted enemy has died
                     {
                         IsZTargeting = false;
                     }
                     
-                    RigidBody.velocity = Animator.GetBool("IsAttacking") ? 
-                        new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized * Speed / 50 : 
-                        new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized * Speed;
-                    
+                    RigidBody.velocity =
+                        new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized * GetMoveSpeed();
+
                     float lastMoveX;
                     float lastMoveY;
 
@@ -107,6 +109,7 @@
                         }
                     }
 
+                    /* Z-targeting */
                     if (Input.GetKeyDown(KeyCode.C))
                     {
                         if (!IsZTargeting)
@@ -137,7 +140,9 @@
                             TargetedEnemy = null;
                         }
                     }
-
+    
+                    /**/
+                        
                     Animator.SetFloat("LastMoveX", lastMoveX);
                     Animator.SetFloat("LastMoveY", lastMoveY);
                 }
@@ -145,6 +150,15 @@
                 public Vector3 GetPosition()
                 {
                     return transform.position;
+                }
+
+                private float GetMoveSpeed()
+                {
+                    if (Animator.GetBool("IsAttacking"))
+                        return StandardMoveSpeed * AttackingMoveSpeedMultiplier;
+                    if (IsZTargeting)
+                        return StandardMoveSpeed * ZTargetingMoveSpeedMultiplier;
+                    return StandardMoveSpeed;
                 }
 
                 private EnemyBehavior GetZTargetEnemy()

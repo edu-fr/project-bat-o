@@ -174,7 +174,7 @@ PrefabInstance:
     - target: {fileID: 4955097571060270803, guid: 8d3f99698f447a94b8c233f974de7e1b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4955097571060270803, guid: 8d3f99698f447a94b8c233f974de7e1b,
         type: 3}
@@ -8058,6 +8058,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6753889184881655951, guid: 58eef81883803ef48a802794ff258dc7,
+        type: 3}
+      propertyPath: StandardMoveSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6753889184881655951, guid: 58eef81883803ef48a802794ff258dc7,
+        type: 3}
+      propertyPath: AttackingMoveSpeedMultiplier
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 6753889184881655951, guid: 58eef81883803ef48a802794ff258dc7,
+        type: 3}
+      propertyPath: ZTargetingMoveSpeedMultiplier
+      value: 0.73
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58eef81883803ef48a802794ff258dc7, type: 3}

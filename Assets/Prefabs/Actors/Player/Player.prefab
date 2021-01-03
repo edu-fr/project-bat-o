@@ -300,7 +300,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerCollider: {fileID: 616445933}
-  Speed: 4
+  StandardMoveSpeed: 5
+  MoveSpeedMultiplier: 1
+  AttackingMoveSpeedMultiplier: 0.07
+  ZTargetingMoveSpeedMultiplier: 0.73
+  MoveSpeed: 0
 --- !u!114 &6753889184881655937
 MonoBehaviour:
   m_ObjectHideFlags: 0
