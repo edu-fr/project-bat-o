@@ -29,6 +29,9 @@
                 
                 private float MoveX;
                 private float MoveY;
+                private float lastMoveX;
+                private float lastMoveY;
+
                 
                 #endregion
 
@@ -62,34 +65,35 @@
                 private void HandleMovement()
                 {
                     if (IsZTargeting && TargetedEnemy == null) // Verify if the targeted enemy has died
-                    {
                         IsZTargeting = false;
-                    }
                     
+                    /* Movement */
                     RigidBody.velocity =
                         new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized * GetMoveSpeed();
+                    /***/
 
-                    float lastMoveX;
-                    float lastMoveY;
+                    FaceDirection();
+                    MovementAnimation();
+                    ZTargeting();
+                }
 
+                public Vector3 GetPosition()
+                {
+                    return transform.position;
+                }
+
+                private float GetMoveSpeed()
+                {
+                    if (Animator.GetBool("IsAttacking"))
+                        return StandardMoveSpeed * AttackingMoveSpeedMultiplier;
                     if (IsZTargeting)
-                    {
-                        var FaceDirection = UtilitiesClass.Get8DirectionFromAngle(UtilitiesClass.GetAngleFromVectorFloat(
-                            new Vector3(TargetedEnemy.transform.position.x - transform.position.x,
-                                TargetedEnemy.transform.position.y - transform.position.y)));
-                        Animator.SetFloat("MoveX", FaceDirection.x);
-                        Animator.SetFloat("MoveY", FaceDirection.y);
-                        
-                        lastMoveX = FaceDirection.x;
-                        lastMoveY = FaceDirection.y;
-                    } else {
-                        Animator.SetFloat("MoveX", RigidBody.velocity.x);
-                        Animator.SetFloat("MoveY", RigidBody.velocity.y);
-                        
-                        lastMoveX = Animator.GetFloat("LastMoveX");
-                        lastMoveY = Animator.GetFloat("LastMoveY");
-                    }
+                        return StandardMoveSpeed * ZTargetingMoveSpeedMultiplier;
+                    return StandardMoveSpeed;
+                }
 
+                private void MovementAnimation()
+                {
+                    /* Movement animation handler */ 
                     if (!Animator.GetBool("IsAttacking") && !IsZTargeting)
                     {
                         if ((Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Horizontal") == -1) && (Input.GetAxisRaw("Vertical") == 1 || Input.GetAxisRaw("Vertical") == -1))
@@ -108,7 +112,37 @@
                             lastMoveY = Input.GetAxisRaw("Vertical");
                         }
                     }
+                    
+                    Animator.SetFloat("LastMoveX", lastMoveX);
+                    Animator.SetFloat("LastMoveY", lastMoveY);
+                    /***/
+                }
 
+                private void FaceDirection()
+                {
+                    /* Face direction handler */
+                    if (IsZTargeting)
+                    {
+                        var FaceDirection = UtilitiesClass.Get8DirectionFromAngle(UtilitiesClass.GetAngleFromVectorFloat(
+                            new Vector3(TargetedEnemy.transform.position.x - transform.position.x,
+                                TargetedEnemy.transform.position.y - transform.position.y)));
+                        Animator.SetFloat("MoveX", FaceDirection.x);
+                        Animator.SetFloat("MoveY", FaceDirection.y);
+                        
+                        lastMoveX = FaceDirection.x;
+                        lastMoveY = FaceDirection.y;
+                    } else {
+                        Animator.SetFloat("MoveX", RigidBody.velocity.x);
+                        Animator.SetFloat("MoveY", RigidBody.velocity.y);
+                        
+                        lastMoveX = Animator.GetFloat("LastMoveX");
+                        lastMoveY = Animator.GetFloat("LastMoveY");
+                    }
+                    /***/
+                }
+
+                private void ZTargeting()
+                {
                     /* Z-targeting */
                     if (Input.GetKeyDown(KeyCode.C))
                     {
@@ -142,25 +176,8 @@
                     }
     
                     /**/
-                        
-                    Animator.SetFloat("LastMoveX", lastMoveX);
-                    Animator.SetFloat("LastMoveY", lastMoveY);
                 }
-
-                public Vector3 GetPosition()
-                {
-                    return transform.position;
-                }
-
-                private float GetMoveSpeed()
-                {
-                    if (Animator.GetBool("IsAttacking"))
-                        return StandardMoveSpeed * AttackingMoveSpeedMultiplier;
-                    if (IsZTargeting)
-                        return StandardMoveSpeed * ZTargetingMoveSpeedMultiplier;
-                    return StandardMoveSpeed;
-                }
-
+                
                 private EnemyBehavior GetZTargetEnemy()
                 {
                     NearbyEnemiesArray = Physics2D.OverlapCircleAll(transform.position, ZTargetingRadius, EnemyLayerMask);
