@@ -13,11 +13,12 @@
                 public Collider2D PlayerCollider;
 
                 // Move speeds
-                [SerializeField] private float StandardMoveSpeed = 4;
-                [SerializeField] private float MoveSpeedMultiplier = 1;
+                [SerializeField] private float StandardMoveSpeed;
                 [SerializeField] private float AttackingMoveSpeedMultiplier;
                 [SerializeField] private float ZTargetingMoveSpeedMultiplier;
-                [SerializeField] private float DashMoveSpeedMultiplier = 2.5f; 
+                [SerializeField] private float DashInitialMoveSpeedMultiplier = 2.5f;
+                
+                
                 [SerializeField] private float MoveSpeed; 
 
                 // Z-targeting
@@ -30,8 +31,8 @@
                 
                 // Dash
                 private bool IsDashing = false;
-                [SerializeField] private float DashDuration = 0.05f;
-                private float DashCurrentTime;
+                [SerializeField] private float DashMoveSpeedDecreaseMultiplier = 5f;
+                private float DashCurrentMoveSpeedMultiplier;
                 [SerializeField] private float DashCooldown = 2f;
                 [SerializeField] private float DashCurrentCooldown;
                 
@@ -184,14 +185,15 @@
                             {
                                 Debug.Log("COOLDOWN!");
                                 IsDashing = true;
-                                DashCurrentTime = DashDuration;
+                                
+                                DashCurrentMoveSpeedMultiplier = DashInitialMoveSpeedMultiplier;
                                 DashCurrentCooldown = DashCooldown;
                             }
                         }    
                     }
-                    DashCurrentTime -= Time.deltaTime;
+                    DashCurrentMoveSpeedMultiplier -= Time.deltaTime * DashMoveSpeedDecreaseMultiplier;
 
-                    if (DashCurrentTime <= 0)
+                    if (DashCurrentMoveSpeedMultiplier <= 1)
                     {
                         IsDashing = false;
                     }
@@ -207,7 +209,7 @@
                     if (Animator.GetBool("IsAttacking"))
                         return StandardMoveSpeed * AttackingMoveSpeedMultiplier;
                     if (IsDashing)
-                        return StandardMoveSpeed * DashMoveSpeedMultiplier;
+                        return StandardMoveSpeed * DashCurrentMoveSpeedMultiplier;
                     if (IsZTargeting)
                         return StandardMoveSpeed * ZTargetingMoveSpeedMultiplier;
                     return StandardMoveSpeed;
