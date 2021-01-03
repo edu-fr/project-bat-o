@@ -304,7 +304,13 @@ MonoBehaviour:
   MoveSpeedMultiplier: 1
   AttackingMoveSpeedMultiplier: 0.07
   ZTargetingMoveSpeedMultiplier: 0.73
+  DashMoveSpeedMultiplier: 2.5
   MoveSpeed: 0
+  ZTargetingRadius: 2
+  MaxNumEnemiesNearby: 10
+  DashDuration: 0.05
+  DashCooldown: 2
+  DashCurrentCooldown: 0
 --- !u!114 &6753889184881655937
 MonoBehaviour:
   m_ObjectHideFlags: 0
