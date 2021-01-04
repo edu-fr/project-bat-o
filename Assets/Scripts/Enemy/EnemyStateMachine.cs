@@ -240,7 +240,7 @@ namespace Enemy
                     EnemyBehavior.FieldOfViewComponent.gameObject.SetActive(false);
                     EnemyBehavior.AiPath.enabled = false;
                     EnemyBehavior.AiDestinationSetter.target = null;
-                    PlayerDirection = (EnemyBehavior.TargetPlayer.transform.position - transform.position).normalized;
+                    PlayerDirection = ((Vector2) EnemyBehavior.TargetPlayer.transform.position + (Vector2) EnemyBehavior.TargetPlayer.GetComponent<BoxCollider2D>().offset - (Vector2) transform.position).normalized;
                     EnemyBehavior.SetCurrentFaceDirectionTo(PlayerDirection);
                     
                     break;

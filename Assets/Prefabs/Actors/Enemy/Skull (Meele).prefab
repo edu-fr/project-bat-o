@@ -393,6 +393,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b43e9415a87f80c439e6fc82ec8daafb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &-3329415677510676803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -409,7 +412,7 @@ MonoBehaviour:
   PreviousState: 0
   EnemyType: 0
   IsWalkingAround: 0
-  IsBeenTargeted: 0
+  IsTargeted: 0
   IsFrozen: 0
   DefrostCurrentTimer: 0
   DefrostTime: 0
@@ -436,6 +439,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rigidbody2D: {fileID: 0}
+  IsAttacking: 0
   TimeInvincible: 0.9
 --- !u!1001 &891519769701157699
 PrefabInstance:

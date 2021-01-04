@@ -133,7 +133,6 @@ namespace Enemy
         {
             if (EnemyStateMachine.IsTargeted)
             {
-                Debug.Log("TARGETED!");
                 CurrentMaterial = TargetedMaterial;
             } 
             else if (EnemyStateMachine.IsOnFire)
@@ -152,8 +151,8 @@ namespace Enemy
             {
                 CurrentMaterial = DefaultMaterial;
             }
-                Renderer.material = CurrentMaterial;
-            }
+            Renderer.material = CurrentMaterial;
+        }
 
         private Vector3 GenerateNewTarget()
         {

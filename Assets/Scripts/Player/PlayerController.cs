@@ -183,11 +183,14 @@
                         {
                             if (!Animator.GetBool("IsAttacking") && DashCurrentCooldown <= 0)
                             {
-                                Debug.Log("COOLDOWN!");
                                 IsDashing = true;
-                                
                                 DashCurrentMoveSpeedMultiplier = DashInitialMoveSpeedMultiplier;
                                 DashCurrentCooldown = DashCooldown;
+                                if (IsZTargeting)
+                                {
+                                    if(TargetedEnemy.GetComponent<EnemyCombatManager>().IsAttacking)
+                                        Debug.Log("DESVIOU " + Time.time);
+                                }
                             }
                         }    
                     }

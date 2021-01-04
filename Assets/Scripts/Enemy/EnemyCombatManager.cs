@@ -17,6 +17,7 @@ namespace Enemy
         // Attack
         public float MeleeDamage { private set; get; } = 20;
         public float RangedDamage { private set; get; } = 200f;
+        public bool IsAttacking;
         private bool Invincible = false;
         public float TimeInvincible = .9f;
         private void Awake()
