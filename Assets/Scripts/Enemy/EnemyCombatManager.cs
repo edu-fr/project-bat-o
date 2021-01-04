@@ -75,10 +75,8 @@ namespace Enemy
             // Saves the last time enemy hit the player with an attack
             if (EnemyBehavior.EnemyStateMachine.EnemyType == EnemyStateMachine.Type.Melee)
             {
-                if (IsAttacking)
-                {
-                    LastTimeHitPlayerDuringAttack = Time.time;
-                }
+                LastTimeHitPlayerDuringAttack = Time.time;
+                other.gameObject.GetComponent<PlayerController>().DodgeFailed = true;
             }
             other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage((int)MeleeDamage);
         }

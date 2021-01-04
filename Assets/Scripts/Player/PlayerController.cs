@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Enemy;
+using UI;
 using UnityEngine;
 
 namespace Player
@@ -43,20 +44,20 @@ namespace Player
         private bool IsZTargeting = false;
 
         // Dash
-        private bool IsDashing = false;
+        public bool IsDashing = false;
 
         [SerializeField]
         private float DashMoveSpeedDecreaseMultiplier = 5f;
-
         private float DashCurrentMoveSpeedMultiplier;
-
         [SerializeField]
         private float DashCooldown = 2f;
-
         [SerializeField]
         private float DashCurrentCooldown;
-
         private float DashStartTime;
+        public bool DodgeFailed;
+        private bool DodgeSuccessful;
+        private bool CanCounterAttack;
+        
 
         // Animation
         private float MoveX;
@@ -218,34 +219,73 @@ namespace Player
                             DashStartTime = Time.time;
                             DashCurrentMoveSpeedMultiplier = DashInitialMoveSpeedMultiplier;
                             DashCurrentCooldown = DashCooldown;
+                            DodgeSuccessful = false;
+                            DodgeFailed = false;
+                            CanCounterAttack = false;
                         }
                     }
                 }
             }
-
-            DashCurrentMoveSpeedMultiplier -= Time.deltaTime * DashMoveSpeedDecreaseMultiplier;
+            else
+            {
+                DashCurrentMoveSpeedMultiplier -= Time.deltaTime * DashMoveSpeedDecreaseMultiplier;
+            }
 
             if (DashCurrentMoveSpeedMultiplier <= 1)
             {
-                /* Perfect time dash */
-                if (IsZTargeting)
+                if (IsDashing)
                 {
-                    if (TargetedEnemy.EnemyStateMachine.EnemyType == EnemyStateMachine.Type.Melee)
-                        if (TargetedEnemy.EnemyStateMachine.EnemyCombatManager.IsAttacking)
-                            if (TargetedEnemy.EnemyStateMachine.EnemyMeleeAttackManager.ProbablyGonnaHit)
-                                if (TargetedEnemy.EnemyStateMachine.EnemyCombatManager.LastTimeHitPlayerDuringAttack <
-                                    DashStartTime)
-                                    //if (!TargetedEnemy.EnemyStateMachine.EnemyMeleeAttackManager.IsOnHalfOfAttackAnimation)
-                                    Debug.Log("DESVIOU " + Time.time);
-                                    
+                    Invoke(nameof(DodgeTest), 0.5f);
                 }
-                /***/
-
                 IsDashing = false;
                 DashCurrentMoveSpeedMultiplier = DashInitialMoveSpeedMultiplier;
+
+                /* Perfect time dash */
+                if (!DodgeFailed && !DodgeSuccessful)
+                {
+                    if (IsZTargeting)
+                    {
+                        if (TargetedEnemy.EnemyStateMachine.EnemyType == EnemyStateMachine.Type.Melee)
+                            if (TargetedEnemy.EnemyStateMachine.EnemyCombatManager.IsAttacking)
+                                if (TargetedEnemy.EnemyStateMachine.EnemyMeleeAttackManager.ProbablyGonnaHit)
+                                    if (!PlayerAttackManager.PlayerHealthManager.Invincible)
+                                    {
+                                        //Debug.Log("Player apanhou " + TargetedEnemy.EnemyStateMachine.EnemyCombatManager.LastTimeHitPlayerDuringAttack + " Dash começou aos " + DashStartTime);
+                                        //if (!TargetedEnemy.EnemyStateMachine.EnemyMeleeAttackManager.IsOnHalfOfAttackAnimation)
+                                        //Debug.Log("DESVIOU " + Time.time);
+                                        DodgeSuccessful = true;
+                                    }
+                                    else
+                                    {
+                                        DodgeFailed = true;
+                                        //Debug.Log("FALHA! Player invencivel aos " + Time.time);
+                                    }
+                                else
+                                {
+                                    DodgeFailed = true;
+                                    //Debug.Log("INIMIGO ERROU aos " + Time.time + "!");
+                                }
+                                        
+                    }
+                    
+                }
+                /***/
+                
+            }
+
+            if (CanCounterAttack)
+            {
+                Debug.Log("DODGE SUCCESSFUL!");
+                CanCounterAttack = false;
             }
         }
 
+        private void DodgeTest()
+        {
+            //Debug.Log("FUI CHAMADO AOS!" + Time.time);
+            CanCounterAttack = (!DodgeFailed && DodgeSuccessful);
+        }
+        
         public Vector3 GetPosition()
         {
             return transform.position;

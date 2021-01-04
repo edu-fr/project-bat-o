@@ -96,7 +96,7 @@ namespace Enemy
                     // Updating field of view
                     EnemyBehavior.FieldOfViewComponent.SetAimDirection(EnemyBehavior.FaceDirection);
                     // Looking for the player
-                    if (EnemyBehavior.TargetPlayer.gameObject != null)
+                    if (EnemyBehavior.TargetPlayer != null)
                     {
                         ChangeState(States.Chasing);
                     }

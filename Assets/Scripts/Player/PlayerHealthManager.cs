@@ -19,27 +19,26 @@ namespace Player
       
         public int MaxHealth = 100;
         public int CurrentHealth;
-        private bool Invincible = false;
+        public bool Invincible = false;
 
         public HealthBarScript HealthBarScript;
+        public PlayerController PlayerController;
     
         #endregion
 
-        #region Unity Callbacks
-
+      
         private void Awake()
         {
             Renderer = GetComponent<Renderer>();
             DefaultMaterial = Renderer.material;
-            
+            PlayerController = GetComponent<PlayerController>();
         }
 
         private void Start()
         {
             // Only call at Start cause Game Manager create the persistent instance on Awake
             PersistentObject = GameObject.FindGameObjectWithTag("Persistent").GetComponent<PersistentObject>();
-            
-            
+
             if (PersistentObject.PlayerPreviousHp == 0)
             {
                 CurrentHealth = MaxHealth;
@@ -47,8 +46,6 @@ namespace Player
                 HealthBarScript.SetHealth(MaxHealth);
             }
         }
-
-        #endregion
 
         private void Update()
         {
@@ -66,7 +63,12 @@ namespace Player
         public void TakeDamage(int damage)
         {
             if (Invincible) return;
-
+            
+            Debug.Log("APANHOU, DODGE FALHA AOS" + Time.time);
+            if (PlayerController.IsDashing)
+            {
+                PlayerController.DodgeFailed = true;
+            }
             Invincible = true;
             FlashSprite();
             

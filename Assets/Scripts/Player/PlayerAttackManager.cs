@@ -33,6 +33,7 @@ namespace Player
         public PowerUpController.Effects CurrentEffect = PowerUpController.Effects.None;
         
         private Animator Animator;
+        public PlayerHealthManager PlayerHealthManager; 
         public Material StandardMaterial;
         public Material FireMaterial;
         public Material IceMaterial;
@@ -56,6 +57,7 @@ namespace Player
             Animator = GetComponent<Animator>();
             PowerUpController = GetComponent<PowerUpController>();
             Renderer = GetComponent<Renderer>();
+            PlayerHealthManager = GetComponent<PlayerHealthManager>();
         }
 
         private void Start()
