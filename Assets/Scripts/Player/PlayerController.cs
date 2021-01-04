@@ -1,251 +1,294 @@
-﻿        using System;
-        using System.Collections.Generic;
-        using Enemy;
-        using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using Enemy;
+using UnityEngine;
 
-        namespace Player
+namespace Player
+{
+    public class PlayerController : MonoBehaviour
+    {
+        private Animator Animator;
+        private Rigidbody2D RigidBody;
+        private PlayerAttackManager PlayerAttackManager;
+        public Collider2D PlayerCollider;
+
+        // Move speeds
+        [SerializeField]
+        private float StandardMoveSpeed;
+
+        [SerializeField]
+        private float AttackingMoveSpeedMultiplier;
+
+        [SerializeField]
+        private float ZTargetingMoveSpeedMultiplier;
+
+        [SerializeField]
+        private float DashInitialMoveSpeedMultiplier = 2.5f;
+
+
+        [SerializeField]
+        private float MoveSpeed;
+
+        // Z-targeting
+        [SerializeField]
+        private float ZTargetingRadius = 2f;
+
+        private LayerMask EnemyLayerMask;
+        private Collider2D[] NearbyEnemiesArray;
+
+        [SerializeField]
+        private int MaxNumEnemiesNearby = 10;
+
+        private EnemyBehavior TargetedEnemy;
+        private bool IsZTargeting = false;
+
+        // Dash
+        private bool IsDashing = false;
+
+        [SerializeField]
+        private float DashMoveSpeedDecreaseMultiplier = 5f;
+
+        private float DashCurrentMoveSpeedMultiplier;
+
+        [SerializeField]
+        private float DashCooldown = 2f;
+
+        [SerializeField]
+        private float DashCurrentCooldown;
+
+        private float DashStartTime;
+
+        // Animation
+        private float MoveX;
+        private float MoveY;
+        private float lastMoveX;
+        private float lastMoveY;
+
+        // Start is called before the first frame update
+        private void Start()
         {
-            public class PlayerController : MonoBehaviour
+            Animator = GetComponent<Animator>();
+            // Setting player face direction upwards
+            Animator.SetFloat("LastMoveX", 0);
+            Animator.SetFloat("LastMoveY", 1);
+
+            RigidBody = GetComponent<Rigidbody2D>();
+            PlayerAttackManager = GetComponent<PlayerAttackManager>();
+
+            // Z-targeting
+            EnemyLayerMask = LayerMask.GetMask("Enemies");
+            NearbyEnemiesArray = new Collider2D[MaxNumEnemiesNearby];
+            //
+        }
+
+        // Update is called once per frame
+        private void Update()
+        {
+            HandleMovement();
+        }
+
+        private void FixedUpdate()
+        {
+            /* Movement */
+            RigidBody.velocity =
+                new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized * GetMoveSpeed();
+            /***/
+        }
+
+        private void HandleMovement()
+        {
+            if (IsZTargeting && TargetedEnemy == null) // Verify if the targeted enemy has died
+                IsZTargeting = false;
+
+            FaceDirection();
+            MovementAnimation();
+            ZTargeting();
+            Dash();
+        }
+
+        private void FaceDirection()
+        {
+            /* Face direction handler */
+            if (IsZTargeting)
             {
-                private Animator Animator;
-                private Rigidbody2D RigidBody;
-                private PlayerAttackManager PlayerAttackManager;
-                public Collider2D PlayerCollider;
+                var FaceDirection = UtilitiesClass.Get8DirectionFromAngle(UtilitiesClass.GetAngleFromVectorFloat(
+                    new Vector3(TargetedEnemy.transform.position.x - transform.position.x,
+                        TargetedEnemy.transform.position.y - transform.position.y)));
+                Animator.SetFloat("MoveX", FaceDirection.x);
+                Animator.SetFloat("MoveY", FaceDirection.y);
 
-                // Move speeds
-                [SerializeField] private float StandardMoveSpeed;
-                [SerializeField] private float AttackingMoveSpeedMultiplier;
-                [SerializeField] private float ZTargetingMoveSpeedMultiplier;
-                [SerializeField] private float DashInitialMoveSpeedMultiplier = 2.5f;
-                
-                
-                [SerializeField] private float MoveSpeed; 
+                lastMoveX = FaceDirection.x;
+                lastMoveY = FaceDirection.y;
+            }
+            else
+            {
+                Animator.SetFloat("MoveX", RigidBody.velocity.x);
+                Animator.SetFloat("MoveY", RigidBody.velocity.y);
 
-                // Z-targeting
-                [SerializeField] private float ZTargetingRadius = 2f;
-                private LayerMask EnemyLayerMask;
-                private Collider2D[] NearbyEnemiesArray;
-                [SerializeField] private int MaxNumEnemiesNearby = 10;
-                private EnemyBehavior TargetedEnemy;
-                private bool IsZTargeting = false; 
-                
-                // Dash
-                private bool IsDashing = false;
-                [SerializeField] private float DashMoveSpeedDecreaseMultiplier = 5f;
-                private float DashCurrentMoveSpeedMultiplier;
-                [SerializeField] private float DashCooldown = 2f;
-                [SerializeField] private float DashCurrentCooldown;
-                
-                // Animation
-                private float MoveX;
-                private float MoveY;
-                private float lastMoveX;
-                private float lastMoveY;
+                lastMoveX = Animator.GetFloat("LastMoveX");
+                lastMoveY = Animator.GetFloat("LastMoveY");
+            }
 
-                // Start is called before the first frame update
-                private void Start()
+            /***/
+        }
+
+        private void MovementAnimation()
+        {
+            /* Movement animation handler */
+            if (!Animator.GetBool("IsAttacking") && !IsZTargeting)
+            {
+                if ((Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Horizontal") == -1) &&
+                    (Input.GetAxisRaw("Vertical") == 1 || Input.GetAxisRaw("Vertical") == -1))
                 {
-                    Animator = GetComponent<Animator>();
-                    // Setting player face direction upwards
-                    Animator.SetFloat("LastMoveX", 0);
-                    Animator.SetFloat("LastMoveY", 1);
-                    
-                    RigidBody = GetComponent<Rigidbody2D>();
-                    PlayerAttackManager = GetComponent<PlayerAttackManager>();
-                    
-                    // Z-targeting
-                    EnemyLayerMask = LayerMask.GetMask("Enemies");
-                    NearbyEnemiesArray = new Collider2D[MaxNumEnemiesNearby];
-                    //
+                    lastMoveX = Input.GetAxisRaw("Horizontal");
+                    lastMoveY = Input.GetAxisRaw("Vertical");
                 }
-
-                // Update is called once per frame
-                private void Update()
+                else if (Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Horizontal") == -1)
                 {
-                    HandleMovement();
+                    lastMoveX = Input.GetAxisRaw("Horizontal");
+                    lastMoveY = 0;
                 }
-
-                private void FixedUpdate()
+                else if (Input.GetAxisRaw("Vertical") == 1 || Input.GetAxisRaw("Vertical") == -1)
                 {
-                    /* Movement */
-                    RigidBody.velocity =
-                        new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized * GetMoveSpeed();
-                    /***/
+                    lastMoveX = 0;
+                    lastMoveY = Input.GetAxisRaw("Vertical");
                 }
+            }
 
-                private void HandleMovement()
+            Animator.SetFloat("LastMoveX", lastMoveX);
+            Animator.SetFloat("LastMoveY", lastMoveY);
+            /***/
+        }
+
+
+        private void ZTargeting()
+        {
+            /* Z-targeting */
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                if (!IsZTargeting)
                 {
-                    if (IsZTargeting && TargetedEnemy == null) // Verify if the targeted enemy has died
-                        IsZTargeting = false;
-                    
-                    FaceDirection();
-                    MovementAnimation();
-                    ZTargeting();
-                    Dash();
-                }
-                
-                private void FaceDirection()
-                {
-                    /* Face direction handler */
-                    if (IsZTargeting)
+                    TargetedEnemy = GetZTargetEnemy();
+                    if (TargetedEnemy != null)
                     {
-                        var FaceDirection = UtilitiesClass.Get8DirectionFromAngle(UtilitiesClass.GetAngleFromVectorFloat(
-                            new Vector3(TargetedEnemy.transform.position.x - transform.position.x,
-                                TargetedEnemy.transform.position.y - transform.position.y)));
-                        Animator.SetFloat("MoveX", FaceDirection.x);
-                        Animator.SetFloat("MoveY", FaceDirection.y);
-                        
-                        lastMoveX = FaceDirection.x;
-                        lastMoveY = FaceDirection.y;
-                    } else {
-                        Animator.SetFloat("MoveX", RigidBody.velocity.x);
-                        Animator.SetFloat("MoveY", RigidBody.velocity.y);
-                        
-                        lastMoveX = Animator.GetFloat("LastMoveX");
-                        lastMoveY = Animator.GetFloat("LastMoveY");
-                    }
-                    /***/
-                }
-
-                  private void MovementAnimation()
-                {
-                    /* Movement animation handler */ 
-                    if (!Animator.GetBool("IsAttacking") && !IsZTargeting)
-                    {
-                        if ((Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Horizontal") == -1) && (Input.GetAxisRaw("Vertical") == 1 || Input.GetAxisRaw("Vertical") == -1))
+                        var enemyStateMachine = TargetedEnemy.GetComponent<Enemy.EnemyStateMachine>();
+                        if (enemyStateMachine != null)
                         {
-                            lastMoveX = Input.GetAxisRaw("Horizontal");
-                            lastMoveY = Input.GetAxisRaw("Vertical");
+                            enemyStateMachine.IsTargeted = true;
                         }
-                        else if(Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Horizontal") == -1)
+
+                        IsZTargeting = true;
+                    }
+                }
+            }
+
+            if (Input.GetKeyUp(KeyCode.C))
+            {
+                if (IsZTargeting && TargetedEnemy != null)
+                {
+                    var enemyStateMachine = TargetedEnemy.GetComponent<Enemy.EnemyStateMachine>();
+                    if (enemyStateMachine != null)
+                    {
+                        enemyStateMachine.IsTargeted = false;
+                    }
+
+                    IsZTargeting = false;
+                    TargetedEnemy = null;
+                }
+            }
+
+            /**/
+        }
+
+        private void Dash()
+        {
+            if (!IsDashing)
+            {
+                if (DashCurrentCooldown > 0)
+                    DashCurrentCooldown -= Time.deltaTime;
+
+
+                if (RigidBody.velocity != Vector2.zero)
+                {
+                    if (Input.GetKey(KeyCode.X))
+                    {
+                        if (!Animator.GetBool("IsAttacking") && DashCurrentCooldown <= 0)
                         {
-                            lastMoveX = Input.GetAxisRaw("Horizontal");
-                            lastMoveY = 0;
-                        } 
-                        else if (Input.GetAxisRaw("Vertical") == 1 || Input.GetAxisRaw("Vertical") == -1)
-                        {
-                            lastMoveX = 0;
-                            lastMoveY = Input.GetAxisRaw("Vertical");
+                            IsDashing = true;
+                            DashStartTime = Time.time;
+                            DashCurrentMoveSpeedMultiplier = DashInitialMoveSpeedMultiplier;
+                            DashCurrentCooldown = DashCooldown;
                         }
                     }
-                    
-                    Animator.SetFloat("LastMoveX", lastMoveX);
-                    Animator.SetFloat("LastMoveY", lastMoveY);
-                    /***/
                 }
+            }
 
-                
-                private void ZTargeting()
+            DashCurrentMoveSpeedMultiplier -= Time.deltaTime * DashMoveSpeedDecreaseMultiplier;
+
+            if (DashCurrentMoveSpeedMultiplier <= 1)
+            {
+                /* Perfect time dash */
+                if (IsZTargeting)
                 {
-                    /* Z-targeting */
-                    if (Input.GetKeyDown(KeyCode.C))
-                    {
-                        if (!IsZTargeting)
-                        {
-                            TargetedEnemy = GetZTargetEnemy();
-                            if (TargetedEnemy != null)
-                            {
-                                var enemyStateMachine = TargetedEnemy.GetComponent<Enemy.EnemyStateMachine>();
-                                if (enemyStateMachine != null)
-                                {
-                                    enemyStateMachine.IsTargeted = true;
-                                }
-                                IsZTargeting = true;
-                            }
-                        }
-                    }
-
-                    if (Input.GetKeyUp(KeyCode.C))
-                    {
-                        if (IsZTargeting && TargetedEnemy != null)
-                        {
-                            var enemyStateMachine = TargetedEnemy.GetComponent<Enemy.EnemyStateMachine>();
-                            if (enemyStateMachine != null)
-                            {
-                                enemyStateMachine.IsTargeted = false;
-                            }
-                            IsZTargeting = false;
-                            TargetedEnemy = null;
-                        }
-                    }
-    
-                    /**/
+                    if (TargetedEnemy.EnemyStateMachine.EnemyType == EnemyStateMachine.Type.Melee)
+                        if (TargetedEnemy.EnemyStateMachine.EnemyCombatManager.IsAttacking)
+                            if (TargetedEnemy.EnemyStateMachine.EnemyMeleeAttackManager.ProbablyGonnaHit)
+                                if (TargetedEnemy.EnemyStateMachine.EnemyCombatManager.LastTimeHitPlayerDuringAttack <
+                                    DashStartTime)
+                                    //if (!TargetedEnemy.EnemyStateMachine.EnemyMeleeAttackManager.IsOnHalfOfAttackAnimation)
+                                    Debug.Log("DESVIOU " + Time.time);
+                                    
                 }
+                /***/
 
-                private void Dash()
-                {
-                    if (!IsDashing)
-                    {
-                        if (DashCurrentCooldown > 0)
-                            DashCurrentCooldown -= Time.deltaTime;
-
-                        if (Input.GetKey(KeyCode.X))
-                        {
-                            if (!Animator.GetBool("IsAttacking") && DashCurrentCooldown <= 0)
-                            {
-                                IsDashing = true;
-                                DashCurrentMoveSpeedMultiplier = DashInitialMoveSpeedMultiplier;
-                                DashCurrentCooldown = DashCooldown;
-                                if (IsZTargeting)
-                                {
-                                    if(TargetedEnemy.GetComponent<EnemyCombatManager>().IsAttacking)
-                                        Debug.Log("DESVIOU " + Time.time);
-                                }
-                            }
-                        }    
-                    }
-                    DashCurrentMoveSpeedMultiplier -= Time.deltaTime * DashMoveSpeedDecreaseMultiplier;
-
-                    if (DashCurrentMoveSpeedMultiplier <= 1)
-                    {
-                        IsDashing = false;
-                    }
-                }
-
-                public Vector3 GetPosition()
-                {
-                    return transform.position;
-                }
-
-                private float GetMoveSpeed()
-                {
-                    if (Animator.GetBool("IsAttacking"))
-                        return StandardMoveSpeed * AttackingMoveSpeedMultiplier;
-                    if (IsDashing)
-                        return StandardMoveSpeed * DashCurrentMoveSpeedMultiplier;
-                    if (IsZTargeting)
-                        return StandardMoveSpeed * ZTargetingMoveSpeedMultiplier;
-                    return StandardMoveSpeed;
-                }
-
-              
-                private EnemyBehavior GetZTargetEnemy()
-                {
-                    NearbyEnemiesArray = Physics2D.OverlapCircleAll(transform.position, ZTargetingRadius, EnemyLayerMask);
-                    var ShorterDistanceEnemyIndex = -1;
-                    var ShorterDistanceEnemy = 100f;
-                    var CurrentEnemyDistance = -1f; 
-                    for (var i = 0; i < NearbyEnemiesArray.Length; i++)
-                    {
-                        if (NearbyEnemiesArray[i] != null)
-                        {
-                            CurrentEnemyDistance = NearbyEnemiesArray[i].Distance(PlayerCollider).distance;
-                            if (CurrentEnemyDistance < ShorterDistanceEnemy)
-                            {
-                                ShorterDistanceEnemy = CurrentEnemyDistance;
-                                ShorterDistanceEnemyIndex = i; 
-                            }
-                        }
-                    }
-
-                    if (ShorterDistanceEnemyIndex != -1)
-                    {
-                        var TargetEnemyBehavior = NearbyEnemiesArray[ShorterDistanceEnemyIndex].GetComponent<EnemyBehavior>();
-                        return TargetEnemyBehavior;
-                    }
-                    return null;
-                }
-  
+                IsDashing = false;
+                DashCurrentMoveSpeedMultiplier = DashInitialMoveSpeedMultiplier;
             }
         }
 
+        public Vector3 GetPosition()
+        {
+            return transform.position;
+        }
+
+        private float GetMoveSpeed()
+        {
+            if (Animator.GetBool("IsAttacking"))
+                return StandardMoveSpeed * AttackingMoveSpeedMultiplier;
+            if (IsDashing)
+                return StandardMoveSpeed * DashCurrentMoveSpeedMultiplier;
+            if (IsZTargeting)
+                return StandardMoveSpeed * ZTargetingMoveSpeedMultiplier;
+            return StandardMoveSpeed;
+        }
+
+
+        private EnemyBehavior GetZTargetEnemy()
+        {
+            NearbyEnemiesArray = Physics2D.OverlapCircleAll(transform.position, ZTargetingRadius, EnemyLayerMask);
+            var ShorterDistanceEnemyIndex = -1;
+            var ShorterDistanceEnemy = 100f;
+            var CurrentEnemyDistance = -1f;
+            for (var i = 0; i < NearbyEnemiesArray.Length; i++)
+            {
+                if (NearbyEnemiesArray[i] != null)
+                {
+                    CurrentEnemyDistance = NearbyEnemiesArray[i].Distance(PlayerCollider).distance;
+                    if (CurrentEnemyDistance < ShorterDistanceEnemy)
+                    {
+                        ShorterDistanceEnemy = CurrentEnemyDistance;
+                        ShorterDistanceEnemyIndex = i;
+                    }
+                }
+            }
+
+            if (ShorterDistanceEnemyIndex != -1)
+            {
+                var TargetEnemyBehavior = NearbyEnemiesArray[ShorterDistanceEnemyIndex].GetComponent<EnemyBehavior>();
+                return TargetEnemyBehavior;
+            }
+
+            return null;
+        }
+    }
+}

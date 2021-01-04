@@ -39,7 +39,7 @@ namespace Enemy
         public float ParalyzeHealCurrentTimer;
         public float ParalyzeHealTime;
         public bool WillDieBurned = false;
-        public bool IsAttacking;
+        public bool IsAttackingNow;
 
         private float AttackPreparationTime = 0.95f;
         private float AttackPreparationCurrentTime = 0;
@@ -50,12 +50,14 @@ namespace Enemy
         private Vector3 PlayerDirection;
 
         public EnemyBehavior EnemyBehavior;
+        public EnemyCombatManager EnemyCombatManager;
         public EnemyMeleeAttackManager EnemyMeleeAttackManager;
         public EnemyRangedAttackManager EnemyRangedAttackManager;
         
         private void Awake()
         {
             EnemyBehavior = GetComponent<EnemyBehavior>();
+            EnemyCombatManager = GetComponent<EnemyCombatManager>();
         }
 
         private void Start()
@@ -154,9 +156,9 @@ namespace Enemy
                 
                 case States.Attacking:
                     // Return if already start the attack
-                    if (IsAttacking) return;
+                    if (IsAttackingNow) return;
                     
-                    IsAttacking = true; 
+                    IsAttackingNow = true; 
                     
                     // do only once
                     if (EnemyType == Type.Melee)

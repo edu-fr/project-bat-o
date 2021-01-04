@@ -1323,6 +1323,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skeleton (Ranged)
       objectReference: {fileID: 0}
+    - target: {fileID: 4955097571060270792, guid: c53cc6c2e82d083409dbcad3459ada71,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4955097571060270803, guid: c53cc6c2e82d083409dbcad3459ada71,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -22,7 +22,7 @@ AnimationClip:
     - time: 0
       value: {fileID: 137645835594201669, guid: 20123bd425abe6f4895491fb855d136c,
         type: 3}
-    - time: 0.51666665
+    - time: 0.5
       value: {fileID: -373968952201622903, guid: 20123bd425abe6f4895491fb855d136c,
         type: 3}
     - time: 1
@@ -75,6 +75,13 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+  - time: 0.75
+    functionName: SetIsOnHalfOfAttackAnimation
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 1
     functionName: AttackEnd
     data: 

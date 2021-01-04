@@ -12,7 +12,7 @@ namespace Enemy
         private AudioManager AudioManager;
         private EnemyBehavior EnemyBehavior;
         public Rigidbody2D Rigidbody2D;
-        
+        public float LastTimeHitPlayerDuringAttack;
         
         // Attack
         public float MeleeDamage { private set; get; } = 20;
@@ -71,8 +71,16 @@ namespace Enemy
         private void OnCollisionStay2D(Collision2D other)
         {
             if (!other.gameObject.CompareTag("Player")) return;
+            
+            // Saves the last time enemy hit the player with an attack
+            if (EnemyBehavior.EnemyStateMachine.EnemyType == EnemyStateMachine.Type.Melee)
+            {
+                if (IsAttacking)
+                {
+                    LastTimeHitPlayerDuringAttack = Time.time;
+                }
+            }
             other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage((int)MeleeDamage);
-
         }
 
         private IEnumerator TakeKnockBack(float knockBackTime)

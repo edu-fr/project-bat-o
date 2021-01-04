@@ -34,7 +34,7 @@ namespace Enemy
                     AttackCurrentRecoveryTime = 0;
                     EnemyBehavior.AiPath.enabled = true;
                     EnemyStateMachine.ChangeState(EnemyStateMachine.States.Chasing);
-                    EnemyStateMachine.IsAttacking = false;
+                    EnemyStateMachine.IsAttackingNow = false;
                 }
             }
         }
