@@ -41,6 +41,7 @@ namespace Enemy
         public float ViewDistance;
         public GameObject TargetPlayer;
         public GameObject Player;
+        public PlayerStateMachine PlayerStateMachine; 
         public float SurroundingDistance = 2f;
 
         // Animation
@@ -85,6 +86,7 @@ namespace Enemy
         private void Start()
         {
             Player = GameObject.FindGameObjectWithTag("Player");
+            PlayerStateMachine = Player.GetComponent<PlayerStateMachine>();
             Target = new GameObject("target " + gameObject.name);
             
             // Set initial enemy position according to its initial position

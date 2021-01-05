@@ -8,56 +8,49 @@ namespace Player
 {
     public class PlayerController : MonoBehaviour
     {
-        private Animator Animator;
-        private Rigidbody2D RigidBody;
-        private PlayerAttackManager PlayerAttackManager;
+        public Animator Animator;
+        public Rigidbody2D RigidBody;
+        public PlayerStateMachine PlayerStateMachine;
+        public PlayerAttackManager PlayerAttackManager;
         public Collider2D PlayerCollider;
+        public FlurryRush FlurryRush;
 
         // Move speeds
-        [SerializeField]
-        private float StandardMoveSpeed;
-
-        [SerializeField]
-        private float AttackingMoveSpeedMultiplier;
-
-        [SerializeField]
-        private float ZTargetingMoveSpeedMultiplier;
-
-        [SerializeField]
-        private float DashInitialMoveSpeedMultiplier = 2.5f;
-
-
-        [SerializeField]
-        private float MoveSpeed;
+        public float StandardMoveSpeed { private set; get; } = 4f;
+        public float AttackingMoveSpeedMultiplier { private set; get; }
+        public float ZTargetingMoveSpeedMultiplier { private set; get; }
+        public float DashInitialMoveSpeedMultiplier;
 
         // Z-targeting
         [SerializeField]
-        private float ZTargetingRadius = 2f;
+        public float ZTargetingRadius = 2f;
 
+        [SerializeField]
         private LayerMask EnemyLayerMask;
+
         private Collider2D[] NearbyEnemiesArray;
 
         [SerializeField]
         private int MaxNumEnemiesNearby = 10;
 
-        private EnemyBehavior TargetedEnemy;
-        private bool IsZTargeting = false;
+        public EnemyBehavior TargetedEnemy;
+        public bool IsZTargeting = false;
 
         // Dash
-        public bool IsDashing = false;
+        public float DashMoveSpeedDecreaseMultiplier = 5f;
+
+        public float DashCurrentMoveSpeedMultiplier;
 
         [SerializeField]
-        private float DashMoveSpeedDecreaseMultiplier = 5f;
-        private float DashCurrentMoveSpeedMultiplier;
-        [SerializeField]
         private float DashCooldown = 2f;
+
         [SerializeField]
         private float DashCurrentCooldown;
+
         private float DashStartTime;
         public bool DodgeFailed;
         private bool DodgeSuccessful;
         private bool CanCounterAttack;
-        
 
         // Animation
         private float MoveX;
@@ -75,32 +68,21 @@ namespace Player
 
             RigidBody = GetComponent<Rigidbody2D>();
             PlayerAttackManager = GetComponent<PlayerAttackManager>();
+            PlayerStateMachine = GetComponent<PlayerStateMachine>();
 
             // Z-targeting
             EnemyLayerMask = LayerMask.GetMask("Enemies");
             NearbyEnemiesArray = new Collider2D[MaxNumEnemiesNearby];
             //
+
+            // Flurry rush
+            FlurryRush = GetComponent<FlurryRush>();
         }
 
-        // Update is called once per frame
-        private void Update()
-        {
-            HandleMovement();
-        }
-
-        private void FixedUpdate()
-        {
-            /* Movement */
-            RigidBody.velocity =
-                new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized * GetMoveSpeed();
-            /***/
-        }
-
-        private void HandleMovement()
+        public void HandleMovement()
         {
             if (IsZTargeting && TargetedEnemy == null) // Verify if the targeted enemy has died
                 IsZTargeting = false;
-
             FaceDirection();
             MovementAnimation();
             ZTargeting();
@@ -136,7 +118,7 @@ namespace Player
         private void MovementAnimation()
         {
             /* Movement animation handler */
-            if (!Animator.GetBool("IsAttacking") && !IsZTargeting)
+            if (PlayerStateMachine.State != PlayerStateMachine.States.Attacking && !IsZTargeting)
             {
                 if ((Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Horizontal") == -1) &&
                     (Input.GetAxisRaw("Vertical") == 1 || Input.GetAxisRaw("Vertical") == -1))
@@ -201,21 +183,24 @@ namespace Player
             /**/
         }
 
-        private void Dash()
+        public void Dash()
         {
-            if (!IsDashing)
+            if (PlayerStateMachine.State != PlayerStateMachine.States.Dashing)
             {
                 if (DashCurrentCooldown > 0)
                     DashCurrentCooldown -= Time.deltaTime;
-
+                else
+                {
+                    DashCurrentCooldown = 0;
+                }
 
                 if (RigidBody.velocity != Vector2.zero)
                 {
                     if (Input.GetKey(KeyCode.X))
                     {
-                        if (!Animator.GetBool("IsAttacking") && DashCurrentCooldown <= 0)
+                        if (DashCurrentCooldown <= 0)
                         {
-                            IsDashing = true;
+                            PlayerStateMachine.ChangeState(PlayerStateMachine.States.Dashing);
                             DashStartTime = Time.time;
                             DashCurrentMoveSpeedMultiplier = DashInitialMoveSpeedMultiplier;
                             DashCurrentCooldown = DashCooldown;
@@ -233,11 +218,15 @@ namespace Player
 
             if (DashCurrentMoveSpeedMultiplier <= 1)
             {
-                if (IsDashing)
+                Debug.Log("Dash acabou aos " + Time.time);
+                Debug.Log("PORRA: " + PlayerStateMachine.State);
+                if (PlayerStateMachine.State == PlayerStateMachine.States.Dashing)
                 {
-                    Invoke(nameof(DodgeTest), 0.5f);
+                    Invoke(nameof(DodgeTest), 0.15f);
+                    PlayerStateMachine.ChangeState(PlayerStateMachine.States.Standard);
+                    Debug.Log("Mudou o estado para: " + PlayerStateMachine.State);
                 }
-                IsDashing = false;
+
                 DashCurrentMoveSpeedMultiplier = DashInitialMoveSpeedMultiplier;
 
                 /* Perfect time dash */
@@ -265,41 +254,30 @@ namespace Player
                                     DodgeFailed = true;
                                     //Debug.Log("INIMIGO ERROU aos " + Time.time + "!");
                                 }
-                                        
                     }
-                    
                 }
+
                 /***/
-                
             }
+
 
             if (CanCounterAttack)
             {
                 Debug.Log("DODGE SUCCESSFUL!");
+                FlurryRush.CanFlurryRush = true;
                 CanCounterAttack = false;
             }
         }
 
         private void DodgeTest()
         {
-            //Debug.Log("FUI CHAMADO AOS!" + Time.time);
+            Debug.Log("FUI CHAMADO AOS!" + Time.time);
             CanCounterAttack = (!DodgeFailed && DodgeSuccessful);
         }
-        
+
         public Vector3 GetPosition()
         {
             return transform.position;
-        }
-
-        private float GetMoveSpeed()
-        {
-            if (Animator.GetBool("IsAttacking"))
-                return StandardMoveSpeed * AttackingMoveSpeedMultiplier;
-            if (IsDashing)
-                return StandardMoveSpeed * DashCurrentMoveSpeedMultiplier;
-            if (IsZTargeting)
-                return StandardMoveSpeed * ZTargetingMoveSpeedMultiplier;
-            return StandardMoveSpeed;
         }
 
 

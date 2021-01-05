@@ -22,7 +22,6 @@ namespace Player
         #endregion
 
         #region Variables
-        public bool IsAttacking { private set; get;} = false;
         
         private WeaponType CurrentWeaponType = WeaponType.Sword;
         public float CurrentWeaponDamage;
@@ -33,7 +32,8 @@ namespace Player
         public PowerUpController.Effects CurrentEffect = PowerUpController.Effects.None;
         
         private Animator Animator;
-        public PlayerHealthManager PlayerHealthManager; 
+        public PlayerHealthManager PlayerHealthManager;
+        public PlayerStateMachine PlayerStateMachine;
         public Material StandardMaterial;
         public Material FireMaterial;
         public Material IceMaterial;
@@ -58,6 +58,7 @@ namespace Player
             PowerUpController = GetComponent<PowerUpController>();
             Renderer = GetComponent<Renderer>();
             PlayerHealthManager = GetComponent<PlayerHealthManager>();
+            PlayerStateMachine = GetComponent<PlayerStateMachine>();
         }
 
         private void Start()
@@ -65,12 +66,16 @@ namespace Player
             SetWeaponStats();
         }
         
-        private void Update()
+        #endregion
+
+        #region Auxiliar Methods
+
+        public void HandleAttack()
         {
-            // Set position according to player's direction and give an offset 
             Direction = GetAnimationDirection();
-            if (Input.GetKeyDown(KeyCode.Z) && !Animator.GetBool("IsAttacking"))
+            if (Input.GetKeyDown(KeyCode.Z))
             {
+                PlayerStateMachine.ChangeState(PlayerStateMachine.States.Attacking);
                 CurrentEffect = PowerUpController.GenerateEffect();
                 switch(CurrentEffect)
                 {
@@ -93,11 +98,7 @@ namespace Player
                 Attack();
             }
         }
-
-        #endregion
-
-        #region Auxiliar Methods
-
+        
         private void Attack()
         {
             // Set attack animation
@@ -110,7 +111,7 @@ namespace Player
         {
             Animator.speed = 1f;
             Animator.SetBool("IsAttacking", false);
-            IsAttacking = false;
+            PlayerStateMachine.ChangeState(PlayerStateMachine.States.Standard);
             Renderer.material = StandardMaterial;
         }
 

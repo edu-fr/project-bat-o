@@ -3,6 +3,7 @@ using Game;
 using Pathfinding;
 using Player;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Enemy
 {

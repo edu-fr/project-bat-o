@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using Player;
 using Unity.Collections;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ namespace Enemy
             DyingBurned,
             Frozen,
             Paralyzed,
+            BeenRushed, 
         };
 
         public enum Type
@@ -40,6 +42,7 @@ namespace Enemy
         public float ParalyzeHealTime;
         public bool WillDieBurned = false;
         public bool IsAttackingNow;
+        public bool IsBeenRushed;
 
         private float AttackPreparationTime = 0.95f;
         private float AttackPreparationCurrentTime = 0;
@@ -128,7 +131,6 @@ namespace Enemy
                     {
                         ChangeState(States.Standard);
                     }
-
                     break;
 
                 case States.PreparingAttack:
@@ -151,7 +153,6 @@ namespace Enemy
                             // make noise to warning about attack
                         }
                     }
-                    
                     break;
                 
                 case States.Attacking:
@@ -169,13 +170,11 @@ namespace Enemy
                     {
                         EnemyRangedAttackManager.Attack(PlayerDirection);
                     }
-                    
                     break;
 
                 case States.DyingBurned:
                     EnemyBehavior.Animate();
                     EnemyBehavior.SetCurrentFaceDirection();
-
                     break;
 
                 case States.Frozen:
@@ -187,7 +186,6 @@ namespace Enemy
                         IsFrozen = false;
                         ChangeState(States.Chasing);
                     }
-
                     break;
 
                 case States.Paralyzed:
@@ -198,8 +196,14 @@ namespace Enemy
                         IsParalyzed = false;
                         ChangeState(States.Chasing);
                     }
-
                     break;
+                
+                case States.BeenRushed:
+                    if (EnemyBehavior.PlayerStateMachine.State != PlayerStateMachine.States.Rushing && Time.timeScale == 1)
+                    {
+                        ChangeState(States.Chasing);
+                    }
+                    break; 
             }
         }
     
@@ -244,7 +248,6 @@ namespace Enemy
                     EnemyBehavior.AiDestinationSetter.target = null;
                     PlayerDirection = ((Vector2) EnemyBehavior.TargetPlayer.transform.position + (Vector2) EnemyBehavior.TargetPlayer.GetComponent<BoxCollider2D>().offset - (Vector2) transform.position).normalized;
                     EnemyBehavior.SetCurrentFaceDirectionTo(PlayerDirection);
-                    
                     break;
                 
                 case (States.Attacking):
@@ -253,7 +256,6 @@ namespace Enemy
                     EnemyBehavior.FieldOfViewComponent.gameObject.SetActive(false);
                     EnemyBehavior.AiPath.enabled = false;
                     EnemyBehavior.AiDestinationSetter.target = null;
-                    
                     break;
                 
                 case (States.DyingBurned):
@@ -293,6 +295,18 @@ namespace Enemy
                     EnemyBehavior.Animator.speed = 0;
                     EnemyBehavior.AiPath.maxSpeed = 0;
                     
+                    if (EnemyBehavior.FieldOfViewComponent.gameObject != null)
+                    {
+                        EnemyBehavior.FieldOfViewComponent.gameObject.SetActive(false);
+                    }
+                    
+                    break;
+                
+                case (States.BeenRushed):
+                    IsWalkingAround = false;
+                    IsBeenRushed = true;
+                    EnemyBehavior.Animator.speed = 0;
+                    EnemyBehavior.AiPath.maxSpeed = 0;
                     if (EnemyBehavior.FieldOfViewComponent.gameObject != null)
                     {
                         EnemyBehavior.FieldOfViewComponent.gameObject.SetActive(false);

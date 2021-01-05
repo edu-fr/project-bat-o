@@ -172,6 +172,8 @@ GameObject:
   - component: {fileID: 4396048941111737139}
   - component: {fileID: 555801312}
   - component: {fileID: 616445933}
+  - component: {fileID: 1938860099312322761}
+  - component: {fileID: -1128968484826919403}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -299,7 +301,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3d7280bb3e9b3e469427cc4efd75ff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
   PlayerCollider: {fileID: 616445933}
+  FlurryRush: {fileID: 0}
   StandardMoveSpeed: 5
   AttackingMoveSpeedMultiplier: 0.07
   ZTargetingMoveSpeedMultiplier: 0.73
@@ -307,9 +311,13 @@ MonoBehaviour:
   MoveSpeed: 0
   ZTargetingRadius: 3
   MaxNumEnemiesNearby: 10
+  TargetedEnemy: {fileID: 0}
+  IsZTargeting: 0
+  IsDashing: 0
   DashMoveSpeedDecreaseMultiplier: 10
   DashCooldown: 2
   DashCurrentCooldown: 0
+  DodgeFailed: 0
 --- !u!114 &6753889184881655937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -342,6 +350,8 @@ MonoBehaviour:
   CurrentWeaponAttackSpeed: 0
   CurrentKnockbackDuration: 0
   CurrentEffect: 3
+  PlayerHealthManager: {fileID: 0}
+  PlayerStateMachine: {fileID: 0}
   StandardMaterial: {fileID: 2100000, guid: 05ca7a78f0c9ccf46a428747630aa292, type: 2}
   FireMaterial: {fileID: 2100000, guid: b48f0ca1f8b777b48b7e94d23c80df9b, type: 2}
   IceMaterial: {fileID: 2100000, guid: 897af51100febe24ba281190347776d6, type: 2}
@@ -375,8 +385,10 @@ MonoBehaviour:
   PersistentObject: {fileID: 0}
   MaxHealth: 10000
   CurrentHealth: 0
+  Invincible: 0
   HealthBarScript: {fileID: 2807595125430958419, guid: 49b0bafece7f3bc488d8687529009eea,
     type: 3}
+  PlayerController: {fileID: 0}
 --- !u!114 &4396048941111737139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -450,3 +462,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.53451246, y: 0.3556924}
   m_EdgeRadius: 0
+--- !u!114 &1938860099312322761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6753889184881655945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6439c14509f2b154abad06a9264e08f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerController: {fileID: 0}
+  CanFlurryRush: 0
+  InARush: 0
+  TimeToStartRush: 2
+  RushDuration: 5
+--- !u!114 &-1128968484826919403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6753889184881655945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1646fdd7a57ea5147b6a2b46028b0fc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  State: 0
