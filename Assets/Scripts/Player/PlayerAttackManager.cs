@@ -40,10 +40,9 @@ namespace Player
         public Material ThunderMaterial;
         private Renderer Renderer;
 
-        private PowerUpController PowerUpController;
+        public PowerUpController PowerUpController;
 
         [SerializeField]
-        private GameObject SwordHitBox;
         
         private LayerMask EnemyLayers;
         private Directions Direction;
@@ -99,15 +98,24 @@ namespace Player
             }
         }
         
-        private void Attack()
+        public void Attack()
         {
             // Set attack animation
             Animator.speed = CurrentWeaponAttackSpeed * 0.2f;
             Animator.SetTrigger("Attack");
             Animator.SetBool("IsAttacking", true);
         }
+
+        public void FlurryAttack()
+        {
+            PlayerStateMachine.ChangeState(PlayerStateMachine.States.Attacking);
+            Renderer.material = FireMaterial;
+            Animator.speed = CurrentWeaponAttackSpeed * 0.2f;
+            Animator.SetTrigger("Attack");
+            Animator.SetBool("IsAttacking", true);
+        }
         
-        private void AttackEnd()
+        public void AttackEnd()
         {
             Animator.speed = 1f;
             Animator.SetBool("IsAttacking", false);

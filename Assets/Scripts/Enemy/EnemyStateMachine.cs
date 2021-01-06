@@ -102,6 +102,7 @@ namespace Enemy
                     if (EnemyBehavior.TargetPlayer != null)
                     {
                         ChangeState(States.Chasing);
+                        //Debug.Log("LostTargetPlayer");
                     }
 
                     break;
@@ -118,6 +119,7 @@ namespace Enemy
                         if (Vector2.Distance(transform.position, EnemyBehavior.TargetPlayer.transform.position) < DistanceToAttack)
                         {
                             ChangeState(States.PreparingAttack);
+                            //Debug.Log("PreparingAttack");
                             break;
                         }
 
@@ -130,6 +132,7 @@ namespace Enemy
                     else // Lost sight of player
                     {
                         ChangeState(States.Standard);
+                        //Debug.Log("Lost player on attack");
                     }
                     break;
 
@@ -140,6 +143,7 @@ namespace Enemy
                     {
                         AttackPreparationCurrentTime = 0;
                         ChangeState(States.Attacking);
+                        //Debug.Log("FinishedReadingAttack");
                     }
                     else
                     {
@@ -185,6 +189,7 @@ namespace Enemy
                         DefrostCurrentTimer = 0;
                         IsFrozen = false;
                         ChangeState(States.Chasing);
+                        //Debug.Log("Frozen Ends");
                     }
                     break;
 
@@ -195,13 +200,15 @@ namespace Enemy
                         ParalyzeHealCurrentTimer = 0;
                         IsParalyzed = false;
                         ChangeState(States.Chasing);
+                        //Debug.Log("Paralyze ends");
                     }
                     break;
                 
                 case States.BeenRushed:
-                    if (EnemyBehavior.PlayerStateMachine.State != PlayerStateMachine.States.Rushing && Time.timeScale == 1)
+                    if (Input.GetKeyDown(KeyCode.E) /*&& Time.timeScale == 1 */)
                     {
                         ChangeState(States.Chasing);
+                        //Debug.Log("Been rushed ends");
                     }
                     break; 
             }
@@ -305,6 +312,7 @@ namespace Enemy
                 case (States.BeenRushed):
                     IsWalkingAround = false;
                     IsBeenRushed = true;
+                    EnemyCombatManager.Rigidbody2D.velocity = Vector2.zero;
                     EnemyBehavior.Animator.speed = 0;
                     EnemyBehavior.AiPath.maxSpeed = 0;
                     if (EnemyBehavior.FieldOfViewComponent.gameObject != null)

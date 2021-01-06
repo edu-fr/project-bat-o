@@ -63,8 +63,6 @@ namespace Player
         public void TakeDamage(int damage)
         {
             if (Invincible) return;
-            
-            Debug.Log("APANHOU, DODGE FALHA AOS" + Time.time);
             if (PlayerController.PlayerStateMachine.State == PlayerStateMachine.States.Dashing)
             {
                 PlayerController.DodgeFailed = true;

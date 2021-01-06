@@ -30,7 +30,7 @@ namespace Enemy
 
         private void Update()
         {
-            if (AttackEnded)
+            if (AttackEnded && EnemyStateMachine.State == EnemyStateMachine.States.Attacking)
             {
                 EnemyCombatManager.IsAttacking = false;
                 AttackCurrentRecoveryTime += Time.deltaTime;
@@ -42,6 +42,7 @@ namespace Enemy
                     ProbablyGonnaHit = false;
                     EnemyBehavior.AiPath.enabled = true;
                     EnemyStateMachine.ChangeState(EnemyStateMachine.States.Chasing);
+                    Debug.Log("MeleeAttackManager");
                 }
             }
         }

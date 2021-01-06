@@ -55,6 +55,7 @@ public class PowerUpEffects : MonoBehaviour
         enemyStateMachine.DefrostCurrentTimer = 0f;
         enemyStateMachine.DefrostTime = defrostTime;
         enemyStateMachine.ChangeState(EnemyStateMachine.States.Frozen);
+        Debug.Log("PowerUp Frozen");
     }
         
     public void FindCloseEnemies(GameObject enemy, float electricRange, int electricDamage)
@@ -119,6 +120,7 @@ public class PowerUpEffects : MonoBehaviour
     public void BurnEnemyToDeath(GameObject enemy)
     {
         enemy.GetComponent<EnemyStateMachine>().ChangeState(EnemyStateMachine.States.DyingBurned);
+        Debug.Log("PowerUp Dying burned");
     }
 
     public void ShatterEnemy(GameObject enemy, int shatterDamage)
@@ -135,5 +137,6 @@ public class PowerUpEffects : MonoBehaviour
         enemyStateMachine.ParalyzeHealCurrentTimer = 0;
         enemyStateMachine.ParalyzeHealTime = paralyzeTime;
         enemyStateMachine.ChangeState(EnemyStateMachine.States.Paralyzed);
+        Debug.Log("PowerUp Paralyzed");
     }
 }

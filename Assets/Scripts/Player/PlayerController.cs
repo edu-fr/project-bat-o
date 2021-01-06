@@ -89,7 +89,7 @@ namespace Player
             Dash();
         }
 
-        private void FaceDirection()
+        public void FaceDirection()
         {
             /* Face direction handler */
             if (IsZTargeting)
@@ -165,7 +165,7 @@ namespace Player
                 }
             }
 
-            if (Input.GetKeyUp(KeyCode.C))
+            if (Input.GetKeyUp(KeyCode.C) && !CanCounterAttack && PlayerStateMachine.State != PlayerStateMachine.States.Dashing)
             {
                 if (IsZTargeting && TargetedEnemy != null)
                 {
@@ -218,13 +218,10 @@ namespace Player
 
             if (DashCurrentMoveSpeedMultiplier <= 1)
             {
-                Debug.Log("Dash acabou aos " + Time.time);
-                Debug.Log("PORRA: " + PlayerStateMachine.State);
                 if (PlayerStateMachine.State == PlayerStateMachine.States.Dashing)
                 {
                     Invoke(nameof(DodgeTest), 0.15f);
                     PlayerStateMachine.ChangeState(PlayerStateMachine.States.Standard);
-                    Debug.Log("Mudou o estado para: " + PlayerStateMachine.State);
                 }
 
                 DashCurrentMoveSpeedMultiplier = DashInitialMoveSpeedMultiplier;
@@ -271,7 +268,6 @@ namespace Player
 
         private void DodgeTest()
         {
-            Debug.Log("FUI CHAMADO AOS!" + Time.time);
             CanCounterAttack = (!DodgeFailed && DodgeSuccessful);
         }
 
