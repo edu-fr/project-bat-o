@@ -358,6 +358,7 @@ MonoBehaviour:
   FireMaterial: {fileID: 2100000, guid: b48f0ca1f8b777b48b7e94d23c80df9b, type: 2}
   IceMaterial: {fileID: 2100000, guid: 897af51100febe24ba281190347776d6, type: 2}
   ThunderMaterial: {fileID: 2100000, guid: b09a1d44807edfd4ca2575ed17bc2391, type: 2}
+  PowerUpController: {fileID: 0}
   EnemyLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -390,8 +391,7 @@ MonoBehaviour:
   MaxHealth: 10000
   CurrentHealth: 0
   Invincible: 0
-  HealthBarScript: {fileID: 2807595125430958419, guid: 49b0bafece7f3bc488d8687529009eea,
-    type: 3}
+  HealthBarScript: {fileID: 0}
   PlayerController: {fileID: 0}
 --- !u!114 &4396048941111737139
 MonoBehaviour:
@@ -483,9 +483,12 @@ MonoBehaviour:
   PlayerRigidBody: {fileID: 0}
   CanFlurryRush: 0
   EnemyPosition: {x: 0, y: 0}
-  TimeToStartRush: 2
-  RushDuration: 5
+  PlayerEndDashPosition: {x: 0, y: 0}
+  DistanceToEnemy: 0
+  TimeToStartRush: 3
   isFlurryAttacking: 0
+  LerpTime: 0.3
+  TimeStartLerping: 0
   DrawGizmos: 0
 --- !u!114 &-1128968484826919403
 MonoBehaviour:
@@ -502,4 +505,7 @@ MonoBehaviour:
   PlayerController: {fileID: 0}
   PlayerAttackManager: {fileID: 0}
   FlurryRush: {fileID: 0}
+  ObjectsLayerMask:
+    serializedVersion: 2
+    m_Bits: 768
   State: 0

@@ -10,8 +10,8 @@ namespace Enemy
         private EnemyStateMachine EnemyStateMachine;
         private EnemyBehavior EnemyBehavior;
 
-        [SerializeField]
-        private LayerMask PlayerLayer;
+        
+        public LayerMask PlayerLayer;
 
         private float AttackVelocity = 12f;
         private bool AttackEnded = false;
@@ -42,7 +42,7 @@ namespace Enemy
                     ProbablyGonnaHit = false;
                     EnemyBehavior.AiPath.enabled = true;
                     EnemyStateMachine.ChangeState(EnemyStateMachine.States.Chasing);
-                    Debug.Log("MeleeAttackManager");
+                    //  Debug.Log("MeleeAttackManager");
                 }
             }
         }

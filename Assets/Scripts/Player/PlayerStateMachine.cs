@@ -66,6 +66,7 @@ public class PlayerStateMachine : MonoBehaviour
             
             case States.Rushing:
                 PlayerController.FaceDirection();
+                PlayerAttackManager.PlayerHealthManager.Invincible = true;
                 break;
             
             case States.Frozen:
@@ -103,10 +104,13 @@ public class PlayerStateMachine : MonoBehaviour
                     new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized * (PlayerController.StandardMoveSpeed * PlayerController.DashCurrentMoveSpeedMultiplier);
                 /***/
                 break;
-            
-            case States.Rushing:
 
-                PlayerAttackManager.PlayerHealthManager.Invincible = true;
+            case States.Rushing:
+                if (!FlurryRush.hasStartedLerp)
+                {
+                    FlurryRush.TimeStartLerping = Time.unscaledTime;
+                    FlurryRush.hasStartedLerp = true;
+                }
                 if (FlurryRush.RushToEnemyPosition())
                 {
                     FlurryRush.FlurryAttack();

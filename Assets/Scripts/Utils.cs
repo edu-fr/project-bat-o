@@ -41,22 +41,22 @@ public static class UtilitiesClass
 
     public static Vector3 Get8DirectionFromAngle(float angle)
     {
-        if (angle >= 330 || angle < 30) return new Vector3(1, 0);    // Right
-        if (angle >= 30 && angle < 60) return new Vector3(1, 1);     // Right + Up
-        if (angle >= 60 && angle < 120) return new Vector3(0, 1);    // Up
-        if (angle >= 120 && angle < 150) return new Vector3(-1, 1);  // Left + Up
-        if (angle >= 150 && angle < 210) return new Vector3(-1, 0);  // Left
-        if (angle >= 210 && angle < 240) return new Vector3(-1, -1); // Left + Down
-        if (angle >= 240 && angle < 300) return new Vector3(0, -1);  // Down
-        return new Vector3(0, -1);                                   // Right + Down
-       
+        if (angle >= 337 || angle < 022) return new Vector3(1, 0);   // Right
+        if (angle >= 022 && angle < 067) return new Vector3(1, 1);   // Right + Up
+        if (angle >= 067 && angle < 112) return new Vector3(0, 1);   // Up
+        if (angle >= 112 && angle < 157) return new Vector3(-1, 1);  // Left + Up
+        if (angle >= 157 && angle < 202) return new Vector3(-1, 0);  // Left
+        if (angle >= 202 && angle < 247) return new Vector3(-1, -1); // Left + Down
+        if (angle >= 247 && angle < 292) return new Vector3(0, -1);  // Down
+        if (angle >= 292 && angle < 337) return new Vector3(1, -1);  // Right + Down
+        return new Vector3(0, 0);
     }
     
-    public static Vector3 CustomLerp(Vector3 start, Vector3 end, float timeStartLerping, float lerpTime)
+    public static Vector3 CustomLerp(Vector3 start, Vector3 end, float timeStartedLerping, float lerpTime)
     {
-        var timeSinceStartLerping = Time.unscaledTime - timeStartLerping;
-        var lerpingPercentage = timeSinceStartLerping / lerpTime;
-        var result = Vector3.Lerp(start, end, lerpingPercentage);
+        var timeSinceStarted = Time.unscaledTime - timeStartedLerping;
+        var percentageComplete= timeSinceStarted / lerpTime;
+        var result = Vector3.Lerp(start, end, percentageComplete);
         return result;
     }
 }

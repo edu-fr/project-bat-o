@@ -1,4 +1,5 @@
-﻿using Enemy;
+﻿using System.Collections;
+using Enemy;
 using Game;
 using UI;
 using UnityEngine;
@@ -82,7 +83,7 @@ namespace Player
             Invoke(nameof(EndFlash), 0.3f);
             Invoke(nameof(FlashSprite), 0.4f);
             Invoke(nameof(EndFlash), 0.5f);
-            Invoke(nameof(Endinvincibility), 0.6f);
+            Invoke(nameof(EndInvincibility), 0.6f);
         }
 
         public void IncreaseMaxHP(int value)
@@ -109,11 +110,16 @@ namespace Player
         {
             Renderer.material = DefaultMaterial;
         }
-        private void Endinvincibility ()
+        public void EndInvincibility ()
         {
             Invincible = false;
         }
-        
+
+        public IEnumerator EndInvincibilityAfterTime(float time)
+        {
+            yield return new WaitForSecondsRealtime(time);
+            Invincible = false;
+        }
         #endregion
     }
 }

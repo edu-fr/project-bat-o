@@ -12,8 +12,8 @@ namespace Enemy
         private float FieldOfViewValue;
         private float ViewDistance;
         private int RayCount = 50;
-        [SerializeField] private LayerMask LayerMask;
-        private EnemyBehavior EnemyBehavior;
+        public EnemyBehavior EnemyBehavior;
+        public LayerMask LayerMask;
 
         #endregion
 

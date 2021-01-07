@@ -19,17 +19,15 @@ public class FlurryRush : MonoBehaviour
     public Vector2 PlayerEndDashPosition;
     public float DistanceToEnemy;
 
-    public float TimeSinceStartLerping;
-    public float LerpingPercentage;
-
     [SerializeField]
     private float TimeToStartRush = 2f;
     private float CurrentTimeToStartRush;
+    public bool hasStartedLerp = false;
 
     public bool isFlurryAttacking;
 
     // LERP TIME
-    public float LerpTime = 3f;
+    public float LerpTime;
     public float TimeStartLerping; 
 
     public bool DrawGizmos; 
@@ -49,7 +47,7 @@ public class FlurryRush : MonoBehaviour
 
     public void RushHandler()
     {
-        TimeManager.ChangeTimeScale(0.01f);
+        TimeManager.ChangeTimeScale(0.1f);
         CurrentTimeToStartRush -= Time.unscaledDeltaTime;
         if (CurrentTimeToStartRush < 0)
         {
@@ -61,11 +59,10 @@ public class FlurryRush : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.F)) // Start Rush
             {
-                TimeManager.BackTimeToStandardFlow();
+                // TimeManager.BackTimeToStandardFlow();
                 
                 // LERP 
                 EnemyPosition = PlayerController.TargetedEnemy.CircleCollider.ClosestPoint(transform.position);
-                TimeStartLerping = Time.unscaledTime;
                 PlayerEndDashPosition = transform.position;
                 
                 CanFlurryRush = false;
@@ -80,9 +77,9 @@ public class FlurryRush : MonoBehaviour
     public bool RushToEnemyPosition()
     {
         DistanceToEnemy = Physics2D.Distance(PlayerCollider, PlayerController.TargetedEnemy.CircleCollider).distance;
-        if (DistanceToEnemy < 0.1f)
+        if (DistanceToEnemy < 0.2f)
             return true;
-        transform.position = (UtilitiesClass.CustomLerp(PlayerEndDashPosition, EnemyPosition, TimeStartLerping, LerpTime));
+        PlayerRigidBody.MovePosition(UtilitiesClass.CustomLerp(PlayerEndDashPosition, EnemyPosition, TimeStartLerping, LerpTime));
         return false;
 
     }
@@ -100,14 +97,14 @@ public class FlurryRush : MonoBehaviour
     private void RushEnd()
     {
         TimeManager.BackTimeToStandardFlow();
+        hasStartedLerp = false;
         PlayerController.PlayerStateMachine.ChangeState(PlayerStateMachine.States.Standard);
         PlayerController.Animator.updateMode = AnimatorUpdateMode.Normal;
         if (PlayerController.TargetedEnemy.gameObject != null)
         {
             StartCoroutine(PlayerController.TargetedEnemy.EnemyStateMachine.ReturnEnemyToStateAfterSeconds(EnemyStateMachine.States.Chasing ,0.5f));
         }
-        
-        PlayerController.PlayerAttackManager.PlayerHealthManager.Invincible = false;
+        StartCoroutine(PlayerController.PlayerAttackManager.PlayerHealthManager.EndInvincibilityAfterTime(1f));
     }
 
 
