@@ -105,41 +105,12 @@ public class PlayerStateMachine : MonoBehaviour
                 break;
             
             case States.Rushing:
-                /*
-                var nothingBetween = false;
-                var elementBetweenPlayerAndEnemy = Physics2D.Raycast(transform.position,
-                    Physics2D.Distance(PlayerController.TargetedEnemy.CircleCollider, PlayerController.PlayerCollider)
-                        .normal, 3f, ObjectsLayerMask);
-                if (elementBetweenPlayerAndEnemy.collider != null)
-                {
-                    if (elementBetweenPlayerAndEnemy.collider.gameObject == PlayerController.TargetedEnemy.gameObject) // if the first thing that the raycast hit is the locked enemy, the player is able to attack!
-                    {
-                        nothingBetween = true;
-                    }
-                    else
-                    {
-                        Debug.Log("Object found! " + elementBetweenPlayerAndEnemy.collider.gameObject.name);
-                    }
-                }
-                */
-                if (FlurryRush.RushToEnemyPosition() /* && nothingBetween */)
+
+                PlayerAttackManager.PlayerHealthManager.Invincible = true;
+                if (FlurryRush.RushToEnemyPosition())
                 {
                     FlurryRush.FlurryAttack();
-                }/*
-                else
-                {
-                    if (!nothingBetween) // If there is things between the player and the enemy, the rush end;
-                    {
-                        if (elementBetweenPlayerAndEnemy.collider != null)
-                        {
-                            Debug.Log("Object found! " + elementBetweenPlayerAndEnemy.collider.gameObject.name);
-                            
-                        }
-                        FlurryRush.RushEnd();
-                    }
-                    
-                }*/
-
+                }
                 break;
 
             case States.Paralyzed:

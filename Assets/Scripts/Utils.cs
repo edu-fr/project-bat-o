@@ -51,4 +51,12 @@ public static class UtilitiesClass
         return new Vector3(0, -1);                                   // Right + Down
        
     }
+    
+    public static Vector3 CustomLerp(Vector3 start, Vector3 end, float timeStartLerping, float lerpTime)
+    {
+        var timeSinceStartLerping = Time.unscaledTime - timeStartLerping;
+        var lerpingPercentage = timeSinceStartLerping / lerpTime;
+        var result = Vector3.Lerp(start, end, lerpingPercentage);
+        return result;
+    }
 }

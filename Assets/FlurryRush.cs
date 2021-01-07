@@ -26,14 +26,10 @@ public class FlurryRush : MonoBehaviour
     private float TimeToStartRush = 2f;
     private float CurrentTimeToStartRush;
 
-    [SerializeField]
-    private float RushDuration = 5f;
-    private float RushCurrentTime = 0;
-
     public bool isFlurryAttacking;
 
     // LERP TIME
-    public float LerpTime = 1f;
+    public float LerpTime = 3f;
     public float TimeStartLerping; 
 
     public bool DrawGizmos; 
@@ -66,16 +62,17 @@ public class FlurryRush : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.F)) // Start Rush
             {
                 TimeManager.BackTimeToStandardFlow();
-                EnemyPosition = PlayerController.TargetedEnemy.CircleCollider.ClosestPoint(transform.position);
+                
                 // LERP 
+                EnemyPosition = PlayerController.TargetedEnemy.CircleCollider.ClosestPoint(transform.position);
                 TimeStartLerping = Time.unscaledTime;
                 PlayerEndDashPosition = transform.position;
+                
                 CanFlurryRush = false;
                 isFlurryAttacking = false;
                 PlayerController.Animator.updateMode = AnimatorUpdateMode.UnscaledTime;
                 PlayerController.PlayerStateMachine.ChangeState(PlayerStateMachine.States.Rushing);
                 PlayerController.TargetedEnemy.EnemyStateMachine.ChangeState(EnemyStateMachine.States.BeenRushed);
-                //Debug.Log("Flurry rush change");
             }
         }
     }
@@ -85,22 +82,11 @@ public class FlurryRush : MonoBehaviour
         DistanceToEnemy = Physics2D.Distance(PlayerCollider, PlayerController.TargetedEnemy.CircleCollider).distance;
         if (DistanceToEnemy < 0.1f)
             return true;
-        transform.position = (CustomLerp(PlayerEndDashPosition, EnemyPosition, TimeStartLerping, LerpTime));
+        transform.position = (UtilitiesClass.CustomLerp(PlayerEndDashPosition, EnemyPosition, TimeStartLerping, LerpTime));
         return false;
 
     }
 
-    public Vector3 CustomLerp(Vector3 start, Vector3 end, float timeStartLerping, float lerpTime)
-    {
-        TimeSinceStartLerping = Time.unscaledTime - timeStartLerping;
-        LerpingPercentage = TimeSinceStartLerping / lerpTime; 
-        
-        var result = Vector3.Lerp(start, end, LerpingPercentage);
-
-        return result;
-    }
-    
-    
     public void FlurryAttack()
     {
         if (!isFlurryAttacking)
@@ -111,11 +97,17 @@ public class FlurryRush : MonoBehaviour
         }
     }
 
-    public void RushEnd()
+    private void RushEnd()
     {
         TimeManager.BackTimeToStandardFlow();
         PlayerController.PlayerStateMachine.ChangeState(PlayerStateMachine.States.Standard);
         PlayerController.Animator.updateMode = AnimatorUpdateMode.Normal;
+        if (PlayerController.TargetedEnemy.gameObject != null)
+        {
+            StartCoroutine(PlayerController.TargetedEnemy.EnemyStateMachine.ReturnEnemyToStateAfterSeconds(EnemyStateMachine.States.Chasing ,0.5f));
+        }
+        
+        PlayerController.PlayerAttackManager.PlayerHealthManager.Invincible = false;
     }
 
 

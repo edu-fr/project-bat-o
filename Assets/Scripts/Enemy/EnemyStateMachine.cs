@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Linq.Expressions;
 using Player;
 using Unity.Collections;
@@ -205,11 +206,7 @@ namespace Enemy
                     break;
                 
                 case States.BeenRushed:
-                    if (Input.GetKeyDown(KeyCode.E) /*&& Time.timeScale == 1 */)
-                    {
-                        ChangeState(States.Chasing);
-                        //Debug.Log("Been rushed ends");
-                    }
+                    /* StartCoroutine(ReturnEnemyToStandardStateAfterSeconds(3f)); */
                     break; 
             }
         }
@@ -323,6 +320,12 @@ namespace Enemy
                     break;
             }
             this.State = state;
+        }
+
+        public IEnumerator ReturnEnemyToStateAfterSeconds(States state, float seconds)
+        {
+            yield return new WaitForSecondsRealtime(seconds);
+            ChangeState(state);
         }
     }
 }
