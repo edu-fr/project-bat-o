@@ -41,6 +41,7 @@ namespace Enemy
         public float ViewDistance;
         public GameObject TargetPlayer;
         public GameObject Player;
+        public PlayerStateMachine PlayerStateMachine; 
         public float SurroundingDistance = 2f;
 
         // Animation
@@ -85,6 +86,7 @@ namespace Enemy
         private void Start()
         {
             Player = GameObject.FindGameObjectWithTag("Player");
+            PlayerStateMachine = Player.GetComponent<PlayerStateMachine>();
             Target = new GameObject("target " + gameObject.name);
             
             // Set initial enemy position according to its initial position
@@ -133,7 +135,6 @@ namespace Enemy
         {
             if (EnemyStateMachine.IsTargeted)
             {
-                Debug.Log("TARGETED!");
                 CurrentMaterial = TargetedMaterial;
             } 
             else if (EnemyStateMachine.IsOnFire)
@@ -152,8 +153,8 @@ namespace Enemy
             {
                 CurrentMaterial = DefaultMaterial;
             }
-                Renderer.material = CurrentMaterial;
-            }
+            Renderer.material = CurrentMaterial;
+        }
 
         private Vector3 GenerateNewTarget()
         {

@@ -14,7 +14,6 @@ namespace Game
         [RuntimeInitializeOnLoadMethod]
         static void Initialize()
         {
-            Debug.Log("Inicializou");
             GraphicsSettings.transparencySortMode = TransparencySortMode.CustomAxis;
             GraphicsSettings.transparencySortAxis = new Vector3(0.0f, 1.0f, 1.0f);
         }

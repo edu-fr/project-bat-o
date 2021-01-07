@@ -22,7 +22,6 @@ namespace Player
         #endregion
 
         #region Variables
-        public bool IsAttacking { private set; get;} = false;
         
         private WeaponType CurrentWeaponType = WeaponType.Sword;
         public float CurrentWeaponDamage;
@@ -33,16 +32,17 @@ namespace Player
         public PowerUpController.Effects CurrentEffect = PowerUpController.Effects.None;
         
         private Animator Animator;
+        public PlayerHealthManager PlayerHealthManager;
+        public PlayerStateMachine PlayerStateMachine;
         public Material StandardMaterial;
         public Material FireMaterial;
         public Material IceMaterial;
         public Material ThunderMaterial;
         private Renderer Renderer;
 
-        private PowerUpController PowerUpController;
+        public PowerUpController PowerUpController;
 
         [SerializeField]
-        private GameObject SwordHitBox;
         
         private LayerMask EnemyLayers;
         private Directions Direction;
@@ -56,6 +56,8 @@ namespace Player
             Animator = GetComponent<Animator>();
             PowerUpController = GetComponent<PowerUpController>();
             Renderer = GetComponent<Renderer>();
+            PlayerHealthManager = GetComponent<PlayerHealthManager>();
+            PlayerStateMachine = GetComponent<PlayerStateMachine>();
         }
 
         private void Start()
@@ -63,12 +65,16 @@ namespace Player
             SetWeaponStats();
         }
         
-        private void Update()
+        #endregion
+
+        #region Auxiliar Methods
+
+        public void HandleAttack()
         {
-            // Set position according to player's direction and give an offset 
             Direction = GetAnimationDirection();
-            if (Input.GetKeyDown(KeyCode.Z) && !Animator.GetBool("IsAttacking"))
+            if (Input.GetKeyDown(KeyCode.Z))
             {
+                PlayerStateMachine.ChangeState(PlayerStateMachine.States.Attacking);
                 CurrentEffect = PowerUpController.GenerateEffect();
                 switch(CurrentEffect)
                 {
@@ -91,24 +97,29 @@ namespace Player
                 Attack();
             }
         }
-
-        #endregion
-
-        #region Auxiliar Methods
-
-        private void Attack()
+        
+        public void Attack()
         {
             // Set attack animation
             Animator.speed = CurrentWeaponAttackSpeed * 0.2f;
             Animator.SetTrigger("Attack");
             Animator.SetBool("IsAttacking", true);
         }
+
+        public void FlurryAttack()
+        {
+            PlayerStateMachine.ChangeState(PlayerStateMachine.States.Attacking);
+            Renderer.material = FireMaterial;
+            Animator.speed = CurrentWeaponAttackSpeed * 0.2f;
+            Animator.SetTrigger("Attack");
+            Animator.SetBool("IsAttacking", true);
+        }
         
-        private void AttackEnd()
+        public void AttackEnd()
         {
             Animator.speed = 1f;
             Animator.SetBool("IsAttacking", false);
-            IsAttacking = false;
+            PlayerStateMachine.ChangeState(PlayerStateMachine.States.Standard);
             Renderer.material = StandardMaterial;
         }
 

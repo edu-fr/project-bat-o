@@ -27,13 +27,14 @@ namespace Enemy
         {
             if (AttackEnded)
             {
+                EnemyCombatManager.IsAttacking = false;
                 AttackCurrentRecoveryTime += Time.deltaTime;
                 if (AttackCurrentRecoveryTime > AttackRecoveryTime)
                 {
                     AttackCurrentRecoveryTime = 0;
                     EnemyBehavior.AiPath.enabled = true;
                     EnemyStateMachine.ChangeState(EnemyStateMachine.States.Chasing);
-                    EnemyStateMachine.IsAttacking = false;
+                    EnemyStateMachine.IsAttackingNow = false;
                 }
             }
         }
@@ -45,7 +46,8 @@ namespace Enemy
             EnemyBehavior.Animator.SetFloat("AttackDirX", playerDirection.x);
             EnemyBehavior.Animator.SetFloat("AttackDirY", playerDirection.y);
             EnemyBehavior.Animator.SetTrigger("Attack");
-           
+            EnemyCombatManager.IsAttacking = true;
+
         }
 
         public void ShootArrowDuringAnimation()

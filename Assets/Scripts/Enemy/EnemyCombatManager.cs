@@ -3,6 +3,7 @@ using Game;
 using Pathfinding;
 using Player;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Enemy
 {
@@ -12,11 +13,12 @@ namespace Enemy
         private AudioManager AudioManager;
         private EnemyBehavior EnemyBehavior;
         public Rigidbody2D Rigidbody2D;
-        
+        public float LastTimeHitPlayerDuringAttack;
         
         // Attack
         public float MeleeDamage { private set; get; } = 20;
         public float RangedDamage { private set; get; } = 200f;
+        public bool IsAttacking;
         private bool Invincible = false;
         public float TimeInvincible = .9f;
         private void Awake()
@@ -70,8 +72,14 @@ namespace Enemy
         private void OnCollisionStay2D(Collision2D other)
         {
             if (!other.gameObject.CompareTag("Player")) return;
+            
+            // Saves the last time enemy hit the player with an attack
+            if (EnemyBehavior.EnemyStateMachine.EnemyType == EnemyStateMachine.Type.Melee)
+            {
+                LastTimeHitPlayerDuringAttack = Time.time;
+                other.gameObject.GetComponent<PlayerController>().DodgeFailed = true;
+            }
             other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage((int)MeleeDamage);
-
         }
 
         private IEnumerator TakeKnockBack(float knockBackTime)

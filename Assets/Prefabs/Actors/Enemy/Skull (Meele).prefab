@@ -264,6 +264,7 @@ MonoBehaviour:
   ViewDistance: 7
   TargetPlayer: {fileID: 0}
   Player: {fileID: 0}
+  PlayerStateMachine: {fileID: 0}
   SurroundingDistance: 2
   FaceDirection: {x: 0, y: 0, z: 0}
   DefaultMaterial: {fileID: 0}
@@ -393,6 +394,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b43e9415a87f80c439e6fc82ec8daafb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  IsOnHalfOfAttackAnimation: 0
+  ProbablyGonnaHit: 0
 --- !u!114 &-3329415677510676803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,9 +413,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   State: 0
   PreviousState: 0
-  EnemyType: 0
+  EnemyType: 1
   IsWalkingAround: 0
-  IsBeenTargeted: 0
+  IsTargeted: 0
   IsFrozen: 0
   DefrostCurrentTimer: 0
   DefrostTime: 0
@@ -419,8 +425,10 @@ MonoBehaviour:
   ParalyzeHealCurrentTimer: 0
   ParalyzeHealTime: 0
   WillDieBurned: 0
-  IsAttacking: 0
+  IsAttackingNow: 0
+  IsBeenRushed: 0
   EnemyBehavior: {fileID: 0}
+  EnemyCombatManager: {fileID: 0}
   EnemyMeleeAttackManager: {fileID: 4392494387670825045}
   EnemyRangedAttackManager: {fileID: 0}
 --- !u!114 &1083760840016041595
@@ -436,6 +444,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rigidbody2D: {fileID: 0}
+  LastTimeHitPlayerDuringAttack: 0
+  IsAttacking: 0
   TimeInvincible: 0.9
 --- !u!1001 &891519769701157699
 PrefabInstance:

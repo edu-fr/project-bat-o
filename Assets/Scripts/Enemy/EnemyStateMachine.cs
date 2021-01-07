@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Linq.Expressions;
+using Player;
 using Unity.Collections;
 using UnityEngine;
 
@@ -15,6 +17,7 @@ namespace Enemy
             DyingBurned,
             Frozen,
             Paralyzed,
+            BeenRushed, 
         };
 
         public enum Type
@@ -39,7 +42,8 @@ namespace Enemy
         public float ParalyzeHealCurrentTimer;
         public float ParalyzeHealTime;
         public bool WillDieBurned = false;
-        public bool IsAttacking;
+        public bool IsAttackingNow;
+        public bool IsBeenRushed;
 
         private float AttackPreparationTime = 0.95f;
         private float AttackPreparationCurrentTime = 0;
@@ -50,12 +54,14 @@ namespace Enemy
         private Vector3 PlayerDirection;
 
         public EnemyBehavior EnemyBehavior;
+        public EnemyCombatManager EnemyCombatManager;
         public EnemyMeleeAttackManager EnemyMeleeAttackManager;
         public EnemyRangedAttackManager EnemyRangedAttackManager;
         
         private void Awake()
         {
             EnemyBehavior = GetComponent<EnemyBehavior>();
+            EnemyCombatManager = GetComponent<EnemyCombatManager>();
         }
 
         private void Start()
@@ -94,9 +100,10 @@ namespace Enemy
                     // Updating field of view
                     EnemyBehavior.FieldOfViewComponent.SetAimDirection(EnemyBehavior.FaceDirection);
                     // Looking for the player
-                    if (EnemyBehavior.TargetPlayer.gameObject != null)
+                    if (EnemyBehavior.TargetPlayer != null)
                     {
                         ChangeState(States.Chasing);
+                        //Debug.Log("LostTargetPlayer");
                     }
 
                     break;
@@ -113,6 +120,7 @@ namespace Enemy
                         if (Vector2.Distance(transform.position, EnemyBehavior.TargetPlayer.transform.position) < DistanceToAttack)
                         {
                             ChangeState(States.PreparingAttack);
+                            //Debug.Log("PreparingAttack");
                             break;
                         }
 
@@ -125,8 +133,8 @@ namespace Enemy
                     else // Lost sight of player
                     {
                         ChangeState(States.Standard);
+                        //Debug.Log("Lost player on attack");
                     }
-
                     break;
 
                 case States.PreparingAttack:
@@ -136,6 +144,7 @@ namespace Enemy
                     {
                         AttackPreparationCurrentTime = 0;
                         ChangeState(States.Attacking);
+                        //Debug.Log("FinishedReadingAttack");
                     }
                     else
                     {
@@ -149,14 +158,13 @@ namespace Enemy
                             // make noise to warning about attack
                         }
                     }
-                    
                     break;
                 
                 case States.Attacking:
                     // Return if already start the attack
-                    if (IsAttacking) return;
+                    if (IsAttackingNow) return;
                     
-                    IsAttacking = true; 
+                    IsAttackingNow = true; 
                     
                     // do only once
                     if (EnemyType == Type.Melee)
@@ -167,13 +175,11 @@ namespace Enemy
                     {
                         EnemyRangedAttackManager.Attack(PlayerDirection);
                     }
-                    
                     break;
 
                 case States.DyingBurned:
                     EnemyBehavior.Animate();
                     EnemyBehavior.SetCurrentFaceDirection();
-
                     break;
 
                 case States.Frozen:
@@ -184,8 +190,8 @@ namespace Enemy
                         DefrostCurrentTimer = 0;
                         IsFrozen = false;
                         ChangeState(States.Chasing);
+                        //Debug.Log("Frozen Ends");
                     }
-
                     break;
 
                 case States.Paralyzed:
@@ -195,9 +201,13 @@ namespace Enemy
                         ParalyzeHealCurrentTimer = 0;
                         IsParalyzed = false;
                         ChangeState(States.Chasing);
+                        //Debug.Log("Paralyze ends");
                     }
-
                     break;
+                
+                case States.BeenRushed:
+                    /* StartCoroutine(ReturnEnemyToStandardStateAfterSeconds(3f)); */
+                    break; 
             }
         }
     
@@ -240,9 +250,8 @@ namespace Enemy
                     EnemyBehavior.FieldOfViewComponent.gameObject.SetActive(false);
                     EnemyBehavior.AiPath.enabled = false;
                     EnemyBehavior.AiDestinationSetter.target = null;
-                    PlayerDirection = (EnemyBehavior.TargetPlayer.transform.position - transform.position).normalized;
+                    PlayerDirection = ((Vector2) EnemyBehavior.TargetPlayer.transform.position + (Vector2) EnemyBehavior.TargetPlayer.GetComponent<BoxCollider2D>().offset - (Vector2) transform.position).normalized;
                     EnemyBehavior.SetCurrentFaceDirectionTo(PlayerDirection);
-                    
                     break;
                 
                 case (States.Attacking):
@@ -251,7 +260,6 @@ namespace Enemy
                     EnemyBehavior.FieldOfViewComponent.gameObject.SetActive(false);
                     EnemyBehavior.AiPath.enabled = false;
                     EnemyBehavior.AiDestinationSetter.target = null;
-                    
                     break;
                 
                 case (States.DyingBurned):
@@ -297,8 +305,27 @@ namespace Enemy
                     }
                     
                     break;
+                
+                case (States.BeenRushed):
+                    IsWalkingAround = false;
+                    IsBeenRushed = true;
+                    EnemyCombatManager.Rigidbody2D.velocity = Vector2.zero;
+                    EnemyBehavior.Animator.speed = 0;
+                    EnemyBehavior.AiPath.maxSpeed = 0;
+                    if (EnemyBehavior.FieldOfViewComponent.gameObject != null)
+                    {
+                        EnemyBehavior.FieldOfViewComponent.gameObject.SetActive(false);
+                    }
+                    
+                    break;
             }
             this.State = state;
+        }
+
+        public IEnumerator ReturnEnemyToStateAfterSeconds(States state, float seconds)
+        {
+            yield return new WaitForSecondsRealtime(seconds);
+            ChangeState(state);
         }
     }
 }
