@@ -347,10 +347,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de6e46098e12e4443b13b2f5563617e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentWeaponDamage: 0
-  CurrentWeaponKnockback: 0
-  CurrentWeaponAttackSpeed: 0
+  CurrentDamage: 0
+  CurrentKnockback: 0
+  CurrentAttackSpeed: 0
   CurrentKnockbackDuration: 0
+  CurrentCriticalHitMultiplier: 2
+  CurrentCriticalHitChance: 30
   CurrentEffect: 3
   PlayerHealthManager: {fileID: 0}
   PlayerStateMachine: {fileID: 0}
@@ -358,6 +360,8 @@ MonoBehaviour:
   FireMaterial: {fileID: 2100000, guid: b48f0ca1f8b777b48b7e94d23c80df9b, type: 2}
   IceMaterial: {fileID: 2100000, guid: 897af51100febe24ba281190347776d6, type: 2}
   ThunderMaterial: {fileID: 2100000, guid: b09a1d44807edfd4ca2575ed17bc2391, type: 2}
+  PrefabDamagePopup: {fileID: 5288669746408271298, guid: 592b06df424ea3c4f9c648348d1e08e0,
+    type: 3}
   PowerUpController: {fileID: 0}
   EnemyLayers:
     serializedVersion: 2
@@ -486,6 +490,7 @@ MonoBehaviour:
   PlayerEndDashPosition: {x: 0, y: 0}
   DistanceToEnemy: 0
   TimeToStartRush: 3
+  hasStartedLerp: 0
   isFlurryAttacking: 0
   LerpTime: 0.3
   TimeStartLerping: 0

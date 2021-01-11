@@ -445,6 +445,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Rigidbody2D: {fileID: 0}
   LastTimeHitPlayerDuringAttack: 0
+  PrefabDamagePopup: {fileID: 5288669746408271298, guid: 592b06df424ea3c4f9c648348d1e08e0,
+    type: 3}
   IsAttacking: 0
   TimeInvincible: 0.9
 --- !u!1001 &891519769701157699

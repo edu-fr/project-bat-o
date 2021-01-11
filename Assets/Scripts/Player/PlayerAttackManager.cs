@@ -3,10 +3,12 @@ using System.Diagnostics;
 using System.Security.Cryptography;
 using Enemy;
 using Game;
+using UI;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using Debug = UnityEngine.Debug;
+using Random = UnityEngine.Random;
 
 
 namespace Player
@@ -24,10 +26,12 @@ namespace Player
         #region Variables
         
         private WeaponType CurrentWeaponType = WeaponType.Sword;
-        public float CurrentWeaponDamage;
-        public float CurrentWeaponKnockback;
-        public float CurrentWeaponAttackSpeed;
+        public float CurrentDamage;
+        public float CurrentKnockback;
+        public float CurrentAttackSpeed;
         public float CurrentKnockbackDuration;
+        public float CurrentCriticalHitMultiplier;
+        public float CurrentCriticalHitChance;
 
         public PowerUpController.Effects CurrentEffect = PowerUpController.Effects.None;
         
@@ -39,6 +43,7 @@ namespace Player
         public Material IceMaterial;
         public Material ThunderMaterial;
         private Renderer Renderer;
+        public Transform PrefabDamagePopup;
 
         public PowerUpController PowerUpController;
 
@@ -101,7 +106,7 @@ namespace Player
         public void Attack()
         {
             // Set attack animation
-            Animator.speed = CurrentWeaponAttackSpeed * 0.2f;
+            Animator.speed = CurrentAttackSpeed * 0.2f;
             Animator.SetTrigger("Attack");
             Animator.SetBool("IsAttacking", true);
         }
@@ -110,7 +115,7 @@ namespace Player
         {
             PlayerStateMachine.ChangeState(PlayerStateMachine.States.Attacking);
             Renderer.material = FireMaterial;
-            Animator.speed = CurrentWeaponAttackSpeed * 0.2f;
+            Animator.speed = CurrentAttackSpeed * 0.2f;
             Animator.SetTrigger("Attack");
             Animator.SetBool("IsAttacking", true);
         }
@@ -126,10 +131,28 @@ namespace Player
         public void VerifyAttackCollision(GameObject enemy)
         {
             Vector3 attackDirection = (enemy.transform.position - transform.position).normalized;
-            enemy.GetComponent<EnemyCombatManager>().TakeDamage(CurrentWeaponDamage, CurrentWeaponKnockback, attackDirection, CurrentKnockbackDuration,  CurrentWeaponAttackSpeed);
+            if (CriticalTest())
+            {
+                // critical hit
+                enemy.GetComponent<EnemyCombatManager>().TakeDamage(CurrentDamage * CurrentCriticalHitMultiplier, CurrentKnockback * 1.3f, attackDirection, CurrentKnockbackDuration, CurrentAttackSpeed);
+                DamagePopup.Create(enemy.transform.position, (int) (CurrentDamage * CurrentCriticalHitMultiplier), true, attackDirection, PrefabDamagePopup);
+            }
+            else
+            {
+                // normal hit
+                enemy.GetComponent<EnemyCombatManager>().TakeDamage(CurrentDamage, CurrentKnockback, attackDirection, CurrentKnockbackDuration, CurrentAttackSpeed);
+                DamagePopup.Create(enemy.transform.position, (int) CurrentDamage, false, attackDirection, PrefabDamagePopup);
+            }
             PowerUpController.ApplyEffectsOnEnemies(enemy, CurrentEffect);
         }
-        
+
+        private bool CriticalTest()
+        {
+            var random = Random.Range(0, 100);
+            Debug.Log(random);
+            Random.InitState((int) Time.realtimeSinceStartup);
+            return random < CurrentCriticalHitChance;
+        }
         private Directions GetAnimationDirection()
         {
             float lastMoveX = Animator.GetFloat("LastMoveX");
@@ -179,10 +202,10 @@ namespace Player
 
                     break;
                 case (WeaponType.Sword):
-                    CurrentWeaponDamage = 34;
-                    CurrentWeaponKnockback = 1.7f;
+                    CurrentDamage = 34;
+                    CurrentKnockback = 1.7f;
                     CurrentKnockbackDuration = 0.1f;
-                    CurrentWeaponAttackSpeed = 15f;
+                    CurrentAttackSpeed = 15f;
                     break;
                
 

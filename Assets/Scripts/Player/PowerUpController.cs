@@ -62,7 +62,7 @@ namespace Player
 
         public void IncreasePlayerDamage()
         {
-            PlayerAttackManager.CurrentWeaponDamage += PlayerAttackManager.CurrentWeaponDamage * DamageUpMultiplier;
+            PlayerAttackManager.CurrentDamage += PlayerAttackManager.CurrentDamage * DamageUpMultiplier;
         }
 
         public void IncreasePlayerMaxHP()

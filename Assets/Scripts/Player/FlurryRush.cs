@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Enemy;
+using Game;
 using Player;
 using UnityEditor;
 using UnityEngine;

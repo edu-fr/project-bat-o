@@ -2,8 +2,10 @@ using System.Collections;
 using Game;
 using Pathfinding;
 using Player;
+using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace Enemy
 {
@@ -28,7 +30,7 @@ namespace Enemy
             Rigidbody2D = GetComponent<Rigidbody2D>();
         }
 
-        public void TakeDamage(float weaponDamage, float weaponKnockback, Vector3 attackDirection, float knockBackDuration, float weaponAttackSpeed)
+        public void TakeDamage(float damage, float knockback, Vector3 attackDirection, float knockBackDuration, float attackSpeed)
         {
             if (Invincible) return; // if takes damage recently, dont take damage;
 
@@ -40,15 +42,15 @@ namespace Enemy
             FlashSprite();
 
             // Decrease health
-            EnemyHealthManager.TakeDamage((int) weaponDamage);
+            EnemyHealthManager.TakeDamage((int) damage);
            
             // Take knockback
             EnemyBehavior.AiPath.enabled = false;
-            Rigidbody2D.AddForce(attackDirection * weaponKnockback, ForceMode2D.Impulse);
+            Rigidbody2D.AddForce(attackDirection * knockback, ForceMode2D.Impulse);
             StartCoroutine(TakeKnockBack(knockBackDuration));
 
             // Work on it
-            float timeFlashing = TimeInvincible / (weaponAttackSpeed / 6f);
+            float timeFlashing = TimeInvincible / (attackSpeed / 6f);
             Invoke(nameof(EndFlash), timeFlashing / 3);
             Invoke(nameof(FlashSprite), timeFlashing / 2);
             Invoke(nameof(EndFlash), timeFlashing);
