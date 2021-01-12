@@ -259,6 +259,7 @@ MonoBehaviour:
   ChasingSpeed: 3.5
   DyingBurnedSpeed: 4.5
   Target: {fileID: 0}
+  Shadow: {fileID: 1118065617}
   FieldOfViewComponent: {fileID: 5083348610249324453}
   FieldOfViewValue: 50
   ViewDistance: 7
@@ -444,9 +445,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rigidbody2D: {fileID: 0}
-  LastTimeHitPlayerDuringAttack: 0
-  PrefabDamagePopup: {fileID: 5288669746408271298, guid: 592b06df424ea3c4f9c648348d1e08e0,
-    type: 3}
   IsAttacking: 0
   TimeInvincible: 0.9
 --- !u!1001 &891519769701157699

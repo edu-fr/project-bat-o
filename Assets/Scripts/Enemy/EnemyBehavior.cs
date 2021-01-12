@@ -33,6 +33,7 @@ namespace Enemy
         private Vector3 HomePosition; // original position on the level
         private float WalkableRange = 1f; // Distance it can walk while isnt chasing the player 
         public GameObject Target;
+        public GameObject Shadow;
 
         // Searching for player
         public FieldOfView FieldOfViewComponent;
@@ -115,11 +116,7 @@ namespace Enemy
             // Verify if its alive
             if(EnemyHealthManager.GetCurrentHp() <= 0)
             {
-                AudioManager.instance.Play("Final blow in the enemy");;
-                GameManager.EnemiesRemaining -= 1;
-                Destroy(gameObject);
-                Destroy(FieldOfViewComponent.gameObject);
-                Destroy(Target.gameObject);
+                Die();
             }
         }
 
@@ -132,27 +129,33 @@ namespace Enemy
 
         public void UpdateMaterial()
         {
-            if (EnemyStateMachine.IsTargeted)
-            {
-                CurrentMaterial = TargetedMaterial;
-            } 
-            else if (EnemyStateMachine.IsOnFire)
-            {
-                CurrentMaterial = BurnedMaterial;
-            }
-            else if (EnemyStateMachine.IsFrozen)
-            {
-                CurrentMaterial = FrozenMaterial;
-            }
-            else if (EnemyStateMachine.IsParalyzed)
-            {
-                CurrentMaterial = ParalyzedMaterial;
-            }
+            if (EnemyStateMachine.State == EnemyStateMachine.States.Dying)
+                CurrentMaterial = DefaultMaterial;
             else
             {
-                CurrentMaterial = DefaultMaterial;
+                if (EnemyStateMachine.IsTargeted)
+                {
+                    CurrentMaterial = TargetedMaterial;
+                } 
+                else if (EnemyStateMachine.IsOnFire)
+                {
+                    CurrentMaterial = BurnedMaterial;
+                }
+                else if (EnemyStateMachine.IsFrozen)
+                {
+                    CurrentMaterial = FrozenMaterial;
+                }
+                else if (EnemyStateMachine.IsParalyzed)
+                {
+                    CurrentMaterial = ParalyzedMaterial;
+                }
+                else
+                {
+                    CurrentMaterial = DefaultMaterial;
+                }
+                Renderer.material = CurrentMaterial;
             }
-            Renderer.material = CurrentMaterial;
+            
         }
 
         private Vector3 GenerateNewTarget()
@@ -260,6 +263,23 @@ namespace Enemy
             Animator.SetBool("IsMoving", true);
             Animator.SetFloat("MoveX", AiPath.velocity.x);
             Animator.SetFloat("MoveY", AiPath.velocity.y);
+        }
+
+        public void Die()
+        {
+            AudioManager.instance.Play("Final blow in the enemy");
+            EnemyStateMachine.ChangeState(EnemyStateMachine.States.Dying);
+            Shadow.SetActive(false);
+            Animator.SetTrigger("Died");
+        }
+
+        public void DestroyObject()
+        {
+            GameManager.EnemiesRemaining -= 1;
+            Destroy(FieldOfViewComponent.gameObject);
+            Destroy(Target.gameObject);
+            Destroy(gameObject);
+            Destroy(Shadow);
         }
     }
 }

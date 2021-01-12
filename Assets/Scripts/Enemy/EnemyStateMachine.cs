@@ -17,7 +17,8 @@ namespace Enemy
             DyingBurned,
             Frozen,
             Paralyzed,
-            BeenRushed, 
+            BeenRushed,
+            Dying
         };
 
         public enum Type
@@ -208,6 +209,10 @@ namespace Enemy
                 case States.BeenRushed:
                     /* StartCoroutine(ReturnEnemyToStandardStateAfterSeconds(3f)); */
                     break; 
+                
+                case States.Dying:
+                    
+                    break; 
             }
         }
     
@@ -318,6 +323,17 @@ namespace Enemy
                     }
                     
                     break;
+                
+                case (States.Dying):
+                    IsWalkingAround = false;
+                    IsBeenRushed = false;
+                    EnemyCombatManager.Rigidbody2D.velocity = Vector2.zero;
+                    EnemyBehavior.AiPath.maxSpeed = 0;
+                    if (EnemyBehavior.FieldOfViewComponent.gameObject != null)
+                    {
+                        EnemyBehavior.FieldOfViewComponent.gameObject.SetActive(false);
+                    }
+                    break; 
             }
             this.State = state;
         }
