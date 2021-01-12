@@ -15,7 +15,6 @@ namespace Enemy
         private AudioManager AudioManager;
         private EnemyBehavior EnemyBehavior;
         public Rigidbody2D Rigidbody2D;
-        public float LastTimeHitPlayerDuringAttack;
         
         // Attack
         public float MeleeDamage { private set; get; } = 20;
@@ -32,10 +31,6 @@ namespace Enemy
 
         public void TakeDamage(float damage, float knockback, Vector3 attackDirection, float knockBackDuration, float attackSpeed)
         {
-            if (Invincible) return; // if takes damage recently, dont take damage;
-
-            Invincible = true;
-            
             // Make hit noise
             AudioManager.instance.Play("Hit enemy");
             
@@ -78,7 +73,6 @@ namespace Enemy
             // Saves the last time enemy hit the player with an attack
             if (EnemyBehavior.EnemyStateMachine.EnemyType == EnemyStateMachine.Type.Melee)
             {
-                LastTimeHitPlayerDuringAttack = Time.time;
                 other.gameObject.GetComponent<PlayerController>().DodgeFailed = true;
             }
             other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage((int)MeleeDamage);

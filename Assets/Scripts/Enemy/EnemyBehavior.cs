@@ -12,7 +12,6 @@ namespace Enemy
 {
     public class EnemyBehavior : MonoBehaviour
     {
-
         // Components
         public Rigidbody2D Rigidbody;
         public CircleCollider2D CircleCollider;

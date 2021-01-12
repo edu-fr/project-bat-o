@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Security.Cryptography;
 using Enemy;
@@ -17,14 +18,27 @@ namespace Player
     {
         #region Enums
 
-        private enum Directions {UpLeft, UpRight, DownLeft, DownRight, Up, Down, Left, Right}
+        private enum Directions
+        {
+            UpLeft,
+            UpRight,
+            DownLeft,
+            DownRight,
+            Up,
+            Down,
+            Left,
+            Right
+        }
 
-        private enum WeaponType {Sword}
+        private enum WeaponType
+        {
+            Sword
+        }
 
         #endregion
 
         #region Variables
-        
+
         private WeaponType CurrentWeaponType = WeaponType.Sword;
         public float CurrentDamage;
         public float CurrentKnockback;
@@ -34,7 +48,9 @@ namespace Player
         public float CurrentCriticalHitChance;
 
         public PowerUpController.Effects CurrentEffect = PowerUpController.Effects.None;
-        
+
+        private List<GameObject> EnemiesHit;
+
         private Animator Animator;
         public PlayerHealthManager PlayerHealthManager;
         public PlayerStateMachine PlayerStateMachine;
@@ -47,9 +63,7 @@ namespace Player
 
         public PowerUpController PowerUpController;
 
-        [SerializeField]
-        
-        private LayerMask EnemyLayers;
+        [SerializeField] private LayerMask EnemyLayers;
         private Directions Direction;
 
         #endregion
@@ -67,9 +81,10 @@ namespace Player
 
         private void Start()
         {
+            EnemiesHit = new List<GameObject>();
             SetWeaponStats();
         }
-        
+
         #endregion
 
         #region Auxiliar Methods
@@ -81,28 +96,29 @@ namespace Player
             {
                 PlayerStateMachine.ChangeState(PlayerStateMachine.States.Attacking);
                 CurrentEffect = PowerUpController.GenerateEffect();
-                switch(CurrentEffect)
+                switch (CurrentEffect)
                 {
                     case (PowerUpController.Effects.Fire):
                         Renderer.material = FireMaterial;
                         break;
-                    
+
                     case (PowerUpController.Effects.Ice):
                         Renderer.material = IceMaterial;
                         break;
-                    
+
                     case (Player.PowerUpController.Effects.Thunder):
                         Renderer.material = ThunderMaterial;
                         break;
-                    
+
                     default:
                         Renderer.material = StandardMaterial;
                         break;
                 }
+
                 Attack();
             }
         }
-        
+
         public void Attack()
         {
             // Set attack animation
@@ -119,40 +135,52 @@ namespace Player
             Animator.SetTrigger("Attack");
             Animator.SetBool("IsAttacking", true);
         }
-        
+
         public void AttackEnd()
         {
             Animator.speed = 1f;
             Animator.SetBool("IsAttacking", false);
             PlayerStateMachine.ChangeState(PlayerStateMachine.States.Standard);
             Renderer.material = StandardMaterial;
+            ClearEnemiesHitList();
         }
 
         public void VerifyAttackCollision(GameObject enemy)
         {
-            Vector3 attackDirection = (enemy.transform.position - transform.position).normalized;
-            if (CriticalTest())
+            // avoids the enemy been hit twice in the same attack
+            if (!EnemiesHit.Contains(enemy))
             {
-                // critical hit
-                enemy.GetComponent<EnemyCombatManager>().TakeDamage(CurrentDamage * CurrentCriticalHitMultiplier, CurrentKnockback * 1.3f, attackDirection, CurrentKnockbackDuration, CurrentAttackSpeed);
-                DamagePopup.Create(enemy.transform.position, (int) (CurrentDamage * CurrentCriticalHitMultiplier), true, attackDirection, PrefabDamagePopup);
+                EnemiesHit.Add(enemy);
+
+                Vector3 attackDirection = (enemy.transform.position - transform.position).normalized;
+                if (CriticalTest())
+                {
+                    // critical hit
+                    enemy.GetComponent<EnemyCombatManager>().TakeDamage(CurrentDamage * CurrentCriticalHitMultiplier,
+                        CurrentKnockback * 1.3f, attackDirection, CurrentKnockbackDuration, CurrentAttackSpeed);
+                    DamagePopup.Create(enemy.transform.position, (int) (CurrentDamage * CurrentCriticalHitMultiplier),
+                        true, attackDirection, PrefabDamagePopup);
+                }
+                else
+                {
+                    // normal hit
+                    enemy.GetComponent<EnemyCombatManager>().TakeDamage(CurrentDamage, CurrentKnockback,
+                        attackDirection, CurrentKnockbackDuration, CurrentAttackSpeed);
+                    DamagePopup.Create(enemy.transform.position, (int) CurrentDamage, false, attackDirection,
+                        PrefabDamagePopup);
+                }
+
+                PowerUpController.ApplyEffectsOnEnemies(enemy, CurrentEffect);
             }
-            else
-            {
-                // normal hit
-                enemy.GetComponent<EnemyCombatManager>().TakeDamage(CurrentDamage, CurrentKnockback, attackDirection, CurrentKnockbackDuration, CurrentAttackSpeed);
-                DamagePopup.Create(enemy.transform.position, (int) CurrentDamage, false, attackDirection, PrefabDamagePopup);
-            }
-            PowerUpController.ApplyEffectsOnEnemies(enemy, CurrentEffect);
         }
 
         private bool CriticalTest()
         {
             var random = Random.Range(0, 100);
-            Debug.Log(random);
             Random.InitState((int) Time.realtimeSinceStartup);
             return random < CurrentCriticalHitChance;
         }
+
         private Directions GetAnimationDirection()
         {
             float lastMoveX = Animator.GetFloat("LastMoveX");
@@ -165,38 +193,41 @@ namespace Player
                     {
                         case 1:
                             return Directions.UpRight;
-                        
+
                         case 0:
                             return Directions.Right;
-                        
+
                         case -1:
                             return Directions.DownRight;
                     }
+
                     break;
-                
+
                 case 0: // Down and Up
-                    return lastMoveY == 1 ? Directions.Up : Directions.Down; 
-                
+                    return lastMoveY == 1 ? Directions.Up : Directions.Down;
+
                 case -1: // Up Left, Left and Down Left
                     switch (lastMoveY)
                     {
                         case 1:
                             return Directions.UpLeft;
-                        
+
                         case 0:
                             return Directions.Left;
-                        
+
                         case -1:
                             return Directions.DownLeft;
                     }
+
                     break;
             }
+
             return Directions.Down;
         }
 
         private void SetWeaponStats()
         {
-            switch(CurrentWeaponType)
+            switch (CurrentWeaponType)
             {
                 default:
 
@@ -207,11 +238,16 @@ namespace Player
                     CurrentKnockbackDuration = 0.1f;
                     CurrentAttackSpeed = 15f;
                     break;
-               
-
             }
         }
-        
+
+        private void ClearEnemiesHitList()
+        {
+            if (EnemiesHit.Count > 0)
+            {
+                EnemiesHit.Clear();
+            }
+        }
 
         #endregion
     }
