@@ -116,8 +116,15 @@ namespace Enemy
             // Verify if its alive
             if(EnemyHealthManager.GetCurrentHp() <= 0)
             {
-                Die();
+                EnemyStateMachine.ChangeState(EnemyStateMachine.States.Dying);
+                if (Renderer.material == DefaultMaterial && !EnemyStateMachine.IsDying)
+                {
+                    Die();
+                    EnemyStateMachine.IsDying = true;
+                }
             }
+            
+            UpdateMaterial();
         }
 
         // Fixed Update its used to treat physics matters
@@ -129,33 +136,31 @@ namespace Enemy
 
         public void UpdateMaterial()
         {
-            if (EnemyStateMachine.State == EnemyStateMachine.States.Dying)
+            if (EnemyStateMachine.IsDying)
+            {
                 CurrentMaterial = DefaultMaterial;
+            }
+            else if (EnemyStateMachine.IsTargeted)
+            {
+                CurrentMaterial = TargetedMaterial;
+            } 
+            else if (EnemyStateMachine.IsOnFire)
+            {
+                CurrentMaterial = BurnedMaterial;
+            }
+            else if (EnemyStateMachine.IsFrozen)
+            {
+                CurrentMaterial = FrozenMaterial;
+            }
+            else if (EnemyStateMachine.IsParalyzed)
+            {
+                CurrentMaterial = ParalyzedMaterial;
+            }
             else
             {
-                if (EnemyStateMachine.IsTargeted)
-                {
-                    CurrentMaterial = TargetedMaterial;
-                } 
-                else if (EnemyStateMachine.IsOnFire)
-                {
-                    CurrentMaterial = BurnedMaterial;
-                }
-                else if (EnemyStateMachine.IsFrozen)
-                {
-                    CurrentMaterial = FrozenMaterial;
-                }
-                else if (EnemyStateMachine.IsParalyzed)
-                {
-                    CurrentMaterial = ParalyzedMaterial;
-                }
-                else
-                {
-                    CurrentMaterial = DefaultMaterial;
-                }
-                Renderer.material = CurrentMaterial;
+                CurrentMaterial = DefaultMaterial;
             }
-            
+            Renderer.material = CurrentMaterial;
         }
 
         private Vector3 GenerateNewTarget()
@@ -270,6 +275,7 @@ namespace Enemy
             AudioManager.instance.Play("Final blow in the enemy");
             EnemyStateMachine.ChangeState(EnemyStateMachine.States.Dying);
             Shadow.SetActive(false);
+            Renderer.material = DefaultMaterial;
             Animator.SetTrigger("Died");
         }
 

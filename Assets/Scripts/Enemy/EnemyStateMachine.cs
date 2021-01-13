@@ -1,4 +1,5 @@
 using System.Collections;
+using System.ComponentModel.Design;
 using System.Linq.Expressions;
 using Player;
 using Unity.Collections;
@@ -33,6 +34,7 @@ namespace Enemy
         
         public bool IsWalkingAround = false;
 
+        public bool IsDying = false;
         public bool IsTargeted = false;
         public bool IsFrozen = false;
         public float DefrostCurrentTimer;
@@ -86,11 +88,6 @@ namespace Enemy
 
         private void Update()
         {
-            EnemyBehavior.UpdateMaterial();
-            if (EnemyType == Type.Ranged)
-            {
-              //  Debug.Log("STATE: " + State);
-            }
             switch (State)
             {
                 case States.Standard:
@@ -327,6 +324,13 @@ namespace Enemy
                 case (States.Dying):
                     IsWalkingAround = false;
                     IsBeenRushed = false;
+                    IsFrozen = false;
+                    IsParalyzed = false;
+                    IsTargeted = false;
+                    IsAttackingNow = false;
+                    IsBeenRushed = false;
+                    IsOnFire = false;
+                    IsPrimaryTarget = false;
                     EnemyCombatManager.Rigidbody2D.velocity = Vector2.zero;
                     EnemyBehavior.AiPath.maxSpeed = 0;
                     if (EnemyBehavior.FieldOfViewComponent.gameObject != null)
@@ -337,7 +341,7 @@ namespace Enemy
             }
             this.State = state;
         }
-
+        
         public IEnumerator ReturnEnemyToStateAfterSeconds(States state, float seconds)
         {
             yield return new WaitForSecondsRealtime(seconds);
