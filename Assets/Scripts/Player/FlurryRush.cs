@@ -70,6 +70,7 @@ public class FlurryRush : MonoBehaviour
                 isFlurryAttacking = false;
                 PlayerController.Animator.updateMode = AnimatorUpdateMode.UnscaledTime;
                 PlayerController.PlayerStateMachine.ChangeState(PlayerStateMachine.States.Rushing);
+                PlayerController.CreateDust();
                 PlayerController.TargetedEnemy.EnemyStateMachine.ChangeState(EnemyStateMachine.States.BeenRushed);
             }
         }

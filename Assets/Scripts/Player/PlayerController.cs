@@ -14,6 +14,7 @@ namespace Player
         public PlayerAttackManager PlayerAttackManager;
         public Collider2D PlayerCollider;
         public FlurryRush FlurryRush;
+        public ParticleSystem Dust;
 
         // Move speeds
         public float StandardMoveSpeed { private set; get; } = 4f;
@@ -51,6 +52,9 @@ namespace Player
         public bool DodgeFailed;
         private bool DodgeSuccessful;
         private bool CanCounterAttack;
+        
+        // Dust
+        private float DustVelocity = .5f; 
 
         // Animation
         private float MoveX;
@@ -201,6 +205,7 @@ namespace Player
                         if (DashCurrentCooldown <= 0)
                         {
                             PlayerStateMachine.ChangeState(PlayerStateMachine.States.Dashing);
+                            CreateDust();
                             DashStartTime = Time.time;
                             DashCurrentMoveSpeedMultiplier = DashInitialMoveSpeedMultiplier;
                             DashCurrentCooldown = DashCooldown;
@@ -303,6 +308,14 @@ namespace Player
             }
 
             return null;
+        }
+
+        public void CreateDust()
+        {
+            ParticleSystem.VelocityOverLifetimeModule velocityOverLifetimeModule = Dust.velocityOverLifetime;
+            velocityOverLifetimeModule.x = Mathf.Clamp(- RigidBody.velocity.x, -DustVelocity, DustVelocity); 
+            velocityOverLifetimeModule.y = Mathf.Clamp(- RigidBody.velocity.y, -DustVelocity + DustVelocity/2, DustVelocity + DustVelocity/2); 
+            Dust.Play();
         }
     }
 }
