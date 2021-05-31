@@ -261,8 +261,8 @@ MonoBehaviour:
   Target: {fileID: 0}
   Shadow: {fileID: 1118065617}
   FieldOfViewComponent: {fileID: 5083348610249324453}
-  FieldOfViewValue: 50
-  ViewDistance: 7
+  FieldOfViewValue: 70
+  ViewDistance: 4
   TargetPlayer: {fileID: 0}
   Player: {fileID: 0}
   PlayerStateMachine: {fileID: 0}

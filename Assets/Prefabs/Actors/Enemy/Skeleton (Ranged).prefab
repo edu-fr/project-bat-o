@@ -278,7 +278,7 @@ MonoBehaviour:
   Shadow: {fileID: 1118065617}
   FieldOfViewComponent: {fileID: 8389403003709841540}
   FieldOfViewValue: 50
-  ViewDistance: 12
+  ViewDistance: 4
   TargetPlayer: {fileID: 0}
   Player: {fileID: 0}
   PlayerStateMachine: {fileID: 0}
@@ -428,6 +428,7 @@ MonoBehaviour:
   PreviousState: 0
   EnemyType: 0
   IsWalkingAround: 0
+  IsDying: 0
   IsTargeted: 0
   IsFrozen: 0
   DefrostCurrentTimer: 0

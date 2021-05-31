@@ -43,7 +43,7 @@ namespace Enemy
             for (int i = 0; i <= RayCount; i++)
             {
                 Vector3 vertex;
-
+                Debug.Log(ViewDistance);
                 RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, UtilitiesClass.GetVectorFromAngle(angle), ViewDistance, LayerMask);
                 if (raycastHit2D.collider == null)
                 {
