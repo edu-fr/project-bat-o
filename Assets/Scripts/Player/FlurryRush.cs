@@ -58,7 +58,7 @@ public class FlurryRush : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.F)) // Start Rush
+            if (Input.GetKeyDown(KeyCode.Z)) // Start Rush
             {
                 // TimeManager.BackTimeToStandardFlow();
                 
