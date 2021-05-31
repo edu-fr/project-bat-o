@@ -5,33 +5,39 @@ using UnityEngine.Diagnostics;
 
 namespace UI
 {
-   public class DamagePopup : MonoBehaviour
+   public class LootPopup : MonoBehaviour
    {
       private TextMeshPro TextMeshPro;
       private static int SortingOrder;
       
       public TMP_FontAsset Font;
       public int FontSize; 
-      public int CriticalHitFontSize; 
       public float MoveSpeed;
       public float DisappearTimerMax;  
       public float DisappearSpeed;
       public float IncreaseScaleAmount = 1f;
-      public float DecreaseScaleAmount = 1f;
-      public Color NormalDamageColor;
-      public Color CriticalDamageColor;
+      // public float DecreaseScaleAmount = 1f;
+      public Color Color;
       
       private Vector3 MoveVector; 
       private float DisappearTimer;
-      private Color TextColor;
+      private Color TextColor = Color.cyan;
       
       // Create a damage popup
-      public static DamagePopup Create(Vector3 position, int damageAmount, bool isCriticalHit, Vector3 hitDirection, Transform prefabDamagePoput)
+      public static LootPopup Create(Vector3 position, int experienceAmount, Transform prefabLootPopup)
       {
-         Transform damagePopupTransform = Instantiate(prefabDamagePoput, position, Quaternion.identity);
-         DamagePopup experiencePopup = damagePopupTransform.GetComponent<DamagePopup>();
-         experiencePopup.Setup(damageAmount, isCriticalHit, hitDirection);
-         return experiencePopup;
+         Transform lootPopupTransform = Instantiate(prefabLootPopup, position, Quaternion.identity);
+         LootPopup lootPopup = lootPopupTransform.GetComponent<LootPopup>();
+         lootPopup.Setup(experienceAmount);
+         return lootPopup;
+      }
+      
+      public static LootPopup Create(Vector3 position, string itemName, Transform prefabLootPopup)
+      {
+         Transform lootPopupTransform = Instantiate(prefabLootPopup, position, Quaternion.identity);
+         LootPopup lootPopup = lootPopupTransform.GetComponent<LootPopup>();
+         lootPopup.Setup(itemName);
+         return lootPopup;
       }
    
       private void Awake()
@@ -40,24 +46,26 @@ namespace UI
          // TextMeshPro.font = Font;
       }
 
-      public void Setup(int damageAmount, bool isCriticalHit, Vector3 hitDirection)
+      public void Setup(int experienceAmount)
       {
-         TextMeshPro.SetText(damageAmount.ToString());
-         if (!isCriticalHit)
-         {
-            // Normal hit   
-            TextMeshPro.fontSize = FontSize;
-            TextColor = NormalDamageColor;
-         }
-         else
-         {
-            // Critical hit
-            TextMeshPro.fontSize = CriticalHitFontSize;
-            TextColor = CriticalDamageColor;
-         }
+         TextMeshPro.SetText("+" + experienceAmount.ToString() + " EXP");
+         TextMeshPro.fontSize = FontSize;
+         TextColor = Color;
          TextMeshPro.color = TextColor;
          DisappearTimer = DisappearTimerMax;
-         MoveVector = hitDirection * MoveSpeed;
+         MoveVector = Vector3.up * MoveSpeed;
+         SortingOrder++;
+         TextMeshPro.sortingOrder = SortingOrder;
+      }
+      
+      public void Setup(string itemName)
+      {
+         TextMeshPro.SetText("+1 " + itemName);
+         TextMeshPro.fontSize = FontSize;
+         TextColor = Color;
+         TextMeshPro.color = TextColor;
+         DisappearTimer = DisappearTimerMax;
+         MoveVector = Vector3.up * MoveSpeed;
          SortingOrder++;
          TextMeshPro.sortingOrder = SortingOrder;
       }
@@ -73,12 +81,7 @@ namespace UI
             // First half
             transform.localScale += Vector3.one * (IncreaseScaleAmount * Time.deltaTime);
          }
-         else
-         {
-            // Second half
-            transform.localScale -= Vector3.one * (DecreaseScaleAmount * Time.deltaTime);
-         }
-         
+
          if (DisappearTimer < 0)
          {
             // Start to disappear

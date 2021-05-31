@@ -6,6 +6,7 @@ using Pathfinding;
 using Player;
 using UnityEditor.U2D;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 namespace Enemy
@@ -18,7 +19,6 @@ namespace Enemy
         public Animator Animator;
         public AIDestinationSetter AiDestinationSetter;
         public AIPath AiPath;
-
         public EnemyStateMachine EnemyStateMachine;
 
         // Movement
@@ -67,6 +67,9 @@ namespace Enemy
 
         // Game Manager
         private GameManager GameManager;
+        
+        // Drop
+        public Transform PrefabExperienceLoot;
         
         private void Awake()
         {
@@ -133,6 +136,13 @@ namespace Enemy
         {
             if(EnemyStateMachine.IsWalkingAround)
                 WalkAround();
+        }
+
+        private void DropLoot()
+        {
+            Instantiate(PrefabExperienceLoot);
+            PrefabExperienceLoot.gameObject.GetComponent<LootScript>().Amount = 10;
+            
         }
 
         public void UpdateMaterial()
@@ -230,19 +240,19 @@ namespace Enemy
             }
         }
 
-        public void SearchForAlliesActivityNearby() // if there is an ally nearby chasing the player, the object starts to follow the player too
-        {
-            Collider2D[] alliesNearby = Physics2D.OverlapCircleAll(transform.position, SearchForAlliesRange, EnemiesLayer);
-            foreach (Collider2D ally in alliesNearby)
-            {
-                /*
-            if (myCircleCollider.Distance(ally.GetComponent<CircleCollider2D>()) < searchForAlliesRange)
-            {
-
-            }
-            */
-            }
-        }
+        // public void SearchForAlliesActivityNearby() // if there is an ally nearby chasing the player, the object starts to follow the player too
+        // {
+        //     Collider2D[] alliesNearby = Physics2D.OverlapCircleAll(transform.position, SearchForAlliesRange, EnemiesLayer);
+        //     foreach (Collider2D ally in alliesNearby)
+        //     {
+        //         
+        //     if (myCircleCollider.Distance(ally.GetComponent<CircleCollider2D>()) < searchForAlliesRange)
+        //     {
+        //
+        //     }
+        //     
+        //     }
+        // }
 
         public void SetCurrentFaceDirection()
         {
@@ -278,6 +288,7 @@ namespace Enemy
             Shadow.SetActive(false);
             Renderer.material = DefaultMaterial;
             Animator.SetTrigger("Died");
+            DropLoot();
         }
 
         public void DestroyObject()

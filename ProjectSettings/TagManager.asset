@@ -12,6 +12,7 @@ TagManager:
   - PauseMenuUI
   - Volume
   - Scene objects
+  - Loot Drop
   layers:
   - Default
   - TransparentFX
