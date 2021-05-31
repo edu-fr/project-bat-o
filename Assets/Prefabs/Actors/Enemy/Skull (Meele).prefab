@@ -266,7 +266,7 @@ MonoBehaviour:
   TargetPlayer: {fileID: 0}
   Player: {fileID: 0}
   PlayerStateMachine: {fileID: 0}
-  SurroundingDistance: 2
+  SurroundingDistance: -1
   FaceDirection: {x: 0, y: 0, z: 0}
   DefaultMaterial: {fileID: 0}
   CurrentMaterial: {fileID: 0}
@@ -416,6 +416,7 @@ MonoBehaviour:
   PreviousState: 0
   EnemyType: 1
   IsWalkingAround: 0
+  IsDying: 0
   IsTargeted: 0
   IsFrozen: 0
   DefrostCurrentTimer: 0
@@ -459,6 +460,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FieldOfView
       objectReference: {fileID: 0}
+    - target: {fileID: 5392214071961746662, guid: e930f2e8319ea2341896d1f240a2de08,
+        type: 3}
+      propertyPath: LayerMask.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 5392214071961746663, guid: e930f2e8319ea2341896d1f240a2de08,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -472,7 +478,7 @@ PrefabInstance:
     - target: {fileID: 5392214071961746663, guid: e930f2e8319ea2341896d1f240a2de08,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5392214071961746663, guid: e930f2e8319ea2341896d1f240a2de08,
         type: 3}

@@ -8,10 +8,10 @@ namespace Enemy
 
         private Mesh Mesh;
         private Vector3 Origin;
-        private float StartingAngle;
-        private float FieldOfViewValue;
-        private float ViewDistance;
-        private int RayCount = 50;
+        public float StartingAngle;
+        public float FieldOfViewValue;
+        public float ViewDistance;
+        public int RayCount = 50;
         public EnemyBehavior EnemyBehavior;
         public LayerMask LayerMask;
 
@@ -27,6 +27,7 @@ namespace Enemy
         
         private void LateUpdate()
         {
+            SetOrigin(Vector3.zero);
             float angle = StartingAngle;
             float angleIncrease = FieldOfViewValue / RayCount;
 
@@ -43,11 +44,12 @@ namespace Enemy
             {
                 Vector3 vertex;
 
-                RaycastHit2D raycastHit2D = Physics2D.Raycast(Origin, UtilitiesClass.GetVectorFromAngle(angle), ViewDistance, LayerMask);
+                RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, UtilitiesClass.GetVectorFromAngle(angle), ViewDistance, LayerMask);
                 if (raycastHit2D.collider == null)
                 {
                     // No hit
-                    vertex = Origin + UtilitiesClass.GetVectorFromAngle(angle) * ViewDistance;
+                    vertex = UtilitiesClass.GetVectorFromAngle(angle) * ViewDistance;
+                    vertex.z = transform.position.z; 
                 }
                 else
                 {
@@ -56,7 +58,8 @@ namespace Enemy
                     {
                         EnemyBehavior.SetTargetPlayer(raycastHit2D.collider.gameObject);
                     }
-                    vertex = raycastHit2D.point;
+                    vertex = (Vector3) raycastHit2D.point - transform.position;
+                    vertex.z = transform.position.z;
                 }
 
                 vertices[vertexIndex] = vertex;

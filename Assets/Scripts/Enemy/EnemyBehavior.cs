@@ -100,6 +100,7 @@ namespace Enemy
             FieldOfViewComponent.SetFieldOfView(FieldOfViewValue);
             FieldOfViewComponent.SetViewDistance(EnemyStateMachine.EnemyType == EnemyStateMachine.Type.Melee ? ViewDistance : ViewDistance * 2); // Ranged enemies has twice the view distance than melee enemies
             FieldOfViewComponent.SetMyEnemyBehavior(this);
+            FieldOfViewComponent.SetOrigin(transform.position);
 
             // Game Manager
             GameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();

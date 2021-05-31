@@ -45,6 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 430b506b87a2ddf409e2649081510a32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartingAngle: 0
+  FieldOfViewValue: 0
+  ViewDistance: 0
+  RayCount: 50
+  EnemyBehavior: {fileID: 0}
   LayerMask:
     serializedVersion: 2
     m_Bits: 1792
@@ -72,10 +77,10 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 65
+  m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 05ca7a78f0c9ccf46a428747630aa292, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
