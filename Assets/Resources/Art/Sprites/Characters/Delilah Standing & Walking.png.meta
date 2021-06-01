@@ -1,0 +1,1694 @@
+fileFormatVersion: 2
+guid: 13128eb2154e1f84fb1e29b658c08028
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1569878083706319949
+    second: Delilah_Standing_Down_1
+  - first:
+      213: 8658602802058267964
+    second: Delilah_Standing_Down_2
+  - first:
+      213: -3174120902453899143
+    second: Delilah_Standing_Down_3
+  - first:
+      213: 5479115674792684051
+    second: Delilah_Walking_Down_1
+  - first:
+      213: -8000337546340311772
+    second: Delilah_Walking_Down_2
+  - first:
+      213: 3464116908647055133
+    second: Delilah_Walking_Down_3
+  - first:
+      213: -8719981508171751471
+    second: Delilah_Walking_Down_4
+  - first:
+      213: -3056398519363871543
+    second: Delilah_Walking_Down_5
+  - first:
+      213: -1597621893555809360
+    second: Delilah_Walking_Down_6
+  - first:
+      213: 2475951767900808279
+    second: Delilah_Standing_Down_Right_1
+  - first:
+      213: -4485740937008237540
+    second: Delilah_Standing_Down_Right_2
+  - first:
+      213: -1986136540798184971
+    second: Delilah_Standing_Down_Right_3
+  - first:
+      213: -1559862178859105390
+    second: Delilah_Walking_Down_Right_1
+  - first:
+      213: -3883202641112290910
+    second: Delilah_Walking_Down_Right_2
+  - first:
+      213: 5267260514748906453
+    second: Delilah_Walking_Down_Right_3
+  - first:
+      213: -7034900978725729114
+    second: Delilah_Walking_Down_Right_4
+  - first:
+      213: -5412712182983886387
+    second: Delilah_Standing_Right_1
+  - first:
+      213: 6655532309242257533
+    second: Delilah_Standing_Right_2
+  - first:
+      213: 5504819873457228360
+    second: Delilah_Standing_Right_3
+  - first:
+      213: -1651277275342389443
+    second: Delilah_Walking_Right_1
+  - first:
+      213: -1968975664120430195
+    second: Delilah_Walking_Right_2
+  - first:
+      213: 8069039299312588914
+    second: Delilah_Walking_Right_3
+  - first:
+      213: 6392387634385641696
+    second: Delilah_Walking_Right_4
+  - first:
+      213: 1503175276089058213
+    second: Delilah_Walking_Right_5
+  - first:
+      213: 7402820703779517529
+    second: Delilah_Walking_Right_6
+  - first:
+      213: 3497885368441580943
+    second: Delilah_Walking_Right_7
+  - first:
+      213: 6336528327536119074
+    second: Delilah_Walking_Right_8
+  - first:
+      213: -1485788117865621760
+    second: Delilah_Standing_Up_Right_1
+  - first:
+      213: -651541396743604026
+    second: Delilah_Standing_Up_Right_2
+  - first:
+      213: -7661825379546955085
+    second: Delilah_Standing_Up_Right_3
+  - first:
+      213: 3292663013248692029
+    second: Delilah_Walking_Up_Right_1
+  - first:
+      213: -4638251034138187402
+    second: Delilah_Walking_Up_Right_2
+  - first:
+      213: -5519513439434779619
+    second: Delilah_Walking_Up_Right_3
+  - first:
+      213: -3331847220089366807
+    second: Delilah_Walking_Up_Right_4
+  - first:
+      213: 3327499355568538331
+    second: Delilah_Standing_Up_1
+  - first:
+      213: 8909631469704686806
+    second: Delilah_Standing_Up_2
+  - first:
+      213: -8672532225478366873
+    second: Delilah_Standing_Up_3
+  - first:
+      213: 4170467462849722006
+    second: Delilah_Walking_Up_1
+  - first:
+      213: -3518309560986347717
+    second: Delilah_Walking_Up_2
+  - first:
+      213: 7972872909232727219
+    second: Delilah_Walking_Up_3
+  - first:
+      213: -5759553045364656591
+    second: Delilah_Walking_Up_4
+  - first:
+      213: -1795066314345520702
+    second: Delilah_Standing_Up_Left_1
+  - first:
+      213: 2520850030657979415
+    second: Delilah_Standing_Up_Left_2
+  - first:
+      213: 6994659895945218260
+    second: Delilah_Standing_Up_Left_3
+  - first:
+      213: 4509186569365469374
+    second: Delilah_Walking_Up_Left_1
+  - first:
+      213: 6033170224349128360
+    second: Delilah_Walking_Up_Left_2
+  - first:
+      213: -8669011971306829643
+    second: Delilah_Walking_Up_Left_3
+  - first:
+      213: 6112687412793826973
+    second: Delilah_Walking_Up_Left_4
+  - first:
+      213: 1723940332378316312
+    second: Delilah_Standing_Left_1
+  - first:
+      213: -2515487770370172328
+    second: Delilah_Standing_Left_2
+  - first:
+      213: -1513050227664872324
+    second: Delilah_Standing_Left_3
+  - first:
+      213: -2705852117224109581
+    second: Delilah_Walking_Left_1
+  - first:
+      213: 2478926552310809477
+    second: Delilah_Walking_Left_2
+  - first:
+      213: 2854092978236842630
+    second: Delilah_Walking_Left_3
+  - first:
+      213: 8669409393990248849
+    second: Delilah_Walking_Left_4
+  - first:
+      213: -6588015720154196094
+    second: Delilah_Walking_Left_5
+  - first:
+      213: -4684766420883720973
+    second: Delilah_Walking_Left_6
+  - first:
+      213: 7724789802187411810
+    second: Delilah_Walking_Left_7
+  - first:
+      213: -2238842286944414381
+    second: Delilah_Walking_Left_8
+  - first:
+      213: -4599926664433949108
+    second: Delilah_Standing_Down_Left_1
+  - first:
+      213: 7239229069618830375
+    second: Delilah_Standing_Down_Left_2
+  - first:
+      213: -6427861213100617759
+    second: Delilah_Standing_Down_Left_3
+  - first:
+      213: -918504955046974052
+    second: Delilah_Walking_Down_Left_1
+  - first:
+      213: 7637166951207994811
+    second: Delilah_Walking_Down_Left_2
+  - first:
+      213: 2605750283219082244
+    second: Delilah_Walking_Down_Left_3
+  - first:
+      213: 992005730457736192
+    second: Delilah_Walking_Down_Left_4
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 0
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 22
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Delilah_Standing_Down_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d447cffacc359c510800000000000000
+      internalID: 1569878083706319949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Standing_Down_2
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3d82eb8f59892870800000000000000
+      internalID: 8658602802058267964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Standing_Down_3
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 970d71f3bd143f3d0800000000000000
+      internalID: -3174120902453899143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Down_1
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31aea473daab90c40800000000000000
+      internalID: 5479115674792684051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Down_2
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42d5a23a36719f090800000000000000
+      internalID: -8000337546340311772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Down_3
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1ff45889f3031030800000000000000
+      internalID: 3464116908647055133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Down_4
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1df927dc4076cf680800000000000000
+      internalID: -8719981508171751471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Down_5
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cc59497dbd7595d0800000000000000
+      internalID: -3056398519363871543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Down_6
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b318353a5b14d9e0800000000000000
+      internalID: -1597621893555809360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Standing_Down_Right_1
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7546ab6c3095c5220800000000000000
+      internalID: 2475951767900808279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Standing_Down_Right_2
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c14323f52627fb1c0800000000000000
+      internalID: -4485740937008237540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Standing_Down_Right_3
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f11d42d653df64e0800000000000000
+      internalID: -1986136540798184971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Down_Right_1
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2934982ec914a5ae0800000000000000
+      internalID: -1559862178859105390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Down_Right_2
+      rect:
+        serializedVersion: 2
+        x: 468
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a9a4a1a5c71c1ac0800000000000000
+      internalID: -3883202641112290910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Down_Right_3
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5dbbc01f781191940800000000000000
+      internalID: 5267260514748906453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Down_Right_4
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ac410515d20f5e90800000000000000
+      internalID: -7034900978725729114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Standing_Right_1
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc9f0d582fe22e4b0800000000000000
+      internalID: -5412712182983886387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Standing_Right_2
+      rect:
+        serializedVersion: 2
+        x: 612
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d70258b6f533d5c50800000000000000
+      internalID: 6655532309242257533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Standing_Right_3
+      rect:
+        serializedVersion: 2
+        x: 648
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84acde5528c056c40800000000000000
+      internalID: 5504819873457228360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Right_1
+      rect:
+        serializedVersion: 2
+        x: 684
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3fba81211c7519e0800000000000000
+      internalID: -1651277275342389443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Right_2
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8186b8c01bcca4e0800000000000000
+      internalID: -1968975664120430195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Right_3
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 278913abd7cfaff60800000000000000
+      internalID: 8069039299312588914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Right_4
+      rect:
+        serializedVersion: 2
+        x: 792
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e0e7266fa256b850800000000000000
+      internalID: 6392387634385641696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Right_5
+      rect:
+        serializedVersion: 2
+        x: 828
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a3207e03f95cd410800000000000000
+      internalID: 1503175276089058213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Right_6
+      rect:
+        serializedVersion: 2
+        x: 864
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9547fa0553a1cb660800000000000000
+      internalID: 7402820703779517529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Right_7
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8d2ff2c53cfa8030800000000000000
+      internalID: 3497885368441580943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Right_8
+      rect:
+        serializedVersion: 2
+        x: 936
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22d8df701fedfe750800000000000000
+      internalID: 6336528327536119074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Standing_Up_Right_1
+      rect:
+        serializedVersion: 2
+        x: 972
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0079f1f249b616be0800000000000000
+      internalID: -1485788117865621760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Standing_Up_Right_2
+      rect:
+        serializedVersion: 2
+        x: 1008
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c8b2aa3d8245f6f0800000000000000
+      internalID: -651541396743604026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Standing_Up_Right_3
+      rect:
+        serializedVersion: 2
+        x: 1044
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b20801596abba590800000000000000
+      internalID: -7661825379546955085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Up_Right_1
+      rect:
+        serializedVersion: 2
+        x: 1080
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3f61c5b093e1bd20800000000000000
+      internalID: 3292663013248692029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Up_Right_2
+      rect:
+        serializedVersion: 2
+        x: 1116
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 679ea1b424f91afb0800000000000000
+      internalID: -4638251034138187402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Up_Right_3
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d14de7d35cfb663b0800000000000000
+      internalID: -5519513439434779619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Up_Right_4
+      rect:
+        serializedVersion: 2
+        x: 1188
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e653b03b96e2c1d0800000000000000
+      internalID: -3331847220089366807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Standing_Up_1
+      rect:
+        serializedVersion: 2
+        x: 1224
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd20107b807ad2e20800000000000000
+      internalID: 3327499355568538331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Standing_Up_2
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6dca36fcd9e55ab70800000000000000
+      internalID: 8909631469704686806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Standing_Up_3
+      rect:
+        serializedVersion: 2
+        x: 1296
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 769eb35d3e9f4a780800000000000000
+      internalID: -8672532225478366873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Up_1
+      rect:
+        serializedVersion: 2
+        x: 1332
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6967b76bf0a70e930800000000000000
+      internalID: 4170467462849722006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Up_2
+      rect:
+        serializedVersion: 2
+        x: 1368
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b375c8758147c2fc0800000000000000
+      internalID: -3518309560986347717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Up_3
+      rect:
+        serializedVersion: 2
+        x: 1404
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b4e62a3ba555ae60800000000000000
+      internalID: 7972872909232727219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Up_4
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 136350a4505f110b0800000000000000
+      internalID: -5759553045364656591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Standing_Up_Left_1
+      rect:
+        serializedVersion: 2
+        x: 1476
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c16a21a2b4a617e0800000000000000
+      internalID: -1795066314345520702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Standing_Up_Left_2
+      rect:
+        serializedVersion: 2
+        x: 1512
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 714c6613fbbdbf220800000000000000
+      internalID: 2520850030657979415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Standing_Up_Left_3
+      rect:
+        serializedVersion: 2
+        x: 1548
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d84c76bd16021160800000000000000
+      internalID: 6994659895945218260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Up_Left_1
+      rect:
+        serializedVersion: 2
+        x: 1584
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb8bdfc4b49d39e30800000000000000
+      internalID: 4509186569365469374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Up_Left_2
+      rect:
+        serializedVersion: 2
+        x: 1620
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a62bcb9a502ab350800000000000000
+      internalID: 6033170224349128360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Up_Left_3
+      rect:
+        serializedVersion: 2
+        x: 1656
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b8c5a0ea8b71b780800000000000000
+      internalID: -8669011971306829643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Up_Left_4
+      rect:
+        serializedVersion: 2
+        x: 1692
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9ed396c0d0a4d450800000000000000
+      internalID: 6112687412793826973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Standing_Left_1
+      rect:
+        serializedVersion: 2
+        x: 1728
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81ed065399aace710800000000000000
+      internalID: 1723940332378316312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Standing_Left_2
+      rect:
+        serializedVersion: 2
+        x: 1764
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85a1f325331371dd0800000000000000
+      internalID: -2515487770370172328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Standing_Left_3
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7c16bc95d0900be0800000000000000
+      internalID: -1513050227664872324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Left_1
+      rect:
+        serializedVersion: 2
+        x: 1836
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f94e1ae5d1e27ad0800000000000000
+      internalID: -2705852117224109581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Left_2
+      rect:
+        serializedVersion: 2
+        x: 1872
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58305ceb09ae66220800000000000000
+      internalID: 2478926552310809477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Left_3
+      rect:
+        serializedVersion: 2
+        x: 1908
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6826ebb2176cb9720800000000000000
+      internalID: 2854092978236842630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Left_4
+      rect:
+        serializedVersion: 2
+        x: 1944
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 199293d49edef4870800000000000000
+      internalID: 8669409393990248849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Left_5
+      rect:
+        serializedVersion: 2
+        x: 1980
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28715897b9aa294a0800000000000000
+      internalID: -6588015720154196094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Left_6
+      rect:
+        serializedVersion: 2
+        x: 2016
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f43c8bd2cd5cfeb0800000000000000
+      internalID: -4684766420883720973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Left_7
+      rect:
+        serializedVersion: 2
+        x: 2052
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 261d0fbb567f33b60800000000000000
+      internalID: 7724789802187411810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Left_8
+      rect:
+        serializedVersion: 2
+        x: 2088
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3551e8a4dc80ee0e0800000000000000
+      internalID: -2238842286944414381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Standing_Down_Left_1
+      rect:
+        serializedVersion: 2
+        x: 2124
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c462195f117c920c0800000000000000
+      internalID: -4599926664433949108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Standing_Down_Left_2
+      rect:
+        serializedVersion: 2
+        x: 2160
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72cdf46db78e67460800000000000000
+      internalID: 7239229069618830375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Standing_Down_Left_3
+      rect:
+        serializedVersion: 2
+        x: 2196
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ef40af6846abc6a0800000000000000
+      internalID: -6427861213100617759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Down_Left_1
+      rect:
+        serializedVersion: 2
+        x: 2232
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9d2dfd1c90d043f0800000000000000
+      internalID: -918504955046974052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Down_Left_2
+      rect:
+        serializedVersion: 2
+        x: 2268
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb50b11f0eaacf960800000000000000
+      internalID: 7637166951207994811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Down_Left_3
+      rect:
+        serializedVersion: 2
+        x: 2304
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40c95a4a31c792420800000000000000
+      internalID: 2605750283219082244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Delilah_Walking_Down_Left_4
+      rect:
+        serializedVersion: 2
+        x: 2340
+        y: 0
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 004d51bb4ff44cd00800000000000000
+      internalID: 992005730457736192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures:
+    - texture: {fileID: 2800000, guid: 866bccbf7ff2d55449b7ff4b5fb3391f, type: 3}
+      name: _Emission
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -13,6 +13,7 @@ TagManager:
   - Volume
   - Scene objects
   - Loot Drop
+  - Popup
   layers:
   - Default
   - TransparentFX
