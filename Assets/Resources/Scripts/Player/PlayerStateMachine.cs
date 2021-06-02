@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.XR;
 using Debug = UnityEngine.Debug;
+using UI;
 
 public class PlayerStateMachine : MonoBehaviour
 {
@@ -40,6 +41,8 @@ public class PlayerStateMachine : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (UI.PauseMenu.GameIsPaused) return; 
+        
         switch (State)
         {
             case States.Standard:

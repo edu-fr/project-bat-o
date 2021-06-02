@@ -11,8 +11,8 @@ namespace Resources.Scripts.Objects
         private float PastTime = 0;
         private float When = 0.3f;
         private Vector3 Offset;
-        private float XRandomDistance = 1f;
-        private float YRandomDistance = 1f;
+        private float XRandomDistance = 1.4f;
+        private float YRandomDistance = 1.4f;
         [SerializeField] public int Amount;
         [SerializeField] private string ItemName;
         private static GameObject PrefabLoot;

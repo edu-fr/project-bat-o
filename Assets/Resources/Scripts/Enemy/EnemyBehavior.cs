@@ -142,11 +142,11 @@ namespace Enemy
         private void DropLoot()
         {
             var position = transform.position;
-            LootScript.Create(position, 5);
-            LootScript.Create(position, 5);
-            LootScript.Create(position, 5);
-            LootScript.Create(position, 5);
-            LootScript.Create(position, 5);
+            for (int i = 0; i < 25; i++)
+            {
+                LootScript.Create(position, 1);
+            }
+           
         }
 
         public void UpdateMaterial()
