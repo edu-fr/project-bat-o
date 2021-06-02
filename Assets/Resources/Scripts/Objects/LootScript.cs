@@ -9,7 +9,7 @@ namespace Resources.Scripts.Objects
         public Transform ObjectTransform;
         private float Delay = 0;
         private float PastTime = 0;
-        private float When = 1.0f;
+        private float When = 0.3f;
         private Vector3 Offset;
         private float XRandomDistance = 1f;
         private float YRandomDistance = 1f;
@@ -18,19 +18,19 @@ namespace Resources.Scripts.Objects
         public Transform PrefabExperiencePopup;
         private static GameObject PrefabLoot;
         
-        public static GameObject Create(int amount) // Exp loot creation
+        public static GameObject Create(Vector3 position, int amount) // Exp loot creation
         {
             PrefabLoot = UnityEngine.Resources.Load("Prefabs/Objects/LootDrop") as GameObject;
-            GameObject lootObject = Instantiate( PrefabLoot);
+            GameObject lootObject = Instantiate(PrefabLoot, position, Quaternion.identity);
             LootScript lootComponent = lootObject.GetComponent<LootScript>();
             lootComponent.Amount = amount;
             return lootObject;
         }
         
-        public static GameObject Create(string itemName) // Item loot creation
+        public static GameObject Create(Vector3 position, string itemName) // Item loot creation
         {
             PrefabLoot = UnityEngine.Resources.Load("Prefabs/Objects/LootDrop") as GameObject;
-            GameObject lootObject = Instantiate(PrefabLoot);
+            GameObject lootObject = Instantiate(PrefabLoot, position, Quaternion.identity);
             LootScript lootComponent = lootObject.GetComponent<LootScript>();
             lootComponent.ItemName = itemName;
             return lootObject;
