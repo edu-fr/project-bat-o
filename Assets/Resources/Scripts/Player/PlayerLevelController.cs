@@ -38,7 +38,7 @@ public class PlayerLevelController : MonoBehaviour
         ExpToNextLevel += (int) (ExpToNextLevel * ExperienceMultiplier);
         // Call the power up screen
     }
-
+    
     public void GainExperience(int amount)
     {
         CurrentLevelExp += amount;

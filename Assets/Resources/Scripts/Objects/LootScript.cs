@@ -15,7 +15,6 @@ namespace Resources.Scripts.Objects
         private float YRandomDistance = 1f;
         [SerializeField] public int Amount;
         [SerializeField] private string ItemName;
-        public Transform PrefabExperiencePopup;
         private static GameObject PrefabLoot;
         
         public static GameObject Create(Vector3 position, int amount) // Exp loot creation
@@ -58,8 +57,9 @@ namespace Resources.Scripts.Objects
             if (other.CompareTag("Player") && !other.isTrigger)
             { 
                 var playerLevelController = other.gameObject.GetComponent<PlayerLevelController>();
-                playerLevelController.GainExperience(Amount);
-                LootPopup.Create(playerLevelController.transform.position, Amount, PrefabExperiencePopup);
+                
+                var playerCollectorController = other.gameObject.GetComponent<PlayerCollectorController>();
+                playerCollectorController.PlayerCollect(Amount);
                 Destroy(gameObject);
             }
         }
