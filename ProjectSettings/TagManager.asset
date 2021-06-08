@@ -51,15 +51,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Floor
+  - name: Under the floor
+    uniqueID: 1714807525
+    locked: 0
+  - name: On the floor
     uniqueID: 2986499487
     locked: 0
-  - name: Objects
+  - name: Above the floor
     uniqueID: 2852498383
     locked: 0
-  - name: Player
+  - name: Floating above floor level
     uniqueID: 751710841
     locked: 0
-  - name: Top
+  - name: Sky
     uniqueID: 2639097521
     locked: 0
