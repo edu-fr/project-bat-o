@@ -25,8 +25,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1118065617}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.001, y: -0.489, z: 0}
-  m_LocalScale: {x: 0.33, y: 0.24, z: 1}
+  m_LocalPosition: {x: -0.036, y: 0.001, z: 0}
+  m_LocalScale: {x: 0.3830787, y: 0.17550413, z: 1}
   m_Children: []
   m_Father: {fileID: 4955097571060270803}
   m_RootOrder: 0
@@ -69,9 +69,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 751710841
-  m_SortingLayer: 4
-  m_SortingOrder: -5
+  m_SortingLayerID: -1308467809
+  m_SortingLayer: 2
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 80b468e8d4de47a44a42e4be17f36f43, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -98,7 +98,6 @@ GameObject:
   - component: {fileID: 4955097571060270802}
   - component: {fileID: 4955097571060270798}
   - component: {fileID: 145693348}
-  - component: {fileID: 4955097571060270801}
   - component: {fileID: 4955097571060270806}
   - component: {fileID: 4955097571060270807}
   - component: {fileID: 4955097571060270800}
@@ -148,7 +147,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: 05ca7a78f0c9ccf46a428747630aa292, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -234,9 +233,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.004116297, y: -0.28898275}
+  m_Offset: {x: -0.027169406, y: 0.003017664}
   serializedVersion: 2
-  m_Radius: 0.25181258
+  m_Radius: 0.26224118
 --- !u!114 &4955097571060270798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,21 +293,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 25
   CurrentHealth: 0
---- !u!114 &4955097571060270801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4955097571060270792}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ca5b8915d1ef1f4f85758c7c8b25a08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SortingOrderBase: 5000
-  Offset: 0.09
-  RunOnlyOnce: 0
 --- !u!114 &4955097571060270806
 MonoBehaviour:
   m_ObjectHideFlags: 0
