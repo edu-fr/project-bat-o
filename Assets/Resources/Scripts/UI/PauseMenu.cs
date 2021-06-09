@@ -1,4 +1,5 @@
 ﻿using Game;
+using Resources.Scripts.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -19,6 +20,9 @@ namespace UI
         // Update is called once per frame
         void Update()
         {
+            // Player can't pause while in level up menu
+            if (LevelUpMenu.IsLevelingUp) return;
+            
             if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.KeypadEnter))
             {
                 if (GameIsPaused)
