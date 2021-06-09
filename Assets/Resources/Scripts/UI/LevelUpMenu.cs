@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,10 +19,12 @@ namespace Resources.Scripts.UI
         
         public static bool IsLevelingUp;
         private int OptionsAmount;
-        
-        void Start()
+
+        public PowerUpController PlayerPowerUpController;
+
+        void Awake()
         {
-            
+            PlayerPowerUpController = GameObject.FindGameObjectWithTag("Player").GetComponent<PowerUpController>();
         }
 
         void Update()
