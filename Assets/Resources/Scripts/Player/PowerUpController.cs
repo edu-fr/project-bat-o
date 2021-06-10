@@ -15,30 +15,27 @@ namespace Player
             None
         };
 
+        public int FireLevel = 0;
+        public int IceLevel = 0;
+        public int ElectricLevel = 0;
+        
         // Variables
-        public bool HaveFireLv1 = false;
         public int OddsFireLv1 = 25; // 25% chance of burning the enemy 
 
         public int FireDamageLv1 = 25; // Deals 25 damage in 4 ticks
         public int FireDamageLv2 = 40; // Deals 40 damage in 4 ticks
-        public bool HaveFireLv2 = false;
-
-        public bool HaveIceLv1 = false;
+       
         public float DefrostTimeLv1 = 1f; // Freeze the enemy for 1 second
         public float DefrostTimeLv2 = 1.5f; // Freeze the enemy for 2 seconds
         public int OddsIceLv1 = 15; // 15% chance of freezing the enemy
         public int ShatterDamage = 50; // Deals 50 damage to a frozen enemy 
-
-        public bool HaveIceLv2 = false;
-
-        public bool HaveThunderLv1 = false;
+        
         public int OddsThunderLv1 = 20; // 20% chance of deal electric damage to an enemy and up to two enemies nearby
         public float ElectricRange = 1.7f; // Up to two enemies on this range will receive electric damage
         public int ElectricDamageLv1 = 10; // Deals 10 damage to an enemy and up to two enemies nearby
         public int ElectricDamageLv2 = 15; // Deals 15 damage to an enemy and up to two enemies nearby
 
-        public bool HaveThunderLv2 = false;
-        public float ParalyzeTime = 1.5f; // Paralyze the enemy  for 1.5 seconds
+         public float ParalyzeTime = 1.5f; // Paralyze the enemy  for 1.5 seconds
         public int OddsThunderLv2 = 50; // 50% chance of paralyze the primary target hit by and electric attack
 
         private bool FireActivate;
@@ -83,7 +80,7 @@ namespace Player
         {
             List<Effects> activatedEffects = new List<Effects>();
 
-            if (HaveFireLv1)
+            if (FireLevel == 1)
             {
                 // FIRE LV 1
                 if (Random.Range(1, 100) < OddsFireLv1)
@@ -93,7 +90,7 @@ namespace Player
                 }
             }
 
-            if (HaveIceLv1)
+            if (IceLevel == 1)
             {
                 // ICE LV 1
                 if (Random.Range(1, 100) < OddsIceLv1)
@@ -102,7 +99,7 @@ namespace Player
                 }
             }
 
-            if (HaveThunderLv1)
+            if (ElectricLevel == 1)
             {
                 //  THUNDER LV 1
                 if (Random.Range(1, 100) < OddsThunderLv1)
@@ -131,7 +128,7 @@ namespace Player
             // Even when the list is empty
 
             // ICE LV 2 doesn't needs ICE LV 1 to happen in the same attack
-            if (HaveIceLv2 && enemyStateMachine.IsFrozen)
+            if (IceLevel >= 2 && enemyStateMachine.IsFrozen)
             {
                 //Debug.Log("SHATTERING ENEMY");
                 PowerUpEffects.ShatterEnemy(enemy, ShatterDamage);
@@ -144,9 +141,9 @@ namespace Player
                 case Effects.Fire:
                     //Debug.Log("FIRE CHOSEN");
 
-                    PowerUpEffects.BurnEnemy(enemy, HaveFireLv2 ? FireDamageLv2 : FireDamageLv1);
+                    PowerUpEffects.BurnEnemy(enemy, (FireLevel >= 2) ? FireDamageLv2 : FireDamageLv1);
 
-                    if (HaveFireLv2 && enemyStateMachine.IsOnFire && enemyStateMachine.WillDieBurned)
+                    if (FireLevel >= 2 && enemyStateMachine.IsOnFire && enemyStateMachine.WillDieBurned)
                     {
                         // FIRE LV 2
                         //Debug.Log("BURNING ENEMY TO THE DEATH");
@@ -160,7 +157,7 @@ namespace Player
                     
                     if (!enemyStateMachine.IsParalyzed)
                     {
-                        PowerUpEffects.FreezeEnemy(enemy, HaveIceLv2 ? DefrostTimeLv2 : DefrostTimeLv1);
+                        PowerUpEffects.FreezeEnemy(enemy, (IceLevel >= 2) ? DefrostTimeLv2 : DefrostTimeLv1);
                     }
 
                     break;
@@ -168,10 +165,10 @@ namespace Player
                 case Effects.Thunder:
                     //Debug.Log("THUNDER CHOSEN");
                     PowerUpEffects.FindCloseEnemies(enemy, ElectricRange,
-                        HaveThunderLv2 ? ElectricDamageLv2 : ElectricDamageLv1); // AND DEALS DAMAGE TO THEM
+                        (ElectricLevel >= 2) ? ElectricDamageLv2 : ElectricDamageLv1); // AND DEALS DAMAGE TO THEM
 
                     // THUNDER LV 2
-                    if (HaveThunderLv2)
+                    if (ElectricLevel >= 2)
                     {
                         if (enemyStateMachine.IsPrimaryTarget && Random.Range(1, 100) < OddsThunderLv2)
                         {

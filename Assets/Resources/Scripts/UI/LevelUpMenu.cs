@@ -7,6 +7,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = System.Random;
+using UDPU = Resources.Scripts.UI.UpgradesDatabase.PowerUps;
+using UD = Resources.Scripts.UI.UpgradesDatabase;
 
 namespace Resources.Scripts.UI
 {
@@ -21,7 +23,7 @@ namespace Resources.Scripts.UI
         private int OptionsAmount;
 
         public PowerUpController PlayerPowerUpController;
-
+        
         void Awake()
         {
             PlayerPowerUpController = GameObject.FindGameObjectWithTag("Player").GetComponent<PowerUpController>();
@@ -80,26 +82,54 @@ namespace Resources.Scripts.UI
             return options;
         }
 
-        void ConfigureButton(TextMeshPro title, TextMeshPro text, int selectedPowerUp)
+        void ConfigureButton(TextMeshPro title, TextMeshPro text, UDPU selectedPowerUp)
         {
-            
-            title.SetText(GetTitle());
+            title.SetText(GetEffectPowerUpText(selectedPowerUp, GetEffectPowerUpInfo(selectedPowerUp)));
+            text.SetText(GetEffectPowerUpTitle(selectedPowerUp, GetEffectPowerUpInfo(selectedPowerUp)));
         }
 
-        void GetPowerUpInfo()
+        int GetEffectPowerUpInfo(UDPU powerUp)
         {
-            
+            return powerUp switch
+            {
+                UDPU.FireAttack => PlayerPowerUpController.FireLevel,
+                UDPU.ElectricAttack => PlayerPowerUpController.ElectricLevel,
+                UDPU.IceAttack => PlayerPowerUpController.IceLevel,
+                _ => 0
+            };
         }
         
-        string GetTitle()
+        int GetMechanicalPowerUpInfo(UDPU powerUp)
         {
-            return "oi";
+            return powerUp switch
+            {
+                UDPU.PerfectDodgeAttack => /* PlayerPowerUpController... */ 1,
+                _ => -1
+            };
         }
 
-        string GetText()
+        string GetEffectPowerUpText(UDPU powerUp, int level)
         {
-            return "tchau";
+            return powerUp switch
+            {
+                UDPU.ElectricAttack => UD.ElectricAttackTexts[level],
+                UDPU.FireAttack => UD.FireAttackTexts[level],
+                UDPU.IceAttack => UD.IceAttackTexts[level],
+                _ => "Error: Attack text not found."
+            };
         }
+
+        string GetEffectPowerUpTitle(UDPU powerUp, int level)
+        {
+            return powerUp switch
+            {
+                UDPU.ElectricAttack => UD.ElectricAttackTitles[level - 1],
+                UDPU.FireAttack => UD.FireAttackTitles[level - 1],
+                UDPU.IceAttack => UD.IceAttackTitles[level - 1],
+                _ => "Error: Attack title not found."
+            };
+        }
+
     }
     
 }
