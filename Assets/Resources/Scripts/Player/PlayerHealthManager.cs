@@ -8,8 +8,6 @@ namespace Player
 {
     public class PlayerHealthManager : MonoBehaviour
     {
-        #region Variables
-
         private Renderer Renderer;
         private Material DefaultMaterial;
         [SerializeField]
@@ -24,10 +22,7 @@ namespace Player
 
         public HealthBarScript HealthBarScript;
         public PlayerController PlayerController;
-    
-        #endregion
-
-      
+        
         private void Awake()
         {
             Renderer = GetComponent<Renderer>();
@@ -57,10 +52,7 @@ namespace Player
             
             HealthBarScript.SetHealth(CurrentHealth);
         }
-        
-        #region Auxiliar Methods
 
-        
         public void TakeDamage(int damage)
         {
             if (Invincible) return;
@@ -120,6 +112,5 @@ namespace Player
             yield return new WaitForSecondsRealtime(time);
             Invincible = false;
         }
-        #endregion
     }
 }

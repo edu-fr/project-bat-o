@@ -16,8 +16,6 @@ namespace Player
 {
     public class PlayerAttackManager : MonoBehaviour
     {
-        #region Enums
-
         private enum Directions
         {
             UpLeft,
@@ -34,10 +32,6 @@ namespace Player
         {
             Sword
         }
-
-        #endregion
-
-        #region Variables
 
         private WeaponType CurrentWeaponType = WeaponType.Sword;
         public float CurrentDamage;
@@ -62,13 +56,10 @@ namespace Player
         public Transform PrefabDamagePopup;
 
         public PowerUpController PowerUpController;
+        public PowerUpActivator PowerUpActivator;
 
         [SerializeField] private LayerMask EnemyLayers;
         private Directions Direction;
-
-        #endregion
-
-        #region Unity Callbacks
 
         private void Awake()
         {
@@ -77,6 +68,7 @@ namespace Player
             Renderer = GetComponent<Renderer>();
             PlayerHealthManager = GetComponent<PlayerHealthManager>();
             PlayerStateMachine = GetComponent<PlayerStateMachine>();
+            PowerUpActivator = GetComponent<PowerUpActivator>();
         }
 
         private void Start()
@@ -85,36 +77,32 @@ namespace Player
             SetWeaponStats();
         }
 
-        #endregion
-
-        #region Auxiliar Methods
-
         public void HandleAttack()
         {
             Direction = GetAnimationDirection();
             if (Input.GetKeyDown(KeyCode.Z))
             {
                 PlayerStateMachine.ChangeState(PlayerStateMachine.States.Attacking);
-                CurrentEffect = PowerUpController.GenerateEffect();
+                CurrentEffect = PowerUpActivator.GenerateEffect();
                 switch (CurrentEffect)
                 {
                     case (PowerUpController.Effects.Fire):
                         Renderer.material = FireMaterial;
                         break;
-
+        
                     case (PowerUpController.Effects.Ice):
                         Renderer.material = IceMaterial;
                         break;
-
+        
                     case (Player.PowerUpController.Effects.Thunder):
                         Renderer.material = ThunderMaterial;
                         break;
-
+        
                     default:
                         Renderer.material = StandardMaterial;
                         break;
                 }
-
+        
                 Attack();
             }
         }
@@ -151,7 +139,7 @@ namespace Player
             if (!EnemiesHit.Contains(enemy))
             {
                 EnemiesHit.Add(enemy);
-
+        
                 Vector3 attackDirection = (enemy.transform.position - transform.position).normalized;
                 if (CriticalTest())
                 {
@@ -169,8 +157,8 @@ namespace Player
                     DamagePopup.Create(enemy.transform.position, (int) CurrentDamage, false, attackDirection,
                         PrefabDamagePopup);
                 }
-
-                PowerUpController.ApplyEffectsOnEnemies(enemy, CurrentEffect);
+        
+                PowerUpActivator.ApplyEffectsOnEnemies(enemy, CurrentEffect);
             }
         }
 
@@ -248,7 +236,5 @@ namespace Player
                 EnemiesHit.Clear();
             }
         }
-
-        #endregion
     }
 }

@@ -6,7 +6,7 @@ using Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Random = System.Random;
+using Random = UnityEngine.Random;
 using UDPU = Resources.Scripts.UI.UpgradesDatabase.PowerUps;
 using UD = Resources.Scripts.UI.UpgradesDatabase;
 
@@ -15,31 +15,36 @@ namespace Resources.Scripts.UI
     public class LevelUpMenu : MonoBehaviour
     {
         public GameObject LevelUpUI;
-        
-        public TextMeshPro[] ButtonsTitle;
-        public TextMeshPro[] ButtonsText;
+        public List<GameObject> TitleTextObjects;
+        public List<GameObject> MainTextObjects;
+
+        private List<TextMeshProUGUI> Titles;
+        private List<TextMeshProUGUI> Texts;
         
         public static bool IsLevelingUp;
         private int OptionsAmount;
 
-        public PowerUpController PlayerPowerUpController;
-        
+        private PowerUpController PlayerPowerUpController;
+
         void Awake()
         {
+            Titles = new List<TextMeshProUGUI>();
+            Texts = new List<TextMeshProUGUI>();
             PlayerPowerUpController = GameObject.FindGameObjectWithTag("Player").GetComponent<PowerUpController>();
-        }
-
-        void Update()
-        {
-        
+            
+            for (var i = 0; i < 4; i++)
+            {
+                Titles.Add(TitleTextObjects[i].GetComponent<TextMeshProUGUI>());
+                Texts.Add(MainTextObjects[i].GetComponent<TextMeshProUGUI>());
+            }
         }
 
         public void OpenLevelUpMenu()
         {
-            List<int> options = GetOptions();
-            for (int i = 0; i < ButtonsTitle.Length; i++)
+            List<UDPU> options = GetOptions();
+            for (int i = 0; i < Titles.Count; i++)
             {
-                ConfigureButton(ButtonsTitle[i], ButtonsText[i], options[i]);
+                ConfigureButton(Titles[i], Texts[i], options[i]);
             }
             LevelUpUI.SetActive(true);
             Time.timeScale = 0f;
@@ -53,79 +58,117 @@ namespace Resources.Scripts.UI
             IsLevelingUp = false;
         }
 
-        private List<int> GetOptions()
+        private List<UDPU> GetOptions()
         {
-            var options = new List<int>();
+            var options = new List<UDPU>();
             // First option (Effect)
-            var firstOption = new Random().Next(UpgradesDatabase.EffectsBottomIndex, UpgradesDatabase.EffectsTopIndex);
-            options.Add(firstOption);
+            Random.InitState((int) DateTime.Now.Ticks);
+            var firstOption = Random.Range(UpgradesDatabase.EffectsBottomIndex, UpgradesDatabase.EffectsTopIndex + 1);
+            options.Add((UDPU) firstOption);
             
             // Second option (Effect)
             int secondOption;
-            var safetyCounter = 0;
             do
             {
-                secondOption = new Random().Next(UpgradesDatabase.EffectsBottomIndex, UpgradesDatabase.EffectsTopIndex);
-                safetyCounter++;
-                if (safetyCounter > 1000) break;
+                Random.InitState((int) DateTime.Now.Ticks);
+                secondOption = Random.Range(UpgradesDatabase.EffectsBottomIndex, UpgradesDatabase.EffectsTopIndex + 1);
             } while (firstOption == secondOption);
-            options.Add(secondOption);
+            options.Add((UDPU) secondOption);
             
             // Third option (Mechanical)
-            var thirdOption = new Random().Next(UpgradesDatabase.MechanicalBottomIndex, UpgradesDatabase.MechanicalTopIndex);
-            options.Add(thirdOption);
+            Random.InitState((int) DateTime.Now.Ticks);
+            var thirdOption = Random.Range(UpgradesDatabase.MechanicalBottomIndex, UpgradesDatabase.MechanicalTopIndex + 1);
+            options.Add((UDPU) thirdOption);
             
             // Fourth option (Stats)
-            var fourthOption = new Random().Next(UpgradesDatabase.StatsBottomIndex, UpgradesDatabase.StatsTopIndex);
-            options.Add(fourthOption);
+            Random.InitState((int) DateTime.Now.Ticks);
+            var fourthOption = Random.Range(UpgradesDatabase.StatsBottomIndex, UpgradesDatabase.StatsTopIndex + 1);
+            options.Add((UDPU) fourthOption);
             
             return options;
         }
 
-        void ConfigureButton(TextMeshPro title, TextMeshPro text, UDPU selectedPowerUp)
+        void ConfigureButton(TextMeshProUGUI title, TextMeshProUGUI text, UDPU selectedPowerUp)
         {
-            title.SetText(GetEffectPowerUpText(selectedPowerUp, GetEffectPowerUpInfo(selectedPowerUp)));
-            text.SetText(GetEffectPowerUpTitle(selectedPowerUp, GetEffectPowerUpInfo(selectedPowerUp)));
+            var powerUpInfo = GetPowerUpInfo(selectedPowerUp);
+            title.SetText(GetPowerUpTitle(selectedPowerUp, powerUpInfo));
+            text.SetText(GetPowerUpText(selectedPowerUp, powerUpInfo));
         }
 
-        int GetEffectPowerUpInfo(UDPU powerUp)
+        int GetPowerUpInfo(UDPU powerUp)
         {
             return powerUp switch
             {
+                // Stats
+                UDPU.AttackDamageUp => PlayerPowerUpController.AttackLevel,
+                UDPU.PhysicalDefenseUp => PlayerPowerUpController.PhysicalDefenseLevel,
+                UDPU.MagicalDefenseUp => PlayerPowerUpController.PhysicalDefenseLevel,
+                UDPU.HpUp => PlayerPowerUpController.HpLevel,
+                UDPU.CriticalRateUp => PlayerPowerUpController.CriticalRateLevel,
+                UDPU.CriticalDamageUp => PlayerPowerUpController.CriticalDamageLevel,
+                
+                // Effects
                 UDPU.FireAttack => PlayerPowerUpController.FireLevel,
                 UDPU.ElectricAttack => PlayerPowerUpController.ElectricLevel,
                 UDPU.IceAttack => PlayerPowerUpController.IceLevel,
+                UDPU.LifeStealUp => PlayerPowerUpController.LifeStealLevel,
+                
+                // Mechanical
+                UDPU.PerfectDodgeAttack => PlayerPowerUpController.PerfectDodgeLevel,
+                UDPU.HitProjectiles => PlayerPowerUpController.DeflectArrowsLevel,
+                
                 _ => 0
             };
         }
-        
-        int GetMechanicalPowerUpInfo(UDPU powerUp)
-        {
-            return powerUp switch
-            {
-                UDPU.PerfectDodgeAttack => /* PlayerPowerUpController... */ 1,
-                _ => -1
-            };
-        }
 
-        string GetEffectPowerUpText(UDPU powerUp, int level)
+        string GetPowerUpText(UDPU powerUp, int level)
         {
             return powerUp switch
             {
+                // Stats 
+                UDPU.AttackDamageUp => UD.AttackIncreaseText[level],
+                UDPU.PhysicalDefenseUp => UD.PhysicalDefenseIncreaseText[level],
+                UDPU.MagicalDefenseUp => UD.MagicalDefenseIncreaseText[level],
+                UDPU.HpUp => UD.HpIncreaseText[level],
+                UDPU.CriticalRateUp => UD.CriticalChanceIncreaseText[level],
+                UDPU.CriticalDamageUp => UD.CriticalDamageIncreaseText[level],
+                
+                // Effects
                 UDPU.ElectricAttack => UD.ElectricAttackTexts[level],
                 UDPU.FireAttack => UD.FireAttackTexts[level],
                 UDPU.IceAttack => UD.IceAttackTexts[level],
+                UDPU.LifeStealUp => UD.LifeStealTexts[level],
+                
+                // Mechanics
+                UDPU.PerfectDodgeAttack => UD.PerfectTimingDodgeText[level],
+                UDPU.HitProjectiles => UD.HitProjectilesTexts[level],
+                
                 _ => "Error: Attack text not found."
             };
         }
 
-        string GetEffectPowerUpTitle(UDPU powerUp, int level)
+        string GetPowerUpTitle(UDPU powerUp, int level)
         {
             return powerUp switch
             {
-                UDPU.ElectricAttack => UD.ElectricAttackTitles[level - 1],
-                UDPU.FireAttack => UD.FireAttackTitles[level - 1],
-                UDPU.IceAttack => UD.IceAttackTitles[level - 1],
+                // Stats 
+                UDPU.AttackDamageUp => UD.AttackIncreaseTitle[level],
+                UDPU.PhysicalDefenseUp => UD.PhysicalDefenseIncreaseTitle[level],
+                UDPU.MagicalDefenseUp => UD.MagicalDefenseIncreaseTitle[level],
+                UDPU.HpUp => UD.HpIncreaseTitle[level],
+                UDPU.CriticalRateUp => UD.CriticalChanceIncreaseTitle[level],
+                UDPU.CriticalDamageUp => UD.CriticalDamageIncreaseTitle[level],
+                
+                // Effects
+                UDPU.ElectricAttack => UD.ElectricAttackTitles[level],
+                UDPU.FireAttack => UD.FireAttackTitles[level],
+                UDPU.IceAttack => UD.IceAttackTitles[level],
+                UDPU.LifeStealUp => UD.LifeStealTitles[level],
+                
+                // Mechanics
+                UDPU.PerfectDodgeAttack => UD.PerfectTimingDodgeTitle[level],
+                UDPU.HitProjectiles => UD.HitProjectilesTitles[level],
+                
                 _ => "Error: Attack title not found."
             };
         }

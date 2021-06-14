@@ -35,10 +35,10 @@ RectTransform:
   m_Father: {fileID: 5258636544855096226}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3.2161, y: 0.0011821}
-  m_SizeDelta: {x: 692.4882, y: 118.81}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5258636543349972839
 CanvasRenderer:
@@ -112,8 +112,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 60.8, y: -18.315}
-  m_SizeDelta: {x: -87.922, y: -66.1214}
+  m_AnchoredPosition: {x: 33.071136, y: -12.070007}
+  m_SizeDelta: {x: -97.1128, y: -54.8552}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5258636543615619569
 CanvasRenderer:
@@ -143,7 +143,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Attacks may freeze the enemy for 1.5 seconds.
+  m_text: Dodge just before being hit by melee attacks slows down the flow of time
+    and gives you the opportunity to land a free critical hit.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f31a4182ec019df48a84fca66a8571cb, type: 2}
   m_sharedMaterial: {fileID: 2680997699960592033, guid: f31a4182ec019df48a84fca66a8571cb,
@@ -171,20 +172,20 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
+  m_fontSize: 11.55
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 8
   m_fontSizeMax: 14
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 8
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
-  m_lineSpacingMax: -2
+  m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 10
   m_enableWordWrapping: 1
@@ -207,7 +208,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 0
-  m_margin: {x: 0, y: 0, z: 5.852051, w: 4.0792847}
+  m_margin: {x: 0, y: 0, z: 28.200256, w: 0.6440735}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -247,10 +248,10 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -12, y: 59.404}
-  m_SizeDelta: {x: 568.329, y: 118.8077}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -609.4191, y: -627.7628}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5258636544855096229
 CanvasRenderer:
@@ -380,8 +381,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 60.8, y: 24}
-  m_SizeDelta: {x: -87.921, y: -86.868}
+  m_AnchoredPosition: {x: 33.166, y: 20.752153}
+  m_SizeDelta: {x: -97.303, y: -67.926}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5161421810681374214
 CanvasRenderer:
@@ -411,7 +412,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Freeze Attack
+  m_text: Hit projectiles ability
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f31a4182ec019df48a84fca66a8571cb, type: 2}
   m_sharedMaterial: {fileID: 2680997699960592033, guid: f31a4182ec019df48a84fca66a8571cb,
@@ -439,12 +440,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 23
+  m_fontSize: 18
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 19
-  m_fontSizeMax: 23
+  m_fontSizeMin: 16
+  m_fontSizeMax: 18
   m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
@@ -475,7 +476,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 0
-  m_margin: {x: 0, y: 0, z: 5.852051, w: 0}
+  m_margin: {x: 0.85879517, y: 0, z: -0.2520752, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -515,8 +516,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -251.6323, y: -28.632}
-  m_SizeDelta: {x: 84.7794, y: 68.6027}
+  m_AnchoredPosition: {x: -258.42853, y: -28.189789}
+  m_SizeDelta: {x: 71.781, y: 58.0845}
   m_Pivot: {x: 1.0000001, y: -0.00000008940697}
 --- !u!222 &3676649773174380005
 CanvasRenderer:

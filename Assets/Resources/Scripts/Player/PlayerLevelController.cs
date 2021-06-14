@@ -1,19 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using Resources.Scripts.UI;
 using UnityEngine;
 
 public class PlayerLevelController : MonoBehaviour
 {
     private int CurrentLevel;
 
-    [SerializeField] private int MaxLevel = 10;
-    [SerializeField] private float ExperienceMultiplier = 0.1f; 
+    [SerializeField] 
+    private int MaxLevel = 10;
+    [SerializeField] 
+    private float ExperienceMultiplier = 0.1f;
     private int ExpToNextLevel;
     private int CurrentLevelExp;
     private int TotalExp;
 
+    [SerializeField] 
+    private GameObject Canvas;
+
+    private LevelUpMenu LevelUpMenu;
+    
     private void Awake()
     {
+        LevelUpMenu = Canvas.GetComponent<LevelUpMenu>();
+        
         CurrentLevel = 1;
         CurrentLevelExp = 0;
         TotalExp = 0;
@@ -22,6 +32,13 @@ public class PlayerLevelController : MonoBehaviour
 
     private void Update()
     {
+        // Debug
+
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            LevelUp();
+        }
+
         if (CurrentLevel >= MaxLevel) return;
         
         if (CurrentLevelExp > ExpToNextLevel)
@@ -36,7 +53,7 @@ public class PlayerLevelController : MonoBehaviour
         CurrentLevel++;
         CurrentLevelExp = 0;
         ExpToNextLevel += (int) (ExpToNextLevel * ExperienceMultiplier);
-        // Call the power up screen
+        this.LevelUpMenu.OpenLevelUpMenu();
     }
     
     public void GainExperience(int amount)

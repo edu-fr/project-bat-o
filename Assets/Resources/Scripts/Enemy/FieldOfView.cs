@@ -4,8 +4,6 @@ namespace Enemy
 {
     public class FieldOfView : MonoBehaviour
     {
-        #region Variables
-
         private Mesh Mesh;
         private Vector3 Origin;
         public float StartingAngle;
@@ -14,11 +12,7 @@ namespace Enemy
         public int RayCount = 50;
         public EnemyBehavior EnemyBehavior;
         public LayerMask LayerMask;
-
-        #endregion
-
-        #region UnityCallbacks
-
+        
         private void Awake()
         {
             Mesh = new Mesh();
@@ -81,10 +75,6 @@ namespace Enemy
             Mesh.uv = uv;
             Mesh.triangles = triangles;
         }
-        #endregion
-
-        #region Auxiliar methods
-    
 
         public void SetOrigin(Vector3 origin)
         {
@@ -110,6 +100,5 @@ namespace Enemy
         {
             this.EnemyBehavior = enemyBehavior;
         }
-        #endregion
     }
 }

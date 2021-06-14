@@ -5,18 +5,8 @@ namespace UI
 {
     public class HealthBarScript : MonoBehaviour
     {
-        #region Variables
-
         public Slider Slider;
         
-        #endregion
-
-        #region Unity Callbacks
-    
-        #endregion
-
-        #region Auxiliar Methods
-
         public void SetHealth(int health)
         {
             Slider.value = health;
@@ -26,7 +16,5 @@ namespace UI
         {
             Slider.maxValue = maxHealth;
         }
-    
-        #endregion
     }
 }

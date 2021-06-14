@@ -6,7 +6,6 @@ namespace Game
 {
     public class GameManager : MonoBehaviour
     {
-        #region Variables
         private GameObject Player;
         private PlayerHealthManager PlayerHealthManager;
         private RoadblockController RoadblockController;
@@ -16,11 +15,7 @@ namespace Game
         
         public Transform PersistentPrefab;
         public int EnemiesRemaining { get; set; }
-
-        #endregion
-
-        #region UnityCallbacks
-
+        
         private void Awake()
         {
             Persistent = GameObject.FindGameObjectWithTag("Persistent");
@@ -70,17 +65,12 @@ namespace Game
 
 
         }
-        #endregion
-
-        #region Auxiliar methods
-
+        
         public void GoToNextLevel()
         {
             PersistentObject.SavePlayerStats();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
-        
-        #endregion
     }
 }
 

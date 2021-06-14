@@ -9,16 +9,10 @@ namespace Game
 {
     public class AudioManager : MonoBehaviour
     {
-        #region Variables
-
         public Sound[] Sounds;
 
         public static AudioManager instance;
         
-        #endregion
-
-        #region Unity Callbacks
-
         private void Awake()
         {
             if (instance == null)
@@ -41,11 +35,6 @@ namespace Game
             }
             
         }
-
- 
-        #endregion
-
-        #region Auxiliar Methods
         
         public void Play(string name)
         {
@@ -83,7 +72,5 @@ namespace Game
             
             s.Source.Stop ();
         }
-
-        #endregion
     }
 }

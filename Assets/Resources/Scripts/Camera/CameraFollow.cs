@@ -4,7 +4,6 @@ namespace Camera
 {
     public class CameraFollow : MonoBehaviour
     {
-        #region Variables:
         private Transform Target;
         private float SmoothSpeed = 7f;
 
@@ -16,10 +15,7 @@ namespace Camera
         private float BottomLimit = 0;
         [SerializeField]
         private float UpperLimit = 0;
-
-        #endregion
-
-        #region Unity Callbacks
+        
         void Start()
         {
             SetPlayerAsTarget();
@@ -39,9 +35,7 @@ namespace Camera
 
             }
         }
-        #endregion
-
-        #region Auxiliar Methods
+        
         public void SetTarget(Transform target)
         {
             this.Target = target;
@@ -56,6 +50,5 @@ namespace Camera
         {
             Target = GameObject.FindGameObjectWithTag("Player").transform;
         }
-        #endregion
     }
 }
