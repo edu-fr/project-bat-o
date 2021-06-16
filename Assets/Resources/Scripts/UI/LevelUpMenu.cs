@@ -124,12 +124,16 @@ namespace Resources.Scripts.UI
                     PlayerPowerUpController.ElectricLevel++;
                     PlayerStatsController.UpdateElectricalDamage();
                     PlayerStatsController.UpdateElectricAttackRate();
+                    PlayerStatsController.UpdateElectricRange();
+                    PlayerStatsController.UpdateParalyzeDuration();
                     break;
 
                 case UDPU.IceAttack:
                     PlayerPowerUpController.IceLevel++;
                     PlayerStatsController.UpdateIceDamage();
                     PlayerStatsController.UpdateIceAttackRate();
+                    PlayerStatsController.UpdateFrostDuration();
+                    PlayerStatsController.UpdateShatterDamage();
                     break;
 
                 case UDPU.LifeStealUp:
@@ -146,8 +150,6 @@ namespace Resources.Scripts.UI
                 case UDPU.HitProjectiles:
                     PlayerPowerUpController.HitProjectilesLevel++;
                     break;
-
-                
             }
         }
         
@@ -223,54 +225,68 @@ namespace Resources.Scripts.UI
 
         string GetPowerUpText(UDPU powerUp, int level)
         {
-            return powerUp switch
+            try
             {
-                // Stats 
-                UDPU.AttackDamageUp => UD.AttackIncreaseText[level],
-                UDPU.PhysicalDefenseUp => UD.PhysicalDefenseIncreaseText[level],
-                UDPU.MagicalDefenseUp => UD.MagicalDefenseIncreaseText[level],
-                UDPU.HpUp => UD.HpIncreaseText[level],
-                UDPU.CriticalRateUp => UD.CriticalChanceIncreaseText[level],
-                UDPU.CriticalDamageUp => UD.CriticalDamageIncreaseText[level],
-                
-                // Effects
-                UDPU.ElectricAttack => UD.ElectricAttackTexts[level],
-                UDPU.FireAttack => UD.FireAttackTexts[level],
-                UDPU.IceAttack => UD.IceAttackTexts[level],
-                UDPU.LifeStealUp => UD.LifeStealTexts[level],
-                
-                // Mechanics
-                UDPU.PerfectDodgeAttack => UD.PerfectTimingDodgeText[level],
-                UDPU.HitProjectiles => UD.HitProjectilesTexts[level],
-                
-                _ => "Error: Attack text not found."
-            };
+                return powerUp switch
+                {
+                    // Stats 
+                    UDPU.AttackDamageUp => UD.AttackIncreaseText[level],
+                    UDPU.PhysicalDefenseUp => UD.PhysicalDefenseIncreaseText[level],
+                    UDPU.MagicalDefenseUp => UD.MagicalDefenseIncreaseText[level],
+                    UDPU.HpUp => UD.HpIncreaseText[level],
+                    UDPU.CriticalRateUp => UD.CriticalChanceIncreaseText[level],
+                    UDPU.CriticalDamageUp => UD.CriticalDamageIncreaseText[level],
+                    
+                    // Effects
+                    UDPU.ElectricAttack => UD.ElectricAttackTexts[level],
+                    UDPU.FireAttack => UD.FireAttackTexts[level],
+                    UDPU.IceAttack => UD.IceAttackTexts[level],
+                    UDPU.LifeStealUp => UD.LifeStealTexts[level],
+                    
+                    // Mechanics
+                    UDPU.PerfectDodgeAttack => UD.PerfectTimingDodgeText[level],
+                    UDPU.HitProjectiles => UD.HitProjectilesTexts[level],
+                    
+                    _ => "Error: Attack text not found."
+                };
+            }
+            catch (IndexOutOfRangeException err)
+            {
+                return "Error: Out of bounds on " + powerUp + " power up!";
+            }
         }
 
         string GetPowerUpTitle(UDPU powerUp, int level)
         {
-            return powerUp switch
+            try
             {
-                // Stats 
-                UDPU.AttackDamageUp => UD.AttackIncreaseTitle[level],
-                UDPU.PhysicalDefenseUp => UD.PhysicalDefenseIncreaseTitle[level],
-                UDPU.MagicalDefenseUp => UD.MagicalDefenseIncreaseTitle[level],
-                UDPU.HpUp => UD.HpIncreaseTitle[level],
-                UDPU.CriticalRateUp => UD.CriticalChanceIncreaseTitle[level],
-                UDPU.CriticalDamageUp => UD.CriticalDamageIncreaseTitle[level],
-                
-                // Effects
-                UDPU.ElectricAttack => UD.ElectricAttackTitles[level],
-                UDPU.FireAttack => UD.FireAttackTitles[level],
-                UDPU.IceAttack => UD.IceAttackTitles[level],
-                UDPU.LifeStealUp => UD.LifeStealTitles[level],
-                
-                // Mechanics
-                UDPU.PerfectDodgeAttack => UD.PerfectTimingDodgeTitle[level],
-                UDPU.HitProjectiles => UD.HitProjectilesTitles[level],
-                
-                _ => "Error: Attack title not found."
-            };
+                return powerUp switch
+                {
+                    // Stats 
+                    UDPU.AttackDamageUp => UD.AttackIncreaseTitle[level],
+                    UDPU.PhysicalDefenseUp => UD.PhysicalDefenseIncreaseTitle[level],
+                    UDPU.MagicalDefenseUp => UD.MagicalDefenseIncreaseTitle[level],
+                    UDPU.HpUp => UD.HpIncreaseTitle[level],
+                    UDPU.CriticalRateUp => UD.CriticalChanceIncreaseTitle[level],
+                    UDPU.CriticalDamageUp => UD.CriticalDamageIncreaseTitle[level],
+
+                    // Effects
+                    UDPU.ElectricAttack => UD.ElectricAttackTitles[level],
+                    UDPU.FireAttack => UD.FireAttackTitles[level],
+                    UDPU.IceAttack => UD.IceAttackTitles[level],
+                    UDPU.LifeStealUp => UD.LifeStealTitles[level],
+
+                    // Mechanics
+                    UDPU.PerfectDodgeAttack => UD.PerfectTimingDodgeTitle[level],
+                    UDPU.HitProjectiles => UD.HitProjectilesTitles[level],
+
+                    _ => "Error: Attack title not found."
+                };
+            }
+            catch (IndexOutOfRangeException err)
+            {
+                return "Error: Out of bounds on " + powerUp + " power up!";
+            }
         }
 
     }

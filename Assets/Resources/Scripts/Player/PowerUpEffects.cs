@@ -8,7 +8,7 @@ public class PowerUpEffects : MonoBehaviour
 {
     public List<int> BurnTickTimers = new List<int>();
 
-    public void BurnEnemy(GameObject enemy, int fireDamage)
+    public void BurnEnemy(GameObject enemy, float fireDamage)
     {
         EnemyHealthManager enemyHealthManager = enemy.GetComponent<EnemyHealthManager>();
         EnemyStateMachine enemyStateMachine = enemy.GetComponent<EnemyStateMachine>();
@@ -26,7 +26,7 @@ public class PowerUpEffects : MonoBehaviour
         }
     }
     
-    public IEnumerator ApplyBurn(GameObject enemy, int fireDamage)
+    public IEnumerator ApplyBurn(GameObject enemy, float fireDamage)
     {
         EnemyHealthManager enemyHealthManager = enemy.GetComponent<EnemyHealthManager>();
         EnemyStateMachine enemyStateMachine = enemy.GetComponent<EnemyStateMachine>();
@@ -58,7 +58,7 @@ public class PowerUpEffects : MonoBehaviour
         // Debug.Log("PowerUp Frozen");
     }
         
-    public void FindCloseEnemies(GameObject enemy, float electricRange, int electricDamage)
+    public void FindCloseEnemies(GameObject enemy, float electricRange, float electricDamage)
     {
         EnemyStateMachine enemyStateMachine = enemy.GetComponent<EnemyStateMachine>();
         enemyStateMachine.IsPrimaryTarget = true;
@@ -112,7 +112,7 @@ public class PowerUpEffects : MonoBehaviour
         DealsElectricDamage(enemy, electricDamage);
     }
 
-    public void DealsElectricDamage(GameObject enemy, int electricDamage)
+    public void DealsElectricDamage(GameObject enemy, float electricDamage)
     {
         enemy.GetComponent<EnemyHealthManager>().TakeDamage(electricDamage);
     }
@@ -123,7 +123,7 @@ public class PowerUpEffects : MonoBehaviour
         // Debug.Log("PowerUp Dying burned");
     }
 
-    public void ShatterEnemy(GameObject enemy, int shatterDamage)
+    public void ShatterEnemy(GameObject enemy, float shatterDamage)
     {
         EnemyStateMachine enemyStateMachine = enemy.GetComponent<EnemyStateMachine>();
         EnemyHealthManager enemyHealthManager = enemy.GetComponent<EnemyHealthManager>();

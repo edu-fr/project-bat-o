@@ -15,6 +15,7 @@ namespace Player
         public Collider2D PlayerCollider;
         public FlurryRush FlurryRush;
         public ParticleSystem Dust;
+        private PowerUpController PowerUpController;
 
         // Move speeds
         public float StandardMoveSpeed { private set; get; } = 4f;
@@ -73,7 +74,7 @@ namespace Player
             RigidBody = GetComponent<Rigidbody2D>();
             PlayerAttackManager = GetComponent<PlayerAttackManager>();
             PlayerStateMachine = GetComponent<PlayerStateMachine>();
-
+            PowerUpController = GetComponent<PowerUpController>();
             // Z-targeting
             EnemyLayerMask = LayerMask.GetMask("Enemies");
             NearbyEnemiesArray = new Collider2D[MaxNumEnemiesNearby];
@@ -230,38 +231,39 @@ namespace Player
                 }
 
                 DashCurrentMoveSpeedMultiplier = DashInitialMoveSpeedMultiplier;
-
+                
                 /* Perfect time dash */
-                if (!DodgeFailed && !DodgeSuccessful)
+                if (PowerUpController.PerfectDodgeLevel > 0)
                 {
-                    if (IsZTargeting)
+                    if (!DodgeFailed && !DodgeSuccessful)
                     {
-                        if (TargetedEnemy.EnemyStateMachine.EnemyType == EnemyStateMachine.Type.Melee)
-                            if (TargetedEnemy.EnemyStateMachine.EnemyCombatManager.IsAttacking)
-                                if (TargetedEnemy.EnemyStateMachine.EnemyMeleeAttackManager.ProbablyGonnaHit)
-                                    if (!PlayerAttackManager.PlayerHealthManager.Invincible)
-                                    {
-                                        //Debug.Log("Player apanhou " + TargetedEnemy.EnemyStateMachine.EnemyCombatManager.LastTimeHitPlayerDuringAttack + " Dash começou aos " + DashStartTime);
-                                        //if (!TargetedEnemy.EnemyStateMachine.EnemyMeleeAttackManager.IsOnHalfOfAttackAnimation)
-                                        //Debug.Log("DESVIOU " + Time.time);
-                                        DodgeSuccessful = true;
-                                    }
+                        if (IsZTargeting)
+                        {
+                            if (TargetedEnemy.EnemyStateMachine.EnemyType == EnemyStateMachine.Type.Melee)
+                                if (TargetedEnemy.EnemyStateMachine.EnemyCombatManager.IsAttacking)
+                                    if (TargetedEnemy.EnemyStateMachine.EnemyMeleeAttackManager.ProbablyGonnaHit)
+                                        if (!PlayerAttackManager.PlayerHealthManager.Invincible)
+                                        {
+                                            //Debug.Log("Player apanhou " + TargetedEnemy.EnemyStateMachine.EnemyCombatManager.LastTimeHitPlayerDuringAttack + " Dash começou aos " + DashStartTime);
+                                            //if (!TargetedEnemy.EnemyStateMachine.EnemyMeleeAttackManager.IsOnHalfOfAttackAnimation)
+                                            //Debug.Log("DESVIOU " + Time.time);
+                                            DodgeSuccessful = true;
+                                        }
+                                        else
+                                        {
+                                            DodgeFailed = true;
+                                            //Debug.Log("FALHA! Player invencivel aos " + Time.time);
+                                        }
                                     else
                                     {
                                         DodgeFailed = true;
-                                        //Debug.Log("FALHA! Player invencivel aos " + Time.time);
+                                        //Debug.Log("INIMIGO ERROU aos " + Time.time + "!");
                                     }
-                                else
-                                {
-                                    DodgeFailed = true;
-                                    //Debug.Log("INIMIGO ERROU aos " + Time.time + "!");
-                                }
+                        }
                     }
                 }
-
                 /***/
             }
-
 
             if (CanCounterAttack)
             {

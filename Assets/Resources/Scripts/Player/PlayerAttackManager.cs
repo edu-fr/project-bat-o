@@ -57,6 +57,7 @@ namespace Player
 
         public PowerUpController PowerUpController;
         public PowerUpActivator PowerUpActivator;
+        private PlayerStatsController PlayerStatsController;
 
         [SerializeField] private LayerMask EnemyLayers;
         private Directions Direction;
@@ -69,6 +70,7 @@ namespace Player
             PlayerHealthManager = GetComponent<PlayerHealthManager>();
             PlayerStateMachine = GetComponent<PlayerStateMachine>();
             PowerUpActivator = GetComponent<PowerUpActivator>();
+            PlayerStatsController = GetComponent<PlayerStatsController>();
         }
 
         private void Start()
@@ -144,17 +146,17 @@ namespace Player
                 if (CriticalTest())
                 {
                     // critical hit
-                    enemy.GetComponent<EnemyCombatManager>().TakeDamage(CurrentDamage * CurrentCriticalHitMultiplier,
+                    var damageTakenByEnemy = enemy.GetComponent<EnemyCombatManager>().TakeDamage(PlayerStatsController.PhysicalDamage * PlayerStatsController.CriticalDamage,
                         CurrentKnockback * 1.3f, attackDirection, CurrentKnockbackDuration, CurrentAttackSpeed);
-                    DamagePopup.Create(enemy.transform.position, (int) (CurrentDamage * CurrentCriticalHitMultiplier),
+                    DamagePopup.Create(enemy.transform.position, (int) damageTakenByEnemy,
                         true, attackDirection, PrefabDamagePopup);
                 }
                 else
                 {
                     // normal hit
-                    enemy.GetComponent<EnemyCombatManager>().TakeDamage(CurrentDamage, CurrentKnockback,
+                    var damageTakenByEnemy = enemy.GetComponent<EnemyCombatManager>().TakeDamage(PlayerStatsController.PhysicalDamage, CurrentKnockback,
                         attackDirection, CurrentKnockbackDuration, CurrentAttackSpeed);
-                    DamagePopup.Create(enemy.transform.position, (int) CurrentDamage, false, attackDirection,
+                    DamagePopup.Create(enemy.transform.position, (int) damageTakenByEnemy, false, attackDirection,
                         PrefabDamagePopup);
                 }
         
@@ -164,9 +166,9 @@ namespace Player
 
         private bool CriticalTest()
         {
-            var random = Random.Range(0, 100);
             Random.InitState((int) Time.realtimeSinceStartup);
-            return random < CurrentCriticalHitChance;
+            var random = Random.Range(0, 100);
+            return random < PlayerStatsController.CriticalRate;
         }
 
         private Directions GetAnimationDirection()

@@ -76,7 +76,7 @@ public class PowerUpActivator : MonoBehaviour
         if (PowerUpController.IceLevel > 1 && enemyStateMachine.IsFrozen)
         {
             Debug.Log("SHATTERING ENEMY");
-            PowerUpEffects.ShatterEnemy(enemy, PowerUpController.ShatterDamage);
+            PowerUpEffects.ShatterEnemy(enemy, PlayerStatsController.ShatterDamage);
         }
 
         // Choosing between all the activated effects
@@ -86,40 +86,36 @@ public class PowerUpActivator : MonoBehaviour
             case PowerUpController.Effects.Fire:
                 //Debug.Log("FIRE CHOSEN");
 
-                PowerUpEffects.BurnEnemy(enemy, (PowerUpController.FireLevel >= 2) ? PowerUpController.FireDamageLv2 : PowerUpController.FireDamageLv1);
+                PowerUpEffects.BurnEnemy(enemy, PlayerStatsController.FireDamage);
 
-                if (PowerUpController.FireLevel >= 2 && enemyStateMachine.IsOnFire && enemyStateMachine.WillDieBurned)
+                if (PowerUpController.FireLevel > 1 && enemyStateMachine.IsOnFire && enemyStateMachine.WillDieBurned)
                 {
                     // FIRE LV 2
-                    //Debug.Log("BURNING ENEMY TO THE DEATH");
+                    Debug.Log("BURNING ENEMY TO THE DEATH");
                     PowerUpEffects.BurnEnemyToDeath(enemy);
                 }
 
                 break;
 
             case PowerUpController.Effects.Ice:
-                //Debug.Log("ICE CHOSEN");
-                
                 if (!enemyStateMachine.IsParalyzed)
                 {
-                    PowerUpEffects.FreezeEnemy(enemy, (PowerUpController.IceLevel >= 2) ? PowerUpController.DefrostTimeLv2 : PowerUpController.DefrostTimeLv1);
+                    PowerUpEffects.FreezeEnemy(enemy, PlayerStatsController.FrostDuration);
                 }
-
                 break;
 
             case PowerUpController.Effects.Thunder:
                 //Debug.Log("THUNDER CHOSEN");
-                PowerUpEffects.FindCloseEnemies(enemy, PowerUpController.ElectricRange,
-                    (PowerUpController.ElectricLevel >= 2) ? PowerUpController.ElectricDamageLv2 : PowerUpController.ElectricDamageLv1); // AND DEALS DAMAGE TO THEM
+                PowerUpEffects.FindCloseEnemies(enemy, PlayerStatsController.ElectricRange, PlayerStatsController.ElectricalDamage); // AND DEALS DAMAGE TO THEM
 
                 // THUNDER LV 2
                 if (PowerUpController.ElectricLevel >= 2)
                 {
-                    if (enemyStateMachine.IsPrimaryTarget && Random.Range(1, 100) < PowerUpController.OddsThunderLv2)
+                    if (enemyStateMachine.IsPrimaryTarget && Random.Range(1, 100) < PlayerStatsController.ElectricAttackRate)
                     {
                         if (!enemyStateMachine.IsFrozen)
                         {
-                            PowerUpEffects.ParalyzeEnemy(enemy, PowerUpController.ParalyzeTime);
+                            PowerUpEffects.ParalyzeEnemy(enemy, PlayerStatsController.ParalyzeDuration);
                             //Debug.Log("PARALIZADO");    
                         }
                     }

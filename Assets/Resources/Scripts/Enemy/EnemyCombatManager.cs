@@ -29,14 +29,14 @@ namespace Enemy
             Rigidbody2D = GetComponent<Rigidbody2D>();
         }
 
-        public void TakeDamage(float damage, float knockback, Vector3 attackDirection, float knockBackDuration, float attackSpeed)
+        public float TakeDamage(float damage, float knockback, Vector3 attackDirection, float knockBackDuration, float attackSpeed)
         {
             // Make hit noise
             AudioManager.instance.Play("Hit enemy");
             
             FlashSprite();
 
-            // Decrease health
+            // CALCULATE DEFENSES, ETC
             EnemyHealthManager.TakeDamage((int) damage);
            
             // Take knockback
@@ -50,6 +50,8 @@ namespace Enemy
             Invoke(nameof(FlashSprite), timeFlashing / 2);
             Invoke(nameof(EndFlash), timeFlashing);
             Invoke(nameof(EndInvincibility), timeFlashing - 0.05f);
+
+            return damage;
         }
 
         private void FlashSprite()
