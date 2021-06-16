@@ -15,25 +15,27 @@ namespace Player
             None
         };
 
-        public int FireLevel = 0;
-        public int IceLevel = 0;
-        public int ElectricLevel = 0;
+        // Stats
         public int HpLevel = 0;
         public int AttackLevel = 0;
         public int PhysicalDefenseLevel = 0;
         public int MagicalDefenseLevel = 0;
         public int CriticalRateLevel = 0;
         public int CriticalDamageLevel = 0;
+        public int EvasionLevel = 0;
+        
+        // Effects
+        public int FireLevel = 0;
+        public int IceLevel = 0;
+        public int ElectricLevel = 0;
         public int LifeStealLevel = 0;
+        
+        // Mechanical
         public int PerfectDodgeLevel = 0;
-        public int DeflectArrowsLevel = 0;
+        public int HitProjectilesLevel = 0;
 
         // Values
-
-        public int OddsFireLv1 = 25; // 25% chance of burning the enemy 
-        public int FireDamageLv1 = 25; // Deals 25 damage in 4 ticks
-        public int FireDamageLv2 = 40; // Deals 40 damage in 4 ticks
-
+        
         public float DefrostTimeLv1 = 1f; // Freeze the enemy for 1 second
         public float DefrostTimeLv2 = 1.5f; // Freeze the enemy for 2 seconds
         public int OddsIceLv1 = 15; // 15% chance of freezing the enemy

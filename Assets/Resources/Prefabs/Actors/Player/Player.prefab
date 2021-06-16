@@ -4983,6 +4983,7 @@ GameObject:
   - component: {fileID: 5976800456755294409}
   - component: {fileID: 381225563}
   - component: {fileID: -5479966777030865408}
+  - component: {fileID: 1996424798420464867}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -5176,6 +5177,7 @@ MonoBehaviour:
   CurrentKnockbackDuration: 0
   CurrentCriticalHitMultiplier: 2
   CurrentCriticalHitChance: 30
+  CurrentEffect: 3
   PlayerHealthManager: {fileID: 0}
   PlayerStateMachine: {fileID: 0}
   StandardMaterial: {fileID: 2100000, guid: 05ca7a78f0c9ccf46a428747630aa292, type: 2}
@@ -5185,6 +5187,7 @@ MonoBehaviour:
   PrefabDamagePopup: {fileID: 5288669746408271298, guid: 592b06df424ea3c4f9c648348d1e08e0,
     type: 3}
   PowerUpController: {fileID: 0}
+  PowerUpActivator: {fileID: 0}
   EnemyLayers:
     serializedVersion: 2
     m_Bits: 512
@@ -5244,6 +5247,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc6c4de849fb3604cbe019d6213f0981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FireLevel: 0
+  IceLevel: 0
+  ElectricLevel: 0
+  HpLevel: 0
+  AttackLevel: 0
+  PhysicalDefenseLevel: 0
+  MagicalDefenseLevel: 0
+  CriticalRateLevel: 0
+  CriticalDamageLevel: 0
+  LifeStealLevel: 0
+  PerfectDodgeLevel: 0
+  HitProjectilesLevel: 0
+  OddsFireLv1: 25
+  FireDamageLv1: 25
+  FireDamageLv2: 40
+  DefrostTimeLv1: 1
+  DefrostTimeLv2: 1.5
+  OddsIceLv1: 15
+  ShatterDamage: 50
+  OddsThunderLv1: 20
+  ElectricRange: 1.7
+  ElectricDamageLv1: 10
+  ElectricDamageLv2: 15
+  ParalyzeTime: 1.5
+  OddsThunderLv2: 50
+  DamageUpMultiplier: 0.15
+  HpUpMultiplier: 0.1
+  HealPercentage: 0.4
 --- !u!114 &1938860099312322761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5302,6 +5333,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxLevel: 25
   ExperienceMultiplier: 0.1
+  Canvas: {fileID: 0}
 --- !u!114 &381225563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5331,5 +5363,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3663bdfbd8a963f468a0d3e818cb237a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1996424798420464867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6753889184881655945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77d3f583b9ff7d946811e2125d9aef47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

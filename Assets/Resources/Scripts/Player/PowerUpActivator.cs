@@ -1,11 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Enemy;
 using Player;
 using UnityEngine;
+using Random = UnityEngine.Random;
+
 public class PowerUpActivator : MonoBehaviour
 {
     private PowerUpEffects PowerUpEffects;
+    private PlayerStatsController PlayerStatsController;
     private PlayerAttackManager PlayerAttackManager;
     private PlayerHealthManager PlayerHealthManager;
     private PowerUpController PowerUpController;
@@ -13,72 +17,52 @@ public class PowerUpActivator : MonoBehaviour
     private void Awake()
     {
         PowerUpEffects = GetComponent<PowerUpEffects>();
+        PlayerStatsController = GetComponent<PlayerStatsController>();
         PlayerAttackManager = GetComponent<PlayerAttackManager>();
         PlayerHealthManager = GetComponent<PlayerHealthManager>();
         PowerUpController = GetComponent<PowerUpController>();
-    }
-    
-   public void IncreasePlayerDamage()
-    {
-        PlayerAttackManager.CurrentDamage += PlayerAttackManager.CurrentDamage * PowerUpController.DamageUpMultiplier;
-    }
-
-    public void IncreasePlayerMaxHP()
-    {
-        int maxHPIncreaseValue = (int) (PlayerHealthManager.MaxHealth * PowerUpController.HpUpMultiplier);
-        PlayerHealthManager.IncreaseMaxHP(maxHPIncreaseValue);
-
-        // Heal according to the added value
-        PlayerHealthManager.Heal(maxHPIncreaseValue);
-    }
-
-    public void HealPlayerHP()
-    {
-        PlayerHealthManager.Heal((int) (PlayerHealthManager.MaxHealth * PowerUpController.HealPercentage));
     }
 
     public PowerUpController.Effects GenerateEffect()
     {
         List<PowerUpController.Effects> activatedEffects = new List<PowerUpController.Effects>();
 
-        if (PowerUpController.FireLevel == 1)
+        if (PowerUpController.FireLevel > 0)
         {
             // FIRE LV 1
-            if (Random.Range(1, 100) < PowerUpController.OddsFireLv1)
+            Random.InitState((int) DateTime.Now.Ticks);
+            if (Random.Range(0, 100) < PlayerStatsController.FireAttackRate)
             {
                 activatedEffects.Add(PowerUpController.Effects.Fire);
                 // FIRE LV 2 needs FIRE LV1 to happen to take effect
             }
         }
 
-        if (PowerUpController.IceLevel == 1)
+        if (PowerUpController.IceLevel > 0)
         {
             // ICE LV 1
-            if (Random.Range(1, 100) < PowerUpController.OddsIceLv1)
+            Random.InitState((int) DateTime.Now.Ticks);
+            if (Random.Range(0, 100) < PlayerStatsController.IceAttackRate)
             {
                 activatedEffects.Add(PowerUpController.Effects.Ice);
             }
         }
 
-        if (PowerUpController.ElectricLevel == 1)
+        if (PowerUpController.ElectricLevel > 0)
         {
             //  THUNDER LV 1
-            if (Random.Range(1, 100) < PowerUpController.OddsThunderLv1)
+            Random.InitState((int) DateTime.Now.Ticks);
+            if (Random.Range(0, 100) < PlayerStatsController.ElectricAttackRate)
             {
                 activatedEffects.Add(PowerUpController.Effects.Thunder);
-
                 // THUNDER LV 2 needs THUNDER LV 1 to happen to take effect
             }
         }
 
-        int effectNumber = Random.Range(0, activatedEffects.Count);
+        Random.InitState((int) DateTime.Now.Ticks);
+        var effectNumber = Random.Range(0, activatedEffects.Count);
 
-        if (activatedEffects.Count > 0)
-        {
-            return activatedEffects[effectNumber];
-        }
-
-        return PowerUpController.Effects.None;
+        return activatedEffects.Count > 0 ? activatedEffects[effectNumber] : PowerUpController.Effects.None;
     }
 
     public void ApplyEffectsOnEnemies(GameObject enemy, PowerUpController.Effects activatedEffect)
@@ -89,9 +73,9 @@ public class PowerUpActivator : MonoBehaviour
         // Even when the list is empty
 
         // ICE LV 2 doesn't needs ICE LV 1 to happen in the same attack
-        if (PowerUpController.IceLevel >= 2 && enemyStateMachine.IsFrozen)
+        if (PowerUpController.IceLevel > 1 && enemyStateMachine.IsFrozen)
         {
-            //Debug.Log("SHATTERING ENEMY");
+            Debug.Log("SHATTERING ENEMY");
             PowerUpEffects.ShatterEnemy(enemy, PowerUpController.ShatterDamage);
         }
 

@@ -22,16 +22,19 @@ namespace Resources.Scripts.UI
         private List<TextMeshProUGUI> Texts;
         
         public static bool IsLevelingUp;
-        private int OptionsAmount;
-
+        private List<UDPU> Options;
+        
         private PowerUpController PlayerPowerUpController;
-
+        private PlayerStatsController PlayerStatsController;
+        
         void Awake()
         {
             Titles = new List<TextMeshProUGUI>();
             Texts = new List<TextMeshProUGUI>();
-            PlayerPowerUpController = GameObject.FindGameObjectWithTag("Player").GetComponent<PowerUpController>();
-            
+            var Player = GameObject.FindGameObjectWithTag("Player");
+            PlayerPowerUpController = Player.GetComponent<PowerUpController>();
+            PlayerStatsController = Player.GetComponent<PlayerStatsController>();
+
             for (var i = 0; i < 4; i++)
             {
                 Titles.Add(TitleTextObjects[i].GetComponent<TextMeshProUGUI>());
@@ -41,16 +44,113 @@ namespace Resources.Scripts.UI
 
         public void OpenLevelUpMenu()
         {
-            List<UDPU> options = GetOptions();
+            Options = GetOptions();
             for (int i = 0; i < Titles.Count; i++)
             {
-                ConfigureButton(Titles[i], Texts[i], options[i]);
+                ConfigureButton(Titles[i], Texts[i], Options[i]);
             }
             LevelUpUI.SetActive(true);
             Time.timeScale = 0f;
             IsLevelingUp = true;
         }
 
+        public void FirstPowerUpClicked()
+        {
+            ApplyPowerUp(Options[0]);   
+            CloseLevelUpMenu();
+        }
+        
+        public void SecondPowerUpClicked()
+        {
+            ApplyPowerUp(Options[1]);   
+            CloseLevelUpMenu();
+        }
+        
+        public void ThirdPowerUpClicked()
+        {
+            ApplyPowerUp(Options[2]);  
+            CloseLevelUpMenu();
+        }
+
+        public void FourthPowerUpClicked()
+        {
+            ApplyPowerUp(Options[3]);   
+            CloseLevelUpMenu();
+        }
+        
+        private void ApplyPowerUp(UDPU powerUp)
+        {
+            switch (powerUp)
+            {
+                // Stats
+                case UDPU.AttackDamageUp:
+                    PlayerPowerUpController.AttackLevel++;
+                    PlayerStatsController.UpdatePhysicalDamage();
+                    break;
+                
+                case UDPU.PhysicalDefenseUp:
+                    PlayerPowerUpController.PhysicalDefenseLevel++;
+                    PlayerStatsController.UpdatePhysicalDefense();
+                    break;
+                
+                case UDPU.MagicalDefenseUp:
+                    PlayerPowerUpController.MagicalDefenseLevel++;
+                    PlayerStatsController.UpdateMagicalDefense();
+                    break;
+
+                case UDPU.HpUp:
+                    PlayerPowerUpController.HpLevel++;
+                    PlayerStatsController.UpdateMaxHp();
+                    break;
+
+                case UDPU.CriticalRateUp:
+                    PlayerPowerUpController.CriticalRateLevel++;
+                    PlayerStatsController.UpdateCriticalRate();
+                    break;
+
+                case UDPU.CriticalDamageUp:
+                    PlayerPowerUpController.CriticalDamageLevel++;
+                    PlayerStatsController.UpdateCriticalDamage();
+                    break;
+                
+                // Effects
+                case UDPU.FireAttack:
+                    PlayerPowerUpController.FireLevel++;
+                    PlayerStatsController.UpdateFireDamage();
+                    PlayerStatsController.UpdateFireAttackRate();
+                    break;
+
+                case UDPU.ElectricAttack:
+                    PlayerPowerUpController.ElectricLevel++;
+                    PlayerStatsController.UpdateElectricalDamage();
+                    PlayerStatsController.UpdateElectricAttackRate();
+                    break;
+
+                case UDPU.IceAttack:
+                    PlayerPowerUpController.IceLevel++;
+                    PlayerStatsController.UpdateIceDamage();
+                    PlayerStatsController.UpdateIceAttackRate();
+                    break;
+
+                case UDPU.LifeStealUp:
+                    PlayerPowerUpController.LifeStealLevel++;
+                    PlayerStatsController.UpdateLifeStealPercentage();
+                    PlayerStatsController.UpdateLifeStealAttackRate();
+                    break;
+                
+                // Mechanical
+                case UDPU.PerfectDodgeAttack:
+                    PlayerPowerUpController.PerfectDodgeLevel++;
+                    break;
+
+                case UDPU.HitProjectiles:
+                    PlayerPowerUpController.HitProjectilesLevel++;
+                    break;
+
+                
+            }
+        }
+        
         private void CloseLevelUpMenu()
         {
             LevelUpUI.SetActive(false);
@@ -115,7 +215,7 @@ namespace Resources.Scripts.UI
                 
                 // Mechanical
                 UDPU.PerfectDodgeAttack => PlayerPowerUpController.PerfectDodgeLevel,
-                UDPU.HitProjectiles => PlayerPowerUpController.DeflectArrowsLevel,
+                UDPU.HitProjectiles => PlayerPowerUpController.HitProjectilesLevel,
                 
                 _ => 0
             };
