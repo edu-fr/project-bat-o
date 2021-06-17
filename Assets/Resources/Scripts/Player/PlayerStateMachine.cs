@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Enemy;
+using Game;
 using Player;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -41,7 +42,7 @@ public class PlayerStateMachine : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (UI.PauseMenu.GameIsPaused) return; 
+        if (GameManager.GameIsPaused) return; 
         
         switch (State)
         {

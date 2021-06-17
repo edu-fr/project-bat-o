@@ -19,6 +19,7 @@ public class PlayerStatsController : MonoBehaviour
     [SerializeField] 
     private float BaseMagicalDefense = 20f;
     public float MagicalDefense; // { get; private set; } [SerializeField]
+    [SerializeField]
     private float BaseMaxHp = 100f;
     public float MaxHp; // { get; private set; }
     [SerializeField] 
@@ -75,10 +76,6 @@ public class PlayerStatsController : MonoBehaviour
     private void Awake()
     {
         PowerUpController = GetComponent<PowerUpController>();
-    }
-
-    private void Start()
-    {
         UpdateAll();
     }
 

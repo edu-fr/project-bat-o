@@ -5217,7 +5217,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FlashMaterial: {fileID: 2100000, guid: 478fe359495af0742b7432b040a1ca38, type: 2}
   PersistentObject: {fileID: 0}
-  MaxHealth: 10000
+  MaxHealth: 100
   CurrentHealth: 0
   Invincible: 0
   HealthBarScript: {fileID: 0}
@@ -5247,34 +5247,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc6c4de849fb3604cbe019d6213f0981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FireLevel: 0
-  IceLevel: 0
-  ElectricLevel: 0
   HpLevel: 0
   AttackLevel: 0
   PhysicalDefenseLevel: 0
   MagicalDefenseLevel: 0
   CriticalRateLevel: 0
   CriticalDamageLevel: 0
+  EvasionLevel: 0
+  FireLevel: 0
+  IceLevel: 0
+  ElectricLevel: 0
   LifeStealLevel: 0
   PerfectDodgeLevel: 0
   HitProjectilesLevel: 0
-  OddsFireLv1: 25
-  FireDamageLv1: 25
-  FireDamageLv2: 40
-  DefrostTimeLv1: 1
-  DefrostTimeLv2: 1.5
-  OddsIceLv1: 15
-  ShatterDamage: 50
-  OddsThunderLv1: 20
-  ElectricRange: 1.7
-  ElectricDamageLv1: 10
-  ElectricDamageLv2: 15
-  ParalyzeTime: 1.5
-  OddsThunderLv2: 50
-  DamageUpMultiplier: 0.15
-  HpUpMultiplier: 0.1
-  HealPercentage: 0.4
 --- !u!114 &1938860099312322761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5377,3 +5362,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77d3f583b9ff7d946811e2125d9aef47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BasePhysicalDamage: 40
+  PhysicalDamage: 0
+  BasePhysicalDefense: 20
+  PhysicalDefense: 0
+  BaseMagicalDefense: 20
+  MagicalDefense: 0
+  MaxHp: 0
+  BaseEvasionRate: 5
+  EvasionRate: 0
+  BaseCriticalRate: 10
+  CriticalRate: 0
+  BaseCriticalMultiplier: 1.5
+  CriticalDamage: 0
+  BaseFireDamage: 25
+  FireDamage: 0
+  BaseFireAttackRate: 25
+  BaseIceDamage: 20
+  IceDamage: 0
+  BaseIceAttackRate: 15
+  IceAttackRate: 0
+  BaseFrostDuration: 1
+  FrostDuration: 0
+  BaseShatterDamage: 50
+  ShatterDamage: 0
+  BaseElectricalDamage: 30
+  ElectricalDamage: 0
+  BaseElectricAttackRate: 30
+  ElectricAttackRate: 0
+  BaseElectricRange: 8
+  ElectricRange: 0
+  ParalyzeDuration: 0
+  LifeStealPercentage: 0
+  LifeStealAttackRate: 0

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 874732773348575903}
   - component: {fileID: 874732773348575896}
   - component: {fileID: 874732773348575898}
-  - component: {fileID: 874732773348575897}
   m_Layer: 0
   m_Name: rock_g_2
   m_TagString: Scene objects
@@ -112,18 +111,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.72907007, y: 0.33659336}
   m_EdgeRadius: 0
---- !u!114 &874732773348575897
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 874732773348575902}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ca5b8915d1ef1f4f85758c7c8b25a08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SortingOrderBase: 5000
-  Offset: -0.06
-  RunOnlyOnce: 1

@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1394211061337997999}
   - component: {fileID: 2573497524819045421}
-  - component: {fileID: 9219016533959237210}
   - component: {fileID: 7027685434986716274}
   m_Layer: 0
   m_Name: bones
@@ -86,21 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!114 &9219016533959237210
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8899839027458701639}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ca5b8915d1ef1f4f85758c7c8b25a08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SortingOrderBase: 5000
-  Offset: 0.33
-  RunOnlyOnce: 1
 --- !u!61 &7027685434986716274
 BoxCollider2D:
   m_ObjectHideFlags: 0

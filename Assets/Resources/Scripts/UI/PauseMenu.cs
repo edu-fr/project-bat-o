@@ -1,4 +1,5 @@
-﻿using Game;
+﻿using System;
+using Game;
 using Resources.Scripts.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,14 +8,12 @@ namespace UI
 {
     public class PauseMenu : MonoBehaviour
     {
-        public static bool GameIsPaused = false;
         public GameObject PauseMenuUI;
-        private PersistentObject PersistentObject;
+        public GameObject Player;
 
         private void Start()
         {
-            // Only call at Start cause Game Manager create the persistent instance on Awake
-            PersistentObject = GameObject.FindGameObjectWithTag("Persistent").GetComponent<PersistentObject>();
+            Player = GameObject.FindGameObjectWithTag("Player");
         }
 
         // Update is called once per frame
@@ -25,7 +24,7 @@ namespace UI
             
             if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.KeypadEnter))
             {
-                if (GameIsPaused)
+                if (GameManager.GameIsPaused)
                 {
                     Resume();
                 }
@@ -40,18 +39,19 @@ namespace UI
         {
             PauseMenuUI.SetActive(false);
             Time.timeScale = 1f;
-            GameIsPaused = false;
+            GameManager.GameIsPaused = false;
         }
 
         public void LoadMenu()
         {
-            PersistentObject.Reset();
+            Destroy(Player);
             SceneManager.LoadScene(0);
             Resume();
         }
 
         public void QuitGame()
         {
+            Destroy(Player);
             Application.Quit();
         }
 
@@ -59,7 +59,7 @@ namespace UI
         {
             PauseMenuUI.SetActive(true);
             Time.timeScale = 0f;
-            GameIsPaused = true;
+            GameManager.GameIsPaused = true;
         }
     
     }

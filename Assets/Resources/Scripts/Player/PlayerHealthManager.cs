@@ -12,35 +12,28 @@ namespace Player
         private Material DefaultMaterial;
         [SerializeField]
         public Material FlashMaterial;
-
-        public PersistentObject PersistentObject;
         
-      
-        public int MaxHealth = 100;
-        public int CurrentHealth;
+        public float MaxHealth = 100;
+        public float CurrentHealth;
         public bool Invincible = false;
 
-        public HealthBarScript HealthBarScript;
+        private HealthBarScript HealthBarScript;
         public PlayerController PlayerController;
+        public PlayerStatsController PlayerStatsController;
         
         private void Awake()
         {
+            HealthBarScript = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<HealthBarScript>();
             Renderer = GetComponent<Renderer>();
             DefaultMaterial = Renderer.material;
             PlayerController = GetComponent<PlayerController>();
+            PlayerStatsController = GetComponent<PlayerStatsController>();
         }
 
         private void Start()
         {
-            // Only call at Start cause Game Manager create the persistent instance on Awake
-            PersistentObject = GameObject.FindGameObjectWithTag("Persistent").GetComponent<PersistentObject>();
-
-            if (PersistentObject.PlayerPreviousHp == 0)
-            {
-                CurrentHealth = MaxHealth;
-                HealthBarScript.SetMaxHealth(MaxHealth);
-                HealthBarScript.SetHealth(MaxHealth);
-            }
+            MaxHealth = PlayerStatsController.MaxHp;
+            CurrentHealth = MaxHealth;
         }
 
         private void Update()
@@ -49,11 +42,10 @@ namespace Player
             {
                 CurrentHealth = MaxHealth;
             }
-            
             HealthBarScript.SetHealth(CurrentHealth);
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(float damage)
         {
             if (Invincible) return;
             if (PlayerController.PlayerStateMachine.State == PlayerStateMachine.States.Dashing)
@@ -78,21 +70,6 @@ namespace Player
             Invoke(nameof(EndInvincibility), 0.6f);
         }
 
-        public void IncreaseMaxHP(int value)
-        {
-            MaxHealth += value;
-            HealthBarScript.SetMaxHealth(MaxHealth);
-        }
-
-        public void Heal(int healValue)
-        {
-            CurrentHealth = CurrentHealth + healValue;
-            if (CurrentHealth > MaxHealth)
-            {
-                CurrentHealth = MaxHealth;
-            }
-        }
-         
         private void FlashSprite()
         {
             Renderer.material = FlashMaterial;
