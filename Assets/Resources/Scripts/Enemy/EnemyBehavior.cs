@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections;
-using Game;
-using Objects;
+﻿using Game;
 using Pathfinding;
-using Player;
 using Resources.Scripts.Objects;
-using UnityEditor.U2D;
 using UnityEngine;
-using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 namespace Enemy
@@ -67,7 +61,7 @@ namespace Enemy
         private LayerMask EnemiesLayer;
 
         // Game Manager
-        private GameManager GameManager;
+        private LevelManager LevelManager;
         
         // Drop
         public Transform PrefabExperienceLoot;
@@ -107,7 +101,7 @@ namespace Enemy
             FieldOfViewComponent.SetOrigin(transform.position);
 
             // Game Manager
-            GameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+            LevelManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<LevelManager>();
 
             // Current sprite material
             DefaultMaterial = Renderer.material;
@@ -297,7 +291,7 @@ namespace Enemy
 
         public void DestroyObject()
         {
-            GameManager.EnemiesRemaining -= 1;
+            LevelManager.EnemiesRemaining -= 1;
             Destroy(FieldOfViewComponent.gameObject);
             Destroy(Target.gameObject);
             Destroy(gameObject);

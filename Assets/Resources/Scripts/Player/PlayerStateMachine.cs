@@ -42,7 +42,7 @@ public class PlayerStateMachine : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (GameManager.GameIsPaused) return; 
+        if (LevelManager.GameIsPaused) return; 
         
         switch (State)
         {

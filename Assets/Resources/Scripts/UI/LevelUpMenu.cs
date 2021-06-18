@@ -31,15 +31,20 @@ namespace Resources.Scripts.UI
         {
             Titles = new List<TextMeshProUGUI>();
             Texts = new List<TextMeshProUGUI>();
-            var Player = GameObject.FindGameObjectWithTag("Player");
-            PlayerPowerUpController = Player.GetComponent<PowerUpController>();
-            PlayerStatsController = Player.GetComponent<PlayerStatsController>();
-
+           
             for (var i = 0; i < 4; i++)
             {
                 Titles.Add(TitleTextObjects[i].GetComponent<TextMeshProUGUI>());
                 Texts.Add(MainTextObjects[i].GetComponent<TextMeshProUGUI>());
             }
+        }
+
+        private void Start()
+        {
+            // Player needs to be instantiated first
+            var Player = GameObject.FindGameObjectWithTag("Player");
+            PlayerPowerUpController = Player.GetComponent<PowerUpController>();
+            PlayerStatsController = Player.GetComponent<PlayerStatsController>();
         }
 
         public void OpenLevelUpMenu()
@@ -48,7 +53,7 @@ namespace Resources.Scripts.UI
             for (int i = 0; i < Titles.Count; i++)
             {
                 ConfigureButton(Titles[i], Texts[i], Options[i]);
-            }
+            } ;
             LevelUpUI.SetActive(true);
             Time.timeScale = 0f;
             IsLevelingUp = true;

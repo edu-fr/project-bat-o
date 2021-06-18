@@ -34,6 +34,7 @@ namespace Player
         {
             MaxHealth = PlayerStatsController.MaxHp;
             CurrentHealth = MaxHealth;
+            HealthBarScript.UpdateLifeBar();
         }
 
         private void Update()
@@ -42,7 +43,6 @@ namespace Player
             {
                 CurrentHealth = MaxHealth;
             }
-            HealthBarScript.SetHealth(CurrentHealth);
         }
 
         public void TakeDamage(float damage)
@@ -60,6 +60,8 @@ namespace Player
             
             // Lose HP
             CurrentHealth -= damage;
+            // Update life bar
+            HealthBarScript.UpdateLifeBar();
             
             // Work on it
             Invoke(nameof(EndFlash), 0.1f);

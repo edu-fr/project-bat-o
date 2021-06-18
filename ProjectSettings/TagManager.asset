@@ -16,6 +16,8 @@ TagManager:
   - Popup
   - StartingPoint
   - MenusCanvas
+  - LevelUpMenuUI
+  - GameOverMenuUI
   layers:
   - Default
   - TransparentFX

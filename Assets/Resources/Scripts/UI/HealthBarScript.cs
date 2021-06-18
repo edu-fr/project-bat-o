@@ -10,22 +10,23 @@ namespace UI
     {
         public Slider Slider;
         public TextMeshProUGUI Amount;
+        public GameObject Player;
         private PlayerHealthManager PlayerHealthManager;
+
+        private void Awake()
+        {
+            PlayerHealthManager = Player.GetComponent<PlayerHealthManager>();
+        }
 
         private void Start()
         {
-            PlayerHealthManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthManager>();
+            UpdateLifeBar();
         }
 
-        public void SetHealth(float health)
+        public void UpdateLifeBar()
         {
-            Slider.value = health;
-            Amount.SetText(PlayerHealthManager.CurrentHealth + "/" + PlayerHealthManager.MaxHealth);
-        }
-
-        public void SetMaxHealth(float maxHealth)
-        {
-            Slider.maxValue = maxHealth;
+            Slider.value = PlayerHealthManager.CurrentHealth;
+            Slider.maxValue = PlayerHealthManager.MaxHealth;
             Amount.SetText(PlayerHealthManager.CurrentHealth + "/" + PlayerHealthManager.MaxHealth);
         }
     }

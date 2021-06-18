@@ -18,20 +18,18 @@ public class GameOverMenu : MonoBehaviour
     
     public void OpenGameOverMenu()
     {
-        GameManager.GameIsPaused = true;
+        LevelManager.GameIsPaused = true;
         Time.timeScale = 0f;
         GameOverMenuUI.SetActive(true);
     }
     
     public void TryAgain()
     {
-        Destroy(Player);
         SceneManager.LoadScene(1);
     }
 
     public void LoadMenu()
     {
-        Destroy(Player);
         SceneManager.LoadScene(0);
         Time.timeScale = 1f;
     }

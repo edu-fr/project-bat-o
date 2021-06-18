@@ -669,7 +669,7 @@ GameObject:
   - component: {fileID: 3634845843223523219}
   m_Layer: 5
   m_Name: LevelUpMenu
-  m_TagString: PauseMenuUI
+  m_TagString: LevelUpMenuUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1020,7 +1020,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4deb7b0a2ff6ca942890d512123991dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelUpUI: {fileID: 3634845843223523309}
   TitleTextObjects:
   - {fileID: 7912911862379029609}
   - {fileID: 7912911863603408594}

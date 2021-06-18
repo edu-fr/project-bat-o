@@ -48,7 +48,7 @@ namespace Game
             s.Source.volume = s.Volume * (1f + Random.Range(-s.VolumeVariance, s.VolumeVariance));
             s.Source.pitch = s.Pitch * (1f + Random.Range(-s.PitchVariance, s.PitchVariance));
 
-            if (GameManager.GameIsPaused)
+            if (LevelManager.GameIsPaused)
             {
                 s.Source.pitch *= .5f;
             }

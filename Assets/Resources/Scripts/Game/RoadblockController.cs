@@ -5,7 +5,7 @@ namespace Game
     public class RoadblockController : MonoBehaviour
     {
         private BoxCollider2D BoxCollider2D;
-        private GameManager GameManager;
+        private LevelManager LevelManager;
         public bool IsBlocking { get; set; }
 
         // Start is called before the first frame update
@@ -13,7 +13,7 @@ namespace Game
         {
             IsBlocking = true;
             BoxCollider2D = GetComponent<BoxCollider2D>();
-            GameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+            LevelManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<LevelManager>();
         }
 
         private void OnCollisionEnter2D(Collision2D other)
@@ -22,7 +22,7 @@ namespace Game
             {
                 if (!IsBlocking)
                 {    
-                    GameManager.GoToNextLevel();
+                    LevelManager.GoToNextLevel();
                 }
             }
         }
