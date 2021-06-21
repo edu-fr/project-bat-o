@@ -9,12 +9,6 @@ using UnityEngine.SceneManagement;
 public class GameOverMenu : MonoBehaviour
 { 
     public GameObject GameOverMenuUI;
-    public GameObject Player; 
-
-    private void Start()
-    {
-        Player = GameObject.FindGameObjectWithTag("Player");
-    }
     
     public void OpenGameOverMenu()
     {
@@ -25,11 +19,17 @@ public class GameOverMenu : MonoBehaviour
     
     public void TryAgain()
     {
+        GameController.InstantiateNewPlayer();
         SceneManager.LoadScene(1);
+        LevelManager.GameIsPaused = false;
+        Time.timeScale = 1f;
+        GameOverMenuUI.SetActive(false);
     }
 
     public void LoadMenu()
     {
+        GameOverMenuUI.SetActive(false);
+        LevelManager.GameIsPaused = false;
         SceneManager.LoadScene(0);
         Time.timeScale = 1f;
     }

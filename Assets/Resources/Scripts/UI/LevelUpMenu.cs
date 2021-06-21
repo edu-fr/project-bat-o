@@ -39,12 +39,14 @@ namespace Resources.Scripts.UI
             }
         }
 
-        private void Start()
+        private void Update()
         {
-            // Player needs to be instantiated first
-            var Player = GameObject.FindGameObjectWithTag("Player");
-            PlayerPowerUpController = Player.GetComponent<PowerUpController>();
-            PlayerStatsController = Player.GetComponent<PlayerStatsController>();
+            if (!PlayerStatsController || !PlayerStatsController)
+            {
+                var player = GameObject.FindGameObjectWithTag("Player");
+                PlayerPowerUpController = player.GetComponent<PowerUpController>();
+                PlayerStatsController = player.GetComponent<PlayerStatsController>();
+            }
         }
 
         public void OpenLevelUpMenu()

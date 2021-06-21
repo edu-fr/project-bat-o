@@ -38,7 +38,6 @@ namespace UI
 
         public void LoadMenu()
         {
-            Debug.Log("UÉ");
             Resume();
             SceneManager.LoadScene(0);
         }

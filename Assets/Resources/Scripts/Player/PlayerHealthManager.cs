@@ -42,7 +42,15 @@ namespace Player
             if (CurrentHealth > MaxHealth)
             {
                 CurrentHealth = MaxHealth;
+                HealthBarScript.UpdateLifeBar();
             }
+
+            if (CurrentHealth < 0)
+            {
+                CurrentHealth = 0;
+                HealthBarScript.UpdateLifeBar();
+            }
+            
         }
 
         public void TakeDamage(float damage)

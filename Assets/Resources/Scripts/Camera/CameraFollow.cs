@@ -32,7 +32,10 @@ namespace Camera
                 Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, SmoothSpeed * Time.deltaTime);
 
                 transform.position = smoothedPosition;
-
+            }
+            else
+            {
+                SetPlayerAsTarget();
             }
         }
         

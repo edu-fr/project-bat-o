@@ -18,6 +18,7 @@ TagManager:
   - MenusCanvas
   - LevelUpMenuUI
   - GameOverMenuUI
+  - Preload
   layers:
   - Default
   - TransparentFX
