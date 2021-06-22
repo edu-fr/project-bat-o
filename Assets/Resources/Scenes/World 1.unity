@@ -136,6 +136,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skull (Meele) (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4955097571060270792, guid: 8d3f99698f447a94b8c233f974de7e1b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4955097571060270803, guid: 8d3f99698f447a94b8c233f974de7e1b,
         type: 3}
       propertyPath: m_RootOrder
@@ -301,11 +306,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: barrel_cactus
       objectReference: {fileID: 0}
-    - target: {fileID: 1552751770134344488, guid: 051b3d0cc0f509046a71a8cff4d2e0ea,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 1552751770134344491, guid: 051b3d0cc0f509046a71a8cff4d2e0ea,
         type: 3}
       propertyPath: m_RootOrder
@@ -361,16 +361,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1552751770134344501, guid: 051b3d0cc0f509046a71a8cff4d2e0ea,
-        type: 3}
-      propertyPath: m_SortingLayer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1552751770134344501, guid: 051b3d0cc0f509046a71a8cff4d2e0ea,
-        type: 3}
-      propertyPath: m_SortingLayerID
-      value: -1442468913
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 051b3d0cc0f509046a71a8cff4d2e0ea, type: 3}
 --- !u!4 &143032436 stripped
@@ -396,11 +386,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: finger_cactus (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1018748886681901730, guid: ff8ef76ceb8c7a9418a7e124b9ab425e,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1018748886681901731, guid: ff8ef76ceb8c7a9418a7e124b9ab425e,
         type: 3}
@@ -456,16 +441,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1018748886681901742, guid: ff8ef76ceb8c7a9418a7e124b9ab425e,
-        type: 3}
-      propertyPath: m_SortingLayer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1018748886681901742, guid: ff8ef76ceb8c7a9418a7e124b9ab425e,
-        type: 3}
-      propertyPath: m_SortingLayerID
-      value: -1442468913
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff8ef76ceb8c7a9418a7e124b9ab425e, type: 3}
@@ -945,11 +920,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: finger_cactus (4)
       objectReference: {fileID: 0}
-    - target: {fileID: 1018748886681901730, guid: ff8ef76ceb8c7a9418a7e124b9ab425e,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 1018748886681901731, guid: ff8ef76ceb8c7a9418a7e124b9ab425e,
         type: 3}
       propertyPath: m_RootOrder
@@ -1004,16 +974,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1018748886681901742, guid: ff8ef76ceb8c7a9418a7e124b9ab425e,
-        type: 3}
-      propertyPath: m_SortingLayer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1018748886681901742, guid: ff8ef76ceb8c7a9418a7e124b9ab425e,
-        type: 3}
-      propertyPath: m_SortingLayerID
-      value: -1442468913
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff8ef76ceb8c7a9418a7e124b9ab425e, type: 3}
@@ -1187,11 +1147,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: finger_cactus (5)
       objectReference: {fileID: 0}
-    - target: {fileID: 1018748886681901730, guid: ff8ef76ceb8c7a9418a7e124b9ab425e,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 1018748886681901731, guid: ff8ef76ceb8c7a9418a7e124b9ab425e,
         type: 3}
       propertyPath: m_RootOrder
@@ -1246,16 +1201,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1018748886681901742, guid: ff8ef76ceb8c7a9418a7e124b9ab425e,
-        type: 3}
-      propertyPath: m_SortingLayer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1018748886681901742, guid: ff8ef76ceb8c7a9418a7e124b9ab425e,
-        type: 3}
-      propertyPath: m_SortingLayerID
-      value: -1442468913
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff8ef76ceb8c7a9418a7e124b9ab425e, type: 3}
@@ -5341,11 +5286,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: barrel_cactus (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 1552751770134344488, guid: 051b3d0cc0f509046a71a8cff4d2e0ea,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 1552751770134344491, guid: 051b3d0cc0f509046a71a8cff4d2e0ea,
         type: 3}
       propertyPath: m_RootOrder
@@ -5400,16 +5340,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1552751770134344501, guid: 051b3d0cc0f509046a71a8cff4d2e0ea,
-        type: 3}
-      propertyPath: m_SortingLayer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1552751770134344501, guid: 051b3d0cc0f509046a71a8cff4d2e0ea,
-        type: 3}
-      propertyPath: m_SortingLayerID
-      value: -1442468913
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 051b3d0cc0f509046a71a8cff4d2e0ea, type: 3}
@@ -5527,11 +5457,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: finger_cactus (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 1018748886681901730, guid: ff8ef76ceb8c7a9418a7e124b9ab425e,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 1018748886681901731, guid: ff8ef76ceb8c7a9418a7e124b9ab425e,
         type: 3}
       propertyPath: m_RootOrder
@@ -5586,16 +5511,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1018748886681901742, guid: ff8ef76ceb8c7a9418a7e124b9ab425e,
-        type: 3}
-      propertyPath: m_SortingLayer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1018748886681901742, guid: ff8ef76ceb8c7a9418a7e124b9ab425e,
-        type: 3}
-      propertyPath: m_SortingLayerID
-      value: -1442468913
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff8ef76ceb8c7a9418a7e124b9ab425e, type: 3}
@@ -5746,11 +5661,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: barrel_cactus (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 1552751770134344488, guid: 051b3d0cc0f509046a71a8cff4d2e0ea,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 1552751770134344491, guid: 051b3d0cc0f509046a71a8cff4d2e0ea,
         type: 3}
       propertyPath: m_RootOrder
@@ -5805,16 +5715,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1552751770134344501, guid: 051b3d0cc0f509046a71a8cff4d2e0ea,
-        type: 3}
-      propertyPath: m_SortingLayer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1552751770134344501, guid: 051b3d0cc0f509046a71a8cff4d2e0ea,
-        type: 3}
-      propertyPath: m_SortingLayerID
-      value: -1442468913
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 051b3d0cc0f509046a71a8cff4d2e0ea, type: 3}
@@ -5972,11 +5872,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: finger_cactus (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 1018748886681901730, guid: ff8ef76ceb8c7a9418a7e124b9ab425e,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 1018748886681901731, guid: ff8ef76ceb8c7a9418a7e124b9ab425e,
         type: 3}
       propertyPath: m_RootOrder
@@ -6031,16 +5926,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1018748886681901742, guid: ff8ef76ceb8c7a9418a7e124b9ab425e,
-        type: 3}
-      propertyPath: m_SortingLayer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1018748886681901742, guid: ff8ef76ceb8c7a9418a7e124b9ab425e,
-        type: 3}
-      propertyPath: m_SortingLayerID
-      value: -1442468913
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff8ef76ceb8c7a9418a7e124b9ab425e, type: 3}
@@ -7342,7 +7227,7 @@ PrefabInstance:
     - target: {fileID: 4955097571060270792, guid: 8d3f99698f447a94b8c233f974de7e1b,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4955097571060270803, guid: 8d3f99698f447a94b8c233f974de7e1b,
         type: 3}
@@ -7505,6 +7390,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 709677847}
     m_Modifications:
+    - target: {fileID: 2337900222852065745, guid: c53cc6c2e82d083409dbcad3459ada71,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337900222852065745, guid: c53cc6c2e82d083409dbcad3459ada71,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4955097571060270792, guid: c53cc6c2e82d083409dbcad3459ada71,
         type: 3}
       propertyPath: m_Name
@@ -8065,11 +7960,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: finger_cactus
       objectReference: {fileID: 0}
-    - target: {fileID: 1018748886681901730, guid: ff8ef76ceb8c7a9418a7e124b9ab425e,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 1018748886681901731, guid: ff8ef76ceb8c7a9418a7e124b9ab425e,
         type: 3}
       propertyPath: m_RootOrder
@@ -8125,16 +8015,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1018748886681901742, guid: ff8ef76ceb8c7a9418a7e124b9ab425e,
-        type: 3}
-      propertyPath: m_SortingLayer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1018748886681901742, guid: ff8ef76ceb8c7a9418a7e124b9ab425e,
-        type: 3}
-      propertyPath: m_SortingLayerID
-      value: -1442468913
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff8ef76ceb8c7a9418a7e124b9ab425e, type: 3}
 --- !u!1001 &1552751771838344357
@@ -8148,11 +8028,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: barrel_cactus
-      objectReference: {fileID: 0}
-    - target: {fileID: 1552751770134344488, guid: 051b3d0cc0f509046a71a8cff4d2e0ea,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1552751770134344491, guid: 051b3d0cc0f509046a71a8cff4d2e0ea,
         type: 3}
@@ -8208,16 +8083,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1552751770134344501, guid: 051b3d0cc0f509046a71a8cff4d2e0ea,
-        type: 3}
-      propertyPath: m_SortingLayer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1552751770134344501, guid: 051b3d0cc0f509046a71a8cff4d2e0ea,
-        type: 3}
-      propertyPath: m_SortingLayerID
-      value: -1442468913
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 051b3d0cc0f509046a71a8cff4d2e0ea, type: 3}

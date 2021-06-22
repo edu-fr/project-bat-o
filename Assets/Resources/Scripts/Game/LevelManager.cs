@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using Player;
-using Resources.Scripts.UI;
-using UI;
-using UnityEditor;
+﻿using Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

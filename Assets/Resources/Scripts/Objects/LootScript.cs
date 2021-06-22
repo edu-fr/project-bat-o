@@ -9,18 +9,25 @@ namespace Resources.Scripts.Objects
         public Transform ObjectTransform;
         private float Delay = 0;
         private float PastTime = 0;
-        private float When = 0.3f;
+        private float When = 0.35f;
         private Vector3 Offset;
         private float XRandomDistance = 1.4f;
         private float YRandomDistance = 1.4f;
         [SerializeField] public int Amount;
         [SerializeField] private string ItemName;
-        private static GameObject PrefabLoot;
+        private static GameObject _prefabLoot;
+        private bool CanBeCollected = false;
+        [SerializeField]
+
+        
         
         public static GameObject Create(Vector3 position, int amount) // Exp loot creation
         {
-            PrefabLoot = UnityEngine.Resources.Load("Prefabs/Objects/LootDrop") as GameObject;
-            GameObject lootObject = Instantiate(PrefabLoot, position, Quaternion.identity);
+            _prefabLoot = UnityEngine.Resources.Load("Prefabs/Objects/LootDrop") as GameObject;
+            GameObject lootDropParent = GameObject.FindGameObjectWithTag("Loot Drop Parent");
+            if (!lootDropParent) lootDropParent = new GameObject("Loot Drop Parent");
+            lootDropParent.tag = "Loot Drop Parent";
+            GameObject lootObject = Instantiate(_prefabLoot, position, Quaternion.identity, lootDropParent.transform);
             LootScript lootComponent = lootObject.GetComponent<LootScript>();
             lootComponent.Amount = amount;
             return lootObject;
@@ -28,8 +35,11 @@ namespace Resources.Scripts.Objects
         
         public static GameObject Create(Vector3 position, string itemName) // Item loot creation
         {
-            PrefabLoot = UnityEngine.Resources.Load("Prefabs/Objects/LootDrop") as GameObject;
-            GameObject lootObject = Instantiate(PrefabLoot, position, Quaternion.identity);
+            _prefabLoot = UnityEngine.Resources.Load("Prefabs/Objects/LootDrop") as GameObject;
+            GameObject lootDropParent = GameObject.FindGameObjectWithTag("Loot Drop Parent");
+            if (!lootDropParent) lootDropParent = new GameObject("Loot Drop Parent");
+            lootDropParent.tag = "Loot Drop Parent";
+            GameObject lootObject = Instantiate(_prefabLoot, position, Quaternion.identity, lootDropParent.transform);
             LootScript lootComponent = lootObject.GetComponent<LootScript>();
             lootComponent.ItemName = itemName;
             return lootObject;
@@ -50,18 +60,22 @@ namespace Resources.Scripts.Objects
                 ObjectTransform.position += Offset * Time.deltaTime;
                 Delay += PastTime;
             }
+
+            if (!CanBeCollected)
+            {
+                if(Delay > When) CanBeCollected = true;
+            }
         }
 
-        public void OnTriggerEnter2D(Collider2D other)
+        public void OnTriggerStay2D(Collider2D other)
         {
-            if (other.CompareTag("Player") && !other.isTrigger)
-            { 
-                var playerLevelController = other.gameObject.GetComponent<PlayerLevelController>();
-                
-                var playerCollectorController = other.gameObject.GetComponent<PlayerCollectorController>();
-                playerCollectorController.PlayerCollect(Amount);
-                Destroy(gameObject);
-            }
+            if (!CanBeCollected) return;
+
+            if (!other.CompareTag("Player") || other.isTrigger) return;
+            var playerLevelController = other.gameObject.GetComponent<PlayerLevelController>();
+            var playerCollectorController = other.gameObject.GetComponent<PlayerCollectorController>();
+            playerCollectorController.PlayerCollect(Amount);
+            Destroy(gameObject);
         }
     }
 }

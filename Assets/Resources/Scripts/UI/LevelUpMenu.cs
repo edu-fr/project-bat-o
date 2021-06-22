@@ -257,7 +257,7 @@ namespace Resources.Scripts.UI
                     _ => "Error: Attack text not found."
                 };
             }
-            catch (IndexOutOfRangeException err)
+            catch (IndexOutOfRangeException)
             {
                 return "Error: Out of bounds on " + powerUp + " power up!";
             }
@@ -290,7 +290,7 @@ namespace Resources.Scripts.UI
                     _ => "Error: Attack title not found."
                 };
             }
-            catch (IndexOutOfRangeException err)
+            catch (IndexOutOfRangeException)
             {
                 return "Error: Out of bounds on " + powerUp + " power up!";
             }

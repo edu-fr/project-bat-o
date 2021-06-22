@@ -19,6 +19,8 @@ TagManager:
   - LevelUpMenuUI
   - GameOverMenuUI
   - Preload
+  - LevelManager
+  - Loot Drop Parent
   layers:
   - Default
   - TransparentFX

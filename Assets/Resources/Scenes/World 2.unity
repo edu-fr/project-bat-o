@@ -9738,16 +9738,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6845989161882439210, guid: 76d2fe65ef4a887439ae046ef1edad6d,
-        type: 3}
-      propertyPath: NextScene
-      value: Menu
-      objectReference: {fileID: 0}
-    - target: {fileID: 6845989161882439210, guid: 76d2fe65ef4a887439ae046ef1edad6d,
-        type: 3}
-      propertyPath: Scenes.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6845989161882439211, guid: 76d2fe65ef4a887439ae046ef1edad6d,
         type: 3}
       propertyPath: m_Name

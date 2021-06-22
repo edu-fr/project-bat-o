@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6845989161882439209}
   m_Layer: 0
   m_Name: LevelManager
-  m_TagString: GameController
+  m_TagString: LevelManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25,7 +25,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6845989161882439211}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -44,8 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 902c0a2effb0b714ca5f83572e6ee171, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerPrefab: {fileID: 6753889184881655950, guid: 58eef81883803ef48a802794ff258dc7,
-    type: 3}
+  NextScene: Menu
 --- !u!114 &6845989161882439209
 MonoBehaviour:
   m_ObjectHideFlags: 0

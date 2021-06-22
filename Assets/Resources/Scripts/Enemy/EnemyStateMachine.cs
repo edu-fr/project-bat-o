@@ -236,12 +236,11 @@ namespace Enemy
                     // Making sure that it isn't frozen or paralyzed
                     IsFrozen = false;
                     IsParalyzed = false;
-                    
                     EnemyBehavior.Animator.speed = 1.2f;
                     IsWalkingAround = false;
                     EnemyBehavior.AiPath.maxSpeed = EnemyBehavior.ChasingSpeed;
                     EnemyBehavior.FieldOfViewComponent.gameObject.SetActive(false);
-                    EnemyBehavior.AiDestinationSetter.target = EnemyBehavior.TargetPlayer.transform;
+                    if(EnemyBehavior.Target) EnemyBehavior.AiDestinationSetter.target = EnemyBehavior.TargetPlayer.transform;
                     AstarPath.active.Scan();
                     break;
 
@@ -334,6 +333,7 @@ namespace Enemy
                     EnemyCombatManager.Rigidbody2D.velocity = Vector2.zero;
                     EnemyBehavior.Animator.speed = 1;
                     EnemyBehavior.AiPath.maxSpeed = 0;
+                    EnemyBehavior.CircleCollider.enabled = false;
                     if (EnemyBehavior.FieldOfViewComponent.gameObject != null)
                     {
                         EnemyBehavior.FieldOfViewComponent.gameObject.SetActive(false);

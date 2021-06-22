@@ -1,4 +1,5 @@
-﻿using Game;
+﻿using System;
+using Game;
 using Pathfinding;
 using Resources.Scripts.Objects;
 using UnityEngine;
@@ -9,12 +10,12 @@ namespace Enemy
     public class EnemyBehavior : MonoBehaviour
     {
         // Components
-        public Rigidbody2D Rigidbody;
-        public CircleCollider2D CircleCollider;
-        public Animator Animator;
-        public AIDestinationSetter AiDestinationSetter;
-        public AIPath AiPath;
-        public EnemyStateMachine EnemyStateMachine;
+        public Rigidbody2D Rigidbody { get; private set; }
+        public CircleCollider2D CircleCollider { get; private set; }
+        public Animator Animator { get; private set; }
+        public AIDestinationSetter AiDestinationSetter { get; private set; }
+        public AIPath AiPath { get; private set; }
+        public EnemyStateMachine EnemyStateMachine { get; private set; }
 
         // Movement
         public Path Path;
@@ -34,9 +35,9 @@ namespace Enemy
         public FieldOfView FieldOfViewComponent;
         public float FieldOfViewValue;
         public float ViewDistance;
-        public GameObject TargetPlayer;
-        public GameObject Player;
-        public PlayerStateMachine PlayerStateMachine; 
+        public GameObject TargetPlayer { get; set; }
+        private GameObject Player;
+        private PlayerStateMachine PlayerStateMachine;
         public float SurroundingDistance = 2f;
 
         // Animation
@@ -61,7 +62,7 @@ namespace Enemy
         private LayerMask EnemiesLayer;
 
         // Game Manager
-        private LevelManager LevelManager;
+        public LevelManager LevelManager;
         
         // Drop
         public Transform PrefabExperienceLoot;
@@ -73,7 +74,7 @@ namespace Enemy
             CircleCollider = GetComponent<CircleCollider2D>();
             AiDestinationSetter = GetComponent<AIDestinationSetter>();
             AiPath = GetComponent<AIPath>();
-            GetComponent<Seeker>();
+            // GetComponent<Seeker>();
             EnemyHealthManager = GetComponent<EnemyHealthManager>();
             EnemiesLayer = LayerMask.GetMask("Enemies");
             Renderer = GetComponent<Renderer>();
@@ -101,7 +102,7 @@ namespace Enemy
             FieldOfViewComponent.SetOrigin(transform.position);
 
             // Game Manager
-            LevelManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<LevelManager>();
+            LevelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
 
             // Current sprite material
             DefaultMaterial = Renderer.material;
@@ -122,8 +123,9 @@ namespace Enemy
                     EnemyStateMachine.IsDying = true;
                 }
             }
-            
             UpdateMaterial();
+
+           
         }
 
         // Fixed Update its used to treat physics matters
@@ -294,14 +296,13 @@ namespace Enemy
 
         public void DestroyObject()
         {
-            if (LevelManager)
-            {
-                LevelManager.EnemiesRemaining -= 1;
-                Destroy(FieldOfViewComponent.gameObject);
-                Destroy(Target.gameObject);
-                Destroy(gameObject);
-                Destroy(Shadow);
-            }
+            if (!LevelManager) return;
+            
+            LevelManager.EnemiesRemaining -= 1;
+            Destroy(FieldOfViewComponent.gameObject);
+            Destroy(Target.gameObject);
+            Destroy(gameObject);
+            Destroy(Shadow);
         }
     }
 }

@@ -141,7 +141,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1308467809
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 80b468e8d4de47a44a42e4be17f36f43, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -5216,12 +5216,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FlashMaterial: {fileID: 2100000, guid: 478fe359495af0742b7432b040a1ca38, type: 2}
-  PersistentObject: {fileID: 0}
   MaxHealth: 100
   CurrentHealth: 0
   Invincible: 0
-  HealthBarScript: {fileID: 0}
   PlayerController: {fileID: 0}
+  PlayerStatsController: {fileID: 0}
 --- !u!114 &4396048941111737139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5318,7 +5317,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxLevel: 25
   ExperienceMultiplier: 0.1
-  Canvas: {fileID: 0}
 --- !u!114 &381225563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5368,6 +5366,7 @@ MonoBehaviour:
   PhysicalDefense: 0
   BaseMagicalDefense: 20
   MagicalDefense: 0
+  BaseMaxHp: 100
   MaxHp: 0
   BaseEvasionRate: 5
   EvasionRate: 0

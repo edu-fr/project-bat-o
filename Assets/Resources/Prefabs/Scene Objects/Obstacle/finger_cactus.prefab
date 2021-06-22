@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 1018748886681901731}
   - component: {fileID: 1018748886681901742}
   - component: {fileID: 1018748886681901729}
-  m_Layer: 0
+  - component: {fileID: 4676142451229683191}
+  m_Layer: 8
   m_Name: finger_cactus
   m_TagString: Scene objects
   m_Icon: {fileID: 0}
@@ -111,3 +112,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.7562946, y: 0.33029303}
   m_EdgeRadius: 0
+--- !u!114 &4676142451229683191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018748886681901730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8b769e31894ee8468b413a47c5234b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectCollider2D: {fileID: 6070897187834349070, guid: 051b3d0cc0f509046a71a8cff4d2e0ea,
+    type: 3}
+  ObjectDamage: 10
+  ObjectKnockBack: 3.7
+  ObjectKnockBackDuration: 0.3
+  ObjectAttackSpeed: 30

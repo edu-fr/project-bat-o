@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Enemy
@@ -47,6 +48,17 @@ namespace Enemy
             EnemyBehavior.Animator.SetFloat("AttackDirY", playerDirection.y);
             EnemyBehavior.Animator.SetTrigger("Attack");
             EnemyCombatManager.IsAttacking = true;
+            
+            // Correcting particle system position. (All arbitrary values that could change according to the enemy sprite) 
+            if (Math.Abs(PlayerDirection.x) > Math.Abs(playerDirection.y))
+            {
+                if (playerDirection.y < 0)
+                    ParticleSystem.transform.position = transform.position + (new Vector3(playerDirection.x * 0.5f, (playerDirection.y * 0.8f) + 0.4f));
+                else 
+                    ParticleSystem.transform.position = transform.position + (new Vector3(playerDirection.x * 0.5f, playerDirection.y * 0.8f));
+            }
+            else
+                ParticleSystem.transform.position = transform.position + (new Vector3(playerDirection.x * 0.5f, playerDirection.y * 0.3f));
 
         }
 

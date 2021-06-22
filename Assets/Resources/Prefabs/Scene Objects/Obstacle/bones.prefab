@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1394211061337997999}
   - component: {fileID: 2573497524819045421}
   - component: {fileID: 7027685434986716274}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bones
   m_TagString: Scene objects
   m_Icon: {fileID: 0}

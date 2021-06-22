@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2567835175014649518}
   - component: {fileID: 2567835175014649517}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: grass_g_1
   m_TagString: Scene objects
   m_Icon: {fileID: 0}
