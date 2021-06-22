@@ -22,6 +22,7 @@ namespace UI
             if (!PlayerHealthManager)
             {
                 PlayerHealthManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthManager>();
+                UpdateLifeBar();
             }
         }
 

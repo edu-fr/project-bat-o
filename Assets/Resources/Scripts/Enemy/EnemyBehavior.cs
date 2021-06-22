@@ -232,9 +232,12 @@ namespace Enemy
        
         public void CheckSurroundings()
         {
-            if(Vector2.Distance(Player.transform.position, this.transform.position) < SurroundingDistance)
+            if (Player)
             {
-                TargetPlayer = Player;
+                if(Vector2.Distance(Player.transform.position, this.transform.position) < SurroundingDistance)
+                {
+                    TargetPlayer = Player;
+                }
             }
         }
 
@@ -291,11 +294,14 @@ namespace Enemy
 
         public void DestroyObject()
         {
-            LevelManager.EnemiesRemaining -= 1;
-            Destroy(FieldOfViewComponent.gameObject);
-            Destroy(Target.gameObject);
-            Destroy(gameObject);
-            Destroy(Shadow);
+            if (LevelManager)
+            {
+                LevelManager.EnemiesRemaining -= 1;
+                Destroy(FieldOfViewComponent.gameObject);
+                Destroy(Target.gameObject);
+                Destroy(gameObject);
+                Destroy(Shadow);
+            }
         }
     }
 }

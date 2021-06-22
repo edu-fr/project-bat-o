@@ -16,10 +16,8 @@ namespace Game
         private GameObject Player;
         private Vector2 LevelStartingPoint;
         public static bool GameIsPaused = false;
+        private GameOverMenu GameOverMenu;
         
-        // Controllers
-        private GameObject MenusCanvas;
-        private GameObject GameOverMenuUI;
         private PlayerHealthManager PlayerHealthManager;
         private RoadblockController RoadblockController;
         
@@ -31,12 +29,14 @@ namespace Game
             Player.transform.position = GameObject.FindGameObjectWithTag("StartingPoint").transform.position;
             PlayerHealthManager = Player.GetComponent<PlayerHealthManager>();
             
-            MenusCanvas = GameObject.FindGameObjectWithTag("MenusCanvas");
-            GameOverMenuUI = MenusCanvas.GetComponent<GameOverMenu>().GameOverMenuUI;
+            GameOverMenu = GameObject.FindGameObjectWithTag("MenusCanvas").GetComponent<GameOverMenu>();
             
             RoadblockController = GameObject.FindGameObjectWithTag("Roadblock").GetComponent<RoadblockController>();
             // Configure AudioManager.instance.Play("Phase 1 background music");
             EnemiesRemaining = GameObject.FindGameObjectsWithTag("Enemy").Length;
+            
+            // Setting variables on start
+            GameIsPaused = false; 
         }
 
         // Update is called once per frame
@@ -46,9 +46,10 @@ namespace Game
             
             if(PlayerHealthManager.CurrentHealth <= 0) // Player died
             {
+                PlayerHealthManager.CurrentHealth = 1;
                 AudioManager.instance.Play("Player dying");
                 GameIsPaused = true;
-                MenusCanvas.GetComponent<GameOverMenu>().OpenGameOverMenu();
+                GameOverMenu.OpenGameOverMenu();
             }
 
             if (EnemiesRemaining == 0 && RoadblockController.IsBlocking)
