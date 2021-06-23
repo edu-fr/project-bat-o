@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using Enemy;
 using Player;
+using UI;
 using UnityEngine;
 
 public class ObjectDamageScript : MonoBehaviour
 {
     public Collider2D ObjectCollider2D;
+    public Transform PrefabDamagePopup;
     [SerializeField]
     private float ObjectDamage;
     [SerializeField] 
@@ -21,8 +23,10 @@ public class ObjectDamageScript : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            other.gameObject.GetComponent<EnemyCombatManager>().TakeDamage(ObjectDamage, ObjectKnockBack, 
+            var damageTakenByEnemy = other.gameObject.GetComponent<EnemyCombatManager>().TakeDamage(ObjectDamage, ObjectKnockBack, 
                 other.transform.position - transform.position, ObjectKnockBackDuration, 1);
+            DamagePopup.Create(other.transform.position, (int) damageTakenByEnemy, false, other.transform.position - transform.position,
+                PrefabDamagePopup);
         }
         else if (other.gameObject.CompareTag("Player"))
         {

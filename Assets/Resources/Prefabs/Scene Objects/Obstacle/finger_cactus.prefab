@@ -126,6 +126,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObjectCollider2D: {fileID: 6070897187834349070, guid: 051b3d0cc0f509046a71a8cff4d2e0ea,
     type: 3}
+  PrefabDamagePopup: {fileID: 5288669746408271298, guid: 592b06df424ea3c4f9c648348d1e08e0,
+    type: 3}
   ObjectDamage: 10
   ObjectKnockBack: 3.7
   ObjectKnockBackDuration: 0.3

@@ -248,12 +248,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00396018ff43e984da61fd69b2b89879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Rigidbody: {fileID: 0}
-  CircleCollider: {fileID: 0}
-  Animator: {fileID: 0}
-  AiDestinationSetter: {fileID: 0}
-  AiPath: {fileID: 0}
-  EnemyStateMachine: {fileID: 0}
   ReachedEndOfPath: 0
   CurrentTimer: 0
   WalkingAroundSpeed: 2
@@ -264,9 +258,6 @@ MonoBehaviour:
   FieldOfViewComponent: {fileID: 5083348610249324453}
   FieldOfViewValue: 70
   ViewDistance: 4
-  TargetPlayer: {fileID: 0}
-  Player: {fileID: 0}
-  PlayerStateMachine: {fileID: 0}
   SurroundingDistance: 1.5
   FaceDirection: {x: 0, y: 0, z: 0}
   DefaultMaterial: {fileID: 0}

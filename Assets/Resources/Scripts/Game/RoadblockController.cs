@@ -13,7 +13,7 @@ namespace Game
         {
             IsBlocking = true;
             BoxCollider2D = GetComponent<BoxCollider2D>();
-            LevelManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<LevelManager>();
+            LevelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
         }
 
         private void OnCollisionEnter2D(Collision2D other)

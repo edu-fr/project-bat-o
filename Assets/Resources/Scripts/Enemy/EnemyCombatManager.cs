@@ -20,8 +20,8 @@ namespace Enemy
         public float MeleeDamage { private set; get; } = 20;
         public float RangedDamage { private set; get; } = 15f;
         public bool IsAttacking;
-        private bool Invincible = false;
-        public float TimeInvincible = .9f;
+        public bool Invincible { get; private set; } = false;
+        public float TimeInvincible = 2f;
         private void Awake()
         {
             EnemyHealthManager = GetComponent<EnemyHealthManager>();
@@ -31,7 +31,15 @@ namespace Enemy
 
         public float TakeDamage(float damage, float knockback, Vector3 attackDirection, float knockBackDuration, float attackSpeed)
         {
+            if (Invincible)
+            {
+                
+                Debug.Log("NAO TEM COMO, TA INVENCIVEL");
+                return 0;
+            } 
             // Make hit noise
+            Invincible = true; 
+            
             AudioManager.instance.Play("Hit enemy");
             
             FlashSprite();
@@ -46,6 +54,7 @@ namespace Enemy
 
             // Work on it
             float timeFlashing = TimeInvincible / (attackSpeed / 6f);
+            Debug.Log("Time flashing: " + timeFlashing);
             Invoke(nameof(EndFlash), timeFlashing / 3);
             Invoke(nameof(FlashSprite), timeFlashing / 2);
             Invoke(nameof(EndFlash), timeFlashing);
@@ -56,15 +65,20 @@ namespace Enemy
 
         private void FlashSprite()
         {
+            Debug.Log("PISCOU");
             EnemyBehavior.Renderer.material = EnemyBehavior.FlashMaterial;
         }
 
         private void EndFlash()
         {
+            
+            Debug.Log("PAROU");
             EnemyBehavior.Renderer.material = EnemyBehavior.CurrentMaterial;
         }
         private void EndInvincibility ()
         {
+            
+            Debug.Log("fim da invencibilidade");
             Invincible = false;
         }
         
