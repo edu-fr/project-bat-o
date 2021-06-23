@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1552751770134344501}
   - component: {fileID: 6070897187834349070}
   - component: {fileID: -2186487978644250182}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: barrel_cactus
   m_TagString: Scene objects
   m_Icon: {fileID: 0}

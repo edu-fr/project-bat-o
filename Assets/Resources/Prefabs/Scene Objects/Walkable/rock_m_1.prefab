@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6237285153435634314}
   - component: {fileID: 6237285153435634315}
-  m_Layer: 11
+  m_Layer: 3
   m_Name: rock_m_1
   m_TagString: Scene objects
   m_Icon: {fileID: 0}

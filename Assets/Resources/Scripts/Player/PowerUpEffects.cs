@@ -73,9 +73,9 @@ public class PowerUpEffects : MonoBehaviour
         {
             if (enemyNearby.gameObject.CompareTag("Enemy") && (enemy.GetInstanceID() != enemyNearby.gameObject.GetInstanceID()))
             {
-                if(enemyBehavior.CircleCollider.Distance(enemyNearby).distance < closestEnemyDistance)
+                if(enemyBehavior.BoxCollider2D.Distance(enemyNearby).distance < closestEnemyDistance)
                 {
-                    closestEnemyDistance = enemyBehavior.CircleCollider.Distance(enemyNearby).distance;
+                    closestEnemyDistance = enemyBehavior.BoxCollider2D.Distance(enemyNearby).distance;
                     closestEnemy = enemyNearby;
                 }
             }

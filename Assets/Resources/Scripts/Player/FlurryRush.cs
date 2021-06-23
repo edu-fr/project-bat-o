@@ -63,7 +63,7 @@ public class FlurryRush : MonoBehaviour
                 // TimeManager.BackTimeToStandardFlow();
                 
                 // LERP 
-                EnemyPosition = PlayerController.TargetedEnemy.CircleCollider.ClosestPoint(transform.position);
+                EnemyPosition = PlayerController.TargetedEnemy.BoxCollider2D.ClosestPoint(transform.position);
                 PlayerEndDashPosition = transform.position;
                 
                 CanFlurryRush = false;
@@ -78,7 +78,7 @@ public class FlurryRush : MonoBehaviour
 
     public bool RushToEnemyPosition()
     {
-        DistanceToEnemy = Physics2D.Distance(PlayerCollider, PlayerController.TargetedEnemy.CircleCollider).distance;
+        DistanceToEnemy = Physics2D.Distance(PlayerCollider, PlayerController.TargetedEnemy.BoxCollider2D).distance;
         if (DistanceToEnemy < 0.2f)
             return true;
         PlayerRigidBody.MovePosition(UtilitiesClass.CustomLerp(PlayerEndDashPosition, EnemyPosition, TimeStartLerping, LerpTime));

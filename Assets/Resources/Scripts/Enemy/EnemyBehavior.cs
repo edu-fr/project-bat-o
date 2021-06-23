@@ -11,7 +11,7 @@ namespace Enemy
     {
         // Components
         public Rigidbody2D Rigidbody { get; private set; }
-        public CircleCollider2D CircleCollider { get; private set; }
+        public BoxCollider2D BoxCollider2D { get; private set; }
         public Animator Animator { get; private set; }
         public AIDestinationSetter AiDestinationSetter { get; private set; }
         public AIPath AiPath { get; private set; }
@@ -71,7 +71,7 @@ namespace Enemy
         {
             Rigidbody = GetComponent<Rigidbody2D>();
             Animator = GetComponent<Animator>();
-            CircleCollider = GetComponent<CircleCollider2D>();
+            BoxCollider2D = GetComponent<BoxCollider2D>();
             AiDestinationSetter = GetComponent<AIDestinationSetter>();
             AiPath = GetComponent<AIPath>();
             // GetComponent<Seeker>();

@@ -76,7 +76,7 @@ namespace Player
             PlayerStateMachine = GetComponent<PlayerStateMachine>();
             PowerUpController = GetComponent<PowerUpController>();
             // Z-targeting
-            EnemyLayerMask = LayerMask.GetMask("Enemies");
+            EnemyLayerMask = LayerMask.GetMask("Actor");
             NearbyEnemiesArray = new Collider2D[MaxNumEnemiesNearby];
             //
 
@@ -99,14 +99,14 @@ namespace Player
             /* Face direction handler */
             if (IsZTargeting)
             {
-                var FaceDirection = UtilitiesClass.Get8DirectionFromAngle(UtilitiesClass.GetAngleFromVectorFloat(
+                var faceDirection = UtilitiesClass.Get8DirectionFromAngle(UtilitiesClass.GetAngleFromVectorFloat(
                     new Vector3(TargetedEnemy.transform.position.x - transform.position.x,
                         TargetedEnemy.transform.position.y - transform.position.y)));
-                Animator.SetFloat("MoveX", FaceDirection.x);
-                Animator.SetFloat("MoveY", FaceDirection.y);
+                Animator.SetFloat("MoveX", faceDirection.x);
+                Animator.SetFloat("MoveY", faceDirection.y);
 
-                lastMoveX = FaceDirection.x;
-                lastMoveY = FaceDirection.y;
+                lastMoveX = faceDirection.x;
+                lastMoveY = faceDirection.y;
             }
             else
             {
@@ -302,6 +302,8 @@ namespace Player
                     }
                 }
             }
+            
+            if(NearbyEnemiesArray.Length == 0) Debug.Log("Nenhum inimigo por perto");
 
             if (ShorterDistanceEnemyIndex != -1)
             {

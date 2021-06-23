@@ -13,7 +13,9 @@ namespace Enemy
         
         public LayerMask PlayerLayer;
 
+        [SerializeField]
         private float AttackVelocity = 12f;
+
         private bool AttackEnded = false;
         public bool IsOnHalfOfAttackAnimation = false;
         private float AttackCurrentRecoveryTime = 0;
@@ -42,7 +44,7 @@ namespace Enemy
                     ProbablyGonnaHit = false;
                     EnemyBehavior.AiPath.enabled = true;
                     EnemyStateMachine.ChangeState(EnemyStateMachine.States.Chasing);
-                    //  Debug.Log("MeleeAttackManager");
+                    // Debug.Log("MeleeAttackManager");
                 }
             }
         }
@@ -60,29 +62,30 @@ namespace Enemy
 
         private bool PredictAccuracy(Vector3 playerDirection)
         {
+            var currentPosition = transform.position;
             RaycastHit2D raycastHit2DRight =
                 Physics2D.Raycast(
-                    new Vector2(transform.position.x + EnemyBehavior.CircleCollider.radius, transform.position.y),
+                    new Vector2(currentPosition.x + EnemyBehavior.BoxCollider2D.size.x/2, currentPosition.y),
                     playerDirection, 3.5f, PlayerLayer);
             RaycastHit2D raycastHit2DLeft =
                 Physics2D.Raycast(
-                    new Vector2(transform.position.x - EnemyBehavior.CircleCollider.radius, transform.position.y),
+                    new Vector2(currentPosition.x - EnemyBehavior.BoxCollider2D.size.x/2, currentPosition.y),
                     playerDirection, 3.5f, PlayerLayer);
             RaycastHit2D raycastHit2DUp =
                 Physics2D.Raycast(
-                    new Vector2(transform.position.x, transform.position.y + EnemyBehavior.CircleCollider.radius),
+                    new Vector2(currentPosition.x, currentPosition.y + EnemyBehavior.BoxCollider2D.size.y/2),
                     playerDirection, 3.5f, PlayerLayer);
             RaycastHit2D raycastHit2DDown =
                 Physics2D.Raycast(
-                    new Vector2(transform.position.x, transform.position.y - EnemyBehavior.CircleCollider.radius),
+                    new Vector2(currentPosition.x, currentPosition.y - EnemyBehavior.BoxCollider2D.size.y/2),
                     playerDirection, 3.5f, PlayerLayer);
 
-            /* DEBUG RAYS
-            Debug.DrawRay(new Vector2(transform.position.x + EnemyBehavior.CircleCollider.radius, transform.position.y), playerDirection * AttackVelocity, Color.red, 4);
-            Debug.DrawRay(new Vector2(transform.position.x - EnemyBehavior.CircleCollider.radius, transform.position.y), playerDirection * AttackVelocity, Color.red, 4);
-            Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + EnemyBehavior.CircleCollider.radius), playerDirection * AttackVelocity, Color.red, 4);
-            Debug.DrawRay(new Vector2(transform.position.x, transform.position.y - EnemyBehavior.CircleCollider.radius), playerDirection * AttackVelocity, Color.red, 4);
-            */
+            
+            Debug.DrawRay(new Vector2(transform.position.x + EnemyBehavior.BoxCollider2D.size.x/2, transform.position.y), playerDirection * AttackVelocity, Color.red, 2);
+            Debug.DrawRay(new Vector2(transform.position.x - EnemyBehavior.BoxCollider2D.size.x/2, transform.position.y), playerDirection * AttackVelocity, Color.red, 2);
+            Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + EnemyBehavior.BoxCollider2D.size.y/2), playerDirection * AttackVelocity, Color.red, 2);
+            Debug.DrawRay(new Vector2(transform.position.x, transform.position.y - EnemyBehavior.BoxCollider2D.size.y/2), playerDirection * AttackVelocity, Color.red, 2);
+            
 
             return (raycastHit2DRight.rigidbody != null || raycastHit2DLeft.rigidbody != null ||
                     raycastHit2DUp.rigidbody != null || raycastHit2DDown.rigidbody != null);

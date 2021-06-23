@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!1102 &-9158151612271036885
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -207,7 +207,7 @@ AnimatorStateTransition:
   serializedVersion: 3
   m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 0.7540983
+  m_ExitTime: 0.9994301
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -232,7 +232,7 @@ AnimatorStateTransition:
   serializedVersion: 3
   m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 0.7540983
+  m_ExitTime: 0.97736686
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -240,7 +240,7 @@ AnimatorStateTransition:
   m_CanTransitionToSelf: 1
 --- !u!1102 &-2616320768580101199
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -267,7 +267,7 @@ AnimatorState:
   m_TimeParameter: 
 --- !u!1107 &-1020944027122665758
 AnimatorStateMachine:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -313,7 +313,7 @@ AnimatorStateTransition:
   serializedVersion: 3
   m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 0.7540983
+  m_ExitTime: 0.9880712
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -329,16 +329,16 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 3
     m_ConditionEvent: MoveX
-    m_EventTreshold: -0.01
+    m_EventTreshold: -0.00001
   - m_ConditionMode: 4
     m_ConditionEvent: MoveX
-    m_EventTreshold: 0.01
+    m_EventTreshold: 0.00001
   - m_ConditionMode: 3
     m_ConditionEvent: MoveY
-    m_EventTreshold: -0.01
+    m_EventTreshold: -0.00001
   - m_ConditionMode: 4
     m_ConditionEvent: MoveY
-    m_EventTreshold: 0.01
+    m_EventTreshold: 0.00001
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -9158151612271036885}
   m_Solo: 0
@@ -347,7 +347,7 @@ AnimatorStateTransition:
   serializedVersion: 3
   m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 0.74660593
+  m_ExitTime: 0.9927006
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -559,7 +559,7 @@ AnimatorStateTransition:
   serializedVersion: 3
   m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 0.7540983
+  m_ExitTime: 0.9959724
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -567,7 +567,7 @@ AnimatorStateTransition:
   m_CanTransitionToSelf: 1
 --- !u!1102 &7941859225436463034
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}

@@ -25,15 +25,15 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Floor
   - Water
   - UI
-  - 
-  - 
   - Obstacle
-  - Enemies
   - Player
-  - Floor
+  - Enemy
+  - Protector
+  - 
+  - 
   - 
   - 
   - 

@@ -333,7 +333,7 @@ namespace Enemy
                     EnemyCombatManager.Rigidbody2D.velocity = Vector2.zero;
                     EnemyBehavior.Animator.speed = 1;
                     EnemyBehavior.AiPath.maxSpeed = 0;
-                    EnemyBehavior.CircleCollider.enabled = false;
+                    EnemyBehavior.BoxCollider2D.enabled = false;
                     if (EnemyBehavior.FieldOfViewComponent.gameObject != null)
                     {
                         EnemyBehavior.FieldOfViewComponent.gameObject.SetActive(false);

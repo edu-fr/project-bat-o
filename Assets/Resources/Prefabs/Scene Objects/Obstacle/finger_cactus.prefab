@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1018748886681901742}
   - component: {fileID: 1018748886681901729}
   - component: {fileID: 4676142451229683191}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: finger_cactus
   m_TagString: Scene objects
   m_Icon: {fileID: 0}
