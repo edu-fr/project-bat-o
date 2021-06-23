@@ -76,7 +76,6 @@ namespace Player
             PlayerStateMachine = GetComponent<PlayerStateMachine>();
             PowerUpController = GetComponent<PowerUpController>();
             // Z-targeting
-            EnemyLayerMask = LayerMask.GetMask("Actor");
             NearbyEnemiesArray = new Collider2D[MaxNumEnemiesNearby];
             //
 
@@ -110,8 +109,17 @@ namespace Player
             }
             else
             {
-                Animator.SetFloat("MoveX", RigidBody.velocity.x);
-                Animator.SetFloat("MoveY", RigidBody.velocity.y);
+                var horizontalMove = Input.GetAxis("Horizontal");
+                var verticalMove = Input.GetAxis("Vertical");
+                //
+                // if (horizontalMove != 0)
+                //     horizontalMove = horizontalMove > 0 ? 1 : -1;
+                //
+                // if (verticalMove != 0)
+                //     verticalMove = verticalMove > 0 ? 1 : -1;
+                //
+                Animator.SetFloat("MoveX", horizontalMove);
+                Animator.SetFloat("MoveY", verticalMove);
 
                 lastMoveX = Animator.GetFloat("LastMoveX");
                 lastMoveY = Animator.GetFloat("LastMoveY");

@@ -48,6 +48,7 @@ namespace Enemy
         public bool IsAttackingNow;
         public bool IsBeenRushed;
 
+        [SerializeField]
         private float AttackPreparationTime = 0.95f;
         private float AttackPreparationCurrentTime = 0;
         private float PreparationDistance = 1f;

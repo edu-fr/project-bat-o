@@ -214,7 +214,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0.25
+  m_LinearDrag: 4
   m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -403,7 +403,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerLayer:
     serializedVersion: 2
-    m_Bits: 1152
+    m_Bits: 128
   AttackVelocity: 12
   IsOnHalfOfAttackAnimation: 0
   ProbablyGonnaHit: 0
@@ -436,6 +436,7 @@ MonoBehaviour:
   WillDieBurned: 0
   IsAttackingNow: 0
   IsBeenRushed: 0
+  AttackPreparationTime: 0.5
   EnemyBehavior: {fileID: 0}
   EnemyCombatManager: {fileID: 0}
   EnemyMeleeAttackManager: {fileID: 4392494387670825045}
