@@ -29,15 +29,18 @@ namespace Enemy
             Rigidbody2D = GetComponent<Rigidbody2D>();
         }
 
-        public float TakeDamage(float damage, float knockback, Vector3 attackDirection, float knockBackDuration, float attackSpeed)
+        public float TakeDamage(float damage, Vector3 attackDirection, float attackSpeed)
         {
             if (Invincible)
             {
                 return 0;
             } 
+ 
             // Make hit noise
-            Invincible = true; 
-            
+            Invincible = true;
+            var knockBack = damage / 20; // arbitrary value
+            var knockBackDuration = knockBack / 17; // arbitrary value
+
             AudioManager.instance.Play("Hit enemy");
             
             FlashSprite();
@@ -47,7 +50,7 @@ namespace Enemy
            
             // Take knockback
             EnemyBehavior.AiPath.enabled = false;
-            Rigidbody2D.AddForce(attackDirection * knockback, ForceMode2D.Impulse);
+            Rigidbody2D.AddForce(attackDirection * knockBack, ForceMode2D.Impulse);
             StartCoroutine(TakeKnockBack(knockBackDuration));
 
             // Work on it

@@ -12,19 +12,15 @@ public class ObjectDamageScript : MonoBehaviour
     public Transform PrefabDamagePopup;
     [SerializeField]
     private float ObjectDamage;
-    [SerializeField] 
-    private float ObjectKnockBack;
-    [SerializeField] 
-    private float ObjectKnockBackDuration;
-    [SerializeField] 
+    [SerializeField]
     private float ObjectAttackSpeed; // the bigger, the less time the attacker is invulnerable
     
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            var damageTakenByEnemy = other.gameObject.GetComponent<EnemyCombatManager>().TakeDamage(ObjectDamage, ObjectKnockBack, 
-                other.transform.position - transform.position, ObjectKnockBackDuration, 1);
+            var damageTakenByEnemy = other.gameObject.GetComponent<EnemyCombatManager>().TakeDamage(ObjectDamage,
+                other.transform.position - transform.position, 25);
             DamagePopup.Create(other.transform.position, (int) damageTakenByEnemy, false, other.transform.position - transform.position,
                 PrefabDamagePopup);
         }

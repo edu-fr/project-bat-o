@@ -21,6 +21,7 @@ TagManager:
   - Preload
   - LevelManager
   - Loot Drop Parent
+  - Projectile
   layers:
   - Default
   - TransparentFX

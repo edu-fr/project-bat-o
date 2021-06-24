@@ -147,15 +147,14 @@ namespace Player
                 {
                     // critical hit
                     var damageTakenByEnemy = enemy.GetComponent<EnemyCombatManager>().TakeDamage(PlayerStatsController.PhysicalDamage * PlayerStatsController.CriticalDamage,
-                        CurrentKnockback * 1.3f, attackDirection, CurrentKnockbackDuration, CurrentAttackSpeed);
+                        attackDirection,  CurrentAttackSpeed);
                     DamagePopup.Create(enemy.transform.position, (int) damageTakenByEnemy,
                         true, attackDirection, PrefabDamagePopup);
                 }
                 else
                 {
                     // normal hit
-                    var damageTakenByEnemy = enemy.GetComponent<EnemyCombatManager>().TakeDamage(PlayerStatsController.PhysicalDamage, CurrentKnockback,
-                        attackDirection, CurrentKnockbackDuration, CurrentAttackSpeed);
+                    var damageTakenByEnemy = enemy.GetComponent<EnemyCombatManager>().TakeDamage(PlayerStatsController.PhysicalDamage, attackDirection, CurrentAttackSpeed);
                     DamagePopup.Create(enemy.transform.position, (int) damageTakenByEnemy, false, attackDirection,
                         PrefabDamagePopup);
                 }
@@ -224,8 +223,6 @@ namespace Player
                     break;
                 case (WeaponType.Sword):
                     CurrentDamage = 34;
-                    CurrentKnockback = 1.7f;
-                    CurrentKnockbackDuration = 0.1f;
                     CurrentAttackSpeed = 15f;
                     break;
             }
