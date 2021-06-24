@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4725896382082224075}
   - component: {fileID: 1004729491304674255}
   - component: {fileID: 2428874588999952392}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: LootDrop
   m_TagString: Loot Drop
   m_Icon: {fileID: 0}

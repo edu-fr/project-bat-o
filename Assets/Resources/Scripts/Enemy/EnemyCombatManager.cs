@@ -33,8 +33,6 @@ namespace Enemy
         {
             if (Invincible)
             {
-                
-                Debug.Log("NAO TEM COMO, TA INVENCIVEL");
                 return 0;
             } 
             // Make hit noise
@@ -54,7 +52,6 @@ namespace Enemy
 
             // Work on it
             float timeFlashing = TimeInvincible / (attackSpeed / 6f);
-            Debug.Log("Time flashing: " + timeFlashing);
             Invoke(nameof(EndFlash), timeFlashing / 3);
             Invoke(nameof(FlashSprite), timeFlashing / 2);
             Invoke(nameof(EndFlash), timeFlashing);
@@ -65,20 +62,15 @@ namespace Enemy
 
         private void FlashSprite()
         {
-            Debug.Log("PISCOU");
             EnemyBehavior.Renderer.material = EnemyBehavior.FlashMaterial;
         }
 
         private void EndFlash()
         {
-            
-            Debug.Log("PAROU");
             EnemyBehavior.Renderer.material = EnemyBehavior.CurrentMaterial;
         }
         private void EndInvincibility ()
         {
-            
-            Debug.Log("fim da invencibilidade");
             Invincible = false;
         }
         

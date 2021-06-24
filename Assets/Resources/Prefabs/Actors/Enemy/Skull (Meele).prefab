@@ -402,6 +402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b43e9415a87f80c439e6fc82ec8daafb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AttackHitbox: {fileID: 5173341511128679690}
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -467,8 +468,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4319878161626441304}
   - component: {fileID: 5173341511128679690}
-  m_Layer: 0
-  m_Name: AttackHitBox
+  m_Layer: 11
+  m_Name: Attack Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -501,7 +502,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.01587835, y: -0.43490678}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -512,7 +513,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.71418995, y: 0.36726975}
   m_EdgeRadius: 0
 --- !u!1001 &891519769701157699
 PrefabInstance:

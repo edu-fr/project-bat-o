@@ -9,7 +9,7 @@ namespace Enemy
         private EnemyCombatManager EnemyCombatManager;
         private EnemyStateMachine EnemyStateMachine;
         private EnemyBehavior EnemyBehavior;
-
+        public BoxCollider2D AttackHitbox;
         
         public LayerMask PlayerLayer;
 
@@ -51,6 +51,7 @@ namespace Enemy
 
         public void Attack(Vector3 playerDirection)
         {
+            AttackHitbox.enabled = true;
             EnemyBehavior.Animator.SetFloat("AttackDirX", playerDirection.x);
             EnemyBehavior.Animator.SetFloat("AttackDirY", playerDirection.y);
             EnemyBehavior.Animator.speed = 3.5f;
@@ -97,11 +98,18 @@ namespace Enemy
             AttackEnded = true;
             EnemyBehavior.Animator.speed = 1f;
             IsOnHalfOfAttackAnimation = false;
+            StartCoroutine(DeactivateAttackHitBox(0.4f));
         }
 
         public void SetIsOnHalfOfAttackAnimation()
         {
             IsOnHalfOfAttackAnimation = true;
+        }
+
+        private IEnumerator DeactivateAttackHitBox(float timeToDeactivate)
+        {
+            yield return new WaitForSeconds(timeToDeactivate);
+            AttackHitbox.enabled = false;
         }
     }
 }
