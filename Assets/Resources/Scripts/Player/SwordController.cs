@@ -29,4 +29,9 @@ public class SwordController : MonoBehaviour
             PlayerAttackManager.VerifyAttackCollision(other.gameObject);
         }
     }
+
+    private void OnParticleTrigger()
+    {
+        Debug.Log("UEPAAAAA");
+    }
 }
