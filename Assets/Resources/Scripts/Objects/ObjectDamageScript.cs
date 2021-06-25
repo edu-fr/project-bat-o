@@ -20,9 +20,7 @@ public class ObjectDamageScript : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             var damageTakenByEnemy = other.gameObject.GetComponent<EnemyCombatManager>().TakeDamage(ObjectDamage,
-                other.transform.position - transform.position, 25);
-            DamagePopup.Create(other.transform.position, (int) damageTakenByEnemy, false, other.transform.position - transform.position,
-                PrefabDamagePopup);
+                other.transform.position - transform.position, 25, false, false, true, Color.green);
         }
         else if (other.gameObject.CompareTag("Player"))
         {

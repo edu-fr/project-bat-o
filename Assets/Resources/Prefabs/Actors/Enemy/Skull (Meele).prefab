@@ -236,7 +236,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.018453658, y: 0.0147678405}
+  m_Offset: {x: -0.024675608, y: 0.07284069}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5000007, y: 0.27272728}
@@ -247,7 +247,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.63453686, y: 0.2962462}
+  m_Size: {x: 0.52253866, y: 0.39579964}
   m_EdgeRadius: 0
 --- !u!114 &1536043054151238852
 MonoBehaviour:
@@ -456,6 +456,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rigidbody2D: {fileID: 0}
+  PrefabDamagePopup: {fileID: 5288669746408271298, guid: 592b06df424ea3c4f9c648348d1e08e0,
+    type: 3}
   IsAttacking: 0
   TimeInvincible: 0.9
 --- !u!1 &6644068033199517242
@@ -502,7 +504,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.01587835, y: -0.43490678}
+  m_Offset: {x: -0.028322697, y: -0.3809824}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -513,7 +515,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.71418995, y: 0.36726975}
+  m_Size: {x: 0.5648594, y: 0.42534256}
   m_EdgeRadius: 0
 --- !u!1001 &891519769701157699
 PrefabInstance:
@@ -622,22 +624,22 @@ PrefabInstance:
     - target: {fileID: 2428158000114622356, guid: 2d1b2d7854a450349a1411ca92fe509e,
         type: 3}
       propertyPath: m_Size.x
-      value: 0.68631244
+      value: 0.5494256
       objectReference: {fileID: 0}
     - target: {fileID: 2428158000114622356, guid: 2d1b2d7854a450349a1411ca92fe509e,
         type: 3}
       propertyPath: m_Size.y
-      value: 0.33572048
+      value: 0.41868305
       objectReference: {fileID: 0}
     - target: {fileID: 2428158000114622356, guid: 2d1b2d7854a450349a1411ca92fe509e,
         type: 3}
       propertyPath: m_Offset.x
-      value: -0.015376851
+      value: -0.02574706
       objectReference: {fileID: 0}
     - target: {fileID: 2428158000114622356, guid: 2d1b2d7854a450349a1411ca92fe509e,
         type: 3}
       propertyPath: m_Offset.y
-      value: 0.018452197
+      value: 0.07652521
       objectReference: {fileID: 0}
     - target: {fileID: 3229492957332391241, guid: 2d1b2d7854a450349a1411ca92fe509e,
         type: 3}

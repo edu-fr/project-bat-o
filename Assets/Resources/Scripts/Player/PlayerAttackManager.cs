@@ -53,7 +53,6 @@ namespace Player
         public Material IceMaterial;
         public Material ThunderMaterial;
         private Renderer Renderer;
-        public Transform PrefabDamagePopup;
 
         public PowerUpController PowerUpController;
         public PowerUpActivator PowerUpActivator;
@@ -143,22 +142,12 @@ namespace Player
                 EnemiesHit.Add(enemy);
         
                 Vector3 attackDirection = (enemy.transform.position - transform.position).normalized;
-                if (CriticalTest())
-                {
-                    // critical hit
-                    var damageTakenByEnemy = enemy.GetComponent<EnemyCombatManager>().TakeDamage(PlayerStatsController.PhysicalDamage * PlayerStatsController.CriticalDamage,
-                        attackDirection,  CurrentAttackSpeed);
-                    DamagePopup.Create(enemy.transform.position, (int) damageTakenByEnemy,
-                        true, attackDirection, PrefabDamagePopup);
-                }
-                else
-                {
-                    // normal hit
-                    var damageTakenByEnemy = enemy.GetComponent<EnemyCombatManager>().TakeDamage(PlayerStatsController.PhysicalDamage, attackDirection, CurrentAttackSpeed);
-                    DamagePopup.Create(enemy.transform.position, (int) damageTakenByEnemy, false, attackDirection,
-                        PrefabDamagePopup);
-                }
-        
+                if (CriticalTest()) // critical hit
+                    enemy.GetComponent<EnemyCombatManager>().TakeDamage(PlayerStatsController.PhysicalDamage * PlayerStatsController.CriticalDamage, attackDirection,
+                        CurrentAttackSpeed ,false, true, true, null);
+                else                // normal hit
+                    enemy.GetComponent<EnemyCombatManager>().TakeDamage(PlayerStatsController.PhysicalDamage, attackDirection,
+                        CurrentAttackSpeed ,false, false, true, null);
                 PowerUpActivator.ApplyEffectsOnEnemies(enemy, CurrentEffect);
             }
         }

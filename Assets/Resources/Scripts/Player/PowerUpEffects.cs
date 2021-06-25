@@ -28,7 +28,7 @@ public class PowerUpEffects : MonoBehaviour
     
     public IEnumerator ApplyBurn(GameObject enemy, float fireDamage)
     {
-        EnemyHealthManager enemyHealthManager = enemy.GetComponent<EnemyHealthManager>();
+        EnemyCombatManager enemyCombatManager = enemy.GetComponent<EnemyCombatManager>();
         EnemyStateMachine enemyStateMachine = enemy.GetComponent<EnemyStateMachine>();
         
         
@@ -39,7 +39,7 @@ public class PowerUpEffects : MonoBehaviour
             {
                 BurnTickTimers[i]--;
             }
-            enemyHealthManager.TakeDamage(fireDamage/4);
+            enemyCombatManager.TakeDamage(fireDamage/4, Vector3.zero, 40, true, false, true, Color.magenta);
             BurnTickTimers.RemoveAll(i => i == 0);
             yield return new WaitForSeconds(0.5f);
         }
@@ -114,7 +114,7 @@ public class PowerUpEffects : MonoBehaviour
 
     public void DealsElectricDamage(GameObject enemy, float electricDamage)
     {
-        enemy.GetComponent<EnemyHealthManager>().TakeDamage(electricDamage);
+        enemy.GetComponent<EnemyCombatManager>().TakeDamage(electricDamage, Vector3.zero, 40, false, false, true, Color.yellow);
     }
     
     public void BurnEnemyToDeath(GameObject enemy)

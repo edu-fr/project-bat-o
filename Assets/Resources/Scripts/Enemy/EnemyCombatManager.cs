@@ -16,6 +16,8 @@ namespace Enemy
         private EnemyBehavior EnemyBehavior;
         public Rigidbody2D Rigidbody2D;
         
+        public Transform PrefabDamagePopup;
+        
         // Attack
         public float MeleeDamage { private set; get; } = 20;
         public float RangedDamage { private set; get; } = 15f;
@@ -29,19 +31,18 @@ namespace Enemy
             Rigidbody2D = GetComponent<Rigidbody2D>();
         }
 
-        public float TakeDamage(float damage, Vector3 attackDirection, float attackSpeed)
+        public float TakeDamage(float damage, Vector3 attackDirection, float attackSpeed, bool isDot, bool isCriticalHit, bool showValue, Color? customColor)
         {
             if (Invincible)
             {
                 return 0;
-            } 
- 
+            }
+
             // Make hit noise
+            AudioManager.instance.Play("Hit enemy");
             Invincible = true;
             var knockBack = damage / 20; // arbitrary value
             var knockBackDuration = knockBack / 17; // arbitrary value
-
-            AudioManager.instance.Play("Hit enemy");
             
             FlashSprite();
 
@@ -60,21 +61,29 @@ namespace Enemy
             Invoke(nameof(EndFlash), timeFlashing);
             Invoke(nameof(EndInvincibility), timeFlashing - 0.05f);
 
+            if (showValue)
+            {
+                DamagePopup.Create(transform.position, (int) damage, attackDirection, PrefabDamagePopup, isCriticalHit, isDot, customColor);
+            }
+            
             return damage;
         }
 
         private void FlashSprite()
         {
-            EnemyBehavior.Renderer.material = EnemyBehavior.FlashMaterial;
+            if(EnemyBehavior)
+                EnemyBehavior.Renderer.material = EnemyBehavior.FlashMaterial;
         }
 
         private void EndFlash()
         {
-            EnemyBehavior.Renderer.material = EnemyBehavior.CurrentMaterial;
+            if(EnemyBehavior)
+                EnemyBehavior.Renderer.material = EnemyBehavior.CurrentMaterial;
         }
         private void EndInvincibility ()
         {
-            Invincible = false;
+            if(EnemyBehavior)
+                Invincible = false;
         }
         
         private void OnCollisionStay2D(Collision2D other)

@@ -40,7 +40,7 @@ public class ProjectileScript : MonoBehaviour
          if (other.gameObject.CompareTag("Enemy"))
          {
              // Hurt enemy
-             other.gameObject.GetComponent<EnemyCombatManager>()?.TakeDamage(Damage, ShootDirection, 25); // arbitrary attack speed
+             other.gameObject.GetComponent<EnemyCombatManager>()?.TakeDamage(Damage, ShootDirection, 25, false, false, true, Color.yellow); // arbitrary attack speed
              Destroy(gameObject);
          }
 

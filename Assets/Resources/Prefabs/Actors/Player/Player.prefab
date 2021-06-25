@@ -5200,8 +5200,6 @@ MonoBehaviour:
   FireMaterial: {fileID: 2100000, guid: b48f0ca1f8b777b48b7e94d23c80df9b, type: 2}
   IceMaterial: {fileID: 2100000, guid: 897af51100febe24ba281190347776d6, type: 2}
   ThunderMaterial: {fileID: 2100000, guid: b09a1d44807edfd4ca2575ed17bc2391, type: 2}
-  PrefabDamagePopup: {fileID: 5288669746408271298, guid: 592b06df424ea3c4f9c648348d1e08e0,
-    type: 3}
   PowerUpController: {fileID: 0}
   PowerUpActivator: {fileID: 0}
   EnemyLayers:
@@ -5269,9 +5267,9 @@ MonoBehaviour:
   CriticalRateLevel: 0
   CriticalDamageLevel: 0
   EvasionLevel: 0
-  FireLevel: 0
-  IceLevel: 0
-  ElectricLevel: 0
+  FireLevel: 2
+  IceLevel: 2
+  ElectricLevel: 2
   LifeStealLevel: 0
   PerfectDodgeLevel: 0
   HitProjectilesLevel: 0

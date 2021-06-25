@@ -99,7 +99,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.033031166, y: 0.0866041}
+  m_Offset: {x: -0.010138065, y: 0.09869149}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.47727275, y: 0.18181819}
@@ -110,7 +110,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7562946, y: 0.33029303}
+  m_Size: {x: 0.9462393, y: 0.3268395}
   m_EdgeRadius: 0
 --- !u!114 &4676142451229683191
 MonoBehaviour:
@@ -129,6 +129,4 @@ MonoBehaviour:
   PrefabDamagePopup: {fileID: 5288669746408271298, guid: 592b06df424ea3c4f9c648348d1e08e0,
     type: 3}
   ObjectDamage: 10
-  ObjectKnockBack: 3.7
-  ObjectKnockBackDuration: 0.3
   ObjectAttackSpeed: 30
