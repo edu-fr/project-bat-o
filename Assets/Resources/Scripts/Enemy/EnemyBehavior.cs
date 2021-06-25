@@ -147,8 +147,6 @@ namespace Enemy
 
         public void UpdateMaterial()
         {
-            if (EnemyStateMachine.EnemyCombatManager.Invincible) return;
-            
             if (EnemyStateMachine.IsDying)
             {
                 CurrentMaterial = DefaultMaterial;

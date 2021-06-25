@@ -13,7 +13,7 @@ public class PowerUpEffects : MonoBehaviour
         EnemyHealthManager enemyHealthManager = enemy.GetComponent<EnemyHealthManager>();
         EnemyStateMachine enemyStateMachine = enemy.GetComponent<EnemyStateMachine>();
 
-        enemyStateMachine.WillDieBurned = enemyHealthManager.CurrentHealth < fireDamage ? true : false;
+        enemyStateMachine.WillDieBurned = enemyHealthManager.CurrentHealth < fireDamage;
 
         if (BurnTickTimers.Count <= 0)
         {
@@ -30,9 +30,9 @@ public class PowerUpEffects : MonoBehaviour
     {
         EnemyCombatManager enemyCombatManager = enemy.GetComponent<EnemyCombatManager>();
         EnemyStateMachine enemyStateMachine = enemy.GetComponent<EnemyStateMachine>();
-        
-        
-        while (BurnTickTimers.Count > 0)
+        EnemyHealthManager enemyHealthManager = enemy.GetComponent<EnemyHealthManager>();
+
+        while (BurnTickTimers.Count > 0 && enemyHealthManager.CurrentHealth > 0)
         {
             enemyStateMachine.IsOnFire = true;
             for (int i = 0; i < BurnTickTimers.Count; i++)
@@ -43,14 +43,15 @@ public class PowerUpEffects : MonoBehaviour
             BurnTickTimers.RemoveAll(i => i == 0);
             yield return new WaitForSeconds(0.5f);
         }
-        enemyStateMachine.IsOnFire = false;
+        if(enemyStateMachine) enemyStateMachine.IsOnFire = false;
+        BurnTickTimers.Clear();
     }
     
    
         
     public void FreezeEnemy(GameObject enemy, float defrostTime)
     {
-        EnemyStateMachine enemyStateMachine = enemy.GetComponent<EnemyStateMachine>(); 
+        var enemyStateMachine = enemy.GetComponent<EnemyStateMachine>(); 
         
         enemyStateMachine.DefrostCurrentTimer = 0f;
         enemyStateMachine.DefrostTime = defrostTime;
@@ -60,16 +61,16 @@ public class PowerUpEffects : MonoBehaviour
         
     public void FindCloseEnemies(GameObject enemy, float electricRange, float electricDamage)
     {
-        EnemyStateMachine enemyStateMachine = enemy.GetComponent<EnemyStateMachine>();
+        var enemyStateMachine = enemy.GetComponent<EnemyStateMachine>();
         enemyStateMachine.IsPrimaryTarget = true;
-        EnemyBehavior enemyBehavior = enemy.GetComponent<EnemyBehavior>();
+        var enemyBehavior = enemy.GetComponent<EnemyBehavior>();
 
-        float closestEnemyDistance = 1000f;
+        var closestEnemyDistance = 1000f;
         Collider2D closestEnemy = null; 
         
         // Search all enemies in the electric attack range
-        Collider2D[] enemiesNearby = Physics2D.OverlapCircleAll(transform.position, electricRange, LayerMask.GetMask("Enemies"));
-        foreach (Collider2D enemyNearby in enemiesNearby)
+        var  enemiesNearby = Physics2D.OverlapCircleAll(transform.position, electricRange, LayerMask.GetMask("Enemies"));
+        foreach (var enemyNearby in enemiesNearby)
         {
             if (enemyNearby.gameObject.CompareTag("Enemy") && (enemy.GetInstanceID() != enemyNearby.gameObject.GetInstanceID()))
             {
@@ -88,8 +89,8 @@ public class PowerUpEffects : MonoBehaviour
             
             // Search the closest enemy (except the first enemy hit) and deals damage it too
             Collider2D closestEnemyToTheClosestEnemy = null;
-            float closestEnemyDistanceToTheClosestEnemy = 1000f;
-            Collider2D[] enemiesNearbyToTheClosestEnemy = Physics2D.OverlapCircleAll(closestEnemy.gameObject.transform.position, electricRange, LayerMask.GetMask("Enemies"));
+            var closestEnemyDistanceToTheClosestEnemy = 1000f;
+            var enemiesNearbyToTheClosestEnemy = Physics2D.OverlapCircleAll(closestEnemy.gameObject.transform.position, electricRange, LayerMask.GetMask("Enemies"));
             foreach (Collider2D enemyNearbyFromTheClosestEnemy in enemiesNearbyToTheClosestEnemy)
             {
                 if (enemyNearbyFromTheClosestEnemy.gameObject.CompareTag("Enemy") && (enemyNearbyFromTheClosestEnemy.gameObject.GetInstanceID() != enemy.GetInstanceID()) && (enemyNearbyFromTheClosestEnemy.gameObject.GetInstanceID() != closestEnemy.gameObject.GetInstanceID()))
@@ -119,21 +120,21 @@ public class PowerUpEffects : MonoBehaviour
     
     public void BurnEnemyToDeath(GameObject enemy)
     {
-        enemy.GetComponent<EnemyStateMachine>().ChangeState(EnemyStateMachine.States.DyingBurned);
-        // Debug.Log("PowerUp Dying burned");
+        if(enemy)
+            enemy.GetComponent<EnemyStateMachine>().ChangeState(EnemyStateMachine.States.DyingBurned);
     }
 
     public void ShatterEnemy(GameObject enemy, float shatterDamage)
     {
-        EnemyStateMachine enemyStateMachine = enemy.GetComponent<EnemyStateMachine>();
-        EnemyHealthManager enemyHealthManager = enemy.GetComponent<EnemyHealthManager>();
+        var enemyStateMachine = enemy.GetComponent<EnemyStateMachine>();
+        var enemyCombatManager = enemy.GetComponent<EnemyCombatManager>();
         enemyStateMachine.DefrostCurrentTimer = enemyStateMachine.DefrostTime;
-        enemyHealthManager.TakeDamage(shatterDamage);
+        enemyCombatManager.TakeDamage(shatterDamage, Vector3.down, 40, false, true, true, Color.blue);
     }
 
     public void ParalyzeEnemy(GameObject enemy, float paralyzeTime)
     {
-        EnemyStateMachine enemyStateMachine = enemy.GetComponent<EnemyStateMachine>();
+        var enemyStateMachine = enemy.GetComponent<EnemyStateMachine>();
         enemyStateMachine.ParalyzeHealCurrentTimer = 0;
         enemyStateMachine.ParalyzeHealTime = paralyzeTime;
         enemyStateMachine.ChangeState(EnemyStateMachine.States.Paralyzed);

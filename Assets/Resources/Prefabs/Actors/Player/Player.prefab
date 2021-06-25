@@ -5268,8 +5268,8 @@ MonoBehaviour:
   CriticalDamageLevel: 0
   EvasionLevel: 0
   FireLevel: 2
-  IceLevel: 2
-  ElectricLevel: 2
+  IceLevel: 0
+  ElectricLevel: 0
   LifeStealLevel: 0
   PerfectDodgeLevel: 0
   HitProjectilesLevel: 0
@@ -5390,7 +5390,7 @@ MonoBehaviour:
   CriticalDamage: 0
   BaseFireDamage: 25
   FireDamage: 0
-  BaseFireAttackRate: 25
+  BaseFireAttackRate: 100
   BaseIceDamage: 20
   IceDamage: 0
   BaseIceAttackRate: 15
