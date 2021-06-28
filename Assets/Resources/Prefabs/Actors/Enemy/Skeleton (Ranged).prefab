@@ -278,7 +278,6 @@ MonoBehaviour:
   PrefabDamagePopup: {fileID: 5288669746408271298, guid: 592b06df424ea3c4f9c648348d1e08e0,
     type: 3}
   IsAttacking: 0
-  TimeInvincible: 0.9
 --- !u!114 &4955097571060270798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -474,7 +473,7 @@ PrefabInstance:
     - target: {fileID: 5392214071961746662, guid: e930f2e8319ea2341896d1f240a2de08,
         type: 3}
       propertyPath: LayerMask.m_Bits
-      value: 1792
+      value: 192
       objectReference: {fileID: 0}
     - target: {fileID: 5392214071961746663, guid: e930f2e8319ea2341896d1f240a2de08,
         type: 3}

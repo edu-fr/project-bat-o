@@ -12,7 +12,6 @@ namespace Enemy
         // Components
         public Rigidbody2D Rigidbody { get; private set; }
         public BoxCollider2D BoxCollider2D { get; private set; }
-        public Animator Animator { get; private set; }
         public AIDestinationSetter AiDestinationSetter { get; private set; }
         public AIPath AiPath { get; private set; }
         public EnemyStateMachine EnemyStateMachine { get; private set; }
@@ -40,10 +39,6 @@ namespace Enemy
         private PlayerStateMachine PlayerStateMachine;
         public float SurroundingDistance = 2f;
 
-        // Animation
-        private Vector3 CurrentDirection;
-        private float CurAngle;
-        public Vector3 FaceDirection;
         
         public Material DefaultMaterial;
         public Material CurrentMaterial;
@@ -70,7 +65,6 @@ namespace Enemy
         private void Awake()
         {
             Rigidbody = GetComponent<Rigidbody2D>();
-            Animator = GetComponent<Animator>();
             BoxCollider2D = GetComponent<BoxCollider2D>();
             AiDestinationSetter = GetComponent<AIDestinationSetter>();
             AiPath = GetComponent<AIPath>();
