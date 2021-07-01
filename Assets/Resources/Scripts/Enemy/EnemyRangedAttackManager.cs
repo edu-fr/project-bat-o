@@ -75,8 +75,9 @@ namespace Enemy
                 ProjectileOrigin = transform.position + (new Vector3(playerDirection.x * 0.5f, playerDirection.y * 0.3f));
         }
 
-        public void ShootArrowDuringAnimation()
+        public void ShootArrowDuringAnimation() // Called by the animator
         {
+            Debug.Log("Shoot during animation");
             OnShoot?.Invoke(this, new OnShootEventArgs()
             {
                 ProjectileOrigin = ProjectileOrigin,

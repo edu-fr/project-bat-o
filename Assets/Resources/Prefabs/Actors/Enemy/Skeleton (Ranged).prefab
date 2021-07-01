@@ -290,6 +290,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00396018ff43e984da61fd69b2b89879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Rigidbody: {fileID: 4955097571060270799}
+  BoxCollider2D: {fileID: 8862840902808747548}
+  AiDestinationSetter: {fileID: 4955097571060270800}
+  AiPath: {fileID: 4955097571060270807}
+  EnemyStateMachine: {fileID: 3914972206634834700}
+  Animator: {fileID: 4955097571060270797}
   ReachedEndOfPath: 0
   CurrentTimer: 0
   WalkingAroundSpeed: 2
@@ -301,7 +307,6 @@ MonoBehaviour:
   FieldOfViewValue: 50
   ViewDistance: 4
   SurroundingDistance: 0.5
-  FaceDirection: {x: 0, y: 0, z: 0}
   DefaultMaterial: {fileID: 0}
   CurrentMaterial: {fileID: 0}
   FlashMaterial: {fileID: 2100000, guid: 93729dd49b58a61438d5c2acee37878e, type: 2}
@@ -310,6 +315,8 @@ MonoBehaviour:
   ParalyzedMaterial: {fileID: 2100000, guid: a544983478092fd4985c8aeaddb03fb7, type: 2}
   TargetedMaterial: {fileID: 2100000, guid: 940276883867007469486ff9be41c2fb, type: 2}
   Renderer: {fileID: 0}
+  FaceDirection: {x: 0, y: 0, z: 0}
+  EnemyHealthManager: {fileID: 0}
   LevelManager: {fileID: 0}
   PrefabExperienceLoot: {fileID: 0}
 --- !u!114 &145693348

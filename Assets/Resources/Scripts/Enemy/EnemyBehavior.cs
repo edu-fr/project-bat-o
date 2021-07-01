@@ -10,11 +10,12 @@ namespace Enemy
     public class EnemyBehavior : MonoBehaviour
     {
         // Components
-        public Rigidbody2D Rigidbody { get; private set; }
-        public BoxCollider2D BoxCollider2D { get; private set; }
-        public AIDestinationSetter AiDestinationSetter { get; private set; }
-        public AIPath AiPath { get; private set; }
-        public EnemyStateMachine EnemyStateMachine { get; private set; }
+        public Rigidbody2D Rigidbody;
+        public BoxCollider2D BoxCollider2D;
+        public AIDestinationSetter AiDestinationSetter;
+        public AIPath AiPath;
+        public EnemyStateMachine EnemyStateMachine;
+        public Animator Animator; 
 
         // Movement
         public Path Path;
@@ -49,8 +50,13 @@ namespace Enemy
         public Material TargetedMaterial;
         public Renderer Renderer;
 
+        // Animation
+        private Vector3 CurrentDirection;
+        private float CurAngle;
+        public Vector3 FaceDirection;
+        
         // Health
-        private EnemyHealthManager EnemyHealthManager;
+        public EnemyHealthManager EnemyHealthManager;
         
         // Ally search
         // private float SearchForAlliesRange = 5f;
@@ -61,19 +67,6 @@ namespace Enemy
         
         // Drop
         public Transform PrefabExperienceLoot;
-        
-        private void Awake()
-        {
-            Rigidbody = GetComponent<Rigidbody2D>();
-            BoxCollider2D = GetComponent<BoxCollider2D>();
-            AiDestinationSetter = GetComponent<AIDestinationSetter>();
-            AiPath = GetComponent<AIPath>();
-            // GetComponent<Seeker>();
-            EnemyHealthManager = GetComponent<EnemyHealthManager>();
-            EnemiesLayer = LayerMask.GetMask("Enemies");
-            Renderer = GetComponent<Renderer>();
-            EnemyStateMachine = GetComponent<EnemyStateMachine>();
-        }
 
         // Start is called before the first frame update
         private void Start()

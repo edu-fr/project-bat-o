@@ -91,7 +91,7 @@ public class PowerUpActivator : MonoBehaviour
                 if (PowerUpController.FireLevel > 1 && enemyStateMachine.IsOnFire && enemyStateMachine.WillDieBurned)
                 {
                     // FIRE LV 2
-                    Debug.Log("BURNING ENEMY TO THE DEATH");
+                    // Debug.Log("BURNING ENEMY TO THE DEATH");
                     PowerUpEffects.BurnEnemyToDeath(enemy);
                 }
 
