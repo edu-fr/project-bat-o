@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 namespace Enemy
 {
-    public class EnemyBehavior : MonoBehaviour
+    public class EnemyMovementHandler : MonoBehaviour
     {
         // Components
         public Rigidbody2D Rigidbody;
@@ -100,16 +100,7 @@ namespace Enemy
         // Update is called once per frame
         private void Update()
         {
-            // Verify if its alive
-            if(EnemyHealthManager.GetCurrentHp() <= 0)
-            {
-                EnemyStateMachine.ChangeState(EnemyStateMachine.States.Dying);
-                if (Renderer.material == DefaultMaterial && !EnemyStateMachine.IsDying)
-                {
-                    Die();
-                    EnemyStateMachine.IsDying = true;
-                }
-            }
+          
             UpdateMaterial();
 
            
@@ -271,15 +262,6 @@ namespace Enemy
             Animator.SetFloat("MoveY", AiPath.velocity.y);
         }
 
-        public void Die()
-        {
-            AudioManager.instance.Play("Final blow in the enemy");
-            EnemyStateMachine.ChangeState(EnemyStateMachine.States.Dying);
-            Shadow.SetActive(false);
-            Renderer.material = DefaultMaterial;
-            Animator.SetTrigger("Died");
-            DropLoot();
-        }
 
         public void DestroyObject()
         {

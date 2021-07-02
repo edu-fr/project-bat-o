@@ -63,7 +63,7 @@ public class PowerUpEffects : MonoBehaviour
     {
         var enemyStateMachine = enemy.GetComponent<EnemyStateMachine>();
         enemyStateMachine.IsPrimaryTarget = true;
-        var enemyBehavior = enemy.GetComponent<EnemyBehavior>();
+        var enemyBehavior = enemy.GetComponent<EnemyMovementHandler>();
 
         var closestEnemyDistance = 1000f;
         Collider2D closestEnemy = null; 

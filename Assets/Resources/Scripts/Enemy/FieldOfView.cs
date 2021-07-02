@@ -10,7 +10,7 @@ namespace Enemy
         public float FieldOfViewValue;
         public float ViewDistance;
         public int RayCount = 50;
-        public EnemyBehavior EnemyBehavior;
+        public EnemyMovementHandler EnemyMovementHandler;
         public LayerMask LayerMask;
         
         private void Awake()
@@ -49,7 +49,7 @@ namespace Enemy
                     // Hit object
                     if (raycastHit2D.collider.gameObject.CompareTag("Player"))
                     {
-                        EnemyBehavior.SetTargetPlayer(raycastHit2D.collider.gameObject);
+                        EnemyMovementHandler.SetTargetPlayer(raycastHit2D.collider.gameObject);
                     }
                     vertex = (Vector3) raycastHit2D.point - transform.position;
                     vertex.z = transform.position.z;
@@ -96,9 +96,9 @@ namespace Enemy
             this.ViewDistance = viewDistance;
         }
 
-        public void SetMyEnemyBehavior(EnemyBehavior enemyBehavior)
+        public void SetMyEnemyBehavior(EnemyMovementHandler enemyMovementHandler)
         {
-            this.EnemyBehavior = enemyBehavior;
+            this.EnemyMovementHandler = enemyMovementHandler;
         }
     }
 }

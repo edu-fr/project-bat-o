@@ -7,7 +7,7 @@ namespace Enemy
     {
         private EnemyCombatManager EnemyCombatManager;
         private EnemyStateMachine EnemyStateMachine;
-        private EnemyBehavior EnemyBehavior;
+        private EnemyMovementHandler EnemyMovementHandler;
         public BoxCollider2D AttackHitbox;
         
         public LayerMask PlayerLayer;
@@ -26,7 +26,7 @@ namespace Enemy
         {
             EnemyCombatManager = GetComponent<EnemyCombatManager>();
             EnemyStateMachine = GetComponent<EnemyStateMachine>();
-            EnemyBehavior = GetComponent<EnemyBehavior>();
+            EnemyMovementHandler = GetComponent<EnemyMovementHandler>();
         }
 
         private void Update()
@@ -41,7 +41,7 @@ namespace Enemy
                     AttackEnded = false;
                     EnemyStateMachine.IsAttackingNow = false;
                     ProbablyGonnaHit = false;
-                    EnemyBehavior.AiPath.enabled = true;
+                    EnemyMovementHandler.AiPath.enabled = true;
                     EnemyStateMachine.ChangeState(EnemyStateMachine.States.Chasing);
                     // Debug.Log("MeleeAttackManager");
                 }
@@ -51,10 +51,10 @@ namespace Enemy
         public void Attack(Vector3 playerDirection)
         {
             AttackHitbox.enabled = true;
-            EnemyBehavior.Animator.SetFloat("AttackDirX", playerDirection.x);
-            EnemyBehavior.Animator.SetFloat("AttackDirY", playerDirection.y);
-            EnemyBehavior.Animator.speed = 3.5f;
-            EnemyBehavior.Animator.SetTrigger("Attack");
+            EnemyMovementHandler.Animator.SetFloat("AttackDirX", playerDirection.x);
+            EnemyMovementHandler.Animator.SetFloat("AttackDirY", playerDirection.y);
+            EnemyMovementHandler.Animator.speed = 3.5f;
+            EnemyMovementHandler.Animator.SetTrigger("Attack");
             EnemyCombatManager.Rigidbody2D.AddForce(playerDirection * AttackVelocity, ForceMode2D.Impulse);
             ProbablyGonnaHit = PredictAccuracy(playerDirection);
             EnemyCombatManager.IsAttacking = true;
@@ -65,26 +65,26 @@ namespace Enemy
             var currentPosition = transform.position;
             RaycastHit2D raycastHit2DRight =
                 Physics2D.Raycast(
-                    new Vector2(currentPosition.x + EnemyBehavior.BoxCollider2D.size.x/2, currentPosition.y),
+                    new Vector2(currentPosition.x + EnemyMovementHandler.BoxCollider2D.size.x/2, currentPosition.y),
                     playerDirection, 3.5f, PlayerLayer);
             RaycastHit2D raycastHit2DLeft =
                 Physics2D.Raycast(
-                    new Vector2(currentPosition.x - EnemyBehavior.BoxCollider2D.size.x/2, currentPosition.y),
+                    new Vector2(currentPosition.x - EnemyMovementHandler.BoxCollider2D.size.x/2, currentPosition.y),
                     playerDirection, 3.5f, PlayerLayer);
             RaycastHit2D raycastHit2DUp =
                 Physics2D.Raycast(
-                    new Vector2(currentPosition.x, currentPosition.y + EnemyBehavior.BoxCollider2D.size.y/2),
+                    new Vector2(currentPosition.x, currentPosition.y + EnemyMovementHandler.BoxCollider2D.size.y/2),
                     playerDirection, 3.5f, PlayerLayer);
             RaycastHit2D raycastHit2DDown =
                 Physics2D.Raycast(
-                    new Vector2(currentPosition.x, currentPosition.y - EnemyBehavior.BoxCollider2D.size.y/2),
+                    new Vector2(currentPosition.x, currentPosition.y - EnemyMovementHandler.BoxCollider2D.size.y/2),
                     playerDirection, 3.5f, PlayerLayer);
 
             
-            Debug.DrawRay(new Vector2(transform.position.x + EnemyBehavior.BoxCollider2D.size.x/2, transform.position.y), playerDirection * AttackVelocity, Color.red, 2);
-            Debug.DrawRay(new Vector2(transform.position.x - EnemyBehavior.BoxCollider2D.size.x/2, transform.position.y), playerDirection * AttackVelocity, Color.red, 2);
-            Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + EnemyBehavior.BoxCollider2D.size.y/2), playerDirection * AttackVelocity, Color.red, 2);
-            Debug.DrawRay(new Vector2(transform.position.x, transform.position.y - EnemyBehavior.BoxCollider2D.size.y/2), playerDirection * AttackVelocity, Color.red, 2);
+            Debug.DrawRay(new Vector2(transform.position.x + EnemyMovementHandler.BoxCollider2D.size.x/2, transform.position.y), playerDirection * AttackVelocity, Color.red, 2);
+            Debug.DrawRay(new Vector2(transform.position.x - EnemyMovementHandler.BoxCollider2D.size.x/2, transform.position.y), playerDirection * AttackVelocity, Color.red, 2);
+            Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + EnemyMovementHandler.BoxCollider2D.size.y/2), playerDirection * AttackVelocity, Color.red, 2);
+            Debug.DrawRay(new Vector2(transform.position.x, transform.position.y - EnemyMovementHandler.BoxCollider2D.size.y/2), playerDirection * AttackVelocity, Color.red, 2);
             
 
             return (raycastHit2DRight.rigidbody != null || raycastHit2DLeft.rigidbody != null ||
@@ -95,7 +95,7 @@ namespace Enemy
         {
             // Called by animation end
             AttackEnded = true;
-            EnemyBehavior.Animator.speed = 1f;
+            EnemyMovementHandler.Animator.speed = 1f;
             IsOnHalfOfAttackAnimation = false;
             StartCoroutine(DeactivateAttackHitBox(0.4f));
         }

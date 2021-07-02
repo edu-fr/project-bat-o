@@ -13,7 +13,7 @@ namespace Enemy
     {
         private EnemyHealthManager EnemyHealthManager;
         private AudioManager AudioManager;
-        private EnemyBehavior EnemyBehavior;
+        private EnemyMovementHandler EnemyMovementHandler;
         public Rigidbody2D Rigidbody2D;
         
         public Transform PrefabDamagePopup;
@@ -26,7 +26,7 @@ namespace Enemy
         private void Awake()
         {
             EnemyHealthManager = GetComponent<EnemyHealthManager>();
-            EnemyBehavior = GetComponent<EnemyBehavior>();
+            EnemyMovementHandler = GetComponent<EnemyMovementHandler>();
             Rigidbody2D = GetComponent<Rigidbody2D>();
         }
 
@@ -45,7 +45,7 @@ namespace Enemy
             if (showValue)
                 DamagePopup.Create(transform.position, (int) damage, attackDirection, PrefabDamagePopup, isCriticalHit, isDot, customColor);
             
-            EnemyBehavior.AiPath.enabled = false;
+            EnemyMovementHandler.AiPath.enabled = false;
 
             EnemyHealthManager.TakeDamage((int) damage);
             
@@ -57,7 +57,7 @@ namespace Enemy
             if (!other.gameObject.CompareTag("Player")) return;
             
             // Saves the last time enemy hit the player with an attack
-            if (EnemyBehavior.EnemyStateMachine.EnemyType == EnemyStateMachine.Type.Melee)
+            if (EnemyMovementHandler.EnemyStateMachine.EnemyType == EnemyStateMachine.Type.Melee)
             {
                 other.gameObject.GetComponent<PlayerController>().DodgeFailed = true;
             }
@@ -67,7 +67,7 @@ namespace Enemy
         private IEnumerator TakeKnockBack(float knockBackTime)
         {
             yield return new WaitForSeconds(knockBackTime);
-            EnemyBehavior.AiPath.enabled = true;
+            EnemyMovementHandler.AiPath.enabled = true;
         }
     }
 }
