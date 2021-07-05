@@ -35,7 +35,7 @@ namespace Player
         [SerializeField]
         private int MaxNumEnemiesNearby = 10;
 
-        public EnemyBehavior TargetedEnemy;
+        public EnemyMovementHandler TargetedEnemy;
         public bool IsZTargeting = false;
 
         // Dash
@@ -292,7 +292,7 @@ namespace Player
         }
 
 
-        private EnemyBehavior GetZTargetEnemy()
+        private EnemyMovementHandler GetZTargetEnemy()
         {
             NearbyEnemiesArray = Physics2D.OverlapCircleAll(transform.position, ZTargetingRadius, EnemyLayerMask);
             var ShorterDistanceEnemyIndex = -1;
@@ -315,7 +315,7 @@ namespace Player
 
             if (ShorterDistanceEnemyIndex != -1)
             {
-                var TargetEnemyBehavior = NearbyEnemiesArray[ShorterDistanceEnemyIndex].GetComponent<EnemyBehavior>();
+                var TargetEnemyBehavior = NearbyEnemiesArray[ShorterDistanceEnemyIndex].GetComponent<EnemyMovementHandler>();
                 return TargetEnemyBehavior;
             }
 

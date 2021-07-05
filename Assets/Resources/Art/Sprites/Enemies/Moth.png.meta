@@ -1,43 +1,31 @@
 fileFormatVersion: 2
-guid: 133d8ba4e10d7164dbdfa5579afbccfd
+guid: 8e6c43efebcbffd4b809618fdb741403
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3452003437791708593
-    second: Rock_standing_front_0
+      213: -8449344208402845997
+    second: Moth_standing_front_0
   - first:
-      213: 709247535313551666
-    second: Rock_standing_front_1
+      213: -185978098465579169
+    second: Moth_standing_front_1
   - first:
-      213: 1013366739975189944
-    second: Rock_walking_front_0
+      213: 5485586705208323388
+    second: Moth_standing_front_2
   - first:
-      213: 8234320154294349295
-    second: Rock_walking_front_1
+      213: 6328547789623711139
+    second: Moth_standing_front_3
   - first:
-      213: -8452671437627377638
-    second: Rock_walking_front_2
+      213: 4979991292739943749
+    second: Moth_standing_back_0
   - first:
-      213: 2895386745164588504
-    second: Rock_walking_front_3
+      213: -4018933699086370966
+    second: Moth_standing_back_1
   - first:
-      213: 5109119590321443857
-    second: Rock_standing_back_0
+      213: 1668610599139741744
+    second: Moth_standing_back_2
   - first:
-      213: -377488008739171435
-    second: Rock_standing_back_1
-  - first:
-      213: 1749095188232361521
-    second: Rock_walking_back_0
-  - first:
-      213: 6480276575616857751
-    second: Rock_walking_back_1
-  - first:
-      213: -5599827508121062507
-    second: Rock_walking_back_2
-  - first:
-      213: 5182453174623977630
-    second: Rock_walking_back_3
+      213: -7021333446541425985
+    second: Moth_standing_back_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -151,253 +139,169 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Rock_standing_front_0
+      name: Moth_standing_front_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 18
         height: 18
-      alignment: 9
-      pivot: {x: 0.48, y: 0.4}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1b5800156daf7ef20800000000000000
-      internalID: 3452003437791708593
+      spriteID: 3dee4218536edba80800000000000000
+      internalID: -8449344208402845997
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rock_standing_front_1
+      name: Moth_standing_front_1
       rect:
         serializedVersion: 2
         x: 18
         y: 0
         width: 18
         height: 18
-      alignment: 9
-      pivot: {x: 0.48, y: 0.4}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2318f2820e0c7d900800000000000000
-      internalID: 709247535313551666
+      spriteID: f5fd4f0a7e54b6df0800000000000000
+      internalID: -185978098465579169
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rock_walking_front_0
+      name: Moth_standing_front_2
       rect:
         serializedVersion: 2
         x: 36
         y: 0
         width: 18
         height: 18
-      alignment: 9
-      pivot: {x: 0.48, y: 0.4}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8b5ba635ea3301e00800000000000000
-      internalID: 1013366739975189944
+      spriteID: c3d2c846b08b02c40800000000000000
+      internalID: 5485586705208323388
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rock_walking_front_1
+      name: Moth_standing_front_3
       rect:
         serializedVersion: 2
         x: 54
         y: 0
         width: 18
         height: 18
-      alignment: 9
-      pivot: {x: 0.48, y: 0.4}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: feded839d8e264270800000000000000
-      internalID: 8234320154294349295
+      spriteID: 3a5da904fa483d750800000000000000
+      internalID: 6328547789623711139
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rock_walking_front_2
+      name: Moth_standing_back_0
       rect:
         serializedVersion: 2
         x: 72
         y: 0
         width: 18
         height: 18
-      alignment: 9
-      pivot: {x: 0.48, y: 0.4}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a1831259c1412ba80800000000000000
-      internalID: -8452671437627377638
+      spriteID: 54d7d4412bb7c1540800000000000000
+      internalID: 4979991292739943749
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rock_walking_front_3
+      name: Moth_standing_back_1
       rect:
         serializedVersion: 2
         x: 90
         y: 0
         width: 18
         height: 18
-      alignment: 9
-      pivot: {x: 0.48, y: 0.4}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8d5e8e087ea7e2820800000000000000
-      internalID: 2895386745164588504
+      spriteID: a673c1a0811e938c0800000000000000
+      internalID: -4018933699086370966
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rock_standing_back_0
+      name: Moth_standing_back_2
       rect:
         serializedVersion: 2
         x: 108
         y: 0
         width: 18
         height: 18
-      alignment: 9
-      pivot: {x: 0.48, y: 0.4}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1145918b23d37e640800000000000000
-      internalID: 5109119590321443857
+      spriteID: 0301d2ecf78182710800000000000000
+      internalID: 1668610599139741744
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rock_standing_back_1
+      name: Moth_standing_back_3
       rect:
         serializedVersion: 2
         x: 126
         y: 0
         width: 18
         height: 18
-      alignment: 9
-      pivot: {x: 0.48, y: 0.4}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 593d124f7a4e2caf0800000000000000
-      internalID: -377488008739171435
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Rock_walking_back_0
-      rect:
-        serializedVersion: 2
-        x: 144
-        y: 0
-        width: 18
-        height: 18
-      alignment: 9
-      pivot: {x: 0.48, y: 0.4}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1365fec7ec8064810800000000000000
-      internalID: 1749095188232361521
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Rock_walking_back_1
-      rect:
-        serializedVersion: 2
-        x: 162
-        y: 0
-        width: 18
-        height: 18
-      alignment: 9
-      pivot: {x: 0.48, y: 0.4}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7967de726319ee950800000000000000
-      internalID: 6480276575616857751
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Rock_walking_back_2
-      rect:
-        serializedVersion: 2
-        x: 180
-        y: 0
-        width: 18
-        height: 18
-      alignment: 9
-      pivot: {x: 0.48, y: 0.4}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 593bbfeec8a6942b0800000000000000
-      internalID: -5599827508121062507
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Rock_walking_back_3
-      rect:
-        serializedVersion: 2
-        x: 198
-        y: 0
-        width: 18
-        height: 18
-      alignment: 9
-      pivot: {x: 0.48, y: 0.4}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e90ce8a54b5cbe740800000000000000
-      internalID: 5182453174623977630
+      spriteID: fb244555e663f8e90800000000000000
+      internalID: -7021333446541425985
       vertices: []
       indices: 
       edges: []

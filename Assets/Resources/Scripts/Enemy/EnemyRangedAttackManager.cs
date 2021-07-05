@@ -1,4 +1,5 @@
 using System;
+using Resources.Scripts.Enemy;
 using UnityEngine;
 
 namespace Enemy
@@ -7,7 +8,7 @@ namespace Enemy
     { 
         private EnemyCombatManager EnemyCombatManager;
         private EnemyStateMachine EnemyStateMachine;
-        private EnemyBehavior EnemyBehavior;
+        private EnemyMovementHandler EnemyMovementHandler;
         private bool AttackEnded = false;
         private float AttackCurrentRecoveryTime = 0;
         private float AttackRecoveryTime = 0.3f;
@@ -33,7 +34,7 @@ namespace Enemy
         {
             EnemyCombatManager = GetComponent<EnemyCombatManager>();
             EnemyStateMachine = GetComponent<EnemyStateMachine>();
-            EnemyBehavior = GetComponent<EnemyBehavior>();
+            EnemyMovementHandler = GetComponent<EnemyMovementHandler>();
 
             OnShoot += CreateProjectileOnShoot; // Subscribing a new event to the event handler
         }
@@ -47,7 +48,7 @@ namespace Enemy
                 if (AttackCurrentRecoveryTime > AttackRecoveryTime)
                 {
                     AttackCurrentRecoveryTime = 0;
-                    EnemyBehavior.AiPath.enabled = true;
+                    EnemyMovementHandler.AiPath.enabled = true;
                     EnemyStateMachine.ChangeState(EnemyStateMachine.States.Chasing);
                     EnemyStateMachine.IsAttackingNow = false;
                 }
@@ -58,9 +59,9 @@ namespace Enemy
         public void Attack(Vector3 playerDirection)
         {    
             PlayerDirection = playerDirection;
-            EnemyBehavior.Animator.SetFloat("AttackDirX", playerDirection.x);
-            EnemyBehavior.Animator.SetFloat("AttackDirY", playerDirection.y);
-            EnemyBehavior.Animator.SetTrigger("Attack");
+            EnemyMovementHandler.Animator.SetFloat("AttackDirX", playerDirection.x);
+            EnemyMovementHandler.Animator.SetFloat("AttackDirY", playerDirection.y);
+            EnemyMovementHandler.Animator.SetTrigger("Attack");
             EnemyCombatManager.IsAttacking = true;
             
             // Correcting particle system position. (All arbitrary values that could change according to the enemy sprite) 
@@ -97,7 +98,7 @@ namespace Enemy
         {
             // Called by animation end
             AttackEnded = true;
-            EnemyBehavior.Animator.speed = 1f;
+            EnemyMovementHandler.Animator.speed = 1f;
         }
     }
 }

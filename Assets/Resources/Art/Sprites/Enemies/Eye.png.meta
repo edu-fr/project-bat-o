@@ -1,31 +1,43 @@
 fileFormatVersion: 2
-guid: 8e6c43efebcbffd4b809618fdb741403
+guid: 8f0e3ab62abf2de4fa3e666e66434e26
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8449344208402845997
-    second: Moth_front_0
+      213: 49417335881396728
+    second: Eye_standing_front_0
   - first:
-      213: -185978098465579169
-    second: Moth_front_1
+      213: 4041264543391295679
+    second: Eye_standing_front_1
   - first:
-      213: 5485586705208323388
-    second: Moth_front_2
+      213: 5399526322897337148
+    second: Eye_standing_front_
   - first:
-      213: 6328547789623711139
-    second: Moth_front_3
+      213: 2081685935062547032
+    second: Eye_standing_back_0
   - first:
-      213: 4979991292739943749
-    second: Moth_back_0
+      213: -8677159380823684731
+    second: Eye_standing_back_1
   - first:
-      213: -4018933699086370966
-    second: Moth_back_1
+      213: -7395859149710649712
+    second: Eye_standing_back_2
   - first:
-      213: 1668610599139741744
-    second: Moth_back_2
+      213: -3840959177818812698
+    second: Eye_attacking_front_0
   - first:
-      213: -7021333446541425985
-    second: Moth_back_3
+      213: 7147327542498753236
+    second: Eye_attacking_front_1
+  - first:
+      213: -2729469517589981978
+    second: Eye_attacking_front_2
+  - first:
+      213: -3960622452304705837
+    second: Eye_attacking_back_0
+  - first:
+      213: 349379567130673763
+    second: Eye_attacking_back_1
+  - first:
+      213: 7764935870471900946
+    second: Eye_attacking_back_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -139,169 +151,253 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Moth_front_0
+      name: Eye_standing_front_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 18
         height: 18
-      alignment: 9
-      pivot: {x: 0.48, y: 0.25}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3dee4218536edba80800000000000000
-      internalID: -8449344208402845997
+      spriteID: 8f1f4fe1ec09fa000800000000000000
+      internalID: 49417335881396728
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Moth_front_1
+      name: Eye_standing_front_1
       rect:
         serializedVersion: 2
         x: 18
         y: 0
         width: 18
         height: 18
-      alignment: 9
-      pivot: {x: 0.48, y: 0.25}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f5fd4f0a7e54b6df0800000000000000
-      internalID: -185978098465579169
+      spriteID: fb82830d0b4751830800000000000000
+      internalID: 4041264543391295679
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Moth_front_2
+      name: Eye_standing_front_
       rect:
         serializedVersion: 2
         x: 36
         y: 0
         width: 18
         height: 18
-      alignment: 9
-      pivot: {x: 0.48, y: 0.25}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c3d2c846b08b02c40800000000000000
-      internalID: 5485586705208323388
+      spriteID: c3bbaaf2598feea40800000000000000
+      internalID: 5399526322897337148
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Moth_front_3
+      name: Eye_standing_back_0
       rect:
         serializedVersion: 2
         x: 54
         y: 0
         width: 18
         height: 18
-      alignment: 9
-      pivot: {x: 0.48, y: 0.25}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3a5da904fa483d750800000000000000
-      internalID: 6328547789623711139
+      spriteID: 85a74552452a3ec10800000000000000
+      internalID: 2081685935062547032
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Moth_back_0
+      name: Eye_standing_back_1
       rect:
         serializedVersion: 2
         x: 72
         y: 0
         width: 18
         height: 18
-      alignment: 9
-      pivot: {x: 0.48, y: 0.25}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 54d7d4412bb7c1540800000000000000
-      internalID: 4979991292739943749
+      spriteID: 5894e864489849780800000000000000
+      internalID: -8677159380823684731
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Moth_back_1
+      name: Eye_standing_back_2
       rect:
         serializedVersion: 2
         x: 90
         y: 0
         width: 18
         height: 18
-      alignment: 9
-      pivot: {x: 0.48, y: 0.25}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a673c1a0811e938c0800000000000000
-      internalID: -4018933699086370966
+      spriteID: 0969cacc941ac5990800000000000000
+      internalID: -7395859149710649712
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Moth_back_2
+      name: Eye_attacking_front_0
       rect:
         serializedVersion: 2
         x: 108
         y: 0
         width: 18
         height: 18
-      alignment: 9
-      pivot: {x: 0.48, y: 0.25}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0301d2ecf78182710800000000000000
-      internalID: 1668610599139741744
+      spriteID: 6ee45516afb22bac0800000000000000
+      internalID: -3840959177818812698
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Moth_back_3
+      name: Eye_attacking_front_1
       rect:
         serializedVersion: 2
         x: 126
         y: 0
         width: 18
         height: 18
-      alignment: 9
-      pivot: {x: 0.48, y: 0.25}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fb244555e663f8e90800000000000000
-      internalID: -7021333446541425985
+      spriteID: 4daf0002888603360800000000000000
+      internalID: 7147327542498753236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Eye_attacking_front_2
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 18
+        height: 18
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e4dac26fe9fe1ad0800000000000000
+      internalID: -2729469517589981978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Eye_attacking_back_0
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 0
+        width: 18
+        height: 18
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d601f82dda0909c0800000000000000
+      internalID: -3960622452304705837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Eye_attacking_back_1
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 0
+        width: 18
+        height: 18
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3628a9e7dde39d400800000000000000
+      internalID: 349379567130673763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Eye_attacking_back_2
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 0
+        width: 18
+        height: 18
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21f8a27a80892cb60800000000000000
+      internalID: 7764935870471900946
       vertices: []
       indices: 
       edges: []

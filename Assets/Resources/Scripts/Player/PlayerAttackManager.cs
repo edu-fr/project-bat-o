@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Security.Cryptography;
 using Enemy;
 using Game;
+using Resources.Scripts.Enemy;
 using UI;
 using UnityEngine;
 using UnityEngine.Rendering;

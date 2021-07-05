@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Enemy;
+using Resources.Scripts.Enemy;
 using UnityEngine;
 
 public class PowerUpEffects : MonoBehaviour
@@ -63,7 +64,7 @@ public class PowerUpEffects : MonoBehaviour
     {
         var enemyStateMachine = enemy.GetComponent<EnemyStateMachine>();
         enemyStateMachine.IsPrimaryTarget = true;
-        var enemyBehavior = enemy.GetComponent<EnemyBehavior>();
+        var enemyBehavior = enemy.GetComponent<EnemyMovementHandler>();
 
         var closestEnemyDistance = 1000f;
         Collider2D closestEnemy = null; 
