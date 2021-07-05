@@ -1,8 +1,7 @@
 using System;
-using Resources.Scripts.Enemy;
 using UnityEngine;
 
-namespace Enemy
+namespace Resources.Scripts.Enemy
 {
     public class EnemyRangedAttackManager : MonoBehaviour
     { 

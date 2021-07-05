@@ -1,5 +1,4 @@
-﻿using Enemy;
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEditor;
 

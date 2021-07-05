@@ -1,13 +1,9 @@
 using System.Collections;
-using System.ComponentModel.Design;
-using System.Linq.Expressions;
 using Game;
-using Player;
-using Resources.Scripts.Enemy;
-using Unity.Collections;
+using Resources.Scripts.Objects;
 using UnityEngine;
 
-namespace Enemy
+namespace Resources.Scripts.Enemy
 {
     public class EnemyStateMachine : MonoBehaviour
     {
@@ -59,15 +55,28 @@ namespace Enemy
         
         private Vector3 PlayerDirection;
 
-        public EnemyMovementHandler EnemyMovementHandler;
-        public EnemyCombatManager EnemyCombatManager;
-        public EnemyMeleeAttackManager EnemyMeleeAttackManager;
-        public EnemyRangedAttackManager EnemyRangedAttackManager;
-        
+        private EnemyMovementHandler EnemyMovementHandler;
+        public EnemyCombatManager EnemyCombatManager { get; private set; }
+        public EnemyMeleeAttackManager EnemyMeleeAttackManager { get; private set; }
+        public EnemyRangedAttackManager EnemyRangedAttackManager { get; private set; }
+        public EnemyMaterialManager EnemyMaterialManager { get; private set; }
+        public EnemyStatsManager EnemyStatsManager { get; private set; }
+
+        private LevelManager LevelManager;
+        private Renderer Renderer;
+        public GameObject Shadow;
         private void Awake()
         {
             EnemyMovementHandler = GetComponent<EnemyMovementHandler>();
             EnemyCombatManager = GetComponent<EnemyCombatManager>();
+            EnemyMeleeAttackManager = GetComponent<EnemyMeleeAttackManager>();
+            EnemyRangedAttackManager = GetComponent<EnemyRangedAttackManager>();
+            EnemyMaterialManager = GetComponent<EnemyMaterialManager>();
+            EnemyStatsManager = GetComponent<EnemyStatsManager>();
+            Renderer = GetComponent<Renderer>();
+            
+            // Game Manager
+            LevelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
         }
 
         private void Start()
@@ -345,8 +354,8 @@ namespace Enemy
                     
                     AudioManager.instance.Play("Final blow in the enemy");
                     Shadow.SetActive(false);
-                    Renderer.material = DefaultMaterial;
-                    Animator.SetTrigger("Died");
+                    Renderer.material = EnemyMaterialManager.DefaultMaterial;
+                    // Animator.SetTrigger("Died");
                     DropLoot();
                     
                     break; 
@@ -358,6 +367,26 @@ namespace Enemy
         {
             yield return new WaitForSecondsRealtime(seconds);
             ChangeState(state);
+        }
+        
+        private void DropLoot()
+        {
+            var position = transform.position;
+            for (var i = 0; i < EnemyStatsManager.ExpDropQuantity; i++)
+            {
+                LootScript.Create(position, 1);
+            }
+        }
+        
+        public void DestroyEnemyObjects()
+        {
+            if (!LevelManager) return;
+            
+            LevelManager.EnemiesRemaining -= 1;
+            Destroy(EnemyMovementHandler.FieldOfViewComponent.gameObject);
+            Destroy(EnemyMovementHandler.Target.gameObject);
+            Destroy(gameObject);
+            Destroy(Shadow);
         }
     }
 }

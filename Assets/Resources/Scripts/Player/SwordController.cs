@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Player;
+using Resources.Scripts.Enemy;
 using UnityEngine;
 
 public class SwordController : MonoBehaviour

@@ -1,24 +1,24 @@
-﻿using System;
-using Game;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
-namespace Enemy
+namespace Resources.Scripts.Enemy
 {
     public class EnemyHealthManager : MonoBehaviour
     {
         private EnemyStateMachine EnemyStateMachine;
+        private EnemyStatsManager EnemyStatsManager;
 
-        public int MaxHealth = 200;
-        public float CurrentHealth;
+        private float MaxHealth { get; set; }
+        public float CurrentHealth { get; private set; }
 
         private void Awake()
         {
             EnemyStateMachine = GetComponent<EnemyStateMachine>();
+            EnemyStatsManager = GetComponent<EnemyStatsManager>();
         }
 
         private void Start()
         {
+            MaxHealth = EnemyStatsManager.MaxHP;
             CurrentHealth = MaxHealth;
         }
 
@@ -36,7 +36,7 @@ namespace Enemy
             CurrentHealth -= damage;
         }
 
-        public float GetCurrentHp()
+        private float GetCurrentHp()
         {
             return CurrentHealth;
         }

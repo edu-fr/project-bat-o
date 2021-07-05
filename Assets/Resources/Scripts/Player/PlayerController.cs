@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Enemy;
+using Resources.Scripts.Enemy;
 using UI;
 using UnityEngine;
 
@@ -167,7 +167,7 @@ namespace Player
                     TargetedEnemy = GetZTargetEnemy();
                     if (TargetedEnemy != null)
                     {
-                        var enemyStateMachine = TargetedEnemy.GetComponent<Enemy.EnemyStateMachine>();
+                        var enemyStateMachine = TargetedEnemy.GetComponent<EnemyStateMachine>();
                         if (enemyStateMachine != null)
                         {
                             enemyStateMachine.IsTargeted = true;
@@ -182,7 +182,7 @@ namespace Player
             {
                 if (IsZTargeting && TargetedEnemy != null)
                 {
-                    var enemyStateMachine = TargetedEnemy.GetComponent<Enemy.EnemyStateMachine>();
+                    var enemyStateMachine = TargetedEnemy.GetComponent<EnemyStateMachine>();
                     if (enemyStateMachine != null)
                     {
                         enemyStateMachine.IsTargeted = false;

@@ -1,11 +1,9 @@
-﻿using System;
-using Game;
+﻿using Game;
 using Pathfinding;
-using Resources.Scripts.Objects;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Enemy
+namespace Resources.Scripts.Enemy
 {
     public class EnemyMovementHandler : MonoBehaviour
     {
@@ -29,7 +27,6 @@ namespace Enemy
         private Vector3 HomePosition; // original position on the level
         private float WalkableRange = 1f; // Distance it can walk while isnt chasing the player 
         public GameObject Target;
-        public GameObject Shadow;
 
         // Searching for player
         public FieldOfView FieldOfViewComponent;
@@ -88,9 +85,7 @@ namespace Enemy
             FieldOfViewComponent.SetMyEnemyBehavior(this);
             FieldOfViewComponent.SetOrigin(transform.position);
 
-            // Game Manager
-            LevelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
-
+           
             // Current sprite material
             DefaultMaterial = Renderer.material;
             CurrentMaterial = DefaultMaterial;
@@ -113,15 +108,7 @@ namespace Enemy
                 WalkAround();
         }
 
-        private void DropLoot()
-        {
-            var position = transform.position;
-            for (int i = 0; i < 25; i++)
-            {
-                LootScript.Create(position, 1);
-            }
-           
-        }
+        
 
         public void UpdateMaterial()
         {
@@ -263,15 +250,6 @@ namespace Enemy
         }
 
 
-        public void DestroyObject()
-        {
-            if (!LevelManager) return;
-            
-            LevelManager.EnemiesRemaining -= 1;
-            Destroy(FieldOfViewComponent.gameObject);
-            Destroy(Target.gameObject);
-            Destroy(gameObject);
-            Destroy(Shadow);
-        }
+       
     }
 }

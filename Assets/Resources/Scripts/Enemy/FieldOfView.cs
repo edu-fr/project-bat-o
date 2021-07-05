@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Enemy
+namespace Resources.Scripts.Enemy
 {
     public class FieldOfView : MonoBehaviour
     {
