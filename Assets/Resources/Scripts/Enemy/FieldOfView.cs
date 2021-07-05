@@ -10,7 +10,7 @@ namespace Resources.Scripts.Enemy
         public float FieldOfViewValue;
         public float ViewDistance;
         public int RayCount = 50;
-        public EnemyMovementHandler EnemyMovementHandler;
+        public EnemyMovementHandler EnemyMovementHandler { get; private set; }
         public LayerMask LayerMask;
         
         private void Awake()
@@ -96,7 +96,7 @@ namespace Resources.Scripts.Enemy
             this.ViewDistance = viewDistance;
         }
 
-        public void SetMyEnemyBehavior(EnemyMovementHandler enemyMovementHandler)
+        public void SetMyMovementHandler(EnemyMovementHandler enemyMovementHandler)
         {
             this.EnemyMovementHandler = enemyMovementHandler;
         }

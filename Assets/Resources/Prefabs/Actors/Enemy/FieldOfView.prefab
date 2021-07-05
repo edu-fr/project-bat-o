@@ -12,13 +12,13 @@ GameObject:
   - component: {fileID: 5392214071961746662}
   - component: {fileID: 5392214071961746661}
   - component: {fileID: 5392214071961746660}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FieldOfView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5392214071961746663
 Transform:
   m_ObjectHideFlags: 0
@@ -49,7 +49,6 @@ MonoBehaviour:
   FieldOfViewValue: 0
   ViewDistance: 0
   RayCount: 50
-  EnemyBehavior: {fileID: 0}
   LayerMask:
     serializedVersion: 2
     m_Bits: 1792
@@ -72,6 +71,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1

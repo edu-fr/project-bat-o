@@ -5,7 +5,7 @@ namespace Resources.Scripts.Enemy
 {
     public class EnemyMeleeAttackManager : MonoBehaviour
     {
-        private EnemyCombatManager EnemyCombatManager;
+        public EnemyCombatManager EnemyCombatManager { get; private set; }
         private EnemyStateMachine EnemyStateMachine;
         private EnemyMovementHandler EnemyMovementHandler;
         public BoxCollider2D AttackHitbox;

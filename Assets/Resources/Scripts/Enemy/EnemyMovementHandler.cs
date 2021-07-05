@@ -8,12 +8,12 @@ namespace Resources.Scripts.Enemy
     public class EnemyMovementHandler : MonoBehaviour
     {
         // Components
-        public Rigidbody2D Rigidbody;
-        public BoxCollider2D BoxCollider2D;
-        public AIDestinationSetter AiDestinationSetter;
-        public AIPath AiPath;
-        public EnemyStateMachine EnemyStateMachine;
-        public Animator Animator; 
+        public Rigidbody2D Rigidbody { get; private set; }
+        public BoxCollider2D BoxCollider2D { get; private set; }
+        public AIDestinationSetter AiDestinationSetter { get; private set; }
+        public AIPath AiPath { get; private set; }
+        public EnemyStateMachine EnemyStateMachine { get; private set; }
+        public Animator Animator { get; private set; } 
 
         // Movement
         public Path Path;
@@ -53,10 +53,12 @@ namespace Resources.Scripts.Enemy
         public Vector3 FaceDirection;
         
         // Health
-        public EnemyHealthManager EnemyHealthManager;
+        public EnemyHealthManager EnemyHealthManager { get; private set; }
         
         // Ally search
         // private float SearchForAlliesRange = 5f;
+        
+        [SerializeField]
         private LayerMask EnemiesLayer;
 
         // Game Manager
@@ -65,6 +67,16 @@ namespace Resources.Scripts.Enemy
         // Drop
         public Transform PrefabExperienceLoot;
 
+        private void Awake()
+        {
+            Rigidbody = GetComponent<Rigidbody2D>();
+            BoxCollider2D = GetComponent<BoxCollider2D>(); 
+            AiDestinationSetter = GetComponent<AIDestinationSetter>();
+            AiPath = GetComponent<AIPath>();
+            EnemyStateMachine = GetComponent<EnemyStateMachine>();
+            Animator = GetComponent<Animator>();
+        }
+        
         // Start is called before the first frame update
         private void Start()
         {
@@ -82,7 +94,7 @@ namespace Resources.Scripts.Enemy
             // config field of view component
             FieldOfViewComponent.SetFieldOfView(FieldOfViewValue);
             FieldOfViewComponent.SetViewDistance(EnemyStateMachine.EnemyType == EnemyStateMachine.Type.Melee ? ViewDistance : ViewDistance * 2); // Ranged enemies has twice the view distance than melee enemies
-            FieldOfViewComponent.SetMyEnemyBehavior(this);
+            FieldOfViewComponent.SetMyMovementHandler(this);
             FieldOfViewComponent.SetOrigin(transform.position);
 
            
@@ -244,9 +256,11 @@ namespace Resources.Scripts.Enemy
 
         public void Animate()
         {
+            /*
             Animator.SetBool("IsMoving", true);
             Animator.SetFloat("MoveX", AiPath.velocity.x);
             Animator.SetFloat("MoveY", AiPath.velocity.y);
+            */
         }
 
 

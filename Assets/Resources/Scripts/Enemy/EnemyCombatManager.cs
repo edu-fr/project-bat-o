@@ -11,7 +11,7 @@ namespace Resources.Scripts.Enemy
         private EnemyHealthManager EnemyHealthManager;
         private AudioManager AudioManager;
         private EnemyMovementHandler EnemyMovementHandler;
-        public Rigidbody2D Rigidbody2D;
+        public Rigidbody2D Rigidbody2D { get; private set; } 
         
         public Transform PrefabDamagePopup;
         

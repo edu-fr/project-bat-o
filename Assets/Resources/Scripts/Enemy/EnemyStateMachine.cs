@@ -60,7 +60,7 @@ namespace Resources.Scripts.Enemy
         public EnemyMeleeAttackManager EnemyMeleeAttackManager { get; private set; }
         public EnemyRangedAttackManager EnemyRangedAttackManager { get; private set; }
         public EnemyMaterialManager EnemyMaterialManager { get; private set; }
-        public EnemyStatsManager EnemyStatsManager { get; private set; }
+        // public EnemyStatsManager EnemyStatsManager { get; private set; }
 
         private LevelManager LevelManager;
         private Renderer Renderer;
@@ -72,7 +72,7 @@ namespace Resources.Scripts.Enemy
             EnemyMeleeAttackManager = GetComponent<EnemyMeleeAttackManager>();
             EnemyRangedAttackManager = GetComponent<EnemyRangedAttackManager>();
             EnemyMaterialManager = GetComponent<EnemyMaterialManager>();
-            EnemyStatsManager = GetComponent<EnemyStatsManager>();
+            // EnemyStatsManager = GetComponent<EnemyStatsManager>();
             Renderer = GetComponent<Renderer>();
             
             // Game Manager
@@ -372,7 +372,7 @@ namespace Resources.Scripts.Enemy
         private void DropLoot()
         {
             var position = transform.position;
-            for (var i = 0; i < EnemyStatsManager.ExpDropQuantity; i++)
+            for (var i = 0; i < 25 /* EnemyStatsManager.ExpDropQuantity */; i++)
             {
                 LootScript.Create(position, 1);
             }
