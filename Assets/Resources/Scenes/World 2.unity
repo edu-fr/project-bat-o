@@ -811,6 +811,7 @@ GameObject:
   - component: {fileID: 398271731}
   - component: {fileID: 398271733}
   - component: {fileID: 398271738}
+  - component: {fileID: 398271739}
   m_Layer: 8
   m_Name: Generic Enemy
   m_TagString: Untagged
@@ -870,7 +871,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!114 &398271724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1007,7 +1008,7 @@ MonoBehaviour:
   WillDieBurned: 0
   IsAttackingNow: 0
   IsBeenRushed: 0
-  AttackPreparationTime: 0.95
+  AttackPreparationCurrentTime: 0
   Shadow: {fileID: 489459988}
 --- !u!61 &398271731
 BoxCollider2D:
@@ -1195,6 +1196,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &398271739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 398271722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4e9af3b83a902f41a935dcdada20587, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHP: 100
+  _physicalDamage: 0
+  _magicalDamage: 25
+  _physicalDefense: 10
+  _magicalDefense: 10
+  _moveSpeed: 5
+  _attackSpeed: 2
+  _attackPreparationTime: 1
+  _preparationWalkDistance: 1
+  _attackCooldown: 5
+  _attackRecoveryTime: 0.5
+  _distanceToAttack: 7
+  _distanceToLosePlayerSight: 15
+  _expDropQuantity: 30
 --- !u!1001 &424689037
 PrefabInstance:
   m_ObjectHideFlags: 0

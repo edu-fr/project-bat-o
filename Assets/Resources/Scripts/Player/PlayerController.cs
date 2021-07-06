@@ -249,7 +249,7 @@ namespace Player
                         {
                             if (TargetedEnemy.EnemyStateMachine.EnemyType == EnemyStateMachine.Type.Melee)
                                 if (TargetedEnemy.EnemyStateMachine.EnemyCombatManager.IsAttacking)
-                                    if (TargetedEnemy.EnemyStateMachine.EnemyMeleeAttackManager.ProbablyGonnaHit)
+                                    if (TargetedEnemy.EnemyStateMachine.BaseAttack.ProbablyGonnaHit)
                                         if (!PlayerAttackManager.PlayerHealthManager.Invincible)
                                         {
                                             //Debug.Log("Player apanhou " + TargetedEnemy.EnemyStateMachine.EnemyCombatManager.LastTimeHitPlayerDuringAttack + " Dash começou aos " + DashStartTime);

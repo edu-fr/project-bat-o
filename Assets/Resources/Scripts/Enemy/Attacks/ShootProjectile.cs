@@ -1,14 +1,11 @@
 using System;
+using Resources.Scripts.Enemy.Attacks;
 using UnityEngine;
 
 namespace Resources.Scripts.Enemy
 {
-    public class EnemyRangedAttackManager : MonoBehaviour
-    { 
-        private EnemyCombatManager EnemyCombatManager;
-        private EnemyStateMachine EnemyStateMachine;
-        private EnemyMovementHandler EnemyMovementHandler;
-        private bool AttackEnded = false;
+    public class ShootProjectile : BaseAttack
+    {
         private float AttackCurrentRecoveryTime = 0;
         private float AttackRecoveryTime = 0.3f;
         
@@ -29,33 +26,24 @@ namespace Resources.Scripts.Enemy
             public Vector3 ShootDirection;
         }
 
-        private void Awake()
+        protected override void Awake()
         {
-            EnemyCombatManager = GetComponent<EnemyCombatManager>();
-            EnemyStateMachine = GetComponent<EnemyStateMachine>();
-            EnemyMovementHandler = GetComponent<EnemyMovementHandler>();
-
+            base.Awake();
             OnShoot += CreateProjectileOnShoot; // Subscribing a new event to the event handler
         }
 
-        private void Update()
+        protected override void Update()
         {
-            if (AttackEnded)
-            {
-                EnemyCombatManager.IsAttacking = false;
-                AttackCurrentRecoveryTime += Time.deltaTime;
-                if (AttackCurrentRecoveryTime > AttackRecoveryTime)
-                {
-                    AttackCurrentRecoveryTime = 0;
-                    EnemyMovementHandler.AiPath.enabled = true;
-                    EnemyStateMachine.ChangeState(EnemyStateMachine.States.Chasing);
-                    EnemyStateMachine.IsAttackingNow = false;
-                }
-            }
+            base.Update();
+            Debug.Log("Projectile override!");
         }
-        
-        
-        public void Attack(Vector3 playerDirection)
+
+        public override void PreparingAttack()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Attack(Vector3 playerDirection)
         {    
             PlayerDirection = playerDirection;
             EnemyMovementHandler.Animator.SetFloat("AttackDirX", playerDirection.x);
@@ -75,7 +63,7 @@ namespace Resources.Scripts.Enemy
                 ProjectileOrigin = transform.position + (new Vector3(playerDirection.x * 0.5f, playerDirection.y * 0.3f));
         }
 
-        public void ShootArrowDuringAnimation() // Called by the animator
+        public void ShootProjectileDuringAnimation() // Called by the animator
         {
             Debug.Log("Shoot during animation");
             OnShoot?.Invoke(this, new OnShootEventArgs()
@@ -90,14 +78,6 @@ namespace Resources.Scripts.Enemy
             var newProjectile = Instantiate(ProjectilePrefab, ProjectileOrigin, Quaternion.identity, transform);
             var shootDirection = (e.ShootDirection).normalized;
             newProjectile.GetComponent<ProjectileScript>().Setup(shootDirection, ProjectileSpeed);
-        }
-        
-
-        public void AttackEndRanged()
-        {
-            // Called by animation end
-            AttackEnded = true;
-            EnemyMovementHandler.Animator.speed = 1f;
         }
     }
 }

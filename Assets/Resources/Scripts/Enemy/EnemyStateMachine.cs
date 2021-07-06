@@ -1,5 +1,6 @@
 using System.Collections;
 using Game;
+using Resources.Scripts.Enemy.Attacks;
 using Resources.Scripts.Objects;
 using UnityEngine;
 
@@ -47,21 +48,18 @@ namespace Resources.Scripts.Enemy
         public bool IsBeenRushed;
 
         [SerializeField]
-        private float AttackPreparationTime = 0.95f;
         private float AttackPreparationCurrentTime = 0;
         private float PreparationDistance = 1f;
         private float DistanceToAttack;
         private float DistanceToLosePlayerSight;
         
-        private Vector3 PlayerDirection;
+        public Vector3 PlayerDirection { get; private set;}
 
         private EnemyMovementHandler EnemyMovementHandler;
         public EnemyCombatManager EnemyCombatManager { get; private set; }
-        public EnemyMeleeAttackManager EnemyMeleeAttackManager { get; private set; }
-        public EnemyRangedAttackManager EnemyRangedAttackManager { get; private set; }
+        public EnemyStatsManager EnemyStatsManager { get; private set; }
+        public BaseAttack BaseAttack { get; private set; }
         public EnemyMaterialManager EnemyMaterialManager { get; private set; }
-        // public EnemyStatsManager EnemyStatsManager { get; private set; }
-
         private LevelManager LevelManager;
         private Renderer Renderer;
         public GameObject Shadow;
@@ -69,33 +67,18 @@ namespace Resources.Scripts.Enemy
         {
             EnemyMovementHandler = GetComponent<EnemyMovementHandler>();
             EnemyCombatManager = GetComponent<EnemyCombatManager>();
-            EnemyMeleeAttackManager = GetComponent<EnemyMeleeAttackManager>();
-            EnemyRangedAttackManager = GetComponent<EnemyRangedAttackManager>();
+            BaseAttack = GetComponent<BaseAttack>();
             EnemyMaterialManager = GetComponent<EnemyMaterialManager>();
-            // EnemyStatsManager = GetComponent<EnemyStatsManager>();
+            EnemyStatsManager = GetComponent<EnemyStatsManager>();
             Renderer = GetComponent<Renderer>();
-            
             // Game Manager
             LevelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
         }
 
         private void Start()
         {
-            EnemyType = EnemyMeleeAttackManager != null ? Type.Melee : Type.Ranged;
-            switch (EnemyType)
-            {
-                case Type.Melee:
-                    DistanceToAttack = 1.3f;
-                    DistanceToLosePlayerSight = 9f;
-                    break;
-                
-                case Type.Ranged:
-                    DistanceToAttack = 6f;
-                    DistanceToLosePlayerSight = 10f;
-                    break;
-                
-            }
-            State = States.Standard;
+            DistanceToAttack = EnemyStatsManager.DistanceToAttack;
+            DistanceToLosePlayerSight = EnemyStatsManager.DistanceToLosePlayerSight;
         }
 
         private void Update()
@@ -149,44 +132,26 @@ namespace Resources.Scripts.Enemy
 
                 case States.PreparingAttack:
                     AttackPreparationCurrentTime += Time.deltaTime;
-                    
-                    if (AttackPreparationCurrentTime > AttackPreparationTime)
+
+                    if (AttackPreparationCurrentTime > EnemyStatsManager.AttackPreparationTime)
                     {
                         AttackPreparationCurrentTime = 0;
                         ChangeState(States.Attacking);
-                        //Debug.Log("FinishedReadingAttack");
                     }
                     else
                     {
-                        if (EnemyType == Type.Melee)
-                        {
-                            // taking distance before dashing
-                            EnemyMovementHandler.Rigidbody.AddForce(-PlayerDirection * PreparationDistance, ForceMode2D.Force);
-                        }
-                        else //ranged 
-                        {
-                            // make noise to warning about attack
-                        }
+                        BaseAttack.PreparingAttack(); // keeps preparing the attack every frame until it can attack!
                     }
                     break;
                 
                 case States.Attacking:
                     // Return if already start the attack
                     if (IsAttackingNow) return;
-                    
-                    IsAttackingNow = true; 
-                    
-                    // do only once
-                    if (EnemyType == Type.Melee)
-                    {
-                        EnemyMeleeAttackManager.Attack(PlayerDirection);
-                    }
-                    else
-                    {
-                        EnemyRangedAttackManager.Attack(PlayerDirection);
-                    }
+                    IsAttackingNow = true;
+                    // only once
+                    BaseAttack.Attack(PlayerDirection);
                     break;
-
+                    
                 case States.DyingBurned:
                     EnemyMovementHandler.Animate();
                     EnemyMovementHandler.SetCurrentFaceDirection();

@@ -1,13 +1,12 @@
 using System.Collections;
+using Resources.Scripts.Enemy.Attacks;
 using UnityEngine;
 
 namespace Resources.Scripts.Enemy
 {
-    public class EnemyMeleeAttackManager : MonoBehaviour
+    public class DashAttack : BaseAttack
     {
-        public EnemyCombatManager EnemyCombatManager { get; private set; }
-        private EnemyStateMachine EnemyStateMachine;
-        private EnemyMovementHandler EnemyMovementHandler;
+        
         public BoxCollider2D AttackHitbox;
         
         public LayerMask PlayerLayer;
@@ -15,40 +14,23 @@ namespace Resources.Scripts.Enemy
         [SerializeField]
         private float AttackVelocity = 12f;
 
-        private bool AttackEnded = false;
         public bool IsOnHalfOfAttackAnimation = false;
         private float AttackCurrentRecoveryTime = 0;
         private float AttackRecoveryTime = 1.5f;
-        public bool ProbablyGonnaHit;
+
+        protected override void Update()
+        {
+            base.Update();
+            Debug.Log("Override do dash!");
+        }
+
+        public override void PreparingAttack()
+        {
+            // make sound once (?)
+            EnemyMovementHandler.Rigidbody.AddForce(-EnemyStateMachine.PlayerDirection * EnemyStatsManager.PreparationWalkDistance, ForceMode2D.Force);
+        }
         
-
-        private void Awake()
-        {
-            EnemyCombatManager = GetComponent<EnemyCombatManager>();
-            EnemyStateMachine = GetComponent<EnemyStateMachine>();
-            EnemyMovementHandler = GetComponent<EnemyMovementHandler>();
-        }
-
-        private void Update()
-        {
-            if (AttackEnded && EnemyStateMachine.State == EnemyStateMachine.States.Attacking)
-            {
-                EnemyCombatManager.IsAttacking = false;
-                AttackCurrentRecoveryTime += Time.deltaTime;
-                if (AttackCurrentRecoveryTime > AttackRecoveryTime)
-                {
-                    AttackCurrentRecoveryTime = 0;
-                    AttackEnded = false;
-                    EnemyStateMachine.IsAttackingNow = false;
-                    ProbablyGonnaHit = false;
-                    EnemyMovementHandler.AiPath.enabled = true;
-                    EnemyStateMachine.ChangeState(EnemyStateMachine.States.Chasing);
-                    // Debug.Log("MeleeAttackManager");
-                }
-            }
-        }
-
-        public void Attack(Vector3 playerDirection)
+        public override void Attack(Vector3 playerDirection)
         {
             AttackHitbox.enabled = true;
             EnemyMovementHandler.Animator.SetFloat("AttackDirX", playerDirection.x);
@@ -59,7 +41,14 @@ namespace Resources.Scripts.Enemy
             ProbablyGonnaHit = PredictAccuracy(playerDirection);
             EnemyCombatManager.IsAttacking = true;
         }
-
+        
+        public override void AttackEnd()
+        {
+            base.AttackEnd();
+            IsOnHalfOfAttackAnimation = false;
+            StartCoroutine(DeactivateAttackHitBox(0.4f));
+        }
+        
         private bool PredictAccuracy(Vector3 playerDirection)
         {
             var currentPosition = transform.position;
@@ -86,21 +75,11 @@ namespace Resources.Scripts.Enemy
             Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + EnemyMovementHandler.BoxCollider2D.size.y/2), playerDirection * AttackVelocity, Color.red, 2);
             Debug.DrawRay(new Vector2(transform.position.x, transform.position.y - EnemyMovementHandler.BoxCollider2D.size.y/2), playerDirection * AttackVelocity, Color.red, 2);
             
-
             return (raycastHit2DRight.rigidbody != null || raycastHit2DLeft.rigidbody != null ||
                     raycastHit2DUp.rigidbody != null || raycastHit2DDown.rigidbody != null);
         }
-
-        public void AttackEnd()
-        {
-            // Called by animation end
-            AttackEnded = true;
-            EnemyMovementHandler.Animator.speed = 1f;
-            IsOnHalfOfAttackAnimation = false;
-            StartCoroutine(DeactivateAttackHitBox(0.4f));
-        }
-
-        public void SetIsOnHalfOfAttackAnimation()
+        
+        public void SetIsOnHalfOfAttackAnimation() // called by animator (?)
         {
             IsOnHalfOfAttackAnimation = true;
         }

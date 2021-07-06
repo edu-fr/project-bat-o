@@ -185,7 +185,11 @@ namespace Resources.Scripts.Enemy
             if (AiPath.reachedEndOfPath) //if reached desired location, wait three seconds and move to another
             {
                 // Animate standing still
-                Animator.SetBool("IsMoving", false);
+                
+                
+                // Animator.SetBool("IsMoving", false); // ANIMATOR CHANGES
+                
+                
                 CurrentTimer += Time.deltaTime;
 
                 if (CurrentTimer >= MaxTimer)
@@ -236,10 +240,7 @@ namespace Resources.Scripts.Enemy
 
         public void SetCurrentFaceDirection()
         {
-            if (Animator.GetBool("IsMoving")) // just want to change the facing direction if the object is walking
-            {
-                CurrentDirection = AiPath.desiredVelocity;
-            }
+            CurrentDirection = AiPath.desiredVelocity;
             CurAngle = UtilitiesClass.GetAngleFromVectorFloat(CurrentDirection);
             // Actual set of face direction
             FaceDirection = UtilitiesClass.GetDirectionFromAngle(CurAngle);
