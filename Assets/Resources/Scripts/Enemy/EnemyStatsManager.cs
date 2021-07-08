@@ -32,5 +32,13 @@ namespace Resources.Scripts.Enemy
         public float DistanceToLosePlayerSight => _distanceToLosePlayerSight;
         [SerializeField] private float _expDropQuantity;
         public float ExpDropQuantity => _expDropQuantity;
+        [SerializeField] [Range(0, 360)] private float _fieldOfViewValue;
+        public float FieldOfViewValue => _fieldOfViewValue;
+        [SerializeField] [Range(0, 1000)] private float _fieldOfViewDistance;
+        public float FieldOfViewDistance => _fieldOfViewDistance;
+        
+        
     }
+    
+    
 }

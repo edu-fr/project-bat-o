@@ -1,5 +1,6 @@
 using System.Collections;
 using Game;
+using Pathfinding;
 using Resources.Scripts.Enemy.Attacks;
 using Resources.Scripts.Objects;
 using UnityEngine;
@@ -31,21 +32,21 @@ namespace Resources.Scripts.Enemy
         public States PreviousState;
         public Type EnemyType;
         
-        public bool IsWalkingAround = false;
+        public bool IsWalkingAround { get; private set; } = false;
 
-        public bool IsDying = false;
-        public bool IsTargeted = false;
-        public bool IsFrozen = false;
-        public float DefrostCurrentTimer;
-        public float DefrostTime;
-        public bool IsOnFire = false;
-        public bool IsPrimaryTarget = false;
-        public bool IsParalyzed = false;
-        public float ParalyzeHealCurrentTimer;
-        public float ParalyzeHealTime;
-        public bool WillDieBurned = false;
-        public bool IsAttackingNow;
-        public bool IsBeenRushed;
+        public bool IsDying { get; private set; } = false;
+        public bool IsTargeted { get; set; } = false;
+        public bool IsFrozen { get; private set; } = false;
+        public float DefrostCurrentTimer { get; set; }
+        public float DefrostTime { get; set; } 
+        public bool IsOnFire { get; set; } = false;
+        public bool IsPrimaryTarget { get; set; } = false;
+        public bool IsParalyzed { get; private set; } = false;
+        public float ParalyzeHealCurrentTimer { get; set; } 
+        public float ParalyzeHealTime { get; set; } 
+        public bool WillDieBurned { get; set; } = false;
+        public bool IsAttackingNow { get; set; } 
+        public bool IsBeenRushed { get; private set; } 
 
         [SerializeField]
         private float AttackPreparationCurrentTime = 0;
@@ -60,6 +61,9 @@ namespace Resources.Scripts.Enemy
         public EnemyStatsManager EnemyStatsManager { get; private set; }
         public BaseAttack BaseAttack { get; private set; }
         public EnemyMaterialManager EnemyMaterialManager { get; private set; }
+        
+        public EnemyAnimationController EnemyAnimationController { get; private set; }
+        
         private LevelManager LevelManager;
         private Renderer Renderer;
         public GameObject Shadow;
@@ -68,9 +72,11 @@ namespace Resources.Scripts.Enemy
             EnemyMovementHandler = GetComponent<EnemyMovementHandler>();
             EnemyCombatManager = GetComponent<EnemyCombatManager>();
             BaseAttack = GetComponent<BaseAttack>();
+            Debug.Log(BaseAttack.gameObject.GetType());
             EnemyMaterialManager = GetComponent<EnemyMaterialManager>();
             EnemyStatsManager = GetComponent<EnemyStatsManager>();
             Renderer = GetComponent<Renderer>();
+            EnemyAnimationController = GetComponent<EnemyAnimationController>();
             // Game Manager
             LevelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
         }
@@ -103,22 +109,21 @@ namespace Resources.Scripts.Enemy
 
                 case States.Chasing:
                     // Verify if there is close enemies chasing the player
-
+                    
                     if (EnemyMovementHandler.TargetPlayer != null) // Know where the player is
                     {
-                        EnemyMovementHandler.Animate();
-                        EnemyMovementHandler.SetCurrentFaceDirection();
+                        var playerTransformPosition = EnemyMovementHandler.Target.transform.position;
+                        EnemyAnimationController.AnimateMovement(playerTransformPosition.x, playerTransformPosition.y);
 
                         // If enemy is in a certain distance to the player
-                        if (Vector2.Distance(transform.position, EnemyMovementHandler.TargetPlayer.transform.position) < DistanceToAttack)
+                        if (Vector2.Distance(transform.position, playerTransformPosition) < DistanceToAttack)
                         {
                             ChangeState(States.PreparingAttack);
-                            //Debug.Log("PreparingAttack");
                             break;
                         }
 
                         // Return to Standard state
-                        if (Vector2.Distance(transform.position, EnemyMovementHandler.TargetPlayer.transform.position) > DistanceToLosePlayerSight)
+                        if (Vector2.Distance(transform.position, playerTransformPosition) > DistanceToLosePlayerSight)
                         {
                             EnemyMovementHandler.TargetPlayer = null;
                         }
@@ -126,7 +131,6 @@ namespace Resources.Scripts.Enemy
                     else // Lost sight of player
                     {
                         ChangeState(States.Standard);
-                        //Debug.Log("Lost player on attack");
                     }
                     break;
 
@@ -153,8 +157,7 @@ namespace Resources.Scripts.Enemy
                     break;
                     
                 case States.DyingBurned:
-                    EnemyMovementHandler.Animate();
-                    EnemyMovementHandler.SetCurrentFaceDirection();
+                    EnemyAnimationController.AnimateMovement(EnemyMovementHandler.AiPath.desiredVelocity.x, EnemyMovementHandler.AiPath.desiredVelocity.y);
                     break;
 
                 case States.Frozen:
@@ -202,7 +205,7 @@ namespace Resources.Scripts.Enemy
                     IsParalyzed = false;
                     
                     IsWalkingAround = true;
-                    EnemyMovementHandler.Animator.speed = 1;
+                    EnemyAnimationController.SetAnimationSpeedToDefault();
                     EnemyMovementHandler.TargetPlayer = null;
                     EnemyMovementHandler.AiPath.maxSpeed = EnemyMovementHandler.WalkingAroundSpeed;
                     EnemyMovementHandler.AiDestinationSetter.target = EnemyMovementHandler.Target.transform;
@@ -213,7 +216,7 @@ namespace Resources.Scripts.Enemy
                     // Making sure that it isn't frozen or paralyzed
                     IsFrozen = false;
                     IsParalyzed = false;
-                    EnemyMovementHandler.Animator.speed = 1.2f;
+                    EnemyAnimationController.SetAnimationSpeedTo(1.2f);
                     IsWalkingAround = false;
                     EnemyMovementHandler.AiPath.maxSpeed = EnemyMovementHandler.ChasingSpeed;
                     EnemyMovementHandler.FieldOfViewComponent.gameObject.SetActive(false);
@@ -222,14 +225,14 @@ namespace Resources.Scripts.Enemy
                     break;
 
                 case (States.PreparingAttack):
-                    EnemyMovementHandler.Animator.SetBool("IsMoving", false);
+                    EnemyAnimationController.StopMoving();
                     IsWalkingAround = false;
                     EnemyMovementHandler.Rigidbody.velocity = Vector2.zero;
                     EnemyMovementHandler.FieldOfViewComponent.gameObject.SetActive(false);
                     EnemyMovementHandler.AiPath.enabled = false;
                     EnemyMovementHandler.AiDestinationSetter.target = null;
                     PlayerDirection = ((Vector2) EnemyMovementHandler.TargetPlayer.transform.position + (Vector2) EnemyMovementHandler.TargetPlayer.GetComponent<BoxCollider2D>().offset - (Vector2) transform.position).normalized;
-                    EnemyMovementHandler.SetCurrentFaceDirectionTo(PlayerDirection);
+                    EnemyAnimationController.SetCurrentFaceDirectionTo(PlayerDirection);
                     break;
                 
                 case (States.Attacking):
@@ -252,16 +255,15 @@ namespace Resources.Scripts.Enemy
                     {
                         EnemyMovementHandler.FieldOfViewComponent.gameObject.SetActive(false);
                     }
-                   
                     EnemyMovementHandler.RunFromThePlayer();
-                    EnemyMovementHandler.Animator.speed = 1.5f;
+                    EnemyAnimationController.SetAnimationSpeedTo(1.5f);
                     EnemyMovementHandler.AiDestinationSetter.target = EnemyMovementHandler.Target.transform;
                     break;
                 
                 case (States.Frozen):
                     IsWalkingAround = false;
                     IsFrozen = true;
-                    EnemyMovementHandler.Animator.speed = 0;
+                    EnemyAnimationController.SetAnimationSpeedTo(0);
                     EnemyMovementHandler.AiPath.maxSpeed = 0;
                    
                     if (EnemyMovementHandler.FieldOfViewComponent.gameObject != null)
@@ -274,7 +276,7 @@ namespace Resources.Scripts.Enemy
                 case (States.Paralyzed):
                     IsWalkingAround = false;
                     IsParalyzed = true;
-                    EnemyMovementHandler.Animator.speed = 0;
+                    EnemyAnimationController.SetAnimationSpeedTo(0);
                     EnemyMovementHandler.AiPath.maxSpeed = 0;
                     
                     if (EnemyMovementHandler.FieldOfViewComponent.gameObject != null)
@@ -288,7 +290,7 @@ namespace Resources.Scripts.Enemy
                     IsWalkingAround = false;
                     IsBeenRushed = true;
                     EnemyCombatManager.Rigidbody2D.velocity = Vector2.zero;
-                    EnemyMovementHandler.Animator.speed = 0;
+                    EnemyAnimationController.SetAnimationSpeedTo(0);
                     EnemyMovementHandler.AiPath.maxSpeed = 0;
                     if (EnemyMovementHandler.FieldOfViewComponent.gameObject != null)
                     {
@@ -308,7 +310,7 @@ namespace Resources.Scripts.Enemy
                     IsOnFire = false;
                     IsPrimaryTarget = false;
                     EnemyCombatManager.Rigidbody2D.velocity = Vector2.zero;
-                    EnemyMovementHandler.Animator.speed = 1;
+                    EnemyAnimationController.SetAnimationSpeedTo(1);
                     EnemyMovementHandler.AiPath.maxSpeed = 0;
                     EnemyMovementHandler.BoxCollider2D.enabled = false;
                     if (EnemyMovementHandler.FieldOfViewComponent.gameObject != null)

@@ -1,14 +1,10 @@
 using System;
-using Resources.Scripts.Enemy.Attacks;
 using UnityEngine;
 
-namespace Resources.Scripts.Enemy
+namespace Resources.Scripts.Enemy.Attacks
 {
     public class ShootProjectile : BaseAttack
     {
-        private float AttackCurrentRecoveryTime = 0;
-        private float AttackRecoveryTime = 0.3f;
-        
         // Projectile variables
         [SerializeField]
         private Transform ProjectilePrefab;
@@ -46,9 +42,7 @@ namespace Resources.Scripts.Enemy
         public override void Attack(Vector3 playerDirection)
         {    
             PlayerDirection = playerDirection;
-            EnemyMovementHandler.Animator.SetFloat("AttackDirX", playerDirection.x);
-            EnemyMovementHandler.Animator.SetFloat("AttackDirY", playerDirection.y);
-            EnemyMovementHandler.Animator.SetTrigger("Attack");
+            EnemyAnimationController.AnimateAttack(playerDirection.x, playerDirection.y);
             EnemyCombatManager.IsAttacking = true;
             
             // Correcting particle system position. (All arbitrary values that could change according to the enemy sprite) 

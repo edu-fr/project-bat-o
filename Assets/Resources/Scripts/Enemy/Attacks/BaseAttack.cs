@@ -8,10 +8,11 @@ namespace Resources.Scripts.Enemy.Attacks
         protected EnemyStateMachine EnemyStateMachine;
         protected EnemyMovementHandler EnemyMovementHandler;
         protected EnemyStatsManager EnemyStatsManager;
+        protected EnemyAnimationController EnemyAnimationController;
 
-        protected bool AttackEnded;
-        protected float AttackCurrentRecoveryTime;
-        protected float AttackRecoveryTime;
+        private bool AttackEnded;
+        private float AttackCurrentRecoveryTime;
+        private float AttackRecoveryTime;
         public bool ProbablyGonnaHit { get; protected set; }
 
         protected virtual void Awake()
@@ -20,6 +21,7 @@ namespace Resources.Scripts.Enemy.Attacks
             EnemyStateMachine = GetComponent<EnemyStateMachine>();
             EnemyMovementHandler = GetComponent<EnemyMovementHandler>();
             EnemyStatsManager = GetComponent<EnemyStatsManager>();
+            EnemyAnimationController = GetComponent<EnemyAnimationController>();
         }
         protected virtual void Start()
         {
@@ -53,7 +55,7 @@ namespace Resources.Scripts.Enemy.Attacks
         public virtual void AttackEnd() // Called by animation end
         {
             AttackEnded = true;
-            EnemyMovementHandler.Animator.speed = 1f;
+            EnemyMovementHandler.EnemyAnimationController.SetAnimationSpeedToDefault();
         }
     }
 }

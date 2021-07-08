@@ -1,12 +1,10 @@
 using System.Collections;
-using Resources.Scripts.Enemy.Attacks;
 using UnityEngine;
 
-namespace Resources.Scripts.Enemy
+namespace Resources.Scripts.Enemy.Attacks
 {
     public class DashAttack : BaseAttack
     {
-        
         public BoxCollider2D AttackHitbox;
         
         public LayerMask PlayerLayer;
@@ -15,13 +13,10 @@ namespace Resources.Scripts.Enemy
         private float AttackVelocity = 12f;
 
         public bool IsOnHalfOfAttackAnimation = false;
-        private float AttackCurrentRecoveryTime = 0;
-        private float AttackRecoveryTime = 1.5f;
 
         protected override void Update()
         {
             base.Update();
-            Debug.Log("Override do dash!");
         }
 
         public override void PreparingAttack()
@@ -33,10 +28,7 @@ namespace Resources.Scripts.Enemy
         public override void Attack(Vector3 playerDirection)
         {
             AttackHitbox.enabled = true;
-            EnemyMovementHandler.Animator.SetFloat("AttackDirX", playerDirection.x);
-            EnemyMovementHandler.Animator.SetFloat("AttackDirY", playerDirection.y);
-            EnemyMovementHandler.Animator.speed = 3.5f;
-            EnemyMovementHandler.Animator.SetTrigger("Attack");
+            EnemyAnimationController.AnimateAttack(playerDirection.x, playerDirection.y);
             EnemyCombatManager.Rigidbody2D.AddForce(playerDirection * AttackVelocity, ForceMode2D.Impulse);
             ProbablyGonnaHit = PredictAccuracy(playerDirection);
             EnemyCombatManager.IsAttacking = true;

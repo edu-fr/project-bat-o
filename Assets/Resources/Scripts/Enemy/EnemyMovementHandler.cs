@@ -13,39 +13,29 @@ namespace Resources.Scripts.Enemy
         public AIDestinationSetter AiDestinationSetter { get; private set; }
         public AIPath AiPath { get; private set; }
         public EnemyStateMachine EnemyStateMachine { get; private set; }
-        public Animator Animator { get; private set; } 
-
+        public EnemyAnimationController EnemyAnimationController { get; private set; }
+        public EnemyStatsManager EnemyStats { get; private set; }
+        
         // Movement
         public Path Path;
         public bool ReachedEndOfPath;
         public float CurrentTimer = 0f;
 
         private float MaxTimer = 3f; // time to move to the next random spot
-        public float WalkingAroundSpeed = 2; // walk speed
-        public float ChasingSpeed = 3.5f; // chasing speed
-        public float DyingBurnedSpeed = 4.5f; // running on fire speed
+        public float WalkingAroundSpeed { get; private set; } = 2; // walk speed
+        public float ChasingSpeed { get; private set; } = 3.5f; // chasing speed
+        public float DyingBurnedSpeed { get; private set; }= 4.5f; // running on fire speed
         private Vector3 HomePosition; // original position on the level
-        private float WalkableRange = 1f; // Distance it can walk while isnt chasing the player 
+        [SerializeField]
+        private float WalkableRange = 5f; // Distance it can walk while isn't chasing the player 
         public GameObject Target;
 
         // Searching for player
         public FieldOfView FieldOfViewComponent;
-        public float FieldOfViewValue;
-        public float ViewDistance;
         public GameObject TargetPlayer { get; set; }
         private GameObject Player;
         private PlayerStateMachine PlayerStateMachine;
         public float SurroundingDistance = 2f;
-
-        
-        public Material DefaultMaterial;
-        public Material CurrentMaterial;
-        public Material FlashMaterial;
-        public Material BurnedMaterial;
-        public Material FrozenMaterial;
-        public Material ParalyzedMaterial;
-        public Material TargetedMaterial;
-        public Renderer Renderer;
 
         // Animation
         private Vector3 CurrentDirection;
@@ -61,8 +51,6 @@ namespace Resources.Scripts.Enemy
         [SerializeField]
         private LayerMask EnemiesLayer;
 
-        // Game Manager
-        public LevelManager LevelManager;
         
         // Drop
         public Transform PrefabExperienceLoot;
@@ -74,7 +62,8 @@ namespace Resources.Scripts.Enemy
             AiDestinationSetter = GetComponent<AIDestinationSetter>();
             AiPath = GetComponent<AIPath>();
             EnemyStateMachine = GetComponent<EnemyStateMachine>();
-            Animator = GetComponent<Animator>();
+            EnemyAnimationController = GetComponent<EnemyAnimationController>();
+            EnemyStats = GetComponent<EnemyStatsManager>();
         }
         
         // Start is called before the first frame update
@@ -82,7 +71,8 @@ namespace Resources.Scripts.Enemy
         {
             Player = GameObject.FindGameObjectWithTag("Player");
             PlayerStateMachine = Player.GetComponent<PlayerStateMachine>();
-            Target = new GameObject("target " + gameObject.name);
+            Target = new GameObject("Target of " + gameObject.name);
+            // Target.transform.parent = transform;
             
             // Set initial enemy position according to its initial position
             HomePosition = Rigidbody.position;
@@ -92,25 +82,10 @@ namespace Resources.Scripts.Enemy
             AiDestinationSetter.target = Target.transform;
 
             // config field of view component
-            FieldOfViewComponent.SetFieldOfView(FieldOfViewValue);
-            FieldOfViewComponent.SetViewDistance(EnemyStateMachine.EnemyType == EnemyStateMachine.Type.Melee ? ViewDistance : ViewDistance * 2); // Ranged enemies has twice the view distance than melee enemies
+            FieldOfViewComponent.SetFieldOfView(EnemyStats.FieldOfViewValue);
+            FieldOfViewComponent.SetViewDistance(EnemyStats.FieldOfViewDistance);
             FieldOfViewComponent.SetMyMovementHandler(this);
             FieldOfViewComponent.SetOrigin(transform.position);
-
-           
-            // Current sprite material
-            DefaultMaterial = Renderer.material;
-            CurrentMaterial = DefaultMaterial;
-
-        }
-
-        // Update is called once per frame
-        private void Update()
-        {
-          
-            UpdateMaterial();
-
-           
         }
 
         // Fixed Update its used to treat physics matters
@@ -118,37 +93,6 @@ namespace Resources.Scripts.Enemy
         {
             if(EnemyStateMachine.IsWalkingAround)
                 WalkAround();
-        }
-
-        
-
-        public void UpdateMaterial()
-        {
-            if (EnemyStateMachine.IsDying)
-            {
-                CurrentMaterial = DefaultMaterial;
-            }
-            else if (EnemyStateMachine.IsTargeted)
-            {
-                CurrentMaterial = TargetedMaterial;
-            } 
-            else if (EnemyStateMachine.IsOnFire)
-            {
-                CurrentMaterial = BurnedMaterial;
-            }
-            else if (EnemyStateMachine.IsFrozen)
-            {
-                CurrentMaterial = FrozenMaterial;
-            }
-            else if (EnemyStateMachine.IsParalyzed)
-            {
-                CurrentMaterial = ParalyzedMaterial;
-            }
-            else
-            {
-                CurrentMaterial = DefaultMaterial;
-            }
-            Renderer.material = CurrentMaterial;
         }
 
         private Vector3 GenerateNewTarget()
@@ -182,19 +126,17 @@ namespace Resources.Scripts.Enemy
         {
             // Generate new target every maxTimer (three seconds)
 
-            if (AiPath.reachedEndOfPath) //if reached desired location, wait three seconds and move to another
+            if (AiPath.reachedEndOfPath) //if reached desired location, wait some seconds and move to another
             {
                 // Animate standing still
-                
-                
-                // Animator.SetBool("IsMoving", false); // ANIMATOR CHANGES
-                
+                EnemyAnimationController.StopMoving();
                 
                 CurrentTimer += Time.deltaTime;
-
                 if (CurrentTimer >= MaxTimer)
                 {
                     CurrentTimer = 0;
+                    Random.InitState((int) Time.realtimeSinceStartup); // Randomize enemy standing still time
+                    MaxTimer = Random.Range(1.5f, 4f);
                     Target.transform.position = GenerateNewTarget();
                     AstarPath.active.Scan();
                 }
@@ -202,9 +144,8 @@ namespace Resources.Scripts.Enemy
             else 
             {
                 // Animate movement
-                Animate();
+                EnemyAnimationController.AnimateMovement(AiPath.desiredVelocity.x, AiPath.desiredVelocity.y);
             }
-            SetCurrentFaceDirection();
         }
 
         public void SetTargetPlayer(GameObject player)
@@ -237,34 +178,5 @@ namespace Resources.Scripts.Enemy
         //     
         //     }
         // }
-
-        public void SetCurrentFaceDirection()
-        {
-            CurrentDirection = AiPath.desiredVelocity;
-            CurAngle = UtilitiesClass.GetAngleFromVectorFloat(CurrentDirection);
-            // Actual set of face direction
-            FaceDirection = UtilitiesClass.GetDirectionFromAngle(CurAngle);
-        }
-        
-        public void SetCurrentFaceDirectionTo(Vector3 desiredDirection)
-        {
-            CurAngle = UtilitiesClass.GetAngleFromVectorFloat(desiredDirection);
-            // Actual set of face direction
-            FaceDirection = UtilitiesClass.GetDirectionFromAngle(CurAngle);
-            Animator.SetFloat("MoveX", FaceDirection.x);
-            Animator.SetFloat("MoveY", FaceDirection.y);
-        }
-
-        public void Animate()
-        {
-            /*
-            Animator.SetBool("IsMoving", true);
-            Animator.SetFloat("MoveX", AiPath.velocity.x);
-            Animator.SetFloat("MoveY", AiPath.velocity.y);
-            */
-        }
-
-
-       
     }
 }
