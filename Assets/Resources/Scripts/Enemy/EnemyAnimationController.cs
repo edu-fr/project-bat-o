@@ -20,17 +20,19 @@ namespace Resources.Scripts.Enemy
             Animator = GetComponent<Animator>();
             SpriteRenderer = GetComponent<SpriteRenderer>();
         }
-        
+
         public void AnimateMovement(float moveDirX, float moveDirY)
         {
             Animator.SetBool("IsMoving", true);
             Animator.SetFloat("MoveX", moveDirX);
             Animator.SetFloat("MoveY", moveDirY);
-            SpriteRenderer.flipX = (moveDirX > 0 && moveDirY < 0) || (moveDirX < 0 && moveDirY > 0);
-            if (SpriteRenderer.flipX)
-            {
-                Debug.Log("X: " + moveDirX + " Y: " + moveDirY);
-            }
+            Debug.Log("X: " + moveDirX + "Y: " + moveDirY);
+
+            if (moveDirY > 0) // Going up (sprite back)
+                SpriteRenderer.flipX = moveDirX < 0f;
+            else // Going down
+                SpriteRenderer.flipX = moveDirX > 0f;
+
             SetCurrentFaceDirectionTo(new Vector3(moveDirX, moveDirY));
         }
 
@@ -39,10 +41,6 @@ namespace Resources.Scripts.Enemy
             Animator.SetFloat("AttackDirX", attackDirX);
             Animator.SetFloat("AttackDirY", attackDirY);
             SpriteRenderer.flipX = (attackDirX > 0 && attackDirY < 0) || (attackDirX < 0 && attackDirY > 0);
-            if (SpriteRenderer.flipX)
-            {
-                Debug.Log("X: " + attackDirX + " Y: " + attackDirY);
-            }
             SetAnimationSpeedTo(3.5f); // TODO: change the animation speed
             Animator.SetTrigger("Attack");
         }
@@ -58,7 +56,7 @@ namespace Resources.Scripts.Enemy
             FaceDirection = UtilitiesClass.GetDirectionFromAngle(CurAngle);
             Animator.SetFloat("MoveX", FaceDirection.x);
             Animator.SetFloat("MoveY", FaceDirection.y);
-            SpriteRenderer.flipX = (FaceDirection.x > 0 && FaceDirection.y < 0) || (FaceDirection.x < 0 && FaceDirection.y > 0);
+            // SpriteRenderer.flipX = (FaceDirection.x > 0 && FaceDirection.y < 0) || (FaceDirection.x < 0 && FaceDirection.y > 0);
 
         }
 
