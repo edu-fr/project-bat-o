@@ -9,11 +9,20 @@ namespace Resources.Scripts.Enemy
             FourDirMirror,
         }
 
+        public enum FaceDirection
+        {
+            FrontRight, 
+            FrontLeft,
+            BackRight,
+            BackLeft
+        }
+
         private Animator Animator;
         private SpriteRenderer SpriteRenderer;
         private Vector3 CurrentDirection;
         private float CurAngle;
-        private Vector3 FaceDirection;
+        public FaceDirection CurrentFaceDirection { get; private set; }
+        public float LastX;
 
         private void Awake()
         {
@@ -23,17 +32,23 @@ namespace Resources.Scripts.Enemy
 
         public void AnimateMovement(float moveDirX, float moveDirY)
         {
+            if (moveDirX != 0)
+            {
+                LastX = moveDirX;
+            }
             Animator.SetBool("IsMoving", true);
             Animator.SetFloat("MoveX", moveDirX);
             Animator.SetFloat("MoveY", moveDirY);
-            Debug.Log("X: " + moveDirX + "Y: " + moveDirY);
-
             if (moveDirY > 0) // Going up (sprite back)
+            {
                 SpriteRenderer.flipX = moveDirX < 0f;
+                CurrentFaceDirection = SpriteRenderer.flipX ? FaceDirection.BackLeft : FaceDirection.BackRight; 
+            }
             else // Going down
+            {
                 SpriteRenderer.flipX = moveDirX > 0f;
-
-            SetCurrentFaceDirectionTo(new Vector3(moveDirX, moveDirY));
+                CurrentFaceDirection = SpriteRenderer.flipX ? FaceDirection.FrontRight : FaceDirection.FrontLeft; 
+            }
         }
 
         public void AnimateAttack(float attackDirX, float attackDirY)
@@ -49,17 +64,7 @@ namespace Resources.Scripts.Enemy
         {
             Animator.SetBool("IsMoving", false);
         }
-
-        public void SetCurrentFaceDirectionTo(Vector3 desiredDirection)
-        {
-            CurAngle = UtilitiesClass.GetAngleFromVectorFloat(desiredDirection);
-            FaceDirection = UtilitiesClass.GetDirectionFromAngle(CurAngle);
-            Animator.SetFloat("MoveX", FaceDirection.x);
-            Animator.SetFloat("MoveY", FaceDirection.y);
-            // SpriteRenderer.flipX = (FaceDirection.x > 0 && FaceDirection.y < 0) || (FaceDirection.x < 0 && FaceDirection.y > 0);
-
-        }
-
+        
         public void SetAnimationSpeedToDefault()
         {
             Animator.speed = 1; 

@@ -97,7 +97,7 @@ namespace Resources.Scripts.Enemy
                     EnemyMovementHandler.CheckSurroundings();
 
                     // Updating field of view
-                    EnemyMovementHandler.FieldOfViewComponent.SetAimDirection(EnemyMovementHandler.FaceDirection);
+                    EnemyMovementHandler.FieldOfViewComponent.SetAimDirection(EnemyMovementHandler.EnemyAnimationController.CurrentFaceDirection);
                     // Looking for the player
                     if (EnemyMovementHandler.TargetPlayer != null)
                     {
@@ -232,7 +232,7 @@ namespace Resources.Scripts.Enemy
                     EnemyMovementHandler.AiPath.enabled = false;
                     EnemyMovementHandler.AiDestinationSetter.target = null;
                     PlayerDirection = ((Vector2) EnemyMovementHandler.TargetPlayer.transform.position + (Vector2) EnemyMovementHandler.TargetPlayer.GetComponent<BoxCollider2D>().offset - (Vector2) transform.position).normalized;
-                    EnemyAnimationController.SetCurrentFaceDirectionTo(PlayerDirection);
+                    // EnemyAnimationController.SetCurrentFaceDirectionTo(PlayerDirection);
                     break;
                 
                 case (States.Attacking):

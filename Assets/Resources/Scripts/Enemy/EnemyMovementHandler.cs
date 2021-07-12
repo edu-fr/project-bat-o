@@ -36,11 +36,9 @@ namespace Resources.Scripts.Enemy
         private GameObject Player;
         private PlayerStateMachine PlayerStateMachine;
         public float SurroundingDistance = 2f;
-
-        // Animation
+        
         private Vector3 CurrentDirection;
         private float CurAngle;
-        public Vector3 FaceDirection;
         
         // Health
         public EnemyHealthManager EnemyHealthManager { get; private set; }

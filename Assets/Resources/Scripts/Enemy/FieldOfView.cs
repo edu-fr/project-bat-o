@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Resources.Scripts.Enemy
 {
@@ -12,6 +13,8 @@ namespace Resources.Scripts.Enemy
         public int RayCount = 50;
         public EnemyMovementHandler EnemyMovementHandler { get; private set; }
         public LayerMask LayerMask;
+        private float LastX;        
+        private float LastY;        
         
         private void Awake()
         {
@@ -81,9 +84,16 @@ namespace Resources.Scripts.Enemy
             this.Origin = origin;
         }
 
-        public void SetAimDirection(Vector3 aimDirection)
+        public void SetAimDirection(EnemyAnimationController.FaceDirection currentFaceDirection)
         {
-            StartingAngle = UtilitiesClass.GetAngleFromVectorFloat(aimDirection) + FieldOfViewValue / 2f;
+            StartingAngle = currentFaceDirection switch
+            {
+                EnemyAnimationController.FaceDirection.BackRight => 45 + FieldOfViewValue / 2f,
+                EnemyAnimationController.FaceDirection.BackLeft => 135 + FieldOfViewValue / 2f,
+                EnemyAnimationController.FaceDirection.FrontRight => -45 + FieldOfViewValue / 2f,
+                EnemyAnimationController.FaceDirection.FrontLeft => -135 + FieldOfViewValue / 2f,
+                _ => throw new ArgumentOutOfRangeException(nameof(currentFaceDirection), currentFaceDirection, null)
+            };
         }
 
         public void SetFieldOfView(float fieldOfView)
