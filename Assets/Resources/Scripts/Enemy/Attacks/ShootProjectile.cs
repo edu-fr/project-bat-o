@@ -11,8 +11,9 @@ namespace Resources.Scripts.Enemy.Attacks
         
         private Vector3 PlayerDirection;
         private Vector2 ProjectileOrigin;
-        [SerializeField]
-        private float ProjectileSpeed; 
+        [SerializeField] [Range(2, 10)]
+        private float ProjectileSpeed;
+
         
         public event EventHandler<OnShootEventArgs> OnShoot; // Creation of the event handler
 
@@ -31,21 +32,18 @@ namespace Resources.Scripts.Enemy.Attacks
         protected override void Update()
         {
             base.Update();
-            Debug.Log("Projectile override!");
         }
 
         public override void PreparingAttack()
         {
-            throw new NotImplementedException();
+            
         }
 
         public override void Attack(Vector3 playerDirection)
         {    
             PlayerDirection = playerDirection;
-            EnemyAnimationController.AnimateAttack(playerDirection.x, playerDirection.y);
             EnemyCombatManager.IsAttacking = true;
             
-            // Correcting particle system position. (All arbitrary values that could change according to the enemy sprite) 
             if (Math.Abs(PlayerDirection.x) > Math.Abs(playerDirection.y))
             {
                 if (playerDirection.y < 0)
@@ -55,16 +53,22 @@ namespace Resources.Scripts.Enemy.Attacks
             }
             else
                 ProjectileOrigin = transform.position + (new Vector3(playerDirection.x * 0.5f, playerDirection.y * 0.3f));
+
+            if (TriggeredDuringAnimation) 
+                EnemyAnimationController.AnimateAttack(playerDirection.x, playerDirection.y);
+            else 
+                DoShootProjectile();
         }
 
-        public void ShootProjectileDuringAnimation() // Called by the animator
+        public void DoShootProjectile() // Called by the animator
         {
-            Debug.Log("Shoot during animation");
             OnShoot?.Invoke(this, new OnShootEventArgs()
             {
                 ProjectileOrigin = ProjectileOrigin,
                 ShootDirection = PlayerDirection
             });
+            if (!TriggeredDuringAnimation)
+                AttackEnd();
         }
 
         private void CreateProjectileOnShoot(object sender, OnShootEventArgs e)

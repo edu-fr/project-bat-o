@@ -13,7 +13,12 @@ namespace Resources.Scripts.Enemy.Attacks
         private bool AttackEnded;
         private float AttackCurrentRecoveryTime;
         private float AttackRecoveryTime;
+        public bool AttackOnCooldown;
+        private float AttackCurrentCooldown;
+        
         public bool ProbablyGonnaHit { get; protected set; }
+        
+        [SerializeField] protected bool TriggeredDuringAnimation;
 
         protected virtual void Awake()
         {
@@ -31,20 +36,8 @@ namespace Resources.Scripts.Enemy.Attacks
 
         protected virtual void Update()
         {
-            if (AttackEnded && EnemyStateMachine.State == EnemyStateMachine.States.Attacking) // Only continue if the enemy was attacking and the attack ended
-            {
-                EnemyCombatManager.IsAttacking = false;
-                AttackCurrentRecoveryTime += Time.deltaTime;
-                if (AttackCurrentRecoveryTime > AttackRecoveryTime)
-                {
-                    AttackCurrentRecoveryTime = 0;
-                    AttackEnded = false;
-                    EnemyStateMachine.IsAttackingNow = false;
-                    EnemyMovementHandler.AiPath.enabled = true;
-                    EnemyStateMachine.ChangeState(EnemyStateMachine.States.Chasing);
-                }
-            }
-
+            CheckAttackCooldown();
+            CheckRecoverTimeAfterAttacking();
         }
 
         public abstract void PreparingAttack();
@@ -52,10 +45,37 @@ namespace Resources.Scripts.Enemy.Attacks
         public abstract void Attack(Vector3 playerDirection);
 
         // ReSharper disable once MemberCanBeProtected.Global
+        // ReSharper disable Unity.PerformanceAnalysis
         public virtual void AttackEnd() // Called by animation end
         {
             AttackEnded = true;
             EnemyMovementHandler.EnemyAnimationController.SetAnimationSpeedToDefault();
+            AttackOnCooldown = true;
+        }
+
+        private void CheckAttackCooldown()
+        {
+            if (!AttackOnCooldown) return;
+            AttackCurrentCooldown += Time.deltaTime;
+            if (AttackCurrentCooldown > EnemyStatsManager.AttackCooldown)
+            {
+                AttackCurrentCooldown = 0;
+                AttackOnCooldown = false;
+            }
+        }
+
+        // ReSharper disable Unity.PerformanceAnalysis
+        private void CheckRecoverTimeAfterAttacking()
+        {
+            if (!AttackEnded || EnemyStateMachine.State != EnemyStateMachine.States.Attacking) return;
+            EnemyCombatManager.IsAttacking = false;
+            AttackCurrentRecoveryTime += Time.deltaTime;
+            if (!(AttackCurrentRecoveryTime > AttackRecoveryTime)) return;
+            AttackCurrentRecoveryTime = 0;
+            AttackEnded = false;
+            EnemyStateMachine.IsAttackingNow = false;
+            EnemyMovementHandler.AiPath.enabled = true;
+            EnemyStateMachine.ChangeState(EnemyStateMachine.States.Chasing);
         }
     }
 }

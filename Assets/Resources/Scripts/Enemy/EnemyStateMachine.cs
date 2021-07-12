@@ -48,7 +48,6 @@ namespace Resources.Scripts.Enemy
         public bool IsAttackingNow { get; set; } 
         public bool IsBeenRushed { get; private set; } 
 
-        [SerializeField]
         private float AttackPreparationCurrentTime = 0;
         private float PreparationDistance = 1f;
         private float DistanceToAttack;
@@ -109,19 +108,21 @@ namespace Resources.Scripts.Enemy
 
                 case States.Chasing:
                     // Verify if there is close enemies chasing the player
-                    
                     if (EnemyMovementHandler.TargetPlayer != null) // Know where the player is
                     {
-                        var playerTransformPosition = EnemyMovementHandler.Target.transform.position;
+                        var playerTransformPosition = EnemyMovementHandler.TargetPlayer.transform.position;
                         EnemyAnimationController.AnimateMovement(playerTransformPosition.x, playerTransformPosition.y);
 
                         // If enemy is in a certain distance to the player
                         if (Vector2.Distance(transform.position, playerTransformPosition) < DistanceToAttack)
                         {
-                            ChangeState(States.PreparingAttack);
-                            break;
+                            if (!BaseAttack.AttackOnCooldown)
+                            {
+                                ChangeState(States.PreparingAttack);
+                                break;
+                            }
                         }
-
+                        
                         // Return to Standard state
                         if (Vector2.Distance(transform.position, playerTransformPosition) > DistanceToLosePlayerSight)
                         {
@@ -136,7 +137,6 @@ namespace Resources.Scripts.Enemy
 
                 case States.PreparingAttack:
                     AttackPreparationCurrentTime += Time.deltaTime;
-
                     if (AttackPreparationCurrentTime > EnemyStatsManager.AttackPreparationTime)
                     {
                         AttackPreparationCurrentTime = 0;
@@ -144,12 +144,15 @@ namespace Resources.Scripts.Enemy
                     }
                     else
                     {
+                        PlayerDirection = EnemyMovementHandler.TargetPlayer.transform.position;
+                        EnemyAnimationController.SetFlipAndFaceDirection(PlayerDirection.x, PlayerDirection.y); // makes the enemy look to the player while preparing the attack
                         BaseAttack.PreparingAttack(); // keeps preparing the attack every frame until it can attack!
                     }
                     break;
                 
                 case States.Attacking:
                     // Return if already start the attack
+                    Debug.Log("oie");
                     if (IsAttackingNow) return;
                     IsAttackingNow = true;
                     // only once

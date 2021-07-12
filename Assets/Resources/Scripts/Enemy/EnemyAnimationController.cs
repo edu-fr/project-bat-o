@@ -22,7 +22,6 @@ namespace Resources.Scripts.Enemy
         private Vector3 CurrentDirection;
         private float CurAngle;
         public FaceDirection CurrentFaceDirection { get; private set; }
-        public float LastX;
 
         private void Awake()
         {
@@ -32,30 +31,31 @@ namespace Resources.Scripts.Enemy
 
         public void AnimateMovement(float moveDirX, float moveDirY)
         {
-            if (moveDirX != 0)
-            {
-                LastX = moveDirX;
-            }
             Animator.SetBool("IsMoving", true);
             Animator.SetFloat("MoveX", moveDirX);
             Animator.SetFloat("MoveY", moveDirY);
-            if (moveDirY > 0) // Going up (sprite back)
+            SetFlipAndFaceDirection(moveDirX, moveDirY);
+        }
+
+        public void SetFlipAndFaceDirection(float x, float y)
+        {
+            if (y > 0) // Going up (sprite back)
             {
-                SpriteRenderer.flipX = moveDirX < 0f;
+                SpriteRenderer.flipX = x < 0f;
                 CurrentFaceDirection = SpriteRenderer.flipX ? FaceDirection.BackLeft : FaceDirection.BackRight; 
             }
             else // Going down
             {
-                SpriteRenderer.flipX = moveDirX > 0f;
+                SpriteRenderer.flipX = x > 0f;
                 CurrentFaceDirection = SpriteRenderer.flipX ? FaceDirection.FrontRight : FaceDirection.FrontLeft; 
             }
         }
-
+        
         public void AnimateAttack(float attackDirX, float attackDirY)
         {
             Animator.SetFloat("AttackDirX", attackDirX);
             Animator.SetFloat("AttackDirY", attackDirY);
-            SpriteRenderer.flipX = (attackDirX > 0 && attackDirY < 0) || (attackDirX < 0 && attackDirY > 0);
+            SetFlipAndFaceDirection(attackDirX, attackDirY);
             SetAnimationSpeedTo(3.5f); // TODO: change the animation speed
             Animator.SetTrigger("Attack");
         }
