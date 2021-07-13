@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 664821553258728723}
   - component: {fileID: 664821553258728724}
   - component: {fileID: 664821553258728733}
+  - component: {fileID: 2570761011992014185}
   - component: {fileID: 664821553258728721}
   - component: {fileID: 664821553258728726}
   - component: {fileID: 664821553258728712}
@@ -25,7 +26,7 @@ GameObject:
   - component: {fileID: 664821553258728720}
   - component: {fileID: 664821553258728734}
   m_Layer: 8
-  m_Name: Generic Enemy
+  m_Name: Dark Mage
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -159,7 +160,7 @@ Animator:
   m_GameObject: {fileID: 664821553258728717}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 348e59ed9816c8e4da34535c4f042dcb, type: 2}
+  m_Controller: {fileID: 9100000, guid: 235b35342aae43a44b23b0532289b2b7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -168,6 +169,24 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2570761011992014185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 664821553258728717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c2ef3230c6bf7b4cb0f57a7a603fd12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackOnCooldown: 0
+  TriggeredDuringAnimation: 1
+  ProjectilePrefab: {fileID: 1173749129165435717, guid: 06942c392b6b57d4892a11aaab62be70,
+    type: 3}
+  ProjectileSpeed: 2
+  DrawGizmos: 1
 --- !u!114 &664821553258728721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -514,6 +533,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Attack Hitbox
+      objectReference: {fileID: 0}
+    - target: {fileID: 3943484575646386659, guid: f21a97c4342caf94fb387b1cde0968d6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5871885445460525441, guid: f21a97c4342caf94fb387b1cde0968d6,
         type: 3}

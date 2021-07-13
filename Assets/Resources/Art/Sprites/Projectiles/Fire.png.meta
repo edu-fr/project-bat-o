@@ -1,67 +1,34 @@
 fileFormatVersion: 2
-guid: deb70879b8eaaa845935348a2ad09a5c
+guid: 6f4c8611a47413843972468019f6910e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3594395366530048315
-    second: mini-explosion-sheet_0
+      213: 1098286324429101383
+    second: Fire_0
   - first:
-      213: 485322750615736205
-    second: mini-explosion-sheet_1
+      213: 7419590508823533442
+    second: Fire_1
   - first:
-      213: -8646188705204894743
-    second: mini-explosion-sheet_2
+      213: 2333874723133794383
+    second: Fire_2
   - first:
-      213: -5383211443735941721
-    second: mini-explosion-sheet_3
+      213: 6211036013863027259
+    second: Fire_3
   - first:
-      213: 6895843934107535705
-    second: mini-explosion-sheet_4
+      213: 2168491126659702453
+    second: Fire_extinguish_1
   - first:
-      213: -2824131001425486749
-    second: mini-explosion-sheet_5
+      213: 3081219861163341933
+    second: Fire_extinguish_2
   - first:
-      213: -653247047872143408
-    second: mini-explosion-sheet_6
+      213: 519553080483729991
+    second: Fire_extinguish_3
   - first:
-      213: -5184462282362569259
-    second: mini-explosion-sheet_7
+      213: 964659150160153652
+    second: Fire_extinguish_4
   - first:
-      213: 7472500102199783611
-    second: mini-explosion-sheet_8
-  - first:
-      213: 2060348511894268476
-    second: mini-explosion-sheet_0
-  - first:
-      213: -3105553126846583226
-    second: mini-explosion-sheet_1
-  - first:
-      213: 5168579166404213225
-    second: mini-explosion-sheet_2
-  - first:
-      213: 1429649752584893756
-    second: mini-explosion-sheet_3
-  - first:
-      213: -2063571142695763709
-    second: mini-explosion-sheet_4
-  - first:
-      213: -5493860277524593735
-    second: mini-explosion-sheet_5
-  - first:
-      213: 82229752085913426
-    second: mini-explosion-sheet_6
-  - first:
-      213: 6925748814690858396
-    second: mini-explosion-sheet_7
-  - first:
-      213: 3341701465548033776
-    second: mini-explosion-sheet_8
-  - first:
-      213: -4274902912808907154
-    second: mini-explosion-sheet_9
-  - first:
-      213: -725930728621712609
-    second: mini-explosion-sheet_10
+      213: -6879244290724207698
+    second: Fire_extinguish_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -175,13 +142,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: mini-explosion-sheet_0
+      name: Fire_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 24
-        height: 24
+        width: 18
+        height: 18
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -189,20 +156,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c3a66fc2e04d79c10800000000000000
-      internalID: 2060348511894268476
+      spriteID: 7491445d795ed3f00800000000000000
+      internalID: 1098286324429101383
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mini-explosion-sheet_1
+      name: Fire_1
       rect:
         serializedVersion: 2
-        x: 24
+        x: 18
         y: 0
-        width: 24
-        height: 24
+        width: 18
+        height: 18
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -210,20 +177,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 64ea43392ebd6e4d0800000000000000
-      internalID: -3105553126846583226
+      spriteID: 2875941d14ea7f660800000000000000
+      internalID: 7419590508823533442
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mini-explosion-sheet_2
+      name: Fire_2
       rect:
         serializedVersion: 2
-        x: 48
+        x: 36
         y: 0
-        width: 24
-        height: 24
+        width: 18
+        height: 18
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -231,20 +198,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9e9f1071e5b7ab740800000000000000
-      internalID: 5168579166404213225
+      spriteID: f4827aef1b6936020800000000000000
+      internalID: 2333874723133794383
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mini-explosion-sheet_3
+      name: Fire_3
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 0
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b32c67dd858023650800000000000000
+      internalID: 6211036013863027259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_extinguish_1
       rect:
         serializedVersion: 2
         x: 72
         y: 0
-        width: 24
-        height: 24
+        width: 18
+        height: 18
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -252,20 +240,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c353c0810e227d310800000000000000
-      internalID: 1429649752584893756
+      spriteID: 5be5327c037081e10800000000000000
+      internalID: 2168491126659702453
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mini-explosion-sheet_4
+      name: Fire_extinguish_2
       rect:
         serializedVersion: 2
-        x: 96
+        x: 90
         y: 0
-        width: 24
-        height: 24
+        width: 18
+        height: 18
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -273,20 +261,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3014fde9af8bc53e0800000000000000
-      internalID: -2063571142695763709
+      spriteID: d68f4838321b2ca20800000000000000
+      internalID: 3081219861163341933
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mini-explosion-sheet_5
+      name: Fire_extinguish_3
       rect:
         serializedVersion: 2
-        x: 120
+        x: 109
         y: 0
-        width: 24
-        height: 24
+        width: 17
+        height: 18
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -294,20 +282,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9b384807f23e1c3b0800000000000000
-      internalID: -5493860277524593735
+      spriteID: 742513426c2d53700800000000000000
+      internalID: 519553080483729991
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mini-explosion-sheet_6
+      name: Fire_extinguish_4
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 0
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 1, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43c40a6d268236d00800000000000000
+      internalID: 964659150160153652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_extinguish_5
       rect:
         serializedVersion: 2
         x: 144
         y: 0
-        width: 24
-        height: 24
+        width: 18
+        height: 18
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -315,92 +324,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 25f9c0b1683242100800000000000000
-      internalID: 82229752085913426
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mini-explosion-sheet_7
-      rect:
-        serializedVersion: 2
-        x: 168
-        y: 0
-        width: 24
-        height: 24
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c953b3f4ad33d1060800000000000000
-      internalID: 6925748814690858396
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mini-explosion-sheet_8
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 0
-        width: 24
-        height: 24
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0fe846f17cb106e20800000000000000
-      internalID: 3341701465548033776
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mini-explosion-sheet_9
-      rect:
-        serializedVersion: 2
-        x: 216
-        y: 0
-        width: 24
-        height: 24
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e6e0eb0437e7ca4c0800000000000000
-      internalID: -4274902912808907154
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mini-explosion-sheet_10
-      rect:
-        serializedVersion: 2
-        x: 240
-        y: 0
-        width: 24
-        height: 24
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f1b56f439d9fce5f0800000000000000
-      internalID: -725930728621712609
+      spriteID: ea3ef30f3c30880a0800000000000000
+      internalID: -6879244290724207698
       vertices: []
       indices: 
       edges: []

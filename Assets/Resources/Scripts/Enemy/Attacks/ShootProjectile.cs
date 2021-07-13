@@ -1,4 +1,6 @@
 using System;
+using Pathfinding.Util;
+using UnityEditor;
 using UnityEngine;
 
 namespace Resources.Scripts.Enemy.Attacks
@@ -13,7 +15,7 @@ namespace Resources.Scripts.Enemy.Attacks
         private Vector2 ProjectileOrigin;
         [SerializeField] [Range(2, 10)]
         private float ProjectileSpeed;
-
+        [SerializeField] private bool DrawGizmos; 
         
         public event EventHandler<OnShootEventArgs> OnShoot; // Creation of the event handler
 
@@ -73,9 +75,16 @@ namespace Resources.Scripts.Enemy.Attacks
 
         private void CreateProjectileOnShoot(object sender, OnShootEventArgs e)
         {
-            var newProjectile = Instantiate(ProjectilePrefab, ProjectileOrigin, Quaternion.identity, transform);
+            var newProjectile = Instantiate(ProjectilePrefab, ProjectileOrigin, Quaternion.identity, null);
             var shootDirection = (e.ShootDirection).normalized;
             newProjectile.GetComponent<ProjectileScript>().Setup(shootDirection, ProjectileSpeed);
+        }
+
+        private void OnDrawGizmos()
+        {
+            Debug.Log(ProjectileOrigin);
+            if(DrawGizmos)
+                Gizmos.DrawIcon(ProjectileOrigin, "Dale");
         }
     }
 }

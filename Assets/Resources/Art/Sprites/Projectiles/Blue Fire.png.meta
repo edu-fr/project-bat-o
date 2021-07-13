@@ -1,19 +1,34 @@
 fileFormatVersion: 2
-guid: 8093a7277aae2044c9798a5340e6ac4d
+guid: dd98038e98adb244180b3ab9fdbe97a0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7285376162372006033
-    second: Mage_standing_front_0
+      213: -6314646018040834758
+    second: Blue Fire_0
   - first:
-      213: 1377322663251520538
-    second: Mage_standing_front_1
+      213: 1857878354924059161
+    second: Blue Fire_1
   - first:
-      213: 2429379624658069490
-    second: Mage_standing_back_0
+      213: -2798916095044386258
+    second: Blue Fire_2
   - first:
-      213: -3092618186771702557
-    second: Mage_standing_back_1
+      213: -4930823494532792860
+    second: Blue Fire_3
+  - first:
+      213: 8638078832372780258
+    second: Blue Fire_extinguish_1
+  - first:
+      213: 467851738888992007
+    second: Blue Fire_extinguish_2
+  - first:
+      213: -1137433142193765346
+    second: Blue Fire_extinguish_3
+  - first:
+      213: 5185585158605304433
+    second: Blue Fire_extinguish_4
+  - first:
+      213: 453513238291728002
+    second: Blue Fire_extinguish_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -127,85 +142,190 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Mage_standing_front_0
+      name: Blue Fire_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 18
         height: 18
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f6fc7badaf425ea90800000000000000
-      internalID: -7285376162372006033
+      spriteID: a35575c27eedd58a0800000000000000
+      internalID: -6314646018040834758
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mage_standing_front_1
+      name: Blue Fire_1
       rect:
         serializedVersion: 2
         x: 18
         y: 0
         width: 18
         height: 18
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a1ca3343aab3d1310800000000000000
-      internalID: 1377322663251520538
+      spriteID: 91ab225358288c910800000000000000
+      internalID: 1857878354924059161
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mage_standing_back_0
+      name: Blue Fire_2
       rect:
         serializedVersion: 2
         x: 36
         y: 0
         width: 18
         height: 18
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2f7e050b5e3e6b120800000000000000
-      internalID: 2429379624658069490
+      spriteID: e2281ce04a04829d0800000000000000
+      internalID: -2798916095044386258
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mage_standing_back_1
+      name: Blue Fire_3
       rect:
         serializedVersion: 2
         x: 54
         y: 0
         width: 18
         height: 18
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3ec5f8ff420d415d0800000000000000
-      internalID: -3092618186771702557
+      spriteID: 4edf8360822329bb0800000000000000
+      internalID: -4930823494532792860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Fire_extinguish_1
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 0
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ec86697eee90e770800000000000000
+      internalID: 8638078832372780258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Fire_extinguish_2
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 0
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 705f6008da42e7600800000000000000
+      internalID: 467851738888992007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Fire_extinguish_3
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 0
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e14c8c365960730f0800000000000000
+      internalID: -1137433142193765346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Fire_extinguish_4
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 0
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 172f4333a36e6f740800000000000000
+      internalID: 5185585158605304433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Fire_extinguish_5
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 286c05d23e33b4600800000000000000
+      internalID: 453513238291728002
       vertices: []
       indices: 
       edges: []
