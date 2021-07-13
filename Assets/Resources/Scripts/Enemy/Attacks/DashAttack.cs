@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using Player;
 using UnityEngine;
 
 namespace Resources.Scripts.Enemy.Attacks
@@ -6,7 +8,7 @@ namespace Resources.Scripts.Enemy.Attacks
     public class DashAttack : BaseAttack
     {
         public BoxCollider2D AttackHitbox;
-        
+
         public LayerMask PlayerLayer;
 
         [SerializeField]
@@ -80,6 +82,13 @@ namespace Resources.Scripts.Enemy.Attacks
         {
             yield return new WaitForSeconds(timeToDeactivate);
             AttackHitbox.enabled = false;
+        }
+
+        private void OnCollisionExit2D(Collision2D other)
+        {
+            if (!other.gameObject.CompareTag("Player")) return;
+            other.gameObject.GetComponent<PlayerController>().DodgeFailed = true;
+            Debug.Log("Colidi e triggei o dodge failed!");
         }
     }
 }

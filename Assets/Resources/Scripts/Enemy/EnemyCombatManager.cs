@@ -52,12 +52,6 @@ namespace Resources.Scripts.Enemy
         private void OnCollisionStay2D(Collision2D other)
         {
             if (!other.gameObject.CompareTag("Player")) return;
-            
-            // Saves the last time enemy hit the player with an attack
-            if (EnemyMovementHandler.EnemyStateMachine.EnemyType == EnemyStateMachine.Type.Melee)
-            {
-                other.gameObject.GetComponent<PlayerController>().DodgeFailed = true;
-            }
             other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage((int)MeleeDamage);
         }
 

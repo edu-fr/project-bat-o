@@ -4,14 +4,15 @@ namespace Resources.Scripts.Enemy
 {
     public class EnemyAnimationController : MonoBehaviour
     {
-        public enum SpriteType {
+        public enum SpriteType
+        {
             FourDir,
             FourDirMirror,
         }
 
         public enum FaceDirection
         {
-            FrontRight, 
+            FrontRight,
             FrontLeft,
             BackRight,
             BackLeft
@@ -42,15 +43,15 @@ namespace Resources.Scripts.Enemy
             if (y > 0) // Going up (sprite back)
             {
                 SpriteRenderer.flipX = x < 0f;
-                CurrentFaceDirection = SpriteRenderer.flipX ? FaceDirection.BackLeft : FaceDirection.BackRight; 
+                CurrentFaceDirection = SpriteRenderer.flipX ? FaceDirection.BackLeft : FaceDirection.BackRight;
             }
             else // Going down
             {
                 SpriteRenderer.flipX = x > 0f;
-                CurrentFaceDirection = SpriteRenderer.flipX ? FaceDirection.FrontRight : FaceDirection.FrontLeft; 
+                CurrentFaceDirection = SpriteRenderer.flipX ? FaceDirection.FrontRight : FaceDirection.FrontLeft;
             }
         }
-        
+
         public void AnimateAttack(float attackDirX, float attackDirY)
         {
             Animator.SetFloat("AttackDirX", attackDirX);
@@ -64,15 +65,20 @@ namespace Resources.Scripts.Enemy
         {
             Animator.SetBool("IsMoving", false);
         }
-        
+
         public void SetAnimationSpeedToDefault()
         {
-            Animator.speed = 1; 
+            Animator.speed = 1;
         }
 
         public void SetAnimationSpeedTo(float speed)
         {
             Animator.speed = speed;
+        }
+
+        public void TriggerDieAnimation()
+        {
+            Animator.SetTrigger("Die");
         }
     }
 }

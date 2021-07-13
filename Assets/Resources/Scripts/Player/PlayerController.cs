@@ -247,26 +247,25 @@ namespace Player
                     {
                         if (IsZTargeting)
                         {
-                            if (TargetedEnemy.EnemyStateMachine.EnemyType == EnemyStateMachine.Type.Melee)
-                                if (TargetedEnemy.EnemyStateMachine.EnemyCombatManager.IsAttacking)
-                                    if (TargetedEnemy.EnemyStateMachine.BaseAttack.ProbablyGonnaHit)
-                                        if (!PlayerAttackManager.PlayerHealthManager.Invincible)
-                                        {
-                                            //Debug.Log("Player apanhou " + TargetedEnemy.EnemyStateMachine.EnemyCombatManager.LastTimeHitPlayerDuringAttack + " Dash começou aos " + DashStartTime);
-                                            //if (!TargetedEnemy.EnemyStateMachine.EnemyMeleeAttackManager.IsOnHalfOfAttackAnimation)
-                                            //Debug.Log("DESVIOU " + Time.time);
-                                            DodgeSuccessful = true;
-                                        }
-                                        else
-                                        {
-                                            DodgeFailed = true;
-                                            //Debug.Log("FALHA! Player invencivel aos " + Time.time);
-                                        }
+                            if (TargetedEnemy.EnemyStateMachine.EnemyCombatManager.IsAttacking)
+                                if (TargetedEnemy.EnemyStateMachine.BaseAttack.ProbablyGonnaHit)
+                                    if (!PlayerAttackManager.PlayerHealthManager.Invincible)
+                                    {
+                                        //Debug.Log("Player apanhou " + TargetedEnemy.EnemyStateMachine.EnemyCombatManager.LastTimeHitPlayerDuringAttack + " Dash começou aos " + DashStartTime);
+                                        //if (!TargetedEnemy.EnemyStateMachine.EnemyMeleeAttackManager.IsOnHalfOfAttackAnimation)
+                                        //Debug.Log("DESVIOU " + Time.time);
+                                        DodgeSuccessful = true;
+                                    }
                                     else
                                     {
                                         DodgeFailed = true;
-                                        //Debug.Log("INIMIGO ERROU aos " + Time.time + "!");
+                                        //Debug.Log("FALHA! Player invencivel aos " + Time.time);
                                     }
+                                else
+                                {
+                                    DodgeFailed = true;
+                                    //Debug.Log("INIMIGO ERROU aos " + Time.time + "!");
+                                }
                         }
                     }
                 }

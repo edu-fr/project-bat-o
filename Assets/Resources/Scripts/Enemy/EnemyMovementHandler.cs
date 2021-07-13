@@ -1,5 +1,4 @@
-﻿using Game;
-using Pathfinding;
+﻿using Pathfinding;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -17,8 +16,6 @@ namespace Resources.Scripts.Enemy
         public EnemyStatsManager EnemyStats { get; private set; }
         
         // Movement
-        public Path Path;
-        public bool ReachedEndOfPath;
         public float CurrentTimer = 0f;
 
         private float MaxTimer = 3f; // time to move to the next random spot
@@ -39,20 +36,13 @@ namespace Resources.Scripts.Enemy
         
         private Vector3 CurrentDirection;
         private float CurAngle;
-        
-        // Health
-        public EnemyHealthManager EnemyHealthManager { get; private set; }
-        
+
         // Ally search
         // private float SearchForAlliesRange = 5f;
         
         [SerializeField]
         private LayerMask EnemiesLayer;
-
         
-        // Drop
-        public Transform PrefabExperienceLoot;
-
         private void Awake()
         {
             Rigidbody = GetComponent<Rigidbody2D>();

@@ -13,7 +13,7 @@ namespace Resources.Scripts.Enemy.Attacks
         private bool AttackEnded;
         private float AttackCurrentRecoveryTime;
         private float AttackRecoveryTime;
-        public bool AttackOnCooldown;
+        [HideInInspector] public bool AttackOnCooldown;
         private float AttackCurrentCooldown;
         
         public bool ProbablyGonnaHit { get; protected set; }

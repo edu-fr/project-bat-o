@@ -9,18 +9,16 @@ namespace Resources.Scripts.Objects
         public Transform ObjectTransform;
         private float Delay = 0;
         private float PastTime = 0;
+        [SerializeField] [Range(0, 2)]
         private float When = 0.35f;
         private Vector3 Offset;
-        private float XRandomDistance = 1.4f;
-        private float YRandomDistance = 1.4f;
+        [SerializeField] [Range(1, 3)] private float XRandomDistance = 1.4f;
+        [SerializeField] [Range(1, 3)]private float YRandomDistance = 1.4f;
         [SerializeField] public int Amount;
         [SerializeField] private string ItemName;
         private static GameObject _prefabLoot;
         private bool CanBeCollected = false;
-        [SerializeField]
 
-        
-        
         public static GameObject Create(Vector3 position, int amount) // Exp loot creation
         {
             _prefabLoot = UnityEngine.Resources.Load("Prefabs/Objects/LootDrop") as GameObject;

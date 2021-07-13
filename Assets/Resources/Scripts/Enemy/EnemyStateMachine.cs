@@ -1,6 +1,5 @@
 using System.Collections;
 using Game;
-using Pathfinding;
 using Resources.Scripts.Enemy.Attacks;
 using Resources.Scripts.Objects;
 using UnityEngine;
@@ -22,15 +21,8 @@ namespace Resources.Scripts.Enemy
             Dying
         };
 
-        public enum Type
-        {
-            Ranged,
-            Melee
-        };
-
         public States State;
         public States PreviousState;
-        public Type EnemyType;
         
         public bool IsWalkingAround { get; private set; } = false;
 
@@ -325,9 +317,7 @@ namespace Resources.Scripts.Enemy
                     AudioManager.instance.Play("Final blow in the enemy");
                     Shadow.SetActive(false);
                     Renderer.material = EnemyMaterialManager.DefaultMaterial;
-                    // Animator.SetTrigger("Died");
-                    DropLoot();
-                    
+                    EnemyAnimationController.TriggerDieAnimation(); // Animation will trigger the death effect
                     break; 
             }
             this.State = state;
@@ -339,19 +329,19 @@ namespace Resources.Scripts.Enemy
             ChangeState(state);
         }
         
-        private void DropLoot()
+        public void DropLoot()
         {
             var position = transform.position;
-            for (var i = 0; i < 25 /* EnemyStatsManager.ExpDropQuantity */; i++)
+            for (var i = 0; i < EnemyStatsManager.ExpDropQuantity; i++)
             {
                 LootScript.Create(position, 1);
             }
         }
         
-        public void DestroyEnemyObjects()
+        public void EnemyDeath()
         {
+            DropLoot();
             if (!LevelManager) return;
-            
             LevelManager.EnemiesRemaining -= 1;
             Destroy(EnemyMovementHandler.FieldOfViewComponent.gameObject);
             Destroy(EnemyMovementHandler.Target.gameObject);
