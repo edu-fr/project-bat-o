@@ -1,6 +1,7 @@
 using System.Collections;
 using Game;
 using Player;
+using Resources.Scripts.Enemy.Attacks;
 using UI;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ namespace Resources.Scripts.Enemy
         private EnemyHealthManager EnemyHealthManager;
         private AudioManager AudioManager;
         private EnemyMovementHandler EnemyMovementHandler;
+        public BoxCollider2D BoxCollider2D { get; private set; }
         public Rigidbody2D Rigidbody2D { get; private set; } 
         
         public Transform PrefabDamagePopup;
@@ -22,6 +24,7 @@ namespace Resources.Scripts.Enemy
 
         private void Awake()
         {
+            BoxCollider2D = GetComponent<BoxCollider2D>();
             EnemyHealthManager = GetComponent<EnemyHealthManager>();
             EnemyMovementHandler = GetComponent<EnemyMovementHandler>();
             Rigidbody2D = GetComponent<Rigidbody2D>();
@@ -49,10 +52,10 @@ namespace Resources.Scripts.Enemy
             return damage;
         }
         
-        private void OnCollisionStay2D(Collision2D other)
+        private void OnCollisionStay2D(Collision2D other) // I will maintain that? 
         {
             if (!other.gameObject.CompareTag("Player")) return;
-            other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage((int)MeleeDamage);
+            other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage((int)MeleeDamage, BaseAttack.DamageType.Physical);
         }
 
         private IEnumerator TakeKnockBack(float knockBackTime)

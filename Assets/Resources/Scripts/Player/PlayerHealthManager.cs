@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Game;
+using Resources.Scripts.Enemy.Attacks;
 using UI;
 using UnityEngine;
 
@@ -9,9 +11,8 @@ namespace Player
     {
         private Renderer Renderer;
         private Material DefaultMaterial;
-        [SerializeField]
-        public Material FlashMaterial;
-        
+        [SerializeField] public Material FlashMaterial;
+
         public float MaxHealth = 100;
         public float CurrentHealth;
         public bool Invincible = false;
@@ -19,7 +20,7 @@ namespace Player
         private HealthBarScript HealthBarScript;
         public PlayerController PlayerController;
         public PlayerStatsController PlayerStatsController;
-        
+
         private void Awake()
         {
             HealthBarScript = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<HealthBarScript>();
@@ -49,53 +50,53 @@ namespace Player
                 CurrentHealth = 0;
                 HealthBarScript.UpdateLifeBar();
             }
-            
+
         }
 
-        public void TakeDamage(float damage)
+        public void TakeDamage(float damage, BaseAttack.DamageType damageType)
         {
             if (Invincible) return;
             if (PlayerController.PlayerStateMachine.State == PlayerStateMachine.States.Dashing)
             {
                 PlayerController.DodgeFailed = true;
             }
+
             Invincible = true;
-            FlashSprite();
-            
+
             // Make take hit noise
             AudioManager.instance.Play("Player get hit");
-            
+
+            // Calculate defenses, etc
+            damage = damageType switch
+            {
+                BaseAttack.DamageType.Physical => damage - PlayerStatsController.PhysicalDefense,
+                BaseAttack.DamageType.Magical => damage - PlayerStatsController.MagicalDefense,
+                _ => damage
+            };
+
             // Lose HP
             CurrentHealth -= damage;
+            
             // Update life bar
             HealthBarScript.UpdateLifeBar();
-            
-            // Work on it
-            Invoke(nameof(EndFlash), 0.1f);
-            Invoke(nameof(FlashSprite), 0.2f);
-            Invoke(nameof(EndFlash), 0.3f);
-            Invoke(nameof(FlashSprite), 0.4f);
-            Invoke(nameof(EndFlash), 0.5f);
-            Invoke(nameof(EndInvincibility), 0.6f);
+            StartCoroutine(FlashSprite());
         }
 
-        private void FlashSprite()
+        private IEnumerator FlashSprite()
         {
             Renderer.material = FlashMaterial;
-        }
-
-        private void EndFlash()
-        {
+            yield return new WaitForSeconds(0.1f);
             Renderer.material = DefaultMaterial;
-        }
-        public void EndInvincibility ()
-        {
+            yield return new WaitForSeconds(0.1f);
+            Renderer.material = FlashMaterial;
+            yield return new WaitForSeconds(0.1f);
+            Renderer.material = DefaultMaterial;
             Invincible = false;
         }
 
-        public IEnumerator EndInvincibilityAfterTime(float time)
+        public IEnumerator EndInvincibilityAfterSeconds(float seconds)
         {
-            yield return new WaitForSecondsRealtime(time);
+            yield return new WaitForSeconds(seconds);
             Invincible = false;
         }
     }

@@ -6760,6 +6760,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dark Mage
       objectReference: {fileID: 0}
+    - target: {fileID: 664821553258728732, guid: 07f4a06e4c6aa8e4b8223ba230ba3c34,
+        type: 3}
+      propertyPath: _attackCooldown
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 664821553258728735, guid: 07f4a06e4c6aa8e4b8223ba230ba3c34,
+        type: 3}
+      propertyPath: alwaysDrawGizmos
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 664821553258728735, guid: 07f4a06e4c6aa8e4b8223ba230ba3c34,
+        type: 3}
+      propertyPath: slowdownDistance
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 664821553258728735, guid: 07f4a06e4c6aa8e4b8223ba230ba3c34,
+        type: 3}
+      propertyPath: endReachedDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2570761011992014185, guid: 07f4a06e4c6aa8e4b8223ba230ba3c34,
+        type: 3}
+      propertyPath: ProjectileSpeed
+      value: 4.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07f4a06e4c6aa8e4b8223ba230ba3c34, type: 3}
 --- !u!1001 &1401177304

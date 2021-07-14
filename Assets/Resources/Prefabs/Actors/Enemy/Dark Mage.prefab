@@ -91,10 +91,10 @@ SpriteRenderer:
   m_SortingLayerID: -1442468913
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1377322663251520538, guid: 8093a7277aae2044c9798a5340e6ac4d,
+  m_Sprite: {fileID: -3092618186771702557, guid: 8093a7277aae2044c9798a5340e6ac4d,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
@@ -185,6 +185,10 @@ MonoBehaviour:
   TriggeredDuringAnimation: 1
   ProjectilePrefab: {fileID: 1173749129165435717, guid: 06942c392b6b57d4892a11aaab62be70,
     type: 3}
+  ProjectileOriginFrontLeft: {x: -0.061, y: 0.218}
+  ProjectileOriginFrontRight: {x: 0.061, y: 0.218}
+  ProjectileOriginBackRight: {x: 0.026, y: 0.368}
+  ProjectileOriginBackLeft: {x: -0.026, y: 0.368}
   ProjectileSpeed: 2
   DrawGizmos: 1
 --- !u!114 &664821553258728721
@@ -312,11 +316,11 @@ MonoBehaviour:
   _magicalDamage: 25
   _physicalDefense: 10
   _magicalDefense: 10
-  _moveSpeed: 5
+  _moveSpeed: 4
   _attackSpeed: 2
   _attackPreparationTime: 1
   _preparationWalkDistance: 0.05
-  _attackCooldown: 5
+  _attackCooldown: 2
   _attackRecoveryTime: 0.5
   _distanceToAttack: 7
   _distanceToLosePlayerSight: 15

@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
+using CodeMonkey.Utils;
 using Game;
 using Resources.Scripts.Enemy.Attacks;
 using Resources.Scripts.Objects;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace Resources.Scripts.Enemy
@@ -63,7 +66,6 @@ namespace Resources.Scripts.Enemy
             EnemyMovementHandler = GetComponent<EnemyMovementHandler>();
             EnemyCombatManager = GetComponent<EnemyCombatManager>();
             BaseAttack = GetComponent<BaseAttack>();
-            Debug.Log(BaseAttack.gameObject.GetType());
             EnemyMaterialManager = GetComponent<EnemyMaterialManager>();
             EnemyStatsManager = GetComponent<EnemyStatsManager>();
             Renderer = GetComponent<Renderer>();
@@ -136,7 +138,7 @@ namespace Resources.Scripts.Enemy
                     }
                     else
                     {
-                        PlayerDirection = EnemyMovementHandler.TargetPlayer.transform.position;
+                        PlayerDirection =  ((Vector2) EnemyMovementHandler.TargetPlayer.transform.position - BaseAttack.AttackOrigin).normalized;
                         EnemyAnimationController.SetFlipAndFaceDirection(PlayerDirection.x, PlayerDirection.y); // makes the enemy look to the player while preparing the attack
                         BaseAttack.PreparingAttack(); // keeps preparing the attack every frame until it can attack!
                     }
@@ -144,11 +146,11 @@ namespace Resources.Scripts.Enemy
                 
                 case States.Attacking:
                     // Return if already start the attack
-                    Debug.Log("oie");
                     if (IsAttackingNow) return;
                     IsAttackingNow = true;
                     // only once
                     BaseAttack.Attack(PlayerDirection);
+                    PlayerDirection = Vector3.zero;
                     break;
                     
                 case States.DyingBurned:
@@ -226,8 +228,7 @@ namespace Resources.Scripts.Enemy
                     EnemyMovementHandler.FieldOfViewComponent.gameObject.SetActive(false);
                     EnemyMovementHandler.AiPath.enabled = false;
                     EnemyMovementHandler.AiDestinationSetter.target = null;
-                    PlayerDirection = ((Vector2) EnemyMovementHandler.TargetPlayer.transform.position + (Vector2) EnemyMovementHandler.TargetPlayer.GetComponent<BoxCollider2D>().offset - (Vector2) transform.position).normalized;
-                    // EnemyAnimationController.SetCurrentFaceDirectionTo(PlayerDirection);
+                    EnemyAnimationController.SetFlipAndFaceDirection(PlayerDirection.x, PlayerDirection.y);
                     break;
                 
                 case (States.Attacking):
@@ -347,6 +348,12 @@ namespace Resources.Scripts.Enemy
             Destroy(EnemyMovementHandler.Target.gameObject);
             Destroy(gameObject);
             Destroy(Shadow);
+        }
+
+        public void OnDrawGizmos()
+        {
+            Gizmos.DrawCube(PlayerDirection, Vector3.one);
+            Gizmos.color = Color.red;
         }
     }
 }

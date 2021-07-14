@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Player;
 using Resources.Scripts.Enemy;
+using Resources.Scripts.Enemy.Attacks;
 using UI;
 using UnityEngine;
 
@@ -12,6 +13,8 @@ public class ObjectDamageScript : MonoBehaviour
     public Transform PrefabDamagePopup;
     [SerializeField]
     private float ObjectDamage;
+
+    [SerializeField] private BaseAttack.DamageType ObjectDamageType; 
     [SerializeField]
     private float ObjectAttackSpeed; // the bigger, the less time the attacker is invulnerable
     
@@ -24,7 +27,7 @@ public class ObjectDamageScript : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage(ObjectDamage);
+            other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage(ObjectDamage, ObjectDamageType);
         }
     }
 }

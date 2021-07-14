@@ -4,6 +4,12 @@ namespace Resources.Scripts.Enemy.Attacks
 {
     public abstract class BaseAttack : MonoBehaviour
     {
+        public enum DamageType
+        {
+            Physical,
+            Magical,
+        }
+        
         protected EnemyCombatManager EnemyCombatManager;
         protected EnemyStateMachine EnemyStateMachine;
         protected EnemyMovementHandler EnemyMovementHandler;
@@ -16,12 +22,15 @@ namespace Resources.Scripts.Enemy.Attacks
         [HideInInspector] public bool AttackOnCooldown;
         private float AttackCurrentCooldown;
         
+        public Vector2 AttackOrigin { get; protected set; }
+        
         public bool ProbablyGonnaHit { get; protected set; }
         
         [SerializeField] protected bool TriggeredDuringAnimation;
 
         protected virtual void Awake()
         {
+            AttackOrigin = transform.position;
             EnemyCombatManager = GetComponent<EnemyCombatManager>();
             EnemyStateMachine = GetComponent<EnemyStateMachine>();
             EnemyMovementHandler = GetComponent<EnemyMovementHandler>();

@@ -8,15 +8,17 @@ namespace Resources.Scripts.Enemy.Attacks
     public class ShootProjectile : BaseAttack
     {
         // Projectile variables
-        [SerializeField]
-        private Transform ProjectilePrefab;
+        [SerializeField] private Transform ProjectilePrefab;
+        
+        [SerializeField] private Vector2 ProjectileOriginFrontLeft;
+        [SerializeField] private Vector2 ProjectileOriginFrontRight;
+        [SerializeField] private Vector2 ProjectileOriginBackRight;
+        [SerializeField] private Vector2 ProjectileOriginBackLeft;
         
         private Vector3 PlayerDirection;
-        private Vector2 ProjectileOrigin;
-        [SerializeField] [Range(2, 10)]
-        private float ProjectileSpeed;
-        [SerializeField] private bool DrawGizmos; 
-        
+        [SerializeField] [Range(2, 10)] private float ProjectileSpeed;
+        [SerializeField] private bool DrawGizmos;
+
         public event EventHandler<OnShootEventArgs> OnShoot; // Creation of the event handler
 
         public class OnShootEventArgs : EventArgs
@@ -38,24 +40,28 @@ namespace Resources.Scripts.Enemy.Attacks
 
         public override void PreparingAttack()
         {
-            
+            SetProjectileOrigin(EnemyAnimationController.CurrentFaceDirection);
+        }
+
+        private void SetProjectileOrigin(EnemyAnimationController.FaceDirection currentFaceDirection)
+        {
+            AttackOrigin = currentFaceDirection switch
+            {
+                EnemyAnimationController.FaceDirection.FrontRight => ProjectileOriginFrontRight,
+                EnemyAnimationController.FaceDirection.FrontLeft => ProjectileOriginFrontLeft,
+                EnemyAnimationController.FaceDirection.BackRight => ProjectileOriginBackRight,
+                EnemyAnimationController.FaceDirection.BackLeft => ProjectileOriginBackLeft,
+                _ => Vector2.zero
+            };
+            var playerTransformPosition = transform.position;
+            AttackOrigin = new Vector2(playerTransformPosition.x + AttackOrigin.x,
+                playerTransformPosition.y + AttackOrigin.y);
         }
 
         public override void Attack(Vector3 playerDirection)
         {    
             PlayerDirection = playerDirection;
             EnemyCombatManager.IsAttacking = true;
-            
-            if (Math.Abs(PlayerDirection.x) > Math.Abs(playerDirection.y))
-            {
-                if (playerDirection.y < 0)
-                    ProjectileOrigin = transform.position + (new Vector3(playerDirection.x * 0.5f, (playerDirection.y * 0.8f) + 0.4f));
-                else 
-                    ProjectileOrigin = transform.position + (new Vector3(playerDirection.x * 0.5f, playerDirection.y * 0.8f));
-            }
-            else
-                ProjectileOrigin = transform.position + (new Vector3(playerDirection.x * 0.5f, playerDirection.y * 0.3f));
-
             if (TriggeredDuringAnimation) 
                 EnemyAnimationController.AnimateAttack(playerDirection.x, playerDirection.y);
             else 
@@ -66,7 +72,7 @@ namespace Resources.Scripts.Enemy.Attacks
         {
             OnShoot?.Invoke(this, new OnShootEventArgs()
             {
-                ProjectileOrigin = ProjectileOrigin,
+                ProjectileOrigin = AttackOrigin,
                 ShootDirection = PlayerDirection
             });
             if (!TriggeredDuringAnimation)
@@ -75,16 +81,12 @@ namespace Resources.Scripts.Enemy.Attacks
 
         private void CreateProjectileOnShoot(object sender, OnShootEventArgs e)
         {
-            var newProjectile = Instantiate(ProjectilePrefab, ProjectileOrigin, Quaternion.identity, null);
+            var newProjectile = Instantiate(ProjectilePrefab, AttackOrigin, Quaternion.identity, null);
             var shootDirection = (e.ShootDirection).normalized;
-            newProjectile.GetComponent<ProjectileScript>().Setup(shootDirection, ProjectileSpeed);
+            var enemyPhysicalDamage = EnemyStatsManager.PhysicalDamage; 
+            var enemyMagicalDamage = EnemyStatsManager.MagicalDamage; 
+            newProjectile.GetComponent<ProjectileScript>().Setup(shootDirection, ProjectileSpeed, enemyPhysicalDamage, enemyMagicalDamage);
         }
 
-        private void OnDrawGizmos()
-        {
-            Debug.Log(ProjectileOrigin);
-            if(DrawGizmos)
-                Gizmos.DrawIcon(ProjectileOrigin, "Dale");
-        }
     }
 }

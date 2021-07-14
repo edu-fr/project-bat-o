@@ -106,12 +106,9 @@ public class FlurryRush : MonoBehaviour
         {
             StartCoroutine(PlayerController.TargetedEnemy.EnemyStateMachine.ReturnEnemyToStateAfterSeconds(EnemyStateMachine.States.Chasing ,0.5f));
         }
-        StartCoroutine(PlayerController.PlayerAttackManager.PlayerHealthManager.EndInvincibilityAfterTime(1f));
+        StartCoroutine(PlayerController.PlayerAttackManager.PlayerHealthManager.EndInvincibilityAfterSeconds(1f));
     }
-
-
     
-
     private void OnDrawGizmos()
     {
         if (DrawGizmos)

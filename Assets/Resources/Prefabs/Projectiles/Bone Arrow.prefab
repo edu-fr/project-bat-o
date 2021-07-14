@@ -46,7 +46,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a6b528f123815d4b9bc67831241c5d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 15
+  CanBeStuck: 0
+  Rotating: 0
+  HasDestructionAnimation: 0
+  RotationSpeed: 0
+  DamageType: 0
+  Sprite: {fileID: 5270232075388464771}
 --- !u!61 &3695220280676814794
 BoxCollider2D:
   m_ObjectHideFlags: 0
