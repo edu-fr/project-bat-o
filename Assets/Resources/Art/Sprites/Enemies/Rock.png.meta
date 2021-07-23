@@ -4,40 +4,40 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: 3452003437791708593
-    second: Rock_0
+    second: Rock_standing_front_1
   - first:
       213: 709247535313551666
-    second: Rock_1
+    second: Rock_standing_front_2
   - first:
       213: 1013366739975189944
-    second: Rock_2
+    second: Rock_standing_front_3
   - first:
       213: 8234320154294349295
-    second: Rock_3
+    second: Rock_walking_front_1
   - first:
       213: -8452671437627377638
-    second: Rock_4
+    second: Rock_walking_front_2
   - first:
       213: 2895386745164588504
-    second: Rock_5
+    second: Rock_walking_front_3
   - first:
       213: 5109119590321443857
-    second: Rock_6
+    second: Rock_standing_back_1
   - first:
       213: -377488008739171435
-    second: Rock_7
+    second: Rock_standing_back_2
   - first:
       213: 1749095188232361521
-    second: Rock_8
+    second: Rock_standing_back_3
   - first:
       213: 6480276575616857751
-    second: Rock_9
+    second: Rock_walking_back_1
   - first:
       213: -5599827508121062507
-    second: Rock_10
+    second: Rock_walking_back_2
   - first:
       213: 5182453174623977630
-    second: Rock_11
+    second: Rock_walking_back_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -151,7 +151,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Rock_0
+      name: Rock_standing_front_1
       rect:
         serializedVersion: 2
         x: 0
@@ -172,7 +172,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rock_1
+      name: Rock_standing_front_2
       rect:
         serializedVersion: 2
         x: 18
@@ -193,7 +193,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rock_2
+      name: Rock_standing_front_3
       rect:
         serializedVersion: 2
         x: 36
@@ -214,7 +214,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rock_3
+      name: Rock_walking_front_1
       rect:
         serializedVersion: 2
         x: 54
@@ -235,7 +235,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rock_4
+      name: Rock_walking_front_2
       rect:
         serializedVersion: 2
         x: 72
@@ -256,7 +256,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rock_5
+      name: Rock_walking_front_3
       rect:
         serializedVersion: 2
         x: 90
@@ -277,7 +277,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rock_6
+      name: Rock_standing_back_1
       rect:
         serializedVersion: 2
         x: 108
@@ -298,7 +298,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rock_7
+      name: Rock_standing_back_2
       rect:
         serializedVersion: 2
         x: 126
@@ -319,7 +319,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rock_8
+      name: Rock_standing_back_3
       rect:
         serializedVersion: 2
         x: 144
@@ -340,7 +340,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rock_9
+      name: Rock_walking_back_1
       rect:
         serializedVersion: 2
         x: 162
@@ -361,7 +361,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rock_10
+      name: Rock_walking_back_2
       rect:
         serializedVersion: 2
         x: 180
@@ -382,7 +382,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rock_11
+      name: Rock_walking_back_3
       rect:
         serializedVersion: 2
         x: 198

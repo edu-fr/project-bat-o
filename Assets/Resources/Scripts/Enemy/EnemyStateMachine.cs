@@ -44,7 +44,6 @@ namespace Resources.Scripts.Enemy
         public bool IsBeenRushed { get; private set; } 
 
         private float AttackPreparationCurrentTime = 0;
-        private float PreparationDistance = 1f;
         private float DistanceToAttack;
         private float DistanceToLosePlayerSight;
         

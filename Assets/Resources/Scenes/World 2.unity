@@ -309,12 +309,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94e556212f0765d4eb2c3b961195c742, type: 3}
---- !u!61 &146179426 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 2882020134277202305, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
-    type: 3}
-  m_PrefabInstance: {fileID: 7072294300738643848}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &158420571 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1018748886681901731, guid: ff8ef76ceb8c7a9418a7e124b9ab425e,
@@ -9374,16 +9368,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 773478135240995048, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
-        type: 3}
-      propertyPath: WalkableRange
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 773478135240995048, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
-        type: 3}
-      propertyPath: SurroundingDistance
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 773478135240995051, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
         type: 3}
       propertyPath: m_RootOrder
@@ -9444,127 +9428,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spider
       objectReference: {fileID: 0}
-    - target: {fileID: 773478135240995052, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
+    - target: {fileID: 773478135240995058, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
         type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 773478135240995053, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -3438905571476058607, guid: 9ea6de6a8a045134786b8e870b38880c,
-        type: 3}
-    - target: {fileID: 773478135240995061, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
-        type: 3}
-      propertyPath: m_SpriteTilingProperty.pivot.y
-      value: 0.444
-      objectReference: {fileID: 0}
-    - target: {fileID: 773478135240995068, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 89162f019d8c610459d642977c7c3939, type: 2}
-    - target: {fileID: 773478135240995069, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
-        type: 3}
-      propertyPath: _moveSpeed
-      value: 9
+      propertyPath: m_LinearDrag
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 773478135240995069, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
         type: 3}
       propertyPath: _attackSpeed
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 773478135240995069, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
-        type: 3}
-      propertyPath: _magicalDamage
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 773478135240995069, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
-        type: 3}
-      propertyPath: _attackCooldown
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 773478135240995069, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
-        type: 3}
-      propertyPath: _magicalDefense
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 773478135240995069, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
-        type: 3}
-      propertyPath: _physicalDamage
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 773478135240995069, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
-        type: 3}
-      propertyPath: _physicalDefense
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 773478135240995069, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
-        type: 3}
-      propertyPath: _attackPreparationTime
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 773478135240995069, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
-        type: 3}
-      propertyPath: _preparationWalkDistance
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 773478135240995070, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
-        type: 3}
-      propertyPath: maxSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 773478135240995070, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
-        type: 3}
-      propertyPath: repathRate
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2882020134277202305, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 0.7636226
-      objectReference: {fileID: 0}
-    - target: {fileID: 2882020134277202305, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 0.45389134
-      objectReference: {fileID: 0}
-    - target: {fileID: 2882020134277202305, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
-        type: 3}
-      propertyPath: m_Offset.x
-      value: -0.006409198
-      objectReference: {fileID: 0}
-    - target: {fileID: 2882020134277202305, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
-        type: 3}
-      propertyPath: m_Offset.y
-      value: -0.42910215
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 90dd3ffa6d8c8b74c87b4c818d244144, type: 3}
---- !u!1 &7538502916330084196 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 773478135240995052, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
-    type: 3}
-  m_PrefabInstance: {fileID: 7072294300738643848}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7538502916330084198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7538502916330084196}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b43e9415a87f80c439e6fc82ec8daafb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AttackOnCooldown: 0
-  TriggeredDuringAnimation: 0
-  AttackHitbox: {fileID: 146179426}
-  HasAttackAnimation: 0
-  PlayerLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  IsOnHalfOfAttackAnimation: 0

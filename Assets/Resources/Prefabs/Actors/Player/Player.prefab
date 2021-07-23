@@ -5374,13 +5374,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77d3f583b9ff7d946811e2125d9aef47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BasePhysicalDamage: 40
+  BasePhysicalDamage: 4
   PhysicalDamage: 0
   BasePhysicalDefense: 20
   PhysicalDefense: 0
   BaseMagicalDefense: 20
   MagicalDefense: 0
-  BaseMaxHp: 100
+  BaseMaxHp: 1000
   MaxHp: 0
   BaseEvasionRate: 5
   EvasionRate: 0
