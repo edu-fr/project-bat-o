@@ -8,32 +8,33 @@ namespace Resources.Scripts.Enemy.Attacks
     public class DashAttack : BaseAttack
     {
         public BoxCollider2D AttackHitbox;
-
+        [SerializeField] private bool HasAttackAnimation;
         public LayerMask PlayerLayer;
-
-        [SerializeField]
-        private float AttackVelocity = 12f;
-
         public bool IsOnHalfOfAttackAnimation = false;
 
         protected override void Update()
         {
-            base.Update();
+            base.Update();  
+            AttackOrigin = transform.position;
         }
 
         public override void PreparingAttack()
         {
             // make sound once (?)
             EnemyMovementHandler.Rigidbody.AddForce(-EnemyStateMachine.PlayerDirection * EnemyStatsManager.PreparationWalkDistance, ForceMode2D.Force);
+         
         }
         
         public override void Attack(Vector3 playerDirection)
         {
             AttackHitbox.enabled = true;
-            EnemyAnimationController.AnimateAttack(playerDirection.x, playerDirection.y);
-            EnemyCombatManager.Rigidbody2D.AddForce(playerDirection * AttackVelocity, ForceMode2D.Impulse);
+            if(HasAttackAnimation)
+                EnemyAnimationController.AnimateAttack(playerDirection.x, playerDirection.y);
+            EnemyCombatManager.Rigidbody2D.AddForce(playerDirection * EnemyStatsManager.AttackSpeed, ForceMode2D.Impulse);
             ProbablyGonnaHit = PredictAccuracy(playerDirection);
             EnemyCombatManager.IsAttacking = true;
+            if(!HasAttackAnimation)
+                AttackEnd();
         }
         
         public override void AttackEnd()
@@ -64,10 +65,10 @@ namespace Resources.Scripts.Enemy.Attacks
                     playerDirection, 3.5f, PlayerLayer);
 
             
-            Debug.DrawRay(new Vector2(transform.position.x + EnemyMovementHandler.BoxCollider2D.size.x/2, transform.position.y), playerDirection * AttackVelocity, Color.red, 2);
-            Debug.DrawRay(new Vector2(transform.position.x - EnemyMovementHandler.BoxCollider2D.size.x/2, transform.position.y), playerDirection * AttackVelocity, Color.red, 2);
-            Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + EnemyMovementHandler.BoxCollider2D.size.y/2), playerDirection * AttackVelocity, Color.red, 2);
-            Debug.DrawRay(new Vector2(transform.position.x, transform.position.y - EnemyMovementHandler.BoxCollider2D.size.y/2), playerDirection * AttackVelocity, Color.red, 2);
+            Debug.DrawRay(new Vector2(transform.position.x + EnemyMovementHandler.BoxCollider2D.size.x/2, transform.position.y), playerDirection * EnemyStatsManager.AttackSpeed, Color.red, 2);
+            Debug.DrawRay(new Vector2(transform.position.x - EnemyMovementHandler.BoxCollider2D.size.x/2, transform.position.y), playerDirection * EnemyStatsManager.AttackSpeed, Color.red, 2);
+            Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + EnemyMovementHandler.BoxCollider2D.size.y/2), playerDirection * EnemyStatsManager.AttackSpeed, Color.red, 2);
+            Debug.DrawRay(new Vector2(transform.position.x, transform.position.y - EnemyMovementHandler.BoxCollider2D.size.y/2), playerDirection * EnemyStatsManager.AttackSpeed, Color.red, 2);
             
             return (raycastHit2DRight.rigidbody != null || raycastHit2DLeft.rigidbody != null ||
                     raycastHit2DUp.rigidbody != null || raycastHit2DDown.rigidbody != null);

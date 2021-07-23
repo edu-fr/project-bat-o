@@ -105,7 +105,8 @@ namespace Resources.Scripts.Enemy
                     if (EnemyMovementHandler.TargetPlayer != null) // Know where the player is
                     {
                         var playerTransformPosition = EnemyMovementHandler.TargetPlayer.transform.position;
-                        EnemyAnimationController.AnimateMovement(playerTransformPosition.x, playerTransformPosition.y);
+                        var enemyTransformPosition = transform.position;
+                        EnemyAnimationController.AnimateMovement(playerTransformPosition.x - enemyTransformPosition.x, playerTransformPosition.y - enemyTransformPosition.y);
 
                         // If enemy is in a certain distance to the player
                         if (Vector2.Distance(transform.position, playerTransformPosition) < DistanceToAttack)
@@ -138,8 +139,8 @@ namespace Resources.Scripts.Enemy
                     }
                     else
                     {
-                        PlayerDirection =  ((Vector2) EnemyMovementHandler.TargetPlayer.transform.position - BaseAttack.AttackOrigin).normalized;
-                        EnemyAnimationController.SetFlipAndFaceDirection(PlayerDirection.x, PlayerDirection.y); // makes the enemy look to the player while preparing the attack
+                        PlayerDirection =  ((Vector2) EnemyMovementHandler.TargetPlayer.transform.position - BaseAttack.AttackOrigin);
+                        EnemyAnimationController.AnimateStanding(PlayerDirection.x, PlayerDirection.y); // makes the enemy look to the player while preparing the attack
                         BaseAttack.PreparingAttack(); // keeps preparing the attack every frame until it can attack!
                     }
                     break;
@@ -349,11 +350,10 @@ namespace Resources.Scripts.Enemy
             Destroy(gameObject);
             Destroy(Shadow);
         }
-
-        public void OnDrawGizmos()
+        
+        private void OnDrawGizmos()
         {
-            Gizmos.DrawCube(PlayerDirection, Vector3.one);
-            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(PlayerDirection, 0.2f);
         }
     }
 }

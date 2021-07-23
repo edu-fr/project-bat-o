@@ -17,7 +17,6 @@ namespace Resources.Scripts.Enemy.Attacks
         
         private Vector3 PlayerDirection;
         [SerializeField] [Range(2, 10)] private float ProjectileSpeed;
-        [SerializeField] private bool DrawGizmos;
 
         public event EventHandler<OnShootEventArgs> OnShoot; // Creation of the event handler
 

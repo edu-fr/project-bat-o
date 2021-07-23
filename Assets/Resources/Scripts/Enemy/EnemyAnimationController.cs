@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Resources.Scripts.Enemy
@@ -24,6 +25,9 @@ namespace Resources.Scripts.Enemy
         private float CurAngle;
         public FaceDirection CurrentFaceDirection { get; private set; }
 
+
+        private Vector2 LastFaceDirection;
+        
         private void Awake()
         {
             Animator = GetComponent<Animator>();
@@ -37,6 +41,16 @@ namespace Resources.Scripts.Enemy
             Animator.SetFloat("MoveY", moveDirY);
             SetFlipAndFaceDirection(moveDirX, moveDirY);
         }
+        
+        public void AnimateStanding(float dirX, float dirY)
+        {
+            Animator.SetBool("IsMoving", false);
+            Animator.SetFloat("MoveX", dirX);
+            Animator.SetFloat("MoveY", dirY);
+            SetFlipAndFaceDirection(dirX, dirY);
+        }
+        
+        
 
         public void SetFlipAndFaceDirection(float x, float y)
         {
