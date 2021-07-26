@@ -44,8 +44,8 @@ namespace Resources.Scripts.Enemy
         public bool IsBeenRushed { get; private set; } 
 
         private float AttackPreparationCurrentTime = 0;
-        private float DistanceToAttack;
-        private float DistanceToLosePlayerSight;
+        private float DistanceToAttack; // Reference to stats manager
+        private float DistanceToLosePlayerSight; // Reference to stats manager
         
         public Vector3 PlayerDirection { get; private set;}
 
@@ -60,6 +60,7 @@ namespace Resources.Scripts.Enemy
         private LevelManager LevelManager;
         private Renderer Renderer;
         public GameObject Shadow;
+        public LayerMask ObstaclesLayer;
         private void Awake()
         {
             EnemyMovementHandler = GetComponent<EnemyMovementHandler>();
@@ -112,8 +113,16 @@ namespace Resources.Scripts.Enemy
                         {
                             if (!BaseAttack.AttackOnCooldown)
                             {
-                                ChangeState(States.PreparingAttack);
-                                break;
+                                // Verify if there is nothing between the his body and the player
+                                var raycastHit2D = Physics2D.Raycast(enemyTransformPosition,  (playerTransformPosition - enemyTransformPosition).normalized, EnemyStatsManager.AttackSpeed, ObstaclesLayer);
+                                if (raycastHit2D.collider)
+                                    DistanceToAttack /= 2;
+                                else
+                                {
+                                    DistanceToAttack = EnemyStatsManager.DistanceToAttack;
+                                    ChangeState(States.PreparingAttack);
+                                    break;
+                                }
                             }
                         }
                         
@@ -217,7 +226,7 @@ namespace Resources.Scripts.Enemy
                     IsWalkingAround = false;
                     EnemyMovementHandler.AiPath.maxSpeed = EnemyMovementHandler.ChasingSpeed;
                     EnemyMovementHandler.FieldOfViewComponent.gameObject.SetActive(false);
-                    if(EnemyMovementHandler.Target) EnemyMovementHandler.AiDestinationSetter.target = EnemyMovementHandler.TargetPlayer.transform;
+                    if(EnemyMovementHandler.TargetPlayer) EnemyMovementHandler.AiDestinationSetter.target = EnemyMovementHandler.TargetPlayer.transform;
                     AstarPath.active.Scan();
                     break;
 
@@ -352,7 +361,8 @@ namespace Resources.Scripts.Enemy
         
         private void OnDrawGizmos()
         {
-            Gizmos.DrawSphere(PlayerDirection, 0.2f);
+            Gizmos.color = new Color(100, 0, 0, 0.1f);
+            Gizmos.DrawSphere(transform.position, DistanceToAttack/2);
         }
     }
 }

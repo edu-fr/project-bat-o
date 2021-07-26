@@ -1021,11 +1021,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1340488595}
     m_Modifications:
-    - target: {fileID: -2186487978644250182, guid: 051b3d0cc0f509046a71a8cff4d2e0ea,
-        type: 3}
-      propertyPath: ObjectDamage
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 1552751770134344488, guid: 051b3d0cc0f509046a71a8cff4d2e0ea,
         type: 3}
       propertyPath: m_Name
@@ -6856,10 +6851,40 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 664821553258728723, guid: 07f4a06e4c6aa8e4b8223ba230ba3c34,
+        type: 3}
+      propertyPath: m_LinearDrag
+      value: 4.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 664821553258728725, guid: 07f4a06e4c6aa8e4b8223ba230ba3c34,
+        type: 3}
+      propertyPath: ObstaclesLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 664821553258728732, guid: 07f4a06e4c6aa8e4b8223ba230ba3c34,
         type: 3}
       propertyPath: _attackCooldown
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 664821553258728732, guid: 07f4a06e4c6aa8e4b8223ba230ba3c34,
+        type: 3}
+      propertyPath: _distanceToAttack
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 664821553258728735, guid: 07f4a06e4c6aa8e4b8223ba230ba3c34,
+        type: 3}
+      propertyPath: height
+      value: 168.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 664821553258728735, guid: 07f4a06e4c6aa8e4b8223ba230ba3c34,
+        type: 3}
+      propertyPath: radius
+      value: 0.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 664821553258728735, guid: 07f4a06e4c6aa8e4b8223ba230ba3c34,
+        type: 3}
+      propertyPath: repathRate
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 664821553258728735, guid: 07f4a06e4c6aa8e4b8223ba230ba3c34,
         type: 3}
@@ -6869,12 +6894,17 @@ PrefabInstance:
     - target: {fileID: 664821553258728735, guid: 07f4a06e4c6aa8e4b8223ba230ba3c34,
         type: 3}
       propertyPath: slowdownDistance
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 664821553258728735, guid: 07f4a06e4c6aa8e4b8223ba230ba3c34,
         type: 3}
       propertyPath: endReachedDistance
-      value: 3
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 664821553258728735, guid: 07f4a06e4c6aa8e4b8223ba230ba3c34,
+        type: 3}
+      propertyPath: pickNextWaypointDist
+      value: 0.42
       objectReference: {fileID: 0}
     - target: {fileID: 2570761011992014185, guid: 07f4a06e4c6aa8e4b8223ba230ba3c34,
         type: 3}
@@ -8330,7 +8360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAACwn+t+hXTcXwIAAAMFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1z4jAM/SuMzwuTAIWwt13a0j20MKU7veRibIV4cOyM7ZSv4b+v7ASSZWdPUSQ96elJyZkIZUtgTpuFEfxVcyDfe8Tb5FuvDb7AgW61WosTXHM+BXe5T6Ih5506odEfe5jVBTgj2A+1lT45QmelRKZN8cS3MNfWWXRnVFrAkNHOoxW6zj1ywEd/5iFHtIZTb53QmkW9C5oMlAPTpkaD8Sgej8dRPGsg08F40mBqSKWYpEUJ3PNvkfHo1iOkKZysyYgGwwffS0spbMOMuGMZJl+XORjwo3NBcdDAZjjwgBzENnf+tYteZpkF1+hg6PFRGFSsLkt+6lrGgtpdze2Lyso3mowDrbrm6z/hfhzCmdHFy7VtHPkWLhds906PjFrXkbnrfmyZx0GhPZU7upHwmYN60wujK8Ux6EzloZWF4WP7eptsngPbtf6a6p2zKjvLahS/7tTPcAnDH+ZSFJt6n7VjLXXQO5wCGFzOLyQcDsU2JdDrWfy28EG33YtqAs/CWIehZkrl6W10ZXwqeUbDC88qN9dGgekWKEFR6Y4rLOPuN3gX+z/qmfpvp2nexK6fxB0kuNv8KLoLrfT+tiyb6/0r2HxZOSkUtEr7wBvqNNdK1QfWHekKW1cmo6wD21aC/31ahI0SngzZlEbJZBTNoM/ZwyxKaJIkE8YmI0bC7QmFc1K5qok28uDWVFtc4Z1dfym9haFlOHZu6H4hToXuEhQq02tmANSyLnFjDga74JfJn7hAhdbgnFBh4eScEqnZDnh665mGUZ8OztC0rZKSUnxp5z0pmYefSEou5PIHUEsDBBQAAAgIAACwn+sTICD2bQAAAHgAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jM01VFQSi9KLMgoBooYgjilmSkgdrRSsrFFioVRsnmigYWZsYFlqm5KsqmlgUWihYWFWXKymXGyUixQfUllQapfYm4qRE9AYklGWmZeSmZeup57UWaKO8hopdhaAFBLAQItABQAAAgIAACwn+t+hXTcXwIAAAMFAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAACwn+sTICD2bQAAAHgAAAAJACQAAAAAAAAAAAAAAKwCAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAAZAMAAAAA
+    dataString: UEsDBBQAAAgIAACwn+tfWXQiXQIAAAEFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1z2jAQ/SuMzoUxkIDprQVCeiAwIZ1cfBHSGmuQJY8kh6/hv3clG+zSKRfkt/tW+96ufSFC2QKY02ZhBF9qDuR7h/gz+dZpgq9wpDutNuIMt5xPwV3mk2jIeadOaMT7nmZ1Ds4I9kPtpE+OECyVSLXJ53wHU22dRTil0gKGjHaerRC6dMgR/7oTTznhaTD2pzOeJlHnikcGyoFpUqPeUzzBX1wTxr3nmlDll4pJmhfAffMNrT+8XxDSFMqqM6LewJdgWkph67aIOxVB9qbIwIDXzQVFlaGVYW8yRiQDscucr9mmr9LUgqtdMPQ0Ewb9quqSn7oyMad2XzX3RWXpbxo9hb6qmst/wt1+CKdG56+3a/uRv8Jlgu3f6YlR61omt+FZ03o/WHSgck+3Ej4zUG96YXSpOAadKT21tDCYNY93ZdMM2L7Bq1YfwLJojaq2/DZRr+EaxB+nUuTbapoVsJE6GB4WAQxO5xc2HNbE1iUQ9V38tvBBd+19qgMvwliHoVql8u1tdWl8KpkHz7ya0k21UWDaFQpQVLrTGuu4xxE+xP7PeqH+1alvr2O3N+KBEuAmP4oeQmt9uE/LZvqwBJutSieFgsZqH3hDo6ZaqWrD2pJutE1pUspatF0p+N+7Rdgw5vGAjWkUj4bRBLqcPU+imMZxPGJsNGQkLJ9QqJPKddVobQ+OTTXFFS7a7YvSWRhahG3nhh4W4pxr22QKleoNMwBqVVW4Nw4GL8FXk8+5QIM24JxQYeDkkhCp2R54ci+UBKXzozM0aaokpBBf2nkkIdPwCUnIlVz/AFBLAwQUAAAICAAAsJ/rEyAg9m0AAAB4AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9IzNNVRUEovSizIKAaKGII4pZkpIHa0UrKxRYqFUbJ5ooGFmbGBZapuSrKppYFFooWFhVlysplxslIsUH1JZUGqX2JuKkRPQGJJRlpmXkpmXrqee1FmijvIaKXYWgBQSwECLQAUAAAICAAAsJ/rX1l0Il0CAAABBQAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAAsJ/rEyAg9m0AAAB4AAAACQAkAAAAAAAAAAAAAACqAgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAGIDAAAAAA==
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
@@ -8344,7 +8374,7 @@ MonoBehaviour:
   showSearchTree: 0
   unwalkableNodeDebugSize: 0.3
   logPathResults: 1
-  maxNearestNodeDistance: 100
+  maxNearestNodeDistance: 50
   scanOnStartup: 1
   fullGetNearestSearch: 0
   prioritizeGraphs: 0
@@ -8391,7 +8421,7 @@ MonoBehaviour:
   - 29
   - 30
   - 31
-  heuristic: 0
+  heuristic: 1
   heuristicScale: 1
   threadCount: -2
   maxFrameTime: 10
@@ -9431,12 +9461,92 @@ PrefabInstance:
     - target: {fileID: 773478135240995058, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
         type: 3}
       propertyPath: m_LinearDrag
-      value: 4
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 773478135240995060, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
+        type: 3}
+      propertyPath: ObstaclesLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 773478135240995069, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
+        type: 3}
+      propertyPath: _maxHP
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 773478135240995069, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
         type: 3}
       propertyPath: _attackSpeed
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 773478135240995069, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
+        type: 3}
+      propertyPath: _distanceToAttack
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 773478135240995070, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
+        type: 3}
+      propertyPath: height
+      value: 109.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 773478135240995070, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
+        type: 3}
+      propertyPath: radius
+      value: 0.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 773478135240995070, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
+        type: 3}
+      propertyPath: maxSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 773478135240995070, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
+        type: 3}
+      propertyPath: repathRate
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 773478135240995070, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
+        type: 3}
+      propertyPath: maxAcceleration
+      value: -2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 773478135240995070, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
+        type: 3}
+      propertyPath: slowdownDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 773478135240995070, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
+        type: 3}
+      propertyPath: endReachedDistance
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 773478135240995070, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
+        type: 3}
+      propertyPath: constrainInsideGraph
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 773478135240995070, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
+        type: 3}
+      propertyPath: pickNextWaypointDist
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 773478135240995071, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
+        type: 3}
+      propertyPath: detailedGizmos
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 773478135240995071, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
+        type: 3}
+      propertyPath: graphMask.value
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 773478135240995071, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
+        type: 3}
+      propertyPath: startEndModifier.exactEndPoint
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 773478135240995071, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
+        type: 3}
+      propertyPath: startEndModifier.exactStartPoint
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 90dd3ffa6d8c8b74c87b4c818d244144, type: 3}

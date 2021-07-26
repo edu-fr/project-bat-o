@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 1552751770134344501}
   - component: {fileID: 6070897187834349070}
   - component: {fileID: -2186487978644250182}
-  - component: {fileID: 8094207579378208691}
+  - component: {fileID: 1598030793895749856}
   m_Layer: 6
   m_Name: barrel_cactus
   m_TagString: Scene objects
@@ -266,10 +266,10 @@ MonoBehaviour:
   ObjectCollider2D: {fileID: 6070897187834349070}
   PrefabDamagePopup: {fileID: 5288669746408271298, guid: 592b06df424ea3c4f9c648348d1e08e0,
     type: 3}
-  ObjectDamage: 5
+  ObjectDamage: 3
   ObjectDamageType: 0
   ObjectAttackSpeed: 15
---- !u!50 &8094207579378208691
+--- !u!50 &1598030793895749856
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -277,14 +277,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1552751770134344488}
-  m_BodyType: 0
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1

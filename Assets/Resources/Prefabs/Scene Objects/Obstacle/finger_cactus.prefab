@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1018748886681901742}
   - component: {fileID: 1018748886681901729}
   - component: {fileID: 4676142451229683191}
+  - component: {fileID: 8188518770400807223}
   m_Layer: 6
   m_Name: finger_cactus
   m_TagString: Scene objects
@@ -129,4 +130,26 @@ MonoBehaviour:
   PrefabDamagePopup: {fileID: 5288669746408271298, guid: 592b06df424ea3c4f9c648348d1e08e0,
     type: 3}
   ObjectDamage: 10
+  ObjectDamageType: 0
   ObjectAttackSpeed: 30
+--- !u!50 &8188518770400807223
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018748886681901730}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
