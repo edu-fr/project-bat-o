@@ -34,9 +34,12 @@ namespace Resources.Scripts.Enemy
         public float ExpDropQuantity => _expDropQuantity;
         [SerializeField] [Range(0, 360)] private float _fieldOfViewValue;
         public float FieldOfViewValue => _fieldOfViewValue;
-        [SerializeField] [Range(0, 30)] private float _fieldOfViewDistance;
+        [SerializeField] [Range(0, 15)] private float _fieldOfViewDistance;
         public float FieldOfViewDistance => _fieldOfViewDistance;
-        
+        [SerializeField] [Range(0, 360)] private float _areaOfEffect;
+        public float AreaOfEffect => _areaOfEffect;
+        [SerializeField] [Range(0, 15)] private float _attackRange;
+        public float AttackRange => _attackRange;
         
     }
     

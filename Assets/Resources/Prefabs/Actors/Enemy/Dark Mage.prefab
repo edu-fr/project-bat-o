@@ -70,7 +70,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 05ca7a78f0c9ccf46a428747630aa292, type: 2}
+  - {fileID: 2100000, guid: bb0085cdb6ce6f64a8808d60ea372b8d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -190,7 +190,6 @@ MonoBehaviour:
   ProjectileOriginBackRight: {x: 0.026, y: 0.368}
   ProjectileOriginBackLeft: {x: -0.026, y: 0.368}
   ProjectileSpeed: 4.04
-  DrawGizmos: 1
 --- !u!114 &664821553258728721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,6 +278,9 @@ MonoBehaviour:
   State: 0
   PreviousState: 0
   Shadow: {fileID: 4966552184410187337}
+  ObstaclesLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &664821553258728727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -327,6 +329,8 @@ MonoBehaviour:
   _expDropQuantity: 30
   _fieldOfViewValue: 65
   _fieldOfViewDistance: 3
+  _areaOfEffect: 0
+  _attackRange: 0
 --- !u!114 &664821553258728735
 MonoBehaviour:
   m_ObjectHideFlags: 0

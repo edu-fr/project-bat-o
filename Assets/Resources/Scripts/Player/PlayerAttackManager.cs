@@ -85,24 +85,24 @@ namespace Player
             {
                 PlayerStateMachine.ChangeState(PlayerStateMachine.States.Attacking);
                 CurrentEffect = PowerUpActivator.GenerateEffect();
-                switch (CurrentEffect)
-                {
-                    case (PowerUpController.Effects.Fire):
-                        Renderer.material = FireMaterial;
-                        break;
-        
-                    case (PowerUpController.Effects.Ice):
-                        Renderer.material = IceMaterial;
-                        break;
-        
-                    case (Player.PowerUpController.Effects.Thunder):
-                        Renderer.material = ThunderMaterial;
-                        break;
-        
-                    default:
-                        Renderer.material = StandardMaterial;
-                        break;
-                }
+                // switch (CurrentEffect)
+                // {
+                //     case (PowerUpController.Effects.Fire):
+                //         Renderer.material = FireMaterial;
+                //         break;
+                //
+                //     case (PowerUpController.Effects.Ice):
+                //         Renderer.material = IceMaterial;
+                //         break;
+                //
+                //     case (Player.PowerUpController.Effects.Thunder):
+                //         Renderer.material = ThunderMaterial;
+                //         break;
+                //
+                //     default:
+                //         Renderer.material = StandardMaterial;
+                //         break;
+                // }
         
                 Attack();
             }
@@ -119,8 +119,7 @@ namespace Player
         public void FlurryAttack()
         {
             PlayerStateMachine.ChangeState(PlayerStateMachine.States.Attacking);
-            Renderer.material = FireMaterial;
-            Animator.speed = CurrentAttackSpeed * 0.2f;
+             Animator.speed = CurrentAttackSpeed * 0.2f;
             Animator.SetTrigger("Attack");
             Animator.SetBool("IsAttacking", true);
         }

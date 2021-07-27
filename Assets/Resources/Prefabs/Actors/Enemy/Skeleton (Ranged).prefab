@@ -149,7 +149,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: bb0085cdb6ce6f64a8808d60ea372b8d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -179,7 +179,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
 --- !u!95 &4955097571060270797
@@ -274,7 +274,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daac7301907d22346ba37d8fd637dd9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Rigidbody2D: {fileID: 0}
   PrefabDamagePopup: {fileID: 5288669746408271298, guid: 592b06df424ea3c4f9c648348d1e08e0,
     type: 3}
   IsAttacking: 0
@@ -290,35 +289,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00396018ff43e984da61fd69b2b89879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Rigidbody: {fileID: 4955097571060270799}
-  BoxCollider2D: {fileID: 8862840902808747548}
-  AiDestinationSetter: {fileID: 4955097571060270800}
-  AiPath: {fileID: 4955097571060270807}
-  EnemyStateMachine: {fileID: 3914972206634834700}
-  Animator: {fileID: 4955097571060270797}
-  ReachedEndOfPath: 0
   CurrentTimer: 0
-  WalkingAroundSpeed: 2
-  ChasingSpeed: 3.5
-  DyingBurnedSpeed: 4.5
+  WalkableRange: 5
   Target: {fileID: 0}
-  Shadow: {fileID: 1118065617}
   FieldOfViewComponent: {fileID: 8389403003709841540}
-  FieldOfViewValue: 50
-  ViewDistance: 4
   SurroundingDistance: 0.5
-  DefaultMaterial: {fileID: 0}
-  CurrentMaterial: {fileID: 0}
-  FlashMaterial: {fileID: 2100000, guid: 93729dd49b58a61438d5c2acee37878e, type: 2}
-  BurnedMaterial: {fileID: 2100000, guid: 0ac5bed22d66bbf48a842a71fa085130, type: 2}
-  FrozenMaterial: {fileID: 2100000, guid: 46129f794c290cf4f8e7f405d0a945d1, type: 2}
-  ParalyzedMaterial: {fileID: 2100000, guid: a544983478092fd4985c8aeaddb03fb7, type: 2}
-  TargetedMaterial: {fileID: 2100000, guid: 940276883867007469486ff9be41c2fb, type: 2}
-  Renderer: {fileID: 0}
-  FaceDirection: {x: 0, y: 0, z: 0}
-  EnemyHealthManager: {fileID: 0}
-  LevelManager: {fileID: 0}
-  PrefabExperienceLoot: {fileID: 0}
+  EnemiesLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &145693348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -331,8 +309,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b57aa1e862ac83745a4e8df63fb791ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 80
-  CurrentHealth: 0
 --- !u!114 &4955097571060270806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -423,8 +399,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c2ef3230c6bf7b4cb0f57a7a603fd12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AttackOnCooldown: 0
+  TriggeredDuringAnimation: 0
   ProjectilePrefab: {fileID: 1173749129165435717, guid: 586acfcba6e40e24eb95c057ace641c8,
     type: 3}
+  ProjectileOriginFrontLeft: {x: 0, y: 0}
+  ProjectileOriginFrontRight: {x: 0, y: 0}
+  ProjectileOriginBackRight: {x: 0, y: 0}
+  ProjectileOriginBackLeft: {x: 0, y: 0}
   ProjectileSpeed: 7.5
 --- !u!114 &3914972206634834700
 MonoBehaviour:
@@ -440,26 +422,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   State: 0
   PreviousState: 0
-  EnemyType: 0
-  IsWalkingAround: 0
-  IsDying: 0
-  IsTargeted: 0
-  IsFrozen: 0
-  DefrostCurrentTimer: 0
-  DefrostTime: 0
-  IsOnFire: 0
-  IsPrimaryTarget: 0
-  IsParalyzed: 0
-  ParalyzeHealCurrentTimer: 0
-  ParalyzeHealTime: 0
-  WillDieBurned: 0
-  IsAttackingNow: 0
-  IsBeenRushed: 0
-  AttackPreparationTime: 0.95
-  EnemyBehavior: {fileID: 0}
-  EnemyCombatManager: {fileID: 0}
-  EnemyMeleeAttackManager: {fileID: 0}
-  EnemyRangedAttackManager: {fileID: 3640018496441084212}
+  Shadow: {fileID: 0}
+  ObstaclesLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1001 &4519885267747478626
 PrefabInstance:
   m_ObjectHideFlags: 0

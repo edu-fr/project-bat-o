@@ -11,6 +11,9 @@ namespace Resources.Scripts.Enemy
         public float FieldOfViewValue;
         public float ViewDistance;
         public int RayCount = 50;
+
+        public GameObject Player;
+        public bool PlayerIsOnFieldOfView;
         public EnemyMovementHandler EnemyMovementHandler { get; private set; }
         public LayerMask LayerMask;
         private float LastX;        
@@ -37,6 +40,7 @@ namespace Resources.Scripts.Enemy
             int vertexIndex = 1;
             int triangleIndex = 0;
 
+            var hitThisTime = false;
             for (int i = 0; i <= RayCount; i++)
             {
                 Vector3 vertex;
@@ -45,14 +49,19 @@ namespace Resources.Scripts.Enemy
                 {
                     // No hit
                     vertex = UtilitiesClass.GetVectorFromAngle(angle) * ViewDistance;
-                    vertex.z = transform.position.z; 
+                    vertex.z = transform.position.z;
+                    if (i == RayCount && !hitThisTime)
+                        PlayerIsOnFieldOfView = false;
                 }
                 else
                 {
                     // Hit object
                     if (raycastHit2D.collider.gameObject.CompareTag("Player"))
                     {
-                        EnemyMovementHandler.SetTargetPlayer(raycastHit2D.collider.gameObject);
+                        Player = raycastHit2D.collider.gameObject;
+                        hitThisTime = true;
+                        PlayerIsOnFieldOfView = true;
+                        EnemyMovementHandler.SetTargetPlayer(Player);
                     }
                     vertex = (Vector3) raycastHit2D.point - transform.position;
                     vertex.z = transform.position.z;
@@ -72,8 +81,6 @@ namespace Resources.Scripts.Enemy
                 vertexIndex++;
                 angle -= angleIncrease;
             }
-
-
             Mesh.vertices = vertices;
             Mesh.uv = uv;
             Mesh.triangles = triangles;
