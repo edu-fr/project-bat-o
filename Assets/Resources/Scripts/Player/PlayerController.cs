@@ -8,6 +8,18 @@ namespace Player
 {
     public class PlayerController : MonoBehaviour
     {
+        public enum PlayerFaceDirection
+        {
+            Up,
+            Down,
+            Left,
+            Right,
+            UpLeft,
+            UpRight,
+            DownLeft,
+            DownRight
+        }
+        
         public Animator Animator;
         public Rigidbody2D RigidBody;
         public PlayerStateMachine PlayerStateMachine;
@@ -62,6 +74,8 @@ namespace Player
         private float MoveY;
         private float lastMoveX;
         private float lastMoveY;
+        
+        public PlayerFaceDirection PlayerFaceDir { get; private set; }
 
         // Start is called before the first frame update
         private void Start()
@@ -125,7 +139,41 @@ namespace Player
                 lastMoveY = Animator.GetFloat("LastMoveY");
             }
 
+            SetFaceDirectionVariable(lastMoveX, lastMoveY);
             /***/
+        }
+
+        private void SetFaceDirectionVariable(float x, float y)
+        {
+            x = x != 0 ? Mathf.Lerp(-1, 1, x) : 0;
+            y = y != 0 ? Mathf.Lerp(-1, 1, y) : 0;
+
+            PlayerFaceDir = y switch
+            {
+                0 => x switch
+                {
+                    1 => PlayerFaceDirection.Right,
+                    -1 => PlayerFaceDirection.Left,
+                    _ => PlayerFaceDir
+                },
+                1 => x switch
+                {
+                    1 => PlayerFaceDirection.UpRight,
+                    -1 => PlayerFaceDirection.UpLeft,
+                    0 => PlayerFaceDirection.Up,
+                    _ => PlayerFaceDir
+                },
+                -1 => x switch
+                {
+                    1 => PlayerFaceDirection.DownRight,
+                    -1 => PlayerFaceDirection.DownLeft,
+                    0 => PlayerFaceDirection.Down,
+                    _ => PlayerFaceDir
+                },
+                _ => PlayerFaceDir
+            };
+
+            Debug.Log(PlayerFaceDir);
         }
 
         private void MovementAnimation()

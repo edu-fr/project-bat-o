@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Game;
 using Player;
 using UnityEngine;
 
@@ -23,13 +24,14 @@ namespace Resources.Scripts.Enemy.Attacks
         {
             base.Update();  
             AttackOrigin = transform.position;
+            AttackFoV.SetAimDirection(EnemyAnimationController.CurrentFaceDirection);
         }
 
         public override void PreparingAttack()
         {
-            if (!AttackFoV.enabled)
+            if (!AttackFoV.gameObject.activeSelf)
             {
-                AttackFoV.enabled = true; 
+                AttackFoV.gameObject.SetActive(true); 
                 Debug.Log("Liguei");
             }
             // make sound once (?)
@@ -39,17 +41,43 @@ namespace Resources.Scripts.Enemy.Attacks
         {
             if(HasAttackAnimation)
                 EnemyAnimationController.AnimateAttack(playerDirection.x, playerDirection.y);
-            Debug.Log(AttackFoV.PlayerIsOnFieldOfView ? "DALE" : "Player nao encontrado");
+            AudioManager.instance.Play("Hit enemy");
+            if (AttackFoV.PlayerIsOnFieldOfView && IsPlayerLookingToTheEye(AttackFoV.Player.GetComponent<PlayerController>().PlayerFaceDir, EnemyAnimationController.CurrentFaceDirection))
+                AttackFoV.Player.GetComponent<PlayerStateMachine>()
+                    .PetrifyPlayer(EnemyStatsManager.CrowdControlDuration);
+            else
+                Debug.Log("Player nao encontrado");
             ProbablyGonnaHit = PredictAccuracy(playerDirection);
             EnemyCombatManager.IsAttacking = true;
             if(!HasAttackAnimation)
                 AttackEnd();
+        }
+
+        private bool IsPlayerLookingToTheEye(PlayerController.PlayerFaceDirection playerFaceDir, EnemyAnimationController.FaceDirection enemyFaceDirection)
+        {
+            return enemyFaceDirection switch
+            {
+                EnemyAnimationController.FaceDirection.BackLeft => playerFaceDir == PlayerController.PlayerFaceDirection.Down ||
+                                                                   playerFaceDir == PlayerController.PlayerFaceDirection.DownRight ||
+                                                                   playerFaceDir == PlayerController.PlayerFaceDirection.Right,
+                EnemyAnimationController.FaceDirection.FrontRight => playerFaceDir == PlayerController.PlayerFaceDirection.Up ||
+                                                                     playerFaceDir == PlayerController.PlayerFaceDirection.UpLeft ||
+                                                                     playerFaceDir == PlayerController.PlayerFaceDirection.Left,
+                EnemyAnimationController.FaceDirection.FrontLeft => playerFaceDir == PlayerController.PlayerFaceDirection.Up ||
+                                                                    playerFaceDir == PlayerController.PlayerFaceDirection.UpRight ||
+                                                                    playerFaceDir == PlayerController.PlayerFaceDirection.Right,
+                EnemyAnimationController.FaceDirection.BackRight => playerFaceDir == PlayerController.PlayerFaceDirection.Down ||
+                                                                    playerFaceDir == PlayerController.PlayerFaceDirection.DownLeft ||
+                                                                    playerFaceDir == PlayerController.PlayerFaceDirection.Left,
+                _ => throw new ArgumentOutOfRangeException(nameof(enemyFaceDirection), enemyFaceDirection, null)
+            };
         }
         
         public override void AttackEnd()
         {
             base.AttackEnd();
             IsOnHalfOfAttackAnimation = false;
+            AttackFoV.gameObject.SetActive(false);
         }
         
         private bool PredictAccuracy(Vector3 playerDirection)

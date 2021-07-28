@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -20,7 +21,8 @@ public class PlayerStateMachine : MonoBehaviour
         Paralyzed,
         Dashing, 
         CanRush,
-        Rushing
+        Rushing,
+        Petrified
     };
 
     public PlayerController PlayerController;
@@ -29,7 +31,10 @@ public class PlayerStateMachine : MonoBehaviour
     public LayerMask ObjectsLayerMask; 
     
     public States State;
-    
+
+    private float crowdControlTotalDuration;
+    private float crowdControlCurrentTime;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -79,6 +84,16 @@ public class PlayerStateMachine : MonoBehaviour
             case States.Paralyzed:
                 
                 break; 
+            
+            case States.Petrified:
+                crowdControlCurrentTime += Time.deltaTime;
+                if (crowdControlCurrentTime >= crowdControlTotalDuration)
+                {
+                    ChangeState(States.Standard);
+                }
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
     }
 
@@ -121,11 +136,15 @@ public class PlayerStateMachine : MonoBehaviour
                 break;
 
             case States.Paralyzed:
-
+                PlayerController.RigidBody.velocity = Vector2.zero;
                 break;
 
             case States.Frozen:
-
+                PlayerController.RigidBody.velocity = Vector2.zero;
+                break;
+            
+            case States.Petrified:
+                PlayerController.RigidBody.velocity = Vector2.zero;
                 break;
         }
     }
@@ -161,6 +180,31 @@ public class PlayerStateMachine : MonoBehaviour
             case States.Rushing:
                 State = States.Rushing;
                 break;
+            
+            case States.Petrified:
+                State = States.Petrified;
+                PlayerController.Animator.speed = 0;
+                
+                // Make the player gray
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
         }
+
     }   
+    public void PetrifyPlayer(float duration)
+    {
+        ChangeState(States.Petrified);
+        crowdControlTotalDuration = duration; // - tenacity modificators
+        crowdControlCurrentTime = 0;
+    }
+    public void FrostPlayer(float duration)
+    {
+        
+    }
+    
+    public void BurnPlayer(float duration)
+    {
+        
+    }
 }

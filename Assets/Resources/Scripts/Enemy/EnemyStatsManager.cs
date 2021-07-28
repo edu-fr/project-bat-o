@@ -38,9 +38,14 @@ namespace Resources.Scripts.Enemy
         public float FieldOfViewDistance => _fieldOfViewDistance;
         [SerializeField] [Range(0, 360)] private float _areaOfEffect;
         public float AreaOfEffect => _areaOfEffect;
+        
         [SerializeField] [Range(0, 15)] private float _attackRange;
         public float AttackRange => _attackRange;
         
+        
+        [SerializeField] [Range(0, 5)] public float _crowdControlDuration;
+        public float CrowdControlDuration => _crowdControlDuration;
+
     }
     
     

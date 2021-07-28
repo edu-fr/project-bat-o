@@ -23,6 +23,7 @@ namespace Resources.Scripts.Enemy
         {
             Mesh = new Mesh();
             GetComponent<MeshFilter>().mesh = Mesh;
+            EnemyMovementHandler = GetComponentInParent<EnemyMovementHandler>();
         }
         
         private void LateUpdate()
@@ -58,8 +59,8 @@ namespace Resources.Scripts.Enemy
                     // Hit object
                     if (raycastHit2D.collider.gameObject.CompareTag("Player"))
                     {
-                        Player = raycastHit2D.collider.gameObject;
                         hitThisTime = true;
+                        Player = raycastHit2D.collider.gameObject;
                         PlayerIsOnFieldOfView = true;
                         EnemyMovementHandler.SetTargetPlayer(Player);
                     }
