@@ -379,7 +379,11 @@ namespace Pathfinding {
 					velocity2D -= Vector2.ClampMagnitude(velocity2D, currentAcceleration * deltaTime);
 				} else {
 					velocity2D += MovementUtilities.CalculateAccelerationToReachPoint(dir, dir.normalized*maxSpeed, velocity2D, currentAcceleration, rotationSpeed, maxSpeed, forwards) * deltaTime;
+					// TRY TO MOVE IN OTHER DIRECTIONS
+					
 				}
+				
+				
 			} else {
 				slowdown = 1;
 				// Slow down as quickly as possible

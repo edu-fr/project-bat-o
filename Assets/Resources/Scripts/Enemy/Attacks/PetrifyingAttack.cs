@@ -31,9 +31,17 @@ namespace Resources.Scripts.Enemy.Attacks
         {
             if (!AttackFoV.gameObject.activeSelf)
             {
-                AttackFoV.gameObject.SetActive(true); 
-                Debug.Log("Liguei");
+                AttackFoV.gameObject.SetActive(true);
             }
+            
+            if (AlreadyPredicted) return;
+            
+            var current = EnemyStatsManager.AttackPreparationTime - EnemyStateMachine.AttackPreparationCurrentTime;
+            Debug.Log(current);
+            
+            if (current < EnemyStatsManager.TimeToPredictIfWillHitTheTarget) 
+                WillHitTheTarget(Vector3.zero);
+
             // make sound once (?)
         }
         
@@ -47,7 +55,7 @@ namespace Resources.Scripts.Enemy.Attacks
                     .PetrifyPlayer(EnemyStatsManager.CrowdControlDuration);
             else
                 Debug.Log("Player nao encontrado");
-            ProbablyGonnaHit = PredictAccuracy(playerDirection);
+            ProbablyGonnaHit = WillHitTheTarget(playerDirection);
             EnemyCombatManager.IsAttacking = true;
             if(!HasAttackAnimation)
                 AttackEnd();
@@ -78,36 +86,15 @@ namespace Resources.Scripts.Enemy.Attacks
             base.AttackEnd();
             IsOnHalfOfAttackAnimation = false;
             AttackFoV.gameObject.SetActive(false);
+            AlreadyPredicted = false;
         }
         
-        private bool PredictAccuracy(Vector3 playerDirection)
+        protected override bool WillHitTheTarget(Vector3 nullVector)
         {
-            var currentPosition = transform.position;
-            RaycastHit2D raycastHit2DRight =
-                Physics2D.Raycast(
-                    new Vector2(currentPosition.x + EnemyMovementHandler.BoxCollider2D.size.x/2, currentPosition.y),
-                    playerDirection, 3.5f, PlayerLayer);
-            RaycastHit2D raycastHit2DLeft =
-                Physics2D.Raycast(
-                    new Vector2(currentPosition.x - EnemyMovementHandler.BoxCollider2D.size.x/2, currentPosition.y),
-                    playerDirection, 3.5f, PlayerLayer);
-            RaycastHit2D raycastHit2DUp =
-                Physics2D.Raycast(
-                    new Vector2(currentPosition.x, currentPosition.y + EnemyMovementHandler.BoxCollider2D.size.y/2),
-                    playerDirection, 3.5f, PlayerLayer);
-            RaycastHit2D raycastHit2DDown =
-                Physics2D.Raycast(
-                    new Vector2(currentPosition.x, currentPosition.y - EnemyMovementHandler.BoxCollider2D.size.y/2),
-                    playerDirection, 3.5f, PlayerLayer);
-
-            
-            Debug.DrawRay(new Vector2(transform.position.x + EnemyMovementHandler.BoxCollider2D.size.x/2, transform.position.y), playerDirection * EnemyStatsManager.AttackSpeed, Color.red, 2);
-            Debug.DrawRay(new Vector2(transform.position.x - EnemyMovementHandler.BoxCollider2D.size.x/2, transform.position.y), playerDirection * EnemyStatsManager.AttackSpeed, Color.red, 2);
-            Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + EnemyMovementHandler.BoxCollider2D.size.y/2), playerDirection * EnemyStatsManager.AttackSpeed, Color.red, 2);
-            Debug.DrawRay(new Vector2(transform.position.x, transform.position.y - EnemyMovementHandler.BoxCollider2D.size.y/2), playerDirection * EnemyStatsManager.AttackSpeed, Color.red, 2);
-            
-            return (raycastHit2DRight.rigidbody != null || raycastHit2DLeft.rigidbody != null ||
-                    raycastHit2DUp.rigidbody != null || raycastHit2DDown.rigidbody != null);
+            AlreadyPredicted = true;
+            var willHit = AttackFoV.PlayerIsOnFieldOfView;
+            if(willHit) Debug.Log("IA ACERTAR!");
+            return willHit;
         }
         
         public void SetIsOnHalfOfAttackAnimation() // called by animator (?)

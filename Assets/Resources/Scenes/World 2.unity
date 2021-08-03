@@ -6941,7 +6941,7 @@ PrefabInstance:
     - target: {fileID: 664821553258728732, guid: 07f4a06e4c6aa8e4b8223ba230ba3c34,
         type: 3}
       propertyPath: _distanceToAttack
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 664821553258728735, guid: 07f4a06e4c6aa8e4b8223ba230ba3c34,
         type: 3}
@@ -6966,12 +6966,12 @@ PrefabInstance:
     - target: {fileID: 664821553258728735, guid: 07f4a06e4c6aa8e4b8223ba230ba3c34,
         type: 3}
       propertyPath: slowdownDistance
-      value: 2
+      value: 2.2
       objectReference: {fileID: 0}
     - target: {fileID: 664821553258728735, guid: 07f4a06e4c6aa8e4b8223ba230ba3c34,
         type: 3}
       propertyPath: endReachedDistance
-      value: 0.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 664821553258728735, guid: 07f4a06e4c6aa8e4b8223ba230ba3c34,
         type: 3}
@@ -9553,10 +9553,40 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 99dbb3f3abc3c4845a9b650ff678e7c1, type: 2}
+    - target: {fileID: 8905719550410310113, guid: dcf44c8fdfa1f13488923376f525c549,
+        type: 3}
+      propertyPath: slowdownDistance
+      value: 2.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8905719550410310113, guid: dcf44c8fdfa1f13488923376f525c549,
+        type: 3}
+      propertyPath: endReachedDistance
+      value: 1.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8905719550410310114, guid: dcf44c8fdfa1f13488923376f525c549,
+        type: 3}
+      propertyPath: _attackCooldown
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8905719550410310114, guid: dcf44c8fdfa1f13488923376f525c549,
+        type: 3}
+      propertyPath: _distanceToAttack
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8905719550410310114, guid: dcf44c8fdfa1f13488923376f525c549,
         type: 3}
       propertyPath: _crowdControlDuration
       value: 3.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8905719550410310114, guid: dcf44c8fdfa1f13488923376f525c549,
+        type: 3}
+      propertyPath: _minimalDistanceToThePlayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8905719550410310114, guid: dcf44c8fdfa1f13488923376f525c549,
+        type: 3}
+      propertyPath: _timeToPredictIfWillHitTheTarget
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8905719550410310130, guid: dcf44c8fdfa1f13488923376f525c549,
         type: 3}
@@ -9577,6 +9607,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Eye
+      objectReference: {fileID: 0}
+    - target: {fileID: 8905719550410310131, guid: dcf44c8fdfa1f13488923376f525c549,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8905719550410310132, guid: dcf44c8fdfa1f13488923376f525c549,
         type: 3}
@@ -9705,7 +9740,7 @@ PrefabInstance:
     - target: {fileID: 773478135240995052, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 773478135240995058, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
         type: 3}
@@ -9724,13 +9759,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 773478135240995069, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
         type: 3}
+      propertyPath: _moveSpeed
+      value: 8.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 773478135240995069, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
+        type: 3}
       propertyPath: _attackSpeed
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 773478135240995069, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
         type: 3}
       propertyPath: _distanceToAttack
-      value: 3
+      value: 2.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 773478135240995069, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
+        type: 3}
+      propertyPath: _attackRecoveryTime
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 773478135240995069, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
+        type: 3}
+      propertyPath: _attackPreparationTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 773478135240995069, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
+        type: 3}
+      propertyPath: _timeToPredictIfWillHitTheTarget
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 773478135240995070, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
         type: 3}
@@ -9760,12 +9815,12 @@ PrefabInstance:
     - target: {fileID: 773478135240995070, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
         type: 3}
       propertyPath: slowdownDistance
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 773478135240995070, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
         type: 3}
       propertyPath: endReachedDistance
-      value: 0.5
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 773478135240995070, guid: 90dd3ffa6d8c8b74c87b4c818d244144,
         type: 3}

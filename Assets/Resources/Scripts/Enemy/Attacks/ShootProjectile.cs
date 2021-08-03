@@ -67,6 +67,11 @@ namespace Resources.Scripts.Enemy.Attacks
                 DoShootProjectile();
         }
 
+        protected override bool WillHitTheTarget(Vector3 playerPositionOrDirection)
+        {
+            throw new NotImplementedException();
+        }
+
         public void DoShootProjectile() // Called by the animator
         {
             OnShoot?.Invoke(this, new OnShootEventArgs()

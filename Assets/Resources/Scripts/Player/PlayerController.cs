@@ -172,8 +172,6 @@ namespace Player
                 },
                 _ => PlayerFaceDir
             };
-
-            Debug.Log(PlayerFaceDir);
         }
 
         private void MovementAnimation()

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using CodeMonkey.Utils;
 using Game;
+using Pathfinding;
 using Resources.Scripts.Enemy.Attacks;
 using Resources.Scripts.Objects;
 using Unity.Mathematics;
@@ -41,9 +42,9 @@ namespace Resources.Scripts.Enemy
         public float ParalyzeHealTime { get; set; } 
         public bool WillDieBurned { get; set; } = false;
         public bool IsAttackingNow { get; set; } 
-        public bool IsBeenRushed { get; private set; } 
-
-        private float AttackPreparationCurrentTime = 0;
+        public bool IsBeenRushed { get; private set; }
+        
+        public float AttackPreparationCurrentTime { get; private set; }
         private float DistanceToAttack; // Reference to stats manager
         private float DistanceToLosePlayerSight; // Reference to stats manager
         
@@ -52,6 +53,8 @@ namespace Resources.Scripts.Enemy
         private EnemyMovementHandler EnemyMovementHandler;
         public EnemyCombatManager EnemyCombatManager { get; private set; }
         public EnemyStatsManager EnemyStatsManager { get; private set; }
+        
+        public AIPath AiPath { get; private set; }
         public BaseAttack BaseAttack { get; private set; }
         public EnemyMaterialManager EnemyMaterialManager { get; private set; }
         
@@ -70,6 +73,7 @@ namespace Resources.Scripts.Enemy
             EnemyStatsManager = GetComponent<EnemyStatsManager>();
             Renderer = GetComponent<Renderer>();
             EnemyAnimationController = GetComponent<EnemyAnimationController>();
+            AiPath = GetComponent<AIPath>();
             // Game Manager
             LevelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
         }
@@ -116,7 +120,11 @@ namespace Resources.Scripts.Enemy
                                 // Verify if there is nothing between the his body and the player
                                 var raycastHit2D = Physics2D.Raycast(enemyTransformPosition,  (playerTransformPosition - enemyTransformPosition).normalized, EnemyStatsManager.AttackSpeed, ObstaclesLayer);
                                 if (raycastHit2D.collider)
-                                    DistanceToAttack /= 2;
+                                {
+                                    DistanceToAttack = DistanceToAttack - DistanceToAttack/10;
+                                    if (DistanceToAttack < AiPath.slowdownDistance)
+                                        DistanceToAttack = EnemyStatsManager.DistanceToAttack;
+                                }
                                 else
                                 {
                                     DistanceToAttack = EnemyStatsManager.DistanceToAttack;

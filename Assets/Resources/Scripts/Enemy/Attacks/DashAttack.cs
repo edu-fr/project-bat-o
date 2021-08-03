@@ -31,7 +31,7 @@ namespace Resources.Scripts.Enemy.Attacks
             if(HasAttackAnimation)
                 EnemyAnimationController.AnimateAttack(playerDirection.x, playerDirection.y);
             EnemyCombatManager.Rigidbody2D.AddForce(playerDirection * EnemyStatsManager.AttackSpeed, ForceMode2D.Impulse);
-            ProbablyGonnaHit = PredictAccuracy(playerDirection);
+            ProbablyGonnaHit = WillHitTheTarget(playerDirection);
             EnemyCombatManager.IsAttacking = true;
             if(!HasAttackAnimation)
                 AttackEnd();
@@ -44,7 +44,7 @@ namespace Resources.Scripts.Enemy.Attacks
             StartCoroutine(DeactivateAttackHitBox(0.4f));
         }
         
-        private bool PredictAccuracy(Vector3 playerDirection)
+        protected override bool WillHitTheTarget(Vector3 playerDirection)
         {
             var currentPosition = transform.position;
             RaycastHit2D raycastHit2DRight =

@@ -5375,15 +5375,15 @@ MonoBehaviour:
   AttackLevel: 0
   PhysicalDefenseLevel: 0
   MagicalDefenseLevel: 0
-  CriticalRateLevel: 0
-  CriticalDamageLevel: 0
+  CriticalRateLevel: 1
+  CriticalDamageLevel: 1
   EvasionLevel: 0
-  FireLevel: 2
+  FireLevel: 1
   IceLevel: 0
   ElectricLevel: 0
   LifeStealLevel: 0
-  PerfectDodgeLevel: 0
-  HitProjectilesLevel: 0
+  PerfectDodgeLevel: 1
+  HitProjectilesLevel: 1
 --- !u!114 &1938860099312322761
 MonoBehaviour:
   m_ObjectHideFlags: 0

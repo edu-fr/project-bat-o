@@ -18,6 +18,8 @@ namespace Resources.Scripts.Enemy.Attacks
         protected EnemyStatsManager EnemyStatsManager;
         protected EnemyAnimationController EnemyAnimationController;
 
+        protected float AttackPreparationCurrentTime;
+        protected bool AlreadyPredicted;
         private bool AttackEnded;
         private float AttackCurrentRecoveryTime;
         private float AttackRecoveryTime;
@@ -89,6 +91,7 @@ namespace Resources.Scripts.Enemy.Attacks
             EnemyStateMachine.ChangeState(EnemyStateMachine.States.Chasing);
         }
 
-        
+        protected abstract bool WillHitTheTarget(Vector3 playerPositionOrDirection);
+
     }
 }

@@ -42,10 +42,11 @@ namespace Resources.Scripts.Enemy
         [SerializeField] [Range(0, 15)] private float _attackRange;
         public float AttackRange => _attackRange;
         
-        
-        [SerializeField] [Range(0, 5)] public float _crowdControlDuration;
+        [SerializeField] [Range(0, 5)] private float _crowdControlDuration;
         public float CrowdControlDuration => _crowdControlDuration;
 
+        [SerializeField] [Range(0, 2)] private float _timeToPredictIfWillHitTheTarget;
+        public float TimeToPredictIfWillHitTheTarget => _timeToPredictIfWillHitTheTarget;
     }
     
     
