@@ -99,6 +99,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -532,6 +533,24 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      rock_m_1: -6270460613488095106
+      rock_g_1: -2477555575975482609
+      rock_s_1: -6956447016566939311
+      rock_g_2: 6129723096055259396
+      grass_m_1: 8125487711941695120
+      bones: -8601890711236750611
+      rock_m_2: 849416495988386935
+      rock_m_3: -4458558050145622851
+      grass_g_1: -7089160297014223405
+      grass_s_1: 2597081581307535172
+      rock_m_4: 1923747420689600305
+      grass_m_2: 6178404908532775053
+      finger_cactus: 7922068763401951755
+      barrel_cactus: -2747892698501505178
+      grass_g_2: 5792081941393654281
+      grass_s_2: 6163426555644080075
+      rock_s_2: -8161053539681968582
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

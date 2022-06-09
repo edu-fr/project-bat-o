@@ -60,6 +60,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -412,6 +413,19 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Rock_walking_front_3: 2895386745164588504
+      Rock_walking_front_1: 8234320154294349295
+      Rock_standing_back_3: 1749095188232361521
+      Rock_walking_back_2: -5599827508121062507
+      Rock_walking_back_1: 6480276575616857751
+      Rock_standing_back_1: 5109119590321443857
+      Rock_standing_front_3: 1013366739975189944
+      Rock_standing_front_2: 709247535313551666
+      Rock_walking_back_3: 5182453174623977630
+      Rock_standing_back_2: -377488008739171435
+      Rock_walking_front_2: -8452671437627377638
+      Rock_standing_front_1: 3452003437791708593
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

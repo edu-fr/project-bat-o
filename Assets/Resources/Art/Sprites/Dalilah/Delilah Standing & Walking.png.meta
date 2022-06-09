@@ -222,6 +222,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -1686,6 +1687,73 @@ TextureImporter:
     secondaryTextures:
     - texture: {fileID: 2800000, guid: 866bccbf7ff2d55449b7ff4b5fb3391f, type: 3}
       name: _Emission
+    nameFileIdTable:
+      Delilah_Standing_Left_2: -2515487770370172328
+      Delilah_Standing_Up_Left_2: 2520850030657979415
+      Delilah_Walking_Up_Left_1: 4509186569365469374
+      Delilah_Walking_Left_4: 8669409393990248849
+      Delilah_Standing_Down_Left_3: -6427861213100617759
+      Delilah_Standing_Down_Left_1: -4599926664433949108
+      Delilah_Standing_Left_3: -1513050227664872324
+      Delilah_Walking_Right_3: 8069039299312588914
+      Delilah_Walking_Left_8: -2238842286944414381
+      Delilah_Walking_Up_Left_4: 6112687412793826973
+      Delilah_Walking_Left_7: 7724789802187411810
+      Delilah_Standing_Down_Left_2: 7239229069618830375
+      Delilah_Walking_Right_1: -1651277275342389443
+      Delilah_Standing_Up_2: 8909631469704686806
+      Delilah_Walking_Down_Left_1: -918504955046974052
+      Delilah_Standing_Up_1: 3327499355568538331
+      Delilah_Standing_Down_2: 8658602802058267964
+      Delilah_Walking_Left_6: -4684766420883720973
+      Delilah_Standing_Up_Left_3: 6994659895945218260
+      Delilah_Standing_Down_Right_1: 2475951767900808279
+      Delilah_Walking_Left_3: 2854092978236842630
+      Delilah_Standing_Down_Right_3: -1986136540798184971
+      Delilah_Walking_Up_Left_2: 6033170224349128360
+      Delilah_Standing_Down_Right_2: -4485740937008237540
+      Delilah_Walking_Down_5: -3056398519363871543
+      Delilah_Standing_Right_3: 5504819873457228360
+      Delilah_Standing_Right_2: 6655532309242257533
+      Delilah_Walking_Down_1: 5479115674792684051
+      Delilah_Walking_Down_2: -8000337546340311772
+      Delilah_Walking_Down_4: -8719981508171751471
+      Delilah_Walking_Right_4: 6392387634385641696
+      Delilah_Walking_Right_8: 6336528327536119074
+      Delilah_Walking_Left_1: -2705852117224109581
+      Delilah_Walking_Right_2: -1968975664120430195
+      Delilah_Walking_Left_5: -6588015720154196094
+      Delilah_Walking_Down_Left_4: 992005730457736192
+      Delilah_Walking_Down_6: -1597621893555809360
+      Delilah_Walking_Down_Right_1: -1559862178859105390
+      Delilah_Standing_Left_1: 1723940332378316312
+      Delilah_Walking_Down_Right_3: 5267260514748906453
+      Delilah_Standing_Up_Right_3: -7661825379546955085
+      Delilah_Walking_Up_3: 7972872909232727219
+      Delilah_Standing_Down_3: -3174120902453899143
+      Delilah_Walking_Up_Right_3: -5519513439434779619
+      Delilah_Walking_Right_6: 7402820703779517529
+      Delilah_Standing_Up_Right_2: -651541396743604026
+      Delilah_Walking_Up_Left_3: -8669011971306829643
+      Delilah_Walking_Right_7: 3497885368441580943
+      Delilah_Standing_Up_Left_1: -1795066314345520702
+      Delilah_Walking_Left_2: 2478926552310809477
+      Delilah_Walking_Up_1: 4170467462849722006
+      Delilah_Walking_Up_4: -5759553045364656591
+      Delilah_Walking_Down_Left_2: 7637166951207994811
+      Delilah_Walking_Up_2: -3518309560986347717
+      Delilah_Walking_Down_Left_3: 2605750283219082244
+      Delilah_Walking_Down_3: 3464116908647055133
+      Delilah_Standing_Right_1: -5412712182983886387
+      Delilah_Standing_Up_Right_1: -1485788117865621760
+      Delilah_Standing_Up_3: -8672532225478366873
+      Delilah_Walking_Up_Right_2: -4638251034138187402
+      Delilah_Walking_Right_5: 1503175276089058213
+      Delilah_Walking_Up_Right_4: -3331847220089366807
+      Delilah_Walking_Down_Right_4: -7034900978725729114
+      Delilah_Walking_Down_Right_2: -3883202641112290910
+      Delilah_Walking_Up_Right_1: 3292663013248692029
+      Delilah_Standing_Down_1: 1569878083706319949
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

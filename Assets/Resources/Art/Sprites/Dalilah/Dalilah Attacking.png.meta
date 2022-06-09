@@ -168,6 +168,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -628,7 +629,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 6d1252481b0891250800000000000000
-      internalID: 5915901085442449878
+      internalID: 5873288225962066513
       vertices: []
       indices: 
       edges: []
@@ -649,7 +650,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 9fa87639024326db0800000000000000
-      internalID: -4800216938306893063
+      internalID: 7215476345710241809
       vertices: []
       indices: 
       edges: []
@@ -670,7 +671,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 9f3cf2b06373437d0800000000000000
-      internalID: -2939663951510649863
+      internalID: 3233709593431704886
       vertices: []
       indices: 
       edges: []
@@ -691,7 +692,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 2253288e446520ef0800000000000000
-      internalID: -143457384163822302
+      internalID: 684102167911526071
       vertices: []
       indices: 
       edges: []
@@ -712,7 +713,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 48cdec1ddc45f2fa0800000000000000
-      internalID: -5823342550201738108
+      internalID: -2058018631010123190
       vertices: []
       indices: 
       edges: []
@@ -733,7 +734,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 55f0ec777d878e7e0800000000000000
-      internalID: -1736004789528031403
+      internalID: 5915901085442449878
       vertices: []
       indices: 
       edges: []
@@ -1254,6 +1255,55 @@ TextureImporter:
     secondaryTextures:
     - texture: {fileID: 2800000, guid: 59902d3b289324f4d8c0018a50ebfea3, type: 3}
       name: _Emission
+    nameFileIdTable:
+      Dalilah_Attacking_Down_Right_3: 6854376053421348
+      Dalilah_Attacking_Down_Right_5: -2035839868349480731
+      Dalilah_Attacking_Down_Right_6: 1776456607197479559
+      Dalilah_Attacking_Left_1: 3645887853088089782
+      Dalilah_Attacking_Up_Right_2: 7215476345710241809
+      Dalilah_Attacking_Up_Right_4: 684102167911526071
+      Dalilah_Attacking_Down_Right_2: 94070361643671447
+      Dalilah_Attacking_Left_2: 1625200128842380403
+      Dalilah_Attacking_Up_Right_6: 5915901085442449878
+      Dalilah_Attacking_Left_3: 6167747983503596739
+      Dalilah_Attacking_Down_3: 2552360732187950170
+      Dalilah_Attacking_Down_Right_1: -8282184743997588434
+      Dalilah_Attacking_Up_Right_1: 5873288225962066513
+      Dalilah_Attacking_Down_Left_1: 7353838040122343326
+      Dalilah_Attacking_Down_2: -8657641962174278001
+      Dalilah_Attacking_Left_5: -2937077492188983934
+      Dalilah_Attacking_Down_Left_3: -8138899830924840370
+      Dalilah_Attacking_Up_Left_3: -8160705903373598358
+      Dalilah_Attacking_Right_4: 3160111266050902118
+      Dalilah_Attacking_Up_Left_2: 3847345368773041904
+      Dalilah_Attacking_Down_5: -4296303247604833310
+      Dalilah_Attacking_Up_2: 8509130320523151725
+      Dalilah_Attacking_Right_5: -8972745901888009399
+      Dalilah_Attacking_Up_Left_5: -1470831267172793867
+      Dalilah_Attacking_Right_6: 4093536340994186932
+      Dalilah_Attacking_Up_Right_5: -2058018631010123190
+      Dalilah_Attacking_Up_4: 5113214367745563983
+      Dalilah_Attacking_Left_6: -203675004853995952
+      Dalilah_Attacking_Down_6: 5245588902186965138
+      Dalilah_Attacking_Right_2: -1760482540772230393
+      Dalilah_Attacking_Up_1: -8500919982266859684
+      Dalilah_Attacking_Down_Left_5: 8337623305753604730
+      Dalilah_Attacking_Up_5: -6319396624658025789
+      Dalilah_Attacking_Up_Left_1: 5407206372835315218
+      Dalilah_Attacking_Right_3: -8539176278894101342
+      Dalilah_Attacking_Left_4: 5574791452440215755
+      Dalilah_Attacking_Down_Left_6: -3366876398009864917
+      Dalilah_Attacking_Up_3: 220009796931047445
+      Dalilah_Attacking_Right_1: 5611809267992356319
+      Dalilah_Attacking_Up_Right_3: 3233709593431704886
+      Dalilah_Attacking_Down_Right_4: 3983853459709068363
+      Dalilah_Attacking_Down_4: -863902310106819449
+      Dalilah_Attacking_Up_Left_4: 1894614616514001443
+      Dalilah_Attacking_Up_Left_6: 7174458345076400078
+      Dalilah_Attacking_Down_1: -1161646569650369097
+      Dalilah_Attacking_Down_Left_4: 2183516087390858888
+      Dalilah_Attacking_Down_Left_2: 9152469467344241641
+      Dalilah_Attacking_Up_6: 6758672557335995646
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

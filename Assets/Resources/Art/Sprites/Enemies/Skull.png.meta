@@ -48,6 +48,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -316,6 +317,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Skull_standing_back_1: 4976157411595593133
+      Skull_standing_front_0: -2739807658926110822
+      Skull_attacking_back_1: -5648198061226190591
+      Skull_standing_front_1: -8375587311600527847
+      Skull_attacking_front_1: -6772826663682122736
+      Skull_attacking_back_0: -5468298644130788954
+      Skull_attacking_front_0: -3927005747788755955
+      Skull_standing_back_0: 850665084096451344
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

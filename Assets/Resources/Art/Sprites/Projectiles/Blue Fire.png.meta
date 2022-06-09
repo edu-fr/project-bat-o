@@ -51,6 +51,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -340,6 +341,16 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Blue Fire_extinguish_2: 467851738888992007
+      Blue Fire_extinguish_1: 8638078832372780258
+      Blue Fire_1: 1857878354924059161
+      Blue Fire_extinguish_5: 453513238291728002
+      Blue Fire_extinguish_3: -1137433142193765346
+      Blue Fire_0: -6314646018040834758
+      Blue Fire_3: -4930823494532792860
+      Blue Fire_extinguish_4: 5185585158605304433
+      Blue Fire_2: -2798916095044386258
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
