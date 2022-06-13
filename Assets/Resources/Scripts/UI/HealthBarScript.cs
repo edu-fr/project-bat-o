@@ -8,32 +8,21 @@ namespace UI
 {
     public class HealthBarScript : MonoBehaviour
     {
-        public Slider Slider;
-        public TextMeshProUGUI Amount;
-        private PlayerHealthManager PlayerHealthManager;
-        
         private void Start()
         {
-            UpdateLifeBar();
+            // Observe player health change event
+            PlayerHealthManager.HealthChanged += OnHealthChanged;
         }
 
-        private void Update()
-        {
-            if (!PlayerHealthManager)
-            {
-                PlayerHealthManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthManager>();
-                UpdateLifeBar();
-            }
-        }
+        [SerializeField] private Slider Slider;
+        [SerializeField] private TextMeshProUGUI Amount;
 
-        public void UpdateLifeBar()
+        public void OnHealthChanged(float current, float max)
         {
-            if (PlayerHealthManager)
-            {
-                Slider.value = PlayerHealthManager.CurrentHealth;
-                Slider.maxValue = PlayerHealthManager.MaxHealth;
-                Amount.SetText(PlayerHealthManager.CurrentHealth + "/" + PlayerHealthManager.MaxHealth);
-            }
+            Slider.value = current;
+            Amount.SetText(current + "/" + max);
         }
+        
+
     }
 }
