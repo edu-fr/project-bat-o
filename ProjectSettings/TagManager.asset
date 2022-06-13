@@ -22,6 +22,7 @@ TagManager:
   - LevelManager
   - Loot Drop Parent
   - Projectile
+  - Joystick
   layers:
   - Default
   - TransparentFX

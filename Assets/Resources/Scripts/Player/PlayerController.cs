@@ -28,6 +28,7 @@ namespace Player
         public FlurryRush FlurryRush;
         public ParticleSystem Dust;
         private PowerUpController PowerUpController;
+        public Joystick Joystick;
 
         // Move speeds
         public float StandardMoveSpeed { private set; get; } = 4f;
@@ -95,6 +96,8 @@ namespace Player
 
             // Flurry rush
             FlurryRush = GetComponent<FlurryRush>();
+
+            Joystick = GameObject.FindGameObjectWithTag("Joystick").GetComponent<Joystick>();
         }
 
         public void HandleMovement()
@@ -123,8 +126,8 @@ namespace Player
             }
             else
             {
-                var horizontalMove = Input.GetAxis("Horizontal");
-                var verticalMove = Input.GetAxis("Vertical");
+                var horizontalMove = Joystick.Horizontal;
+                var verticalMove = Joystick.Vertical;
                 //
                 // if (horizontalMove != 0)
                 //     horizontalMove = horizontalMove > 0 ? 1 : -1;
@@ -179,21 +182,21 @@ namespace Player
             /* Movement animation handler */
             if (PlayerStateMachine.State != PlayerStateMachine.States.Attacking && !IsZTargeting)
             {
-                if ((Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Horizontal") == -1) &&
-                    (Input.GetAxisRaw("Vertical") == 1 || Input.GetAxisRaw("Vertical") == -1))
+                if ((Joystick.Horizontal == 1 || Joystick.Horizontal == -1) &&
+                    (Joystick.Vertical == 1 || Joystick.Vertical == -1))
                 {
-                    lastMoveX = Input.GetAxisRaw("Horizontal");
-                    lastMoveY = Input.GetAxisRaw("Vertical");
+                    lastMoveX = Joystick.Horizontal;
+                    lastMoveY = Joystick.Vertical;
                 }
-                else if (Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Horizontal") == -1)
+                else if (Joystick.Horizontal == 1 || Joystick.Horizontal == -1)
                 {
-                    lastMoveX = Input.GetAxisRaw("Horizontal");
+                    lastMoveX = Joystick.Horizontal;
                     lastMoveY = 0;
                 }
-                else if (Input.GetAxisRaw("Vertical") == 1 || Input.GetAxisRaw("Vertical") == -1)
+                else if (Joystick.Vertical == 1 || Joystick.Vertical == -1)
                 {
                     lastMoveX = 0;
-                    lastMoveY = Input.GetAxisRaw("Vertical");
+                    lastMoveY = Joystick.Vertical;
                 }
             }
 

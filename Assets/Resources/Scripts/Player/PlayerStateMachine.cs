@@ -28,8 +28,8 @@ public class PlayerStateMachine : MonoBehaviour
     public PlayerController PlayerController;
     public PlayerAttackManager PlayerAttackManager;
     public FlurryRush FlurryRush;
-    public LayerMask ObjectsLayerMask; 
-    
+    public LayerMask ObjectsLayerMask;
+
     public States State;
 
     private float crowdControlTotalDuration;
@@ -99,27 +99,26 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void FixedUpdate()
     {
+        var joystickValue = PlayerController.Joystick.HandleRange ;
+        var joystickDirection = PlayerController.Joystick.Direction;
+        
         switch (State)
         {
             case States.Standard:
                 /* Movement */
-                PlayerController.RigidBody.velocity =
-                    new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized *
-                    PlayerController.StandardMoveSpeed;
+                PlayerController.RigidBody.velocity = joystickDirection * (PlayerController.StandardMoveSpeed * joystickValue);
                 /***/
                 break;
 
             case States.Attacking:
                 /* Movement */
-                PlayerController.RigidBody.velocity =
-                    new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized * (PlayerController.StandardMoveSpeed * PlayerController.AttackingMoveSpeedMultiplier);
+                PlayerController.RigidBody.velocity = joystickDirection * (PlayerController.StandardMoveSpeed * PlayerController.AttackingMoveSpeedMultiplier * joystickValue);
                 /***/
                 break;
 
             case States.Dashing:
                 /* Movement */
-                PlayerController.RigidBody.velocity =
-                    new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized * (PlayerController.StandardMoveSpeed * PlayerController.DashCurrentMoveSpeedMultiplier);
+                PlayerController.RigidBody.velocity = joystickDirection * (PlayerController.StandardMoveSpeed * PlayerController.DashCurrentMoveSpeedMultiplier);
                 /***/
                 break;
 
