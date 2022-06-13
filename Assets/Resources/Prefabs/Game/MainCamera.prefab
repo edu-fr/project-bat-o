@@ -27,9 +27,10 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 68813344257773595}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3.0515625, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -61,7 +62,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3.49
+  orthographic size: 5.33
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -97,10 +98,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eabf57f56b5a4749b9e6df241bc6abd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LeftLimit: 0.58
-  RightLimit: 0.58
-  BottomLimit: -2.36
-  UpperLimit: 17.3
+  LeftLimit: -3
+  RightLimit: -3
+  BottomLimit: -0.67
+  UpperLimit: 15.6
 --- !u!114 &68813344257773600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,6 +124,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
