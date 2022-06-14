@@ -33,23 +33,13 @@ namespace Player
         // Move speeds
         public float StandardMoveSpeed { private set; get; } = 4f;
         public float AttackingMoveSpeedMultiplier { private set; get; }
-        public float ZTargetingMoveSpeedMultiplier { private set; get; }
+        // public float ZTargetingMoveSpeedMultiplier { private set; get; }
         public float DashInitialMoveSpeedMultiplier;
 
-        // Z-targeting
-        [SerializeField]
-        public float ZTargetingRadius = 2f;
-
-        [SerializeField]
-        private LayerMask EnemyLayerMask;
-
-        private Collider2D[] NearbyEnemiesArray;
-
-        [SerializeField]
-        private int MaxNumEnemiesNearby = 10;
-
-        public EnemyMovementHandler TargetedEnemy;
-        public bool IsZTargeting = false;
+        // // Z-targeting
+        // [SerializeField]
+        // public float ZTargetingRadius = 2f;
+        // public bool IsZTargeting = false;
 
         // Dash
         public float DashMoveSpeedDecreaseMultiplier = 5f;
@@ -73,8 +63,8 @@ namespace Player
         // Animation
         private float MoveX;
         private float MoveY;
-        private float lastMoveX;
-        private float lastMoveY;
+        public float lastMoveX;
+        public float lastMoveY;
         
         public PlayerFaceDirection PlayerFaceDir { get; private set; }
 
@@ -91,7 +81,7 @@ namespace Player
             PlayerStateMachine = GetComponent<PlayerStateMachine>();
             PowerUpController = GetComponent<PowerUpController>();
             // Z-targeting
-            NearbyEnemiesArray = new Collider2D[MaxNumEnemiesNearby];
+            // NearbyEnemiesArray = new Collider2D[MaxNumEnemiesNearby];
             //
 
             // Flurry rush
@@ -102,45 +92,45 @@ namespace Player
 
         public void HandleMovement()
         {
-            if (IsZTargeting && TargetedEnemy == null) // Verify if the targeted enemy has died
-                IsZTargeting = false;
+            // if (IsZTargeting && TargetedEnemy == null) // Verify if the targeted enemy has died
+            //     IsZTargeting = false;
             FaceDirection();
             MovementAnimation();
-            ZTargeting();
+            // ZTargeting();
             Dash();
         }
 
         public void FaceDirection()
         {
             /* Face direction handler */
-            if (IsZTargeting)
-            {
-                var faceDirection = UtilitiesClass.Get8DirectionFromAngle(UtilitiesClass.GetAngleFromVectorFloat(
-                    new Vector3(TargetedEnemy.transform.position.x - transform.position.x,
-                        TargetedEnemy.transform.position.y - transform.position.y)));
-                Animator.SetFloat("MoveX", faceDirection.x);
-                Animator.SetFloat("MoveY", faceDirection.y);
+            // if (IsZTargeting)
+            // {
+            //     var faceDirection = UtilitiesClass.Get8DirectionFromAngle(UtilitiesClass.GetAngleFromVectorFloat(
+            //         new Vector3(TargetedEnemy.transform.position.x - transform.position.x,
+            //             TargetedEnemy.transform.position.y - transform.position.y)));
+            //     Animator.SetFloat("MoveX", faceDirection.x);
+            //     Animator.SetFloat("MoveY", faceDirection.y);
+            //
+            //     lastMoveX = faceDirection.x;
+            //     lastMoveY = faceDirection.y;
+            // }
+            // else
+            // {
+            var horizontalMove = Joystick.Horizontal;
+            var verticalMove = Joystick.Vertical;
+            //
+            // if (horizontalMove != 0)
+            //     horizontalMove = horizontalMove > 0 ? 1 : -1;
+            //
+            // if (verticalMove != 0)
+            //     verticalMove = verticalMove > 0 ? 1 : -1;
+            //
+            Animator.SetFloat("MoveX", horizontalMove);
+            Animator.SetFloat("MoveY", verticalMove);
 
-                lastMoveX = faceDirection.x;
-                lastMoveY = faceDirection.y;
-            }
-            else
-            {
-                var horizontalMove = Joystick.Horizontal;
-                var verticalMove = Joystick.Vertical;
-                //
-                // if (horizontalMove != 0)
-                //     horizontalMove = horizontalMove > 0 ? 1 : -1;
-                //
-                // if (verticalMove != 0)
-                //     verticalMove = verticalMove > 0 ? 1 : -1;
-                //
-                Animator.SetFloat("MoveX", horizontalMove);
-                Animator.SetFloat("MoveY", verticalMove);
-
-                lastMoveX = Animator.GetFloat("LastMoveX");
-                lastMoveY = Animator.GetFloat("LastMoveY");
-            }
+            lastMoveX = Animator.GetFloat("LastMoveX");
+            lastMoveY = Animator.GetFloat("LastMoveY");
+         
 
             SetFaceDirectionVariable(lastMoveX, lastMoveY);
             /***/
@@ -180,7 +170,7 @@ namespace Player
         private void MovementAnimation()
         {
             /* Movement animation handler */
-            if (PlayerStateMachine.State != PlayerStateMachine.States.Attacking && !IsZTargeting)
+            if (PlayerStateMachine.State != PlayerStateMachine.States.Attacking /* && !IsZTargeting */)
             {
                 if ((Joystick.Horizontal == 1 || Joystick.Horizontal == -1) &&
                     (Joystick.Vertical == 1 || Joystick.Vertical == -1))
@@ -206,44 +196,44 @@ namespace Player
         }
 
 
-        private void ZTargeting()
-        {
-            /* Z-targeting */
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                if (!IsZTargeting)
-                {
-                    TargetedEnemy = GetZTargetEnemy();
-                    if (TargetedEnemy != null)
-                    {
-                        var enemyStateMachine = TargetedEnemy.GetComponent<EnemyStateMachine>();
-                        if (enemyStateMachine != null)
-                        {
-                            enemyStateMachine.IsTargeted = true;
-                        }
-
-                        IsZTargeting = true;
-                    }
-                }
-            }
-
-            if (Input.GetKeyUp(KeyCode.C) && !CanCounterAttack && PlayerStateMachine.State != PlayerStateMachine.States.Dashing)
-            {
-                if (IsZTargeting && TargetedEnemy != null)
-                {
-                    var enemyStateMachine = TargetedEnemy.GetComponent<EnemyStateMachine>();
-                    if (enemyStateMachine != null)
-                    {
-                        enemyStateMachine.IsTargeted = false;
-                    }
-
-                    IsZTargeting = false;
-                    TargetedEnemy = null;
-                }
-            }
-
-            /**/
-        }
+        // private void ZTargeting()
+        // {
+        //     /* Z-targeting */
+        //     if (Input.GetKeyDown(KeyCode.C))
+        //     {
+        //         if (!IsZTargeting)
+        //         {
+        //             TargetedEnemy = GetZTargetEnemy();
+        //             if (TargetedEnemy != null)
+        //             {
+        //                 var enemyStateMachine = TargetedEnemy.GetComponent<EnemyStateMachine>();
+        //                 if (enemyStateMachine != null)
+        //                 {
+        //                     enemyStateMachine.IsTargeted = true;
+        //                 }
+        //
+        //                 IsZTargeting = true;
+        //             }
+        //         }
+        //     }
+        //
+        //     if (Input.GetKeyUp(KeyCode.C) && !CanCounterAttack && PlayerStateMachine.State != PlayerStateMachine.States.Dashing)
+        //     {
+        //         if (IsZTargeting && TargetedEnemy != null)
+        //         {
+        //             var enemyStateMachine = TargetedEnemy.GetComponent<EnemyStateMachine>();
+        //             if (enemyStateMachine != null)
+        //             {
+        //                 enemyStateMachine.IsTargeted = false;
+        //             }
+        //
+        //             IsZTargeting = false;
+        //             TargetedEnemy = null;
+        //         }
+        //     }
+        //
+        //     /**/
+        // }
 
         public void Dash()
         {
@@ -283,50 +273,50 @@ namespace Player
             {
                 if (PlayerStateMachine.State == PlayerStateMachine.States.Dashing)
                 {
-                    Invoke(nameof(DodgeTest), 0.15f);
+                    // Invoke(nameof(DodgeTest), 0.15f);
                     PlayerStateMachine.ChangeState(PlayerStateMachine.States.Standard);
                 }
 
                 DashCurrentMoveSpeedMultiplier = DashInitialMoveSpeedMultiplier;
                 
-                /* Perfect time dash */
-                if (PowerUpController.PerfectDodgeLevel > 0)
-                {
-                    if (!DodgeFailed && !DodgeSuccessful)
-                    {
-                        if (IsZTargeting)
-                        {
-                            if (TargetedEnemy.EnemyStateMachine.EnemyCombatManager.IsAttacking)
-                                if (TargetedEnemy.EnemyStateMachine.BaseAttack.ProbablyGonnaHit)
-                                    if (!PlayerAttackManager.PlayerHealthManager.Invincible)
-                                    {
-                                        //Debug.Log("Player apanhou " + TargetedEnemy.EnemyStateMachine.EnemyCombatManager.LastTimeHitPlayerDuringAttack + " Dash começou aos " + DashStartTime);
-                                        //if (!TargetedEnemy.EnemyStateMachine.EnemyMeleeAttackManager.IsOnHalfOfAttackAnimation)
-                                        //Debug.Log("DESVIOU " + Time.time);
-                                        DodgeSuccessful = true;
-                                    }
-                                    else
-                                    {
-                                        DodgeFailed = true;
-                                        //Debug.Log("FALHA! Player invencivel aos " + Time.time);
-                                    }
-                                else
-                                {
-                                    DodgeFailed = true;
-                                    //Debug.Log("INIMIGO ERROU aos " + Time.time + "!");
-                                }
-                        }
-                    }
-                }
+                // /* Perfect time dash */
+                // if (PowerUpController.PerfectDodgeLevel > 0)
+                // {
+                //     if (!DodgeFailed && !DodgeSuccessful)
+                //     {
+                //         /*if (IsZTargeting)
+                //         {*/
+                //             if (TargetedEnemy.EnemyStateMachine.EnemyCombatManager.IsAttacking)
+                //                 if (TargetedEnemy.EnemyStateMachine.BaseAttack.ProbablyGonnaHit)
+                //                     if (!PlayerAttackManager.PlayerHealthManager.Invincible)
+                //                     {
+                //                         //Debug.Log("Player apanhou " + TargetedEnemy.EnemyStateMachine.EnemyCombatManager.LastTimeHitPlayerDuringAttack + " Dash começou aos " + DashStartTime);
+                //                         //if (!TargetedEnemy.EnemyStateMachine.EnemyMeleeAttackManager.IsOnHalfOfAttackAnimation)
+                //                         //Debug.Log("DESVIOU " + Time.time);
+                //                         DodgeSuccessful = true;
+                //                     }
+                //                     else
+                //                     {
+                //                         DodgeFailed = true;
+                //                         //Debug.Log("FALHA! Player invencivel aos " + Time.time);
+                //                     }
+                //                 else
+                //                 {
+                //                     DodgeFailed = true;
+                //                     //Debug.Log("INIMIGO ERROU aos " + Time.time + "!");
+                //                 }
+                //        /* } */
+                //    }
+                // }
                 /***/
             }
 
-            if (CanCounterAttack)
-            {
-                Debug.Log("DODGE SUCCESSFUL!");
-                FlurryRush.CanFlurryRush = true;
-                CanCounterAttack = false;
-            }
+            // if (CanCounterAttack)
+            // {
+            //     Debug.Log("DODGE SUCCESSFUL!");
+            //     FlurryRush.CanFlurryRush = true;
+            //     CanCounterAttack = false;
+            // }
         }
 
         private void DodgeTest()
@@ -340,35 +330,35 @@ namespace Player
         }
 
 
-        private EnemyMovementHandler GetZTargetEnemy()
-        {
-            NearbyEnemiesArray = Physics2D.OverlapCircleAll(transform.position, ZTargetingRadius, EnemyLayerMask);
-            var ShorterDistanceEnemyIndex = -1;
-            var ShorterDistanceEnemy = 100f;
-            var CurrentEnemyDistance = -1f;
-            for (var i = 0; i < NearbyEnemiesArray.Length; i++)
-            {
-                if (NearbyEnemiesArray[i] != null)
-                {
-                    CurrentEnemyDistance = NearbyEnemiesArray[i].Distance(PlayerCollider).distance;
-                    if (CurrentEnemyDistance < ShorterDistanceEnemy)
-                    {
-                        ShorterDistanceEnemy = CurrentEnemyDistance;
-                        ShorterDistanceEnemyIndex = i;
-                    }
-                }
-            }
-            
-            if(NearbyEnemiesArray.Length == 0) Debug.Log("Nenhum inimigo por perto");
-
-            if (ShorterDistanceEnemyIndex != -1)
-            {
-                var TargetEnemyBehavior = NearbyEnemiesArray[ShorterDistanceEnemyIndex].GetComponent<EnemyMovementHandler>();
-                return TargetEnemyBehavior;
-            }
-
-            return null;
-        }
+        // private EnemyMovementHandler GetZTargetEnemy()
+        // {
+        //     NearbyEnemiesArray = Physics2D.OverlapCircleAll(transform.position, ZTargetingRadius, EnemyLayerMask);
+        //     var ShorterDistanceEnemyIndex = -1;
+        //     var ShorterDistanceEnemy = 100f;
+        //     var CurrentEnemyDistance = -1f;
+        //     for (var i = 0; i < NearbyEnemiesArray.Length; i++)
+        //     {
+        //         if (NearbyEnemiesArray[i] != null)
+        //         {
+        //             CurrentEnemyDistance = NearbyEnemiesArray[i].Distance(PlayerCollider).distance;
+        //             if (CurrentEnemyDistance < ShorterDistanceEnemy)
+        //             {
+        //                 ShorterDistanceEnemy = CurrentEnemyDistance;
+        //                 ShorterDistanceEnemyIndex = i;
+        //             }
+        //         }
+        //     }
+        //     
+        //     if(NearbyEnemiesArray.Length == 0) Debug.Log("Nenhum inimigo por perto");
+        //
+        //     if (ShorterDistanceEnemyIndex != -1)
+        //     {
+        //         var TargetEnemyBehavior = NearbyEnemiesArray[ShorterDistanceEnemyIndex].GetComponent<EnemyMovementHandler>();
+        //         return TargetEnemyBehavior;
+        //     }
+        //
+        //     return null;
+        // }
 
         public void CreateDust()
         {

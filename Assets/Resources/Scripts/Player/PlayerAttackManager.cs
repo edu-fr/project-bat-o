@@ -34,16 +34,22 @@ namespace Player
         }
 
         private WeaponType CurrentWeaponType = WeaponType.Sword;
-        public float CurrentDamage;
-        public float CurrentKnockback;
-        public float CurrentAttackSpeed;
-        public float CurrentKnockbackDuration;
-        public float CurrentCriticalHitMultiplier;
-        public float CurrentCriticalHitChance;
-
-        public PowerUpController.Effects CurrentEffect = PowerUpController.Effects.None;
+        [SerializeField] private float CurrentDamage;
+        [SerializeField] private float CurrentKnockback;
+        [SerializeField] private float CurrentKnockbackDuration;
+        [SerializeField] private float CurrentAttackSpeed;
+        [SerializeField] private float CurrentCriticalHitMultiplier;
+        [SerializeField] private float CurrentCriticalHitChance;
+        [SerializeField] private float CurrentWeaponRange;
+        [SerializeField] private float DefaultAttackCooldown;
+        private float currentAttackCooldown;
+        
+        [SerializeField] private PowerUpController.Effects CurrentEffect = PowerUpController.Effects.None;
 
         private List<GameObject> EnemiesHit;
+        [SerializeField]
+        private LayerMask EnemyLayerMask;
+
 
         private Animator Animator;
         public PlayerHealthManager PlayerHealthManager;
@@ -76,46 +82,92 @@ namespace Player
         {
             EnemiesHit = new List<GameObject>();
             SetWeaponStats();
+            currentAttackCooldown = 0; 
         }
 
-        public void HandleAttack()
+        public void TryToAttack()
         {
-            Direction = GetAnimationDirection();
-            if (Input.GetKeyDown(KeyCode.Z))
+            if (currentAttackCooldown / CurrentAttackSpeed > 0)
             {
-                PlayerStateMachine.ChangeState(PlayerStateMachine.States.Attacking);
-                CurrentEffect = PowerUpActivator.GenerateEffect();
-                // switch (CurrentEffect)
-                // {
-                //     case (PowerUpController.Effects.Fire):
-                //         Renderer.material = FireMaterial;
-                //         break;
-                //
-                //     case (PowerUpController.Effects.Ice):
-                //         Renderer.material = IceMaterial;
-                //         break;
-                //
-                //     case (Player.PowerUpController.Effects.Thunder):
-                //         Renderer.material = ThunderMaterial;
-                //         break;
-                //
-                //     default:
-                //         Renderer.material = StandardMaterial;
-                //         break;
-                // }
-        
-                Attack();
+                currentAttackCooldown -= Time.deltaTime;
+            }
+            else
+            {
+                var closestEnemy = ThereIsEnemiesInRange();
+                if (closestEnemy == null) return;
+                LookToTheEnemy(closestEnemy.gameObject);
+                Attack(closestEnemy);
+                currentAttackCooldown = DefaultAttackCooldown;
             }
         }
+        
+        public void Attack(EnemyMovementHandler closestEnemy)
+        {
+            Direction = GetAnimationDirection();
 
-        public void Attack()
+            PlayerStateMachine.ChangeState(PlayerStateMachine.States.Attacking);
+            CurrentEffect = PowerUpActivator.GenerateEffect();
+            // switch (CurrentEffect)
+            // {
+            //     case (PowerUpController.Effects.Fire):
+            //         Renderer.material = FireMaterial;
+            //         break;
+            //
+            //     case (PowerUpController.Effects.Ice):
+            //         Renderer.material = IceMaterial;
+            //         break;
+            //
+            //     case (Player.PowerUpController.Effects.Thunder):
+            //         Renderer.material = ThunderMaterial;
+            //         break;
+            //
+            //     default:
+            //         Renderer.material = StandardMaterial;
+            //         break;
+            // }
+        
+            AnimateAttack();
+            
+        }
+
+        public void AnimateAttack()
         {
             // Set attack animation
-            Animator.speed = CurrentAttackSpeed * 0.2f;
+            Animator.speed = 2; // CurrentAttackSpeed * 0.2f;
             Animator.SetTrigger("Attack");
             Animator.SetBool("IsAttacking", true);
         }
 
+        public EnemyMovementHandler ThereIsEnemiesInRange()
+        {
+            var NearbyEnemiesArray = Physics2D.OverlapCircleAll(transform.position, CurrentWeaponRange, EnemyLayerMask);
+            var ShorterDistanceEnemyIndex = -1;
+            var ShorterDistanceEnemy = 100f;
+            var CurrentEnemyDistance = -1f;
+            for (var i = 0; i < NearbyEnemiesArray.Length; i++)
+            {
+                if (NearbyEnemiesArray[i] != null)
+                {
+                    CurrentEnemyDistance = NearbyEnemiesArray[i].Distance(PlayerStateMachine.PlayerController.PlayerCollider).distance;
+                    if (CurrentEnemyDistance < ShorterDistanceEnemy)
+                    {
+                        ShorterDistanceEnemy = CurrentEnemyDistance;
+                        ShorterDistanceEnemyIndex = i;
+                    }
+                }
+            }
+            
+            if(NearbyEnemiesArray.Length > 0) Debug.Log("Enemies close: " + NearbyEnemiesArray.Length);
+            
+            if (ShorterDistanceEnemyIndex != -1)
+            {
+                var TargetEnemyBehavior = NearbyEnemiesArray[ShorterDistanceEnemyIndex].GetComponent<EnemyMovementHandler>();
+                return TargetEnemyBehavior;
+            }
+            
+            return null;
+        }
+            
         public void FlurryAttack()
         {
             PlayerStateMachine.ChangeState(PlayerStateMachine.States.Attacking);
@@ -202,6 +254,18 @@ namespace Player
             return Directions.Down;
         }
 
+
+        private void LookToTheEnemy(GameObject enemy)
+        {
+            var enemyPosition = enemy.transform.position;
+            var playerPosition = transform.position;
+            var faceDirection = UtilitiesClass.Get8DirectionFromAngle(UtilitiesClass.GetAngleFromVectorFloat(new Vector3(enemyPosition.x - playerPosition.x, enemyPosition.y - playerPosition.y)));
+            Animator.SetFloat("MoveX", faceDirection.x);
+            Animator.SetFloat("MoveY", faceDirection.y);
+            PlayerStateMachine.PlayerController.lastMoveX = faceDirection.x;
+            PlayerStateMachine.PlayerController.lastMoveY = faceDirection.y;
+        }
+        
         private void SetWeaponStats()
         {
             switch (CurrentWeaponType)
@@ -222,6 +286,11 @@ namespace Player
             {
                 EnemiesHit.Clear();
             }
+        }
+        
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawWireSphere(transform.position, CurrentWeaponRange);
         }
     }
 }

@@ -5,6 +5,7 @@ namespace Resources.Scripts.Enemy
     public class EnemyHealthManager : MonoBehaviour
     {
         private EnemyStateMachine EnemyStateMachine;
+        private EnemyStatsManager EnemyStatsManager;
 
         private float MaxHealth { get; set; }
         public float CurrentHealth { get; private set; }
@@ -12,12 +13,12 @@ namespace Resources.Scripts.Enemy
         private void Awake()
         {
             EnemyStateMachine = GetComponent<EnemyStateMachine>();
+            EnemyStatsManager = GetComponent<EnemyStatsManager>();
         }
 
         private void Start()
         {
-            MaxHealth = 10;
-            CurrentHealth = MaxHealth;
+            CurrentHealth = EnemyStatsManager.MaxHP;
         }
 
         private void Update()

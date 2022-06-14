@@ -52,11 +52,12 @@ public class PlayerStateMachine : MonoBehaviour
         {
             case States.Standard:
                 PlayerController.HandleMovement();
-                PlayerAttackManager.HandleAttack();
-                if (FlurryRush.CanFlurryRush)
-                {
-                    ChangeState(States.CanRush);
-                }
+                if (PlayerController.Joystick.Horizontal == 0 && PlayerController.Joystick.Vertical == 0)
+                    PlayerAttackManager.TryToAttack();
+                // if (FlurryRush.CanFlurryRush)
+                // {
+                //     ChangeState(States.CanRush);
+                // }
                 break;
                 
             case States.Attacking:
@@ -69,7 +70,7 @@ public class PlayerStateMachine : MonoBehaviour
             
             case States.CanRush:
                 PlayerController.FaceDirection();
-                FlurryRush.RushHandler();
+                // FlurryRush.RushHandler();
                 break;
             
             case States.Rushing:
@@ -128,10 +129,10 @@ public class PlayerStateMachine : MonoBehaviour
                     FlurryRush.TimeStartLerping = Time.unscaledTime;
                     FlurryRush.hasStartedLerp = true;
                 }
-                if (FlurryRush.RushToEnemyPosition())
-                {
-                    FlurryRush.FlurryAttack();
-                }
+                // if (FlurryRush.RushToEnemyPosition())
+                // {
+                //     FlurryRush.FlurryAttack();
+                // }
                 break;
 
             case States.Paralyzed:
