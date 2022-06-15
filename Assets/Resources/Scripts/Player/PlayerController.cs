@@ -80,9 +80,6 @@ namespace Player
             PlayerAttackManager = GetComponent<PlayerAttackManager>();
             PlayerStateMachine = GetComponent<PlayerStateMachine>();
             PowerUpController = GetComponent<PowerUpController>();
-            // Z-targeting
-            // NearbyEnemiesArray = new Collider2D[MaxNumEnemiesNearby];
-            //
 
             // Flurry rush
             FlurryRush = GetComponent<FlurryRush>();
@@ -90,52 +87,21 @@ namespace Player
             Joystick = GameObject.FindGameObjectWithTag("Joystick").GetComponent<Joystick>();
         }
 
-        public void HandleMovement()
+        public void HandleMovement(float modifier)
         {
-            // if (IsZTargeting && TargetedEnemy == null) // Verify if the targeted enemy has died
-            //     IsZTargeting = false;
-            FaceDirection();
+            Walk(modifier);
             MovementAnimation();
-            // ZTargeting();
             Dash();
         }
 
-        public void FaceDirection()
+        private void Walk(float modifier)
         {
-            /* Face direction handler */
-            // if (IsZTargeting)
-            // {
-            //     var faceDirection = UtilitiesClass.Get8DirectionFromAngle(UtilitiesClass.GetAngleFromVectorFloat(
-            //         new Vector3(TargetedEnemy.transform.position.x - transform.position.x,
-            //             TargetedEnemy.transform.position.y - transform.position.y)));
-            //     Animator.SetFloat("MoveX", faceDirection.x);
-            //     Animator.SetFloat("MoveY", faceDirection.y);
-            //
-            //     lastMoveX = faceDirection.x;
-            //     lastMoveY = faceDirection.y;
-            // }
-            // else
-            // {
-            var horizontalMove = Joystick.Horizontal;
-            var verticalMove = Joystick.Vertical;
-            //
-            // if (horizontalMove != 0)
-            //     horizontalMove = horizontalMove > 0 ? 1 : -1;
-            //
-            // if (verticalMove != 0)
-            //     verticalMove = verticalMove > 0 ? 1 : -1;
-            //
-            Animator.SetFloat("MoveX", horizontalMove);
-            Animator.SetFloat("MoveY", verticalMove);
-
-            lastMoveX = Animator.GetFloat("LastMoveX");
-            lastMoveY = Animator.GetFloat("LastMoveY");
-         
-
-            SetFaceDirectionVariable(lastMoveX, lastMoveY);
-            /***/
+            var joystickDirection = Joystick.Direction;
+            var joystickValue = Joystick.HandleRange;
+            RigidBody.velocity = joystickDirection * (StandardMoveSpeed * modifier * joystickValue);
         }
 
+        
         private void SetFaceDirectionVariable(float x, float y)
         {
             x = x != 0 ? Mathf.Lerp(-1, 1, x) : 0;
@@ -169,71 +135,17 @@ namespace Player
 
         private void MovementAnimation()
         {
-            /* Movement animation handler */
-            if (PlayerStateMachine.State != PlayerStateMachine.States.Attacking /* && !IsZTargeting */)
-            {
-                if ((Joystick.Horizontal == 1 || Joystick.Horizontal == -1) &&
-                    (Joystick.Vertical == 1 || Joystick.Vertical == -1))
-                {
-                    lastMoveX = Joystick.Horizontal;
-                    lastMoveY = Joystick.Vertical;
-                }
-                else if (Joystick.Horizontal == 1 || Joystick.Horizontal == -1)
-                {
-                    lastMoveX = Joystick.Horizontal;
-                    lastMoveY = 0;
-                }
-                else if (Joystick.Vertical == 1 || Joystick.Vertical == -1)
-                {
-                    lastMoveX = 0;
-                    lastMoveY = Joystick.Vertical;
-                }
-            }
-
+            lastMoveX = Joystick.Horizontal != 0 ? Joystick.Horizontal : lastMoveX;
+            lastMoveY = Joystick.Vertical != 0 ? Joystick.Vertical : lastMoveY;
+            
+            Animator.SetFloat("MoveX", lastMoveX);
+            Animator.SetFloat("MoveY", lastMoveY);
+            
             Animator.SetFloat("LastMoveX", lastMoveX);
             Animator.SetFloat("LastMoveY", lastMoveY);
             /***/
+            SetFaceDirectionVariable(lastMoveX, lastMoveY);
         }
-
-
-        // private void ZTargeting()
-        // {
-        //     /* Z-targeting */
-        //     if (Input.GetKeyDown(KeyCode.C))
-        //     {
-        //         if (!IsZTargeting)
-        //         {
-        //             TargetedEnemy = GetZTargetEnemy();
-        //             if (TargetedEnemy != null)
-        //             {
-        //                 var enemyStateMachine = TargetedEnemy.GetComponent<EnemyStateMachine>();
-        //                 if (enemyStateMachine != null)
-        //                 {
-        //                     enemyStateMachine.IsTargeted = true;
-        //                 }
-        //
-        //                 IsZTargeting = true;
-        //             }
-        //         }
-        //     }
-        //
-        //     if (Input.GetKeyUp(KeyCode.C) && !CanCounterAttack && PlayerStateMachine.State != PlayerStateMachine.States.Dashing)
-        //     {
-        //         if (IsZTargeting && TargetedEnemy != null)
-        //         {
-        //             var enemyStateMachine = TargetedEnemy.GetComponent<EnemyStateMachine>();
-        //             if (enemyStateMachine != null)
-        //             {
-        //                 enemyStateMachine.IsTargeted = false;
-        //             }
-        //
-        //             IsZTargeting = false;
-        //             TargetedEnemy = null;
-        //         }
-        //     }
-        //
-        //     /**/
-        // }
 
         public void Dash()
         {
@@ -323,43 +235,8 @@ namespace Player
         {
             CanCounterAttack = (!DodgeFailed && DodgeSuccessful);
         }
-
-        public Vector3 GetPosition()
-        {
-            return transform.position;
-        }
-
-
-        // private EnemyMovementHandler GetZTargetEnemy()
-        // {
-        //     NearbyEnemiesArray = Physics2D.OverlapCircleAll(transform.position, ZTargetingRadius, EnemyLayerMask);
-        //     var ShorterDistanceEnemyIndex = -1;
-        //     var ShorterDistanceEnemy = 100f;
-        //     var CurrentEnemyDistance = -1f;
-        //     for (var i = 0; i < NearbyEnemiesArray.Length; i++)
-        //     {
-        //         if (NearbyEnemiesArray[i] != null)
-        //         {
-        //             CurrentEnemyDistance = NearbyEnemiesArray[i].Distance(PlayerCollider).distance;
-        //             if (CurrentEnemyDistance < ShorterDistanceEnemy)
-        //             {
-        //                 ShorterDistanceEnemy = CurrentEnemyDistance;
-        //                 ShorterDistanceEnemyIndex = i;
-        //             }
-        //         }
-        //     }
-        //     
-        //     if(NearbyEnemiesArray.Length == 0) Debug.Log("Nenhum inimigo por perto");
-        //
-        //     if (ShorterDistanceEnemyIndex != -1)
-        //     {
-        //         var TargetEnemyBehavior = NearbyEnemiesArray[ShorterDistanceEnemyIndex].GetComponent<EnemyMovementHandler>();
-        //         return TargetEnemyBehavior;
-        //     }
-        //
-        //     return null;
-        // }
-
+        
+        
         public void CreateDust()
         {
             ParticleSystem.VelocityOverLifetimeModule velocityOverLifetimeModule = Dust.velocityOverLifetime;

@@ -34,12 +34,6 @@ namespace Player
         }
 
         private WeaponType CurrentWeaponType = WeaponType.Sword;
-        [SerializeField] private float CurrentDamage;
-        [SerializeField] private float CurrentKnockback;
-        [SerializeField] private float CurrentKnockbackDuration;
-        [SerializeField] private float CurrentAttackSpeed;
-        [SerializeField] private float CurrentCriticalHitMultiplier;
-        [SerializeField] private float CurrentCriticalHitChance;
         [SerializeField] private float CurrentWeaponRange;
         [SerializeField] private float DefaultAttackCooldown;
         private float currentAttackCooldown;
@@ -49,8 +43,7 @@ namespace Player
         private List<GameObject> EnemiesHit;
         [SerializeField]
         private LayerMask EnemyLayerMask;
-
-
+        
         private Animator Animator;
         public PlayerHealthManager PlayerHealthManager;
         public PlayerStateMachine PlayerStateMachine;
@@ -81,13 +74,13 @@ namespace Player
         private void Start()
         {
             EnemiesHit = new List<GameObject>();
-            SetWeaponStats();
+            // SetWeaponStats();
             currentAttackCooldown = 0; 
         }
 
         public void TryToAttack()
         {
-            if (currentAttackCooldown / CurrentAttackSpeed > 0)
+            if (currentAttackCooldown / PlayerStatsController.AttackSpeed > 0)
             {
                 currentAttackCooldown -= Time.deltaTime;
             }
@@ -125,15 +118,13 @@ namespace Player
             //         Renderer.material = StandardMaterial;
             //         break;
             // }
-        
             AnimateAttack();
-            
         }
 
         public void AnimateAttack()
         {
             // Set attack animation
-            Animator.speed = 2; // CurrentAttackSpeed * 0.2f;
+            Animator.speed = 3; // CurrentAttackSpeed * 0.2f;
             Animator.SetTrigger("Attack");
             Animator.SetBool("IsAttacking", true);
         }
@@ -156,9 +147,7 @@ namespace Player
                     }
                 }
             }
-            
-            if(NearbyEnemiesArray.Length > 0) Debug.Log("Enemies close: " + NearbyEnemiesArray.Length);
-            
+
             if (ShorterDistanceEnemyIndex != -1)
             {
                 var TargetEnemyBehavior = NearbyEnemiesArray[ShorterDistanceEnemyIndex].GetComponent<EnemyMovementHandler>();
@@ -168,13 +157,13 @@ namespace Player
             return null;
         }
             
-        public void FlurryAttack()
-        {
-            PlayerStateMachine.ChangeState(PlayerStateMachine.States.Attacking);
-             Animator.speed = CurrentAttackSpeed * 0.2f;
-            Animator.SetTrigger("Attack");
-            Animator.SetBool("IsAttacking", true);
-        }
+        // public void FlurryAttack()
+        // {
+        //     PlayerStateMachine.ChangeState(PlayerStateMachine.States.Attacking);
+        //     Animator.speed = CurrentAttackSpeed * 0.2f;
+        //     Animator.SetTrigger("Attack");
+        //     Animator.SetBool("IsAttacking", true);
+        // }
 
         public void AttackEnd()
         {
@@ -195,10 +184,10 @@ namespace Player
                 Vector3 attackDirection = (enemy.transform.position - transform.position).normalized;
                 if (CriticalTest()) // critical hit
                     enemy.GetComponent<EnemyCombatManager>().TakeDamage(PlayerStatsController.PhysicalDamage * PlayerStatsController.CriticalDamage, attackDirection,
-                        CurrentAttackSpeed ,false, true, true, null);
+                        PlayerStatsController.AttackSpeed ,false, true, true, null);
                 else                // normal hit
                     enemy.GetComponent<EnemyCombatManager>().TakeDamage(PlayerStatsController.PhysicalDamage, attackDirection,
-                        CurrentAttackSpeed ,false, false, true, null);
+                        PlayerStatsController.AttackSpeed,false, false, true, null);
                 PowerUpActivator.ApplyEffectsOnEnemies(enemy, CurrentEffect);
             }
         }
@@ -262,23 +251,31 @@ namespace Player
             var faceDirection = UtilitiesClass.Get8DirectionFromAngle(UtilitiesClass.GetAngleFromVectorFloat(new Vector3(enemyPosition.x - playerPosition.x, enemyPosition.y - playerPosition.y)));
             Animator.SetFloat("MoveX", faceDirection.x);
             Animator.SetFloat("MoveY", faceDirection.y);
+            
+            Animator.SetFloat("LastMoveX", faceDirection.x);
+            Animator.SetFloat("LastMoveY", faceDirection.y);
+            
+            /* Necessary? */
             PlayerStateMachine.PlayerController.lastMoveX = faceDirection.x;
             PlayerStateMachine.PlayerController.lastMoveY = faceDirection.y;
+            
+            /* I need to set the face dir variable? */ 
+            
         }
         
-        private void SetWeaponStats()
-        {
-            switch (CurrentWeaponType)
-            {
-                default:
-
-                    break;
-                case (WeaponType.Sword):
-                    CurrentDamage = 34;
-                    CurrentAttackSpeed = 15f;
-                    break;
-            }
-        }
+        // private void SetWeaponStats()
+        // {
+        //     switch (CurrentWeaponType)
+        //     {
+        //         default:
+        //
+        //             break;
+        //         case (WeaponType.Sword):
+        //             CurrentDamage = 34;
+        //             CurrentAttackSpeed = 15f;
+        //             break;
+        //     }
+        // }
 
         private void ClearEnemiesHitList()
         {

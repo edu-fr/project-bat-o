@@ -30,6 +30,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -129,9 +130,9 @@ MonoBehaviour:
     type: 3}
   PrefabDamagePopup: {fileID: 5288669746408271298, guid: 592b06df424ea3c4f9c648348d1e08e0,
     type: 3}
-  ObjectDamage: 10
+  ObjectDamage: 2
   ObjectDamageType: 0
-  ObjectAttackSpeed: 30
+  ObjectAttackSpeed: 15
 --- !u!50 &8188518770400807223
 Rigidbody2D:
   serializedVersion: 4

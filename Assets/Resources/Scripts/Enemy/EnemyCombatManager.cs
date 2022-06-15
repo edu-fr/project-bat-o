@@ -12,14 +12,12 @@ namespace Resources.Scripts.Enemy
         private EnemyHealthManager EnemyHealthManager;
         private AudioManager AudioManager;
         private EnemyMovementHandler EnemyMovementHandler;
+        private EnemyStatsManager EnemyStatsManager;
         public BoxCollider2D BoxCollider2D { get; private set; }
         public Rigidbody2D Rigidbody2D { get; private set; } 
         
         public Transform PrefabDamagePopup;
-        
-        // Attack
-        public float MeleeDamage { private set; get; } = 20;
-        public float RangedDamage { private set; get; } = 15f;
+
         public bool IsAttacking;
 
         private void Awake()
@@ -28,14 +26,15 @@ namespace Resources.Scripts.Enemy
             EnemyHealthManager = GetComponent<EnemyHealthManager>();
             EnemyMovementHandler = GetComponent<EnemyMovementHandler>();
             Rigidbody2D = GetComponent<Rigidbody2D>();
+            EnemyStatsManager = GetComponent<EnemyStatsManager>();
         }
 
         public float TakeDamage(float damage, Vector3 attackDirection, float attackSpeed, bool isDot, bool isCriticalHit, bool showValue, Color? customColor)
         {
             // Make hit noise
             AudioManager.instance.Play("Hit enemy");
-            var knockBack = damage / 20; // arbitrary value
-            var knockBackDuration = knockBack / 17; // arbitrary value
+            var knockBack = damage / EnemyStatsManager.PhysicalDefense; // arbitrary value
+            var knockBackDuration = knockBack / (EnemyStatsManager.PhysicalDefense * 2); // arbitrary value
             
             // Knockback
             Rigidbody2D.AddForce(attackDirection * knockBack, ForceMode2D.Impulse);
@@ -55,7 +54,7 @@ namespace Resources.Scripts.Enemy
         private void OnCollisionStay2D(Collision2D other) // I will maintain that? 
         {
             if (!other.gameObject.CompareTag("Player")) return;
-            other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage((int)MeleeDamage, BaseAttack.DamageType.Physical);
+            other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage((int)EnemyStatsManager.PhysicalDamage, BaseAttack.DamageType.Physical);
         }
 
         private IEnumerator TakeKnockBack(float knockBackTime)

@@ -13,6 +13,11 @@ public class PlayerStatsController : MonoBehaviour
     private float BasePhysicalDamage = 40f;
 
     public float PhysicalDamage; // { get; private set; }
+
+    [SerializeField] 
+    private float BaseAttackSpeed = 40f;
+    public float AttackSpeed; // Divides the attack cooldown
+    
     [SerializeField] 
     private float BasePhysicalDefense = 20f;
     public float PhysicalDefense; // { get; private set; }
@@ -90,6 +95,11 @@ public class PlayerStatsController : MonoBehaviour
     {
         PhysicalDamage = (float) (BasePhysicalDamage * Math.Log(PowerUpController.AttackLevel + 2, 4.0)); // +2 for Log reasons
     }
+    
+    public void UpdateAttackSpeed()
+    {
+        AttackSpeed = (float) (BaseAttackSpeed * Math.Log(PowerUpController.AttackSpeedLevel + 2, 4.0)); // +2 for Log reasons
+    }   
     public void UpdatePhysicalDefense()
     {
         PhysicalDefense = (float) (BasePhysicalDefense * Math.Log(PowerUpController.PhysicalDefenseLevel + 2, 4.0)); // +2 for Log reasons
@@ -178,6 +188,7 @@ public class PlayerStatsController : MonoBehaviour
     public void UpdateAll()
     {
         UpdatePhysicalDamage();
+        UpdateAttackSpeed();
         UpdatePhysicalDefense();
         UpdateMagicalDefense();
         UpdateMaxHp();

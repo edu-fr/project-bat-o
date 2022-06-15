@@ -35,95 +35,36 @@ public class PlayerStateMachine : MonoBehaviour
     private float crowdControlTotalDuration;
     private float crowdControlCurrentTime;
 
-    // Start is called before the first frame update
     private void Awake()
     {
         PlayerController = GetComponent<PlayerController>();
         PlayerAttackManager = GetComponent<PlayerAttackManager>();
         FlurryRush = GetComponent<FlurryRush>();
     }
-
-    // Update is called once per frame
-    private void Update()
+    
+    private void FixedUpdate()
     {
         if (LevelManager.GameIsPaused) return; 
-        
+
         switch (State)
         {
             case States.Standard:
-                PlayerController.HandleMovement();
-                if (PlayerController.Joystick.Horizontal == 0 && PlayerController.Joystick.Vertical == 0)
+                PlayerController.HandleMovement(1f);
+                if (PlayerController.Joystick.Horizontal == 0 && PlayerController.Joystick.Vertical == 0) // If not moving
                     PlayerAttackManager.TryToAttack();
-                // if (FlurryRush.CanFlurryRush)
-                // {
-                //     ChangeState(States.CanRush);
-                // }
+                /***/
                 break;
-                
-            case States.Attacking:
 
+            case States.Attacking:
+           
                 break;
-            
+
             case States.Dashing:
                 PlayerController.Dash();
                 break;
-            
-            case States.CanRush:
-                PlayerController.FaceDirection();
-                // FlurryRush.RushHandler();
-                break;
-            
+
             case States.Rushing:
-                PlayerController.FaceDirection();
                 PlayerAttackManager.PlayerHealthManager.Invincible = true;
-                break;
-            
-            case States.Frozen:
-                
-                break;
-            
-            case States.Paralyzed:
-                
-                break; 
-            
-            case States.Petrified:
-                crowdControlCurrentTime += Time.deltaTime;
-                if (crowdControlCurrentTime >= crowdControlTotalDuration)
-                {
-                    ChangeState(States.Standard);
-                }
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        var joystickValue = PlayerController.Joystick.HandleRange ;
-        var joystickDirection = PlayerController.Joystick.Direction;
-        
-        switch (State)
-        {
-            case States.Standard:
-                /* Movement */
-                PlayerController.RigidBody.velocity = joystickDirection * (PlayerController.StandardMoveSpeed * joystickValue);
-                /***/
-                break;
-
-            case States.Attacking:
-                /* Movement */
-                PlayerController.RigidBody.velocity = joystickDirection * (PlayerController.StandardMoveSpeed * PlayerController.AttackingMoveSpeedMultiplier * joystickValue);
-                /***/
-                break;
-
-            case States.Dashing:
-                /* Movement */
-                PlayerController.RigidBody.velocity = joystickDirection * (PlayerController.StandardMoveSpeed * PlayerController.DashCurrentMoveSpeedMultiplier);
-                /***/
-                break;
-
-            case States.Rushing:
                 if (!FlurryRush.hasStartedLerp)
                 {
                     FlurryRush.TimeStartLerping = Time.unscaledTime;
@@ -136,15 +77,17 @@ public class PlayerStateMachine : MonoBehaviour
                 break;
 
             case States.Paralyzed:
-                PlayerController.RigidBody.velocity = Vector2.zero;
                 break;
 
             case States.Frozen:
-                PlayerController.RigidBody.velocity = Vector2.zero;
                 break;
             
             case States.Petrified:
-                PlayerController.RigidBody.velocity = Vector2.zero;
+                crowdControlCurrentTime += Time.deltaTime;
+                if (crowdControlCurrentTime >= crowdControlTotalDuration)
+                {
+                    ChangeState(States.Standard);
+                }
                 break;
         }
     }

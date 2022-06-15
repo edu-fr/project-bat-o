@@ -295,19 +295,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHP: 100
-  _physicalDamage: 50
+  _physicalDamage: 10
   _magicalDamage: 0
-  _physicalDefense: 2
+  _physicalDefense: 1
   _magicalDefense: 2
   _moveSpeed: 9
   _attackSpeed: 10
-  _attackPreparationTime: 0.2
-  _preparationWalkDistance: 0
+  _attackPreparationTime: 0.8
+  _preparationWalkDistance: 1
   _attackCooldown: 3
   _attackRecoveryTime: 0.5
   _distanceToAttack: 7
   _distanceToLosePlayerSight: 15
-  _expDropQuantity: 30
+  _expDropQuantity: 15
   _fieldOfViewValue: 65
   _fieldOfViewDistance: 3
   _areaOfEffect: 0

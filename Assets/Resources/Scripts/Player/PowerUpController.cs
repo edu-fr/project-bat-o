@@ -17,6 +17,7 @@ namespace Player
         // Stats
         public int HpLevel = 0;
         public int AttackLevel = 0;
+        public int AttackSpeedLevel = 0;
         public int PhysicalDefenseLevel = 0;
         public int MagicalDefenseLevel = 0;
         public int CriticalRateLevel = 0;
