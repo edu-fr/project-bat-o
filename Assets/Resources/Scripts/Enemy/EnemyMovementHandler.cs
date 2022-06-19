@@ -19,8 +19,8 @@ namespace Resources.Scripts.Enemy
         public float CurrentTimer = 0f;
 
         private float MaxTimer = 3f; // time to move to the next random spot
-        public float WalkingAroundSpeed { get; private set; } = 2; // walk speed
-        public float ChasingSpeed { get; private set; } = 3.5f; // chasing speed
+        public float WalkingAroundSpeed { get; private set; }// walk speed
+        public float ChasingSpeed { get; set; }
         public float DyingBurnedSpeed { get; private set; }= 4.5f; // running on fire speed
         private Vector3 HomePosition; // original position on the level
         [SerializeField]
@@ -74,6 +74,8 @@ namespace Resources.Scripts.Enemy
             FieldOfViewComponent.SetViewDistance(EnemyStats.FieldOfViewDistance);
             FieldOfViewComponent.SetMyMovementHandler(this);
             FieldOfViewComponent.SetOrigin(transform.position);
+            WalkingAroundSpeed = EnemyStats.MoveSpeed;
+            ChasingSpeed = EnemyStats.MoveSpeed * EnemyStats.ChasingSpeedMultiplier;
         }
 
         // Fixed Update its used to treat physics matters

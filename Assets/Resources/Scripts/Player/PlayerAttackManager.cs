@@ -89,12 +89,12 @@ namespace Player
                 var closestEnemy = ThereIsEnemiesInRange();
                 if (closestEnemy == null) return;
                 LookToTheEnemy(closestEnemy.gameObject);
-                Attack(closestEnemy);
+                Attack(closestEnemy.GetComponent<EnemyMovementHandler>());
                 currentAttackCooldown = DefaultAttackCooldown;
             }
         }
         
-        public void Attack(EnemyMovementHandler closestEnemy)
+        private void Attack(EnemyMovementHandler closestEnemy)
         {
             Direction = GetAnimationDirection();
 
@@ -129,32 +129,29 @@ namespace Player
             Animator.SetBool("IsAttacking", true);
         }
 
-        public EnemyMovementHandler ThereIsEnemiesInRange()
+        public GameObject ThereIsEnemiesInRange()
         {
-            var NearbyEnemiesArray = Physics2D.OverlapCircleAll(transform.position, CurrentWeaponRange, EnemyLayerMask);
+            var nearbyEnemies = new List<Collider2D>();
+            var filter = new ContactFilter2D();
+            filter.SetLayerMask(EnemyLayerMask);
+            Physics2D.OverlapCircle(transform.position, CurrentWeaponRange * 5, filter, nearbyEnemies);
             var ShorterDistanceEnemyIndex = -1;
             var ShorterDistanceEnemy = 100f;
             var CurrentEnemyDistance = -1f;
-            for (var i = 0; i < NearbyEnemiesArray.Length; i++)
+            for (var i = 0; i < nearbyEnemies.Count; i++)
             {
-                if (NearbyEnemiesArray[i] != null)
+                if (nearbyEnemies[i] == null) continue;
+                CurrentEnemyDistance = nearbyEnemies[i].Distance(PlayerStateMachine.PlayerController.PlayerCollider).distance;
+                if (CurrentEnemyDistance < ShorterDistanceEnemy)
                 {
-                    CurrentEnemyDistance = NearbyEnemiesArray[i].Distance(PlayerStateMachine.PlayerController.PlayerCollider).distance;
-                    if (CurrentEnemyDistance < ShorterDistanceEnemy)
-                    {
-                        ShorterDistanceEnemy = CurrentEnemyDistance;
-                        ShorterDistanceEnemyIndex = i;
-                    }
+                    ShorterDistanceEnemy = CurrentEnemyDistance;
+                    ShorterDistanceEnemyIndex = i;
                 }
             }
 
-            if (ShorterDistanceEnemyIndex != -1)
-            {
-                var TargetEnemyBehavior = NearbyEnemiesArray[ShorterDistanceEnemyIndex].GetComponent<EnemyMovementHandler>();
-                return TargetEnemyBehavior;
-            }
-            
-            return null;
+            if (ShorterDistanceEnemyIndex == -1) return null;
+            return nearbyEnemies[ShorterDistanceEnemyIndex].gameObject;
+
         }
             
         // public void FlurryAttack()

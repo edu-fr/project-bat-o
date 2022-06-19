@@ -16,6 +16,9 @@ namespace Resources.Scripts.Enemy
         public float MagicalDefense => _magicalDefense;
         [SerializeField] private float _moveSpeed;
         public float MoveSpeed => _moveSpeed;
+        [SerializeField] private float _chasingSpeedMultiplier;
+        public float ChasingSpeedMultiplier => _chasingSpeedMultiplier;
+        
         [SerializeField] private float _attackSpeed;
         public float AttackSpeed => _attackSpeed;
         [SerializeField] private float _attackPreparationTime;

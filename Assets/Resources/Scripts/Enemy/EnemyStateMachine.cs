@@ -115,13 +115,18 @@ namespace Resources.Scripts.Enemy
                         // If enemy is in a certain distance to the player
                         if (Vector2.Distance(transform.position, playerTransformPosition) < DistanceToAttack)
                         {
+                            EnemyMovementHandler.AiPath.maxSpeed = EnemyStatsManager.MoveSpeed / 3;
+
                             if (!BaseAttack.AttackOnCooldown)
                             {
+                                // Back chasing speed to normal
+                                EnemyMovementHandler.AiPath.maxSpeed = EnemyStatsManager.MoveSpeed * EnemyStatsManager.ChasingSpeedMultiplier;
+
                                 // Verify if there is nothing between the his body and the player
                                 var raycastHit2D = Physics2D.Raycast(enemyTransformPosition,  (playerTransformPosition - enemyTransformPosition).normalized, EnemyStatsManager.AttackSpeed, ObstaclesLayer);
                                 if (raycastHit2D.collider)
                                 {
-                                    DistanceToAttack = DistanceToAttack - DistanceToAttack/10;
+                                    DistanceToAttack -= DistanceToAttack/10;
                                     if (DistanceToAttack < AiPath.slowdownDistance)
                                         DistanceToAttack = EnemyStatsManager.DistanceToAttack;
                                 }
@@ -132,6 +137,12 @@ namespace Resources.Scripts.Enemy
                                     break;
                                 }
                             }
+                               
+                            
+                        }
+                        else
+                        {
+                            EnemyMovementHandler.AiPath.maxSpeed = EnemyStatsManager.MoveSpeed * EnemyStatsManager.ChasingSpeedMultiplier;
                         }
                         
                         // Return to Standard state
@@ -224,6 +235,7 @@ namespace Resources.Scripts.Enemy
                     EnemyMovementHandler.AiPath.maxSpeed = EnemyMovementHandler.WalkingAroundSpeed;
                     EnemyMovementHandler.AiDestinationSetter.target = EnemyMovementHandler.Target.transform;
                     EnemyMovementHandler.FieldOfViewComponent.gameObject.SetActive(true);
+                    EnemyMovementHandler.ChasingSpeed = EnemyStatsManager.MoveSpeed * EnemyStatsManager.ChasingSpeedMultiplier;
                     break;
 
                 case (States.Chasing):
@@ -370,7 +382,10 @@ namespace Resources.Scripts.Enemy
         private void OnDrawGizmos()
         {
             Gizmos.color = new Color(100, 0, 0, 0.1f);
-            Gizmos.DrawSphere(transform.position, DistanceToAttack/2);
+            Gizmos.DrawSphere(transform.position, DistanceToAttack);
+            // Gizmos.color = new Color(50, 50, 0, 0.1f);
+            // Gizmos.DrawSphere(transform.position, DistanceToLosePlayerSight);
+            
         }
     }
 }
