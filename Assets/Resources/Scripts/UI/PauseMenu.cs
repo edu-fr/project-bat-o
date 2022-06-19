@@ -9,26 +9,7 @@ namespace UI
     public class PauseMenu : MonoBehaviour
     {
         public GameObject PauseMenuUI;
-      
-        // Update is called once per frame
-        void Update()
-        {
-            // Player can't pause while in level up menu
-            if (LevelUpMenu.IsLevelingUp) return;
-            
-            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.KeypadEnter))
-            {
-                if (LevelManager.GameIsPaused)
-                {
-                    Resume();
-                }
-                else
-                {
-                    Pause();
-                }
-            }
-        }
-        
+
         public void Resume()
         {
             Time.timeScale = 1f;
@@ -47,9 +28,10 @@ namespace UI
             Application.Quit();
         }
 
-        private void Pause()
+        public void Pause()
         {
             PauseMenuUI.SetActive(true);
+            
             Time.timeScale = 0f;
             LevelManager.GameIsPaused = true;
         }
