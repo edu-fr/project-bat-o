@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Game;
+using Resources.Project.Runtime.Scripts.Player;
 using Resources.Scripts.Enemy.Attacks;
 using UnityEngine;
 

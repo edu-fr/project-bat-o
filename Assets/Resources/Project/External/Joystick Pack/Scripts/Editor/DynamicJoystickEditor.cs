@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+#if  UNITY_EDITOR
 using UnityEditor;
 
 [CustomEditor(typeof(DynamicJoystick))]
@@ -33,3 +35,5 @@ public class DynamicJoystickEditor : JoystickEditor
         EditorGUILayout.PropertyField(moveThreshold, new GUIContent("Move Threshold", "The distance away from the center input has to be before the joystick begins to move."));
     }
 }
+
+#endif

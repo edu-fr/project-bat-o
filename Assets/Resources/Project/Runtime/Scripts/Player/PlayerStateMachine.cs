@@ -1,6 +1,7 @@
 using System;
 using Game;
 using Player;
+using Resources.Project.Runtime.Scripts.Player;
 using UnityEngine;
 
 public class PlayerStateMachine : MonoBehaviour
@@ -57,12 +58,12 @@ public class PlayerStateMachine : MonoBehaviour
                 break;
 
             case States.Rushing:
-                PlayerAttackManager.PlayerHealthManager.Invincible = true;
-                if (!FlurryRush.hasStartedLerp)
-                {
-                    FlurryRush.TimeStartLerping = Time.unscaledTime;
-                    FlurryRush.hasStartedLerp = true;
-                }
+                // PlayerAttackManager.PlayerHealthManager.Invincible = true;
+                // if (!FlurryRush.hasStartedLerp)
+                // {
+                //     FlurryRush.TimeStartLerping = Time.unscaledTime;
+                //     FlurryRush.hasStartedLerp = true;
+                // }
                 // if (FlurryRush.RushToEnemyPosition())
                 // {
                 //     FlurryRush.FlurryAttack();

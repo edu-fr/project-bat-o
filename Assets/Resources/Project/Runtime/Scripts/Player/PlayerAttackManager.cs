@@ -25,10 +25,10 @@ namespace Player
             Sword
         }
 
-        private WeaponType CurrentWeaponType = WeaponType.Sword;
+        // private WeaponType CurrentWeaponType = WeaponType.Sword;
         [SerializeField] private float CurrentWeaponRange;
         [SerializeField] private float DefaultAttackCooldown;
-        private float currentAttackCooldown;
+        public float currentAttackCooldown { get; set; }
         
         [SerializeField] private PowerUpController.Effects CurrentEffect = PowerUpController.Effects.None;
 
@@ -80,18 +80,18 @@ namespace Player
             {
                 var closestEnemy = ThereIsEnemiesInRange();
                 if (closestEnemy == null) return;
-                LookToTheEnemy(closestEnemy.gameObject);
-                Attack(closestEnemy.GetComponent<EnemyMovementHandler>());
+                LookToTheEnemy(closestEnemy);
+                Attack();
                 currentAttackCooldown = DefaultAttackCooldown;
             }
         }
         
-        private void Attack(EnemyMovementHandler closestEnemy)
+        private void Attack()
         {
             Direction = GetAnimationDirection();
-
             PlayerStateMachine.ChangeState(PlayerStateMachine.States.Attacking);
             CurrentEffect = PowerUpActivator.GenerateEffect();
+            AnimateAttack();
             // switch (CurrentEffect)
             // {
             //     case (PowerUpController.Effects.Fire):
@@ -110,13 +110,13 @@ namespace Player
             //         Renderer.material = StandardMaterial;
             //         break;
             // }
-            AnimateAttack();
+            
         }
 
         public void AnimateAttack()
         {
             // Set attack animation
-            Animator.speed = 3; // CurrentAttackSpeed * 0.2f;
+            Animator.speed = 1; // CurrentAttackSpeed * 0.2f;
             Animator.SetTrigger("Attack");
             Animator.SetBool("IsAttacking", true);
         }

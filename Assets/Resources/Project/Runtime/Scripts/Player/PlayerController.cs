@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Player;
+using UnityEngine;
 
-namespace Player
+namespace Resources.Project.Runtime.Scripts.Player
 {
     public class PlayerController : MonoBehaviour
     {
@@ -95,6 +96,9 @@ namespace Player
             var joystickDirection = Joystick.Direction;
             var joystickValue = Joystick.HandleRange;
             RigidBody.velocity = joystickDirection * (StandardMoveSpeed * modifier * joystickValue);
+            
+            // Reset's attack cooldown
+            PlayerAttackManager.currentAttackCooldown = 0;
         }
 
         

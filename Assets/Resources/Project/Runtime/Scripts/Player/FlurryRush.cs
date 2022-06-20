@@ -3,32 +3,32 @@ using UnityEngine;
 
 public class FlurryRush : MonoBehaviour
 {
-    public PlayerController PlayerController;
-    public BoxCollider2D PlayerCollider;
-    public Rigidbody2D PlayerRigidBody;
-
-    public bool CanFlurryRush;
-    public Vector2 EnemyPosition;
-    public Vector2 PlayerEndDashPosition;
-    public float DistanceToEnemy;
-
-    [SerializeField]
-    private float TimeToStartRush = 2f;
-    private float CurrentTimeToStartRush;
-    public bool hasStartedLerp = false;
-
-    public bool isFlurryAttacking;
-
-    // LERP TIME
-    public float LerpTime;
-    public float TimeStartLerping; 
-
-    public bool DrawGizmos; 
+    // public PlayerController PlayerController;
+    // public BoxCollider2D PlayerCollider;
+    // public Rigidbody2D PlayerRigidBody;
+    //
+    // public bool CanFlurryRush;
+    // public Vector2 EnemyPosition;
+    // public Vector2 PlayerEndDashPosition;
+    // public float DistanceToEnemy;
+    //
+    // [SerializeField]
+    // private float TimeToStartRush = 2f;
+    // private float CurrentTimeToStartRush;
+    // public bool hasStartedLerp = false;
+    //
+    // public bool isFlurryAttacking;
+    //
+    // // LERP TIME
+    // public float LerpTime;
+    // public float TimeStartLerping; 
+    //
+    // public bool DrawGizmos; 
     private void Awake()
     {
-        PlayerController = GetComponent<PlayerController>();
-        PlayerRigidBody = GetComponent<Rigidbody2D>();
-        PlayerCollider = GetComponent<BoxCollider2D>();
+    //     PlayerController = GetComponent<PlayerController>();
+    //     PlayerRigidBody = GetComponent<Rigidbody2D>();
+    //     PlayerCollider = GetComponent<BoxCollider2D>();
     }
 
     // Start is called before the first frame update
@@ -103,9 +103,9 @@ public class FlurryRush : MonoBehaviour
     
     private void OnDrawGizmos()
     {
-        if (DrawGizmos)
-        {
-            Gizmos.DrawSphere(EnemyPosition, 0.2f);
-        }
+        // if (DrawGizmos)
+        // {
+        //     Gizmos.DrawSphere(EnemyPosition, 0.2f);
+        // }
     }
 }
