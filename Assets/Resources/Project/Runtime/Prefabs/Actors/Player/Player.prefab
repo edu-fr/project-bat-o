@@ -47,7 +47,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.03537309, y: -0.031836033}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -58,7 +58,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.25008464, y: 0.22886086}
+  m_Size: {x: 1.3045998, y: 0.48653126}
   m_EdgeRadius: 0
 --- !u!114 &1547983613
 MonoBehaviour:
@@ -5305,13 +5305,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de6e46098e12e4443b13b2f5563617e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentDamage: 0
-  CurrentKnockback: 0
-  CurrentAttackSpeed: 0
-  CurrentKnockbackDuration: 0
-  CurrentCriticalHitMultiplier: 2
-  CurrentCriticalHitChance: 30
   CurrentWeaponRange: 0
+  DefaultAttackCooldown: 0
   CurrentEffect: 3
   EnemyLayerMask:
     serializedVersion: 2
@@ -5384,6 +5379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HpLevel: 0
   AttackLevel: 0
+  AttackSpeedLevel: 0
   PhysicalDefenseLevel: 0
   MagicalDefenseLevel: 0
   CriticalRateLevel: 1
@@ -5407,19 +5403,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6439c14509f2b154abad06a9264e08f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerController: {fileID: 0}
-  PlayerCollider: {fileID: 0}
-  PlayerRigidBody: {fileID: 0}
-  CanFlurryRush: 0
-  EnemyPosition: {x: 0, y: 0}
-  PlayerEndDashPosition: {x: 0, y: 0}
-  DistanceToEnemy: 0
-  TimeToStartRush: 3
-  hasStartedLerp: 0
-  isFlurryAttacking: 0
-  LerpTime: 0.3
-  TimeStartLerping: 0
-  DrawGizmos: 0
 --- !u!114 &-1128968484826919403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5498,6 +5481,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BasePhysicalDamage: 4
   PhysicalDamage: 0
+  BaseAttackSpeed: 40
+  AttackSpeed: 0
   BasePhysicalDefense: 20
   PhysicalDefense: 0
   BaseMagicalDefense: 20
@@ -5570,7 +5555,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8021345283708634746}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
   m_Name: 

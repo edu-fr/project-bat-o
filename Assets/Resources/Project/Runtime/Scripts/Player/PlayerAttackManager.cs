@@ -28,6 +28,7 @@ namespace Player
         // private WeaponType CurrentWeaponType = WeaponType.Sword;
         [SerializeField] private float CurrentWeaponRange;
         [SerializeField] private float DefaultAttackCooldown;
+        [SerializeField] [Range(1f, 5f)] private float CurrentAttackSpeed;
         public float currentAttackCooldown { get; set; }
         
         [SerializeField] private PowerUpController.Effects CurrentEffect = PowerUpController.Effects.None;
@@ -116,7 +117,7 @@ namespace Player
         public void AnimateAttack()
         {
             // Set attack animation
-            Animator.speed = 1; // CurrentAttackSpeed * 0.2f;
+            Animator.speed = CurrentAttackSpeed; // CurrentAttackSpeed * 0.2f;
             Animator.SetTrigger("Attack");
             Animator.SetBool("IsAttacking", true);
         }

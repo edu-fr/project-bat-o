@@ -14,6 +14,10 @@ namespace Resources.Scripts.Enemy
         public float PhysicalDefense => _physicalDefense; // divides the knockback strengh and duration (duration * 2)
         [SerializeField] private float _magicalDefense;
         public float MagicalDefense => _magicalDefense;
+        
+        [SerializeField] [Range(1, 100)] private float _weight;
+        public float Weight => _weight;
+        
         [SerializeField] private float _moveSpeed;
         public float MoveSpeed => _moveSpeed;
         [SerializeField] private float _chasingSpeedMultiplier;

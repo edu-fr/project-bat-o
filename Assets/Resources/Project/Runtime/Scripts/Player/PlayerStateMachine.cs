@@ -51,7 +51,8 @@ public class PlayerStateMachine : MonoBehaviour
                 break;
 
             case States.Attacking:
-           
+                if (PlayerController.Joystick.Horizontal != 0 || PlayerController.Joystick.Vertical != 0)
+                    PlayerAttackManager.AttackEnd();
                 break;
 
             case States.Dashing:

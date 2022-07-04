@@ -274,13 +274,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 067d0f027880f01428674af158dcef14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DefaultMaterial: {fileID: 2100000, guid: 05ca7a78f0c9ccf46a428747630aa292, type: 2}
+  DefaultMaterial: {fileID: 2100000, guid: bb0085cdb6ce6f64a8808d60ea372b8d, type: 2}
   CurrentMaterial: {fileID: 2100000, guid: 05ca7a78f0c9ccf46a428747630aa292, type: 2}
   FlashMaterial: {fileID: 2100000, guid: 93729dd49b58a61438d5c2acee37878e, type: 2}
   BurnedMaterial: {fileID: 2100000, guid: 478fe359495af0742b7432b040a1ca38, type: 2}
   FrozenMaterial: {fileID: 2100000, guid: 46129f794c290cf4f8e7f405d0a945d1, type: 2}
   ParalyzedMaterial: {fileID: 2100000, guid: a544983478092fd4985c8aeaddb03fb7, type: 2}
-  TargetedMaterial: {fileID: 2100000, guid: 940276883867007469486ff9be41c2fb, type: 2}
+  PreparingAttackMaterial: {fileID: 2100000, guid: 940276883867007469486ff9be41c2fb,
+    type: 2}
   Renderer: {fileID: 773478135240995053}
 --- !u!114 &773478135240995069
 MonoBehaviour:
@@ -294,16 +295,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4e9af3b83a902f41a935dcdada20587, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHP: 100
+  _maxHP: 500
   _physicalDamage: 10
   _magicalDamage: 0
   _physicalDefense: 1
   _magicalDefense: 2
+  _weight: 10
   _moveSpeed: 3.5
   _chasingSpeedMultiplier: 1.3
   _attackSpeed: 8
-  _attackPreparationTime: 0.5
-  _preparationWalkDistance: 1.5
+  _attackPreparationTime: 1
+  _preparationWalkDistance: 1.2
   _attackCooldown: 3
   _attackRecoveryTime: 0.7
   _distanceToAttack: 1.5

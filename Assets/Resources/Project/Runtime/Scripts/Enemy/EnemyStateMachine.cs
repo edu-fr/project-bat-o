@@ -1,6 +1,7 @@
 using System.Collections;
 using Game;
 using Pathfinding;
+using Resources.Project.Runtime.Scripts.Enemy;
 using Resources.Project.Runtime.Scripts.Game;
 using Resources.Scripts.Enemy.Attacks;
 using Resources.Scripts.Objects;
@@ -234,18 +235,21 @@ namespace Resources.Scripts.Enemy
                     EnemyMovementHandler.AiDestinationSetter.target = EnemyMovementHandler.Target.transform;
                     EnemyMovementHandler.FieldOfViewComponent.gameObject.SetActive(true);
                     EnemyMovementHandler.ChasingSpeed = EnemyStatsManager.MoveSpeed * EnemyStatsManager.ChasingSpeedMultiplier;
+                    EnemyMaterialManager.SetToDefaultMaterial();
                     break;
 
                 case (States.Chasing):
                     // Making sure that it isn't frozen or paralyzed
                     IsFrozen = false;
                     IsParalyzed = false;
+                    
                     EnemyAnimationController.SetAnimationSpeedTo(1.2f);
                     IsWalkingAround = false;
                     EnemyMovementHandler.AiPath.maxSpeed = EnemyMovementHandler.ChasingSpeed;
                     EnemyMovementHandler.FieldOfViewComponent.gameObject.SetActive(false);
                     if(EnemyMovementHandler.TargetPlayer) EnemyMovementHandler.AiDestinationSetter.target = EnemyMovementHandler.TargetPlayer.transform;
                     AstarPath.active.Scan();
+                    EnemyMaterialManager.SetToDefaultMaterial();
                     break;
 
                 case (States.PreparingAttack):
@@ -256,6 +260,7 @@ namespace Resources.Scripts.Enemy
                     EnemyMovementHandler.AiPath.enabled = false;
                     EnemyMovementHandler.AiDestinationSetter.target = null;
                     EnemyAnimationController.SetFlipAndFaceDirection(PlayerDirection.x, PlayerDirection.y);
+                    EnemyMaterialManager.SetMaterial(EnemyMaterialManager.PreparingAttackMaterial);
                     break;
                 
                 case (States.Attacking):
@@ -281,6 +286,8 @@ namespace Resources.Scripts.Enemy
                     EnemyMovementHandler.RunFromThePlayer();
                     EnemyAnimationController.SetAnimationSpeedTo(1.5f);
                     EnemyMovementHandler.AiDestinationSetter.target = EnemyMovementHandler.Target.transform;
+                    
+                    EnemyMaterialManager.SetMaterial(EnemyMaterialManager.BurnedMaterial);
                     break;
                 
                 case (States.Frozen):
@@ -294,6 +301,7 @@ namespace Resources.Scripts.Enemy
                         EnemyMovementHandler.FieldOfViewComponent.gameObject.SetActive(false);
                     }
                     
+                    EnemyMaterialManager.SetMaterial(EnemyMaterialManager.FrozenMaterial);
                     break;
                 
                 case (States.Paralyzed):
@@ -307,21 +315,10 @@ namespace Resources.Scripts.Enemy
                         EnemyMovementHandler.FieldOfViewComponent.gameObject.SetActive(false);
                     }
                     
-                    break;
-                
-                case (States.BeenRushed):
-                    IsWalkingAround = false;
-                    IsBeenRushed = true;
-                    EnemyCombatManager.Rigidbody2D.velocity = Vector2.zero;
-                    EnemyAnimationController.SetAnimationSpeedTo(0);
-                    EnemyMovementHandler.AiPath.maxSpeed = 0;
-                    if (EnemyMovementHandler.FieldOfViewComponent.gameObject != null)
-                    {
-                        EnemyMovementHandler.FieldOfViewComponent.gameObject.SetActive(false);
-                    }
                     
+                    EnemyMaterialManager.SetMaterial(EnemyMaterialManager.ParalyzedMaterial);
                     break;
-                
+
                 case (States.Dying):
                     IsWalkingAround = false;
                     IsBeenRushed = false;
@@ -344,7 +341,7 @@ namespace Resources.Scripts.Enemy
                     
                     AudioManager.instance.Play("Final blow in the enemy");
                     Shadow.SetActive(false);
-                    Renderer.material = EnemyMaterialManager.DefaultMaterial;
+                    EnemyMaterialManager.SetToDefaultMaterial();
                     EnemyAnimationController.TriggerDieAnimation(); // Animation will trigger the death effect
                     break; 
             }

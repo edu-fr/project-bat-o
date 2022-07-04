@@ -1,6 +1,7 @@
+using Resources.Scripts.Enemy;
 using UnityEngine;
 
-namespace Resources.Scripts.Enemy
+namespace Resources.Project.Runtime.Scripts.Enemy
 {
     public class EnemyMaterialManager : MonoBehaviour
     {
@@ -12,10 +13,10 @@ namespace Resources.Scripts.Enemy
         public Material BurnedMaterial;
         public Material FrozenMaterial;
         public Material ParalyzedMaterial;
-        public Material TargetedMaterial;
+        public Material PreparingAttackMaterial;
         public Renderer Renderer;
 
-        void Start()
+        private void Start()
         {
             EnemyStateMachine = GetComponent<EnemyStateMachine>();
             // Current sprite material
@@ -23,39 +24,14 @@ namespace Resources.Scripts.Enemy
             CurrentMaterial = DefaultMaterial;
         }
 
-        // Update is called once per frame
-        void Update()
+        public void SetToDefaultMaterial()
         {
-            UpdateMaterial();
+            Renderer.material = DefaultMaterial;
         }
-        
-        private void UpdateMaterial()
+
+        public void SetMaterial(Material material)
         {
-            if (EnemyStateMachine.IsDying)
-            {
-                CurrentMaterial = DefaultMaterial;
-            }
-            else if (EnemyStateMachine.IsTargeted)
-            {
-                CurrentMaterial = TargetedMaterial;
-            } 
-            else if (EnemyStateMachine.IsOnFire)
-            {
-                CurrentMaterial = BurnedMaterial;
-            }
-            else if (EnemyStateMachine.IsFrozen)
-            {
-                CurrentMaterial = FrozenMaterial;
-            }
-            else if (EnemyStateMachine.IsParalyzed)
-            {
-                CurrentMaterial = ParalyzedMaterial;
-            }
-            else
-            {
-                CurrentMaterial = DefaultMaterial;
-            }
-            Renderer.material = CurrentMaterial;
+            Renderer.material = material;
         }
     }
 }

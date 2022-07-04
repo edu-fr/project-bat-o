@@ -33,19 +33,20 @@ namespace Resources.Scripts.Enemy
         {
             // Make hit noise
             AudioManager.instance.Play("Hit enemy");
-            var knockBack = damage / EnemyStatsManager.PhysicalDefense; // arbitrary value
-            var knockBackDuration = knockBack / (EnemyStatsManager.PhysicalDefense * 2); // arbitrary value
-            
+            var finalDamage = damage - EnemyStatsManager.PhysicalDefense; // arbitrary value
+            var knockBack = 100 / EnemyStatsManager.Weight; // arbitrary value
+            var knockBackDuration = 0.3f; // arbitrary value
             // Knockback
-            Rigidbody2D.AddForce(attackDirection * knockBack, ForceMode2D.Impulse);
-            StartCoroutine(TakeKnockBack(knockBackDuration));
-
+            if (knockBack > 5)
+            {
+                Rigidbody2D.AddForce(attackDirection * knockBack, ForceMode2D.Impulse);
+                StartCoroutine(TakeKnockBack(knockBackDuration));
+            }
             // CALCULATE DEFENSES, ETC
             if (showValue)
                 DamagePopup.Create(transform.position, (int) damage, attackDirection, PrefabDamagePopup, isCriticalHit, isDot, customColor);
             
             EnemyMovementHandler.AiPath.enabled = false;
-
             EnemyHealthManager.TakeDamage((int) damage);
             
             return damage;
@@ -59,8 +60,9 @@ namespace Resources.Scripts.Enemy
 
         private IEnumerator TakeKnockBack(float knockBackTime)
         {
+            EnemyMovementHandler.EnemyStateMachine.ChangeState(EnemyStateMachine.States.Standard);
             yield return new WaitForSeconds(knockBackTime);
-            EnemyMovementHandler.AiPath.enabled = true;
+            EnemyMovementHandler.EnemyStateMachine.ChangeState(EnemyStateMachine.States.Chasing);   
         }
     }
 }

@@ -21,18 +21,15 @@ namespace Resources.Scripts.Enemy
             CurrentHealth = EnemyStatsManager.MaxHP;
         }
 
-        private void Update()
+        public void TakeDamage(float damage)
         {
+            CurrentHealth -= damage;
+            
             // Verify if its alive
             if(!EnemyStateMachine.IsDying && GetCurrentHp() <= 0)
             {
                 EnemyStateMachine.ChangeState(EnemyStateMachine.States.Dying);
             }
-        }
-        
-        public void TakeDamage(float damage)
-        {
-            CurrentHealth -= damage;
         }
 
         private float GetCurrentHp()
