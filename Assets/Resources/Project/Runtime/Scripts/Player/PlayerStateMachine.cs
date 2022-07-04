@@ -1,6 +1,7 @@
 using System;
 using Game;
 using Player;
+using Resources.Project.Runtime.Scripts.Game;
 using Resources.Project.Runtime.Scripts.Player;
 using UnityEngine;
 

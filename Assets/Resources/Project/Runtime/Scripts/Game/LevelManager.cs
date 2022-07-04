@@ -1,8 +1,10 @@
-﻿using Player;
+﻿using Game;
+using Player;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
 
-namespace Game
+namespace Resources.Project.Runtime.Scripts.Game
 {
     public class LevelManager : MonoBehaviour
     {

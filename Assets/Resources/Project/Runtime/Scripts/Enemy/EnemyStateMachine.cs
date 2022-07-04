@@ -1,6 +1,7 @@
 using System.Collections;
 using Game;
 using Pathfinding;
+using Resources.Project.Runtime.Scripts.Game;
 using Resources.Scripts.Enemy.Attacks;
 using Resources.Scripts.Objects;
 using UnityEngine;

@@ -1,4 +1,5 @@
 using Game;
+using Resources.Project.Runtime.Scripts.Game;
 using UnityEngine;
 
 public class GameOverMenu : MonoBehaviour
