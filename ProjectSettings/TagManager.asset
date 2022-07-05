@@ -23,6 +23,7 @@ TagManager:
   - Loot Drop Parent
   - Projectile
   - Joystick
+  - EnemySpawn
   layers:
   - Default
   - TransparentFX

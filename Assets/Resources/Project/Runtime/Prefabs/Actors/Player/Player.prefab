@@ -47,7 +47,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.03537309, y: -0.031836033}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -58,7 +58,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.3045998, y: 0.48653126}
+  m_Size: {x: 0.25008464, y: 0.22886086}
   m_EdgeRadius: 0
 --- !u!114 &1547983613
 MonoBehaviour:
@@ -5238,18 +5238,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.006816864, y: -0.042827606}
+  m_Offset: {x: -0.018612862, y: -0.042827606}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.107142866}
-    oldSize: {x: 1.6363636, y: 1.2727273}
+    oldSize: {x: 2.25, y: 1.75}
     newSize: {x: 2.909091, y: 2.909091}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6297226, y: 0.33106232}
+  m_Size: {x: 0.68058205, y: 0.33106232}
   m_EdgeRadius: 0
 --- !u!114 &165267143053841269
 MonoBehaviour:
@@ -5305,8 +5305,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de6e46098e12e4443b13b2f5563617e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentWeaponRange: 0
-  DefaultAttackCooldown: 0
+  CurrentWeaponRange: 0.9
+  DefaultAttackCooldown: 0.4
+  CurrentAttackSpeed: 2.1
   CurrentEffect: 3
   EnemyLayerMask:
     serializedVersion: 2
@@ -5385,7 +5386,7 @@ MonoBehaviour:
   CriticalRateLevel: 1
   CriticalDamageLevel: 1
   EvasionLevel: 0
-  FireLevel: 1
+  FireLevel: 0
   IceLevel: 0
   ElectricLevel: 0
   LifeStealLevel: 0
@@ -5479,15 +5480,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77d3f583b9ff7d946811e2125d9aef47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BasePhysicalDamage: 4
+  BasePhysicalDamage: 20
   PhysicalDamage: 0
-  BaseAttackSpeed: 40
+  BaseAttackSpeed: 2
   AttackSpeed: 0
-  BasePhysicalDefense: 20
+  BasePhysicalDefense: 5
   PhysicalDefense: 0
   BaseMagicalDefense: 20
   MagicalDefense: 0
-  BaseMaxHp: 1000
+  BaseMaxHp: 100
   MaxHp: 0
   BaseEvasionRate: 5
   EvasionRate: 0
