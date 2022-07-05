@@ -35,7 +35,7 @@ namespace Resources.Scripts.Enemy
             AudioManager.instance.Play("Hit enemy");
             var finalDamage = damage - EnemyStatsManager.PhysicalDefense; // arbitrary value
             var knockBack = 100 / EnemyStatsManager.Weight; // arbitrary value
-            var knockBackDuration = 0.3f; // arbitrary value
+            var knockBackDuration = 0.7f; // arbitrary value
             // Knockback
             if (knockBack > 5)
             {
@@ -60,9 +60,9 @@ namespace Resources.Scripts.Enemy
 
         private IEnumerator TakeKnockBack(float knockBackTime)
         {
-            EnemyMovementHandler.EnemyStateMachine.ChangeState(EnemyStateMachine.States.Standard);
+            EnemyMovementHandler.EnemyStateMachine.ChangeState(EnemyStateMachine.States.TakingKnockBack);
             yield return new WaitForSeconds(knockBackTime);
-            EnemyMovementHandler.EnemyStateMachine.ChangeState(EnemyStateMachine.States.Chasing);   
+            EnemyMovementHandler.EnemyStateMachine.ChangeState(EnemyStateMachine.States.Chasing);
         }
     }
 }

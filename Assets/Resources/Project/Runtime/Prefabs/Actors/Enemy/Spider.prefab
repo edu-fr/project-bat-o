@@ -117,7 +117,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 8
+  m_LinearDrag: 10
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -261,7 +261,7 @@ MonoBehaviour:
   Shadow: {fileID: 5147232911927614376}
   ObstaclesLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
 --- !u!114 &773478135240995062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,15 +303,15 @@ MonoBehaviour:
   _weight: 10
   _moveSpeed: 3.5
   _chasingSpeedMultiplier: 1.3
-  _attackSpeed: 8
-  _attackPreparationTime: 1
-  _preparationWalkDistance: 1.2
-  _attackCooldown: 3
+  _attackSpeed: 12
+  _attackPreparationTime: 0.5
+  _preparationWalkDistance: 1
+  _attackCooldown: 2.5
   _attackRecoveryTime: 0.7
-  _distanceToAttack: 1.5
+  _distanceToAttack: 2
   _distanceToLosePlayerSight: 5
   _expDropQuantity: 15
-  _fieldOfViewValue: 65
+  _fieldOfViewValue: 180
   _fieldOfViewDistance: 3
   _areaOfEffect: 0
   _attackRange: 0

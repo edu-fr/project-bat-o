@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Game;
 using Pathfinding;
@@ -15,6 +16,7 @@ namespace Resources.Scripts.Enemy
         {
             Standard,
             Chasing,
+            TakingKnockBack,
             PreparingAttack,
             Attacking,
             DyingBurned,
@@ -112,21 +114,24 @@ namespace Resources.Scripts.Enemy
                         EnemyAnimationController.AnimateMovement(playerTransformPosition.x - enemyTransformPosition.x, playerTransformPosition.y - enemyTransformPosition.y);
 
                         // If enemy is in a certain distance to the player
-                        if (Vector2.Distance(transform.position, playerTransformPosition) < DistanceToAttack)
+                        var distanceToThePlayer = Vector2.Distance(enemyTransformPosition, playerTransformPosition);
+                        if (distanceToThePlayer < DistanceToAttack)
                         {
-                            EnemyMovementHandler.AiPath.maxSpeed = EnemyStatsManager.MoveSpeed / 3;
+                            EnemyMovementHandler.AiPath.maxSpeed = EnemyStatsManager.MoveSpeed / 5;
+                            EnemyAnimationController.SetAnimationSpeedTo(0.3f);
 
                             if (!BaseAttack.AttackOnCooldown)
                             {
                                 // Back chasing speed to normal
                                 EnemyMovementHandler.AiPath.maxSpeed = EnemyStatsManager.MoveSpeed * EnemyStatsManager.ChasingSpeedMultiplier;
 
-                                // Verify if there is nothing between the his body and the player
-                                var raycastHit2D = Physics2D.Raycast(enemyTransformPosition,  (playerTransformPosition - enemyTransformPosition).normalized, EnemyStatsManager.AttackSpeed, ObstaclesLayer);
-                                if (raycastHit2D.collider)
+                                // Verify if there is nothing between the his body and the player 
+                                var raycastHit2D = Physics2D.Raycast(enemyTransformPosition,  (playerTransformPosition - enemyTransformPosition).normalized, distanceToThePlayer, ObstaclesLayer);
+                                if (raycastHit2D.collider && !raycastHit2D.collider.CompareTag("Player"))
                                 {
-                                    DistanceToAttack -= DistanceToAttack/10;
-                                    if (DistanceToAttack < AiPath.slowdownDistance)
+                                    print("Collider: " + raycastHit2D.collider.gameObject.name);
+                                    DistanceToAttack -= DistanceToAttack/10; // Shrink distance to the player to keep chasing 
+                                    if (DistanceToAttack < EnemyStatsManager.DistanceToAttack / 2) // Reset if get to this point
                                         DistanceToAttack = EnemyStatsManager.DistanceToAttack;
                                 }
                                 else
@@ -154,6 +159,11 @@ namespace Resources.Scripts.Enemy
                     {
                         ChangeState(States.Standard);
                     }
+                    break;
+                
+                case States.TakingKnockBack:
+                    
+                    
                     break;
 
                 case States.PreparingAttack:
@@ -213,7 +223,9 @@ namespace Resources.Scripts.Enemy
                 
                 case States.Dying:
                     
-                    break; 
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
     
@@ -243,13 +255,25 @@ namespace Resources.Scripts.Enemy
                     IsFrozen = false;
                     IsParalyzed = false;
                     
+                    if(EnemyMovementHandler.TargetPlayer) 
+                        EnemyMovementHandler.AiDestinationSetter.target = EnemyMovementHandler.TargetPlayer.transform;
+                    else 
+                        ChangeState(States.Standard);
+                    
+                    EnemyMovementHandler.AiPath.enabled = true;
                     EnemyAnimationController.SetAnimationSpeedTo(1.2f);
                     IsWalkingAround = false;
                     EnemyMovementHandler.AiPath.maxSpeed = EnemyMovementHandler.ChasingSpeed;
                     EnemyMovementHandler.FieldOfViewComponent.gameObject.SetActive(false);
-                    if(EnemyMovementHandler.TargetPlayer) EnemyMovementHandler.AiDestinationSetter.target = EnemyMovementHandler.TargetPlayer.transform;
                     AstarPath.active.Scan();
                     EnemyMaterialManager.SetToDefaultMaterial();
+                    break;
+                
+                case (States.TakingKnockBack):
+                    EnemyAnimationController.StopMoving();
+                    IsWalkingAround = false;
+                    EnemyMovementHandler.AiPath.maxSpeed = 0f;
+                    EnemyMovementHandler.AiPath.enabled = false;
                     break;
 
                 case (States.PreparingAttack):
@@ -261,6 +285,7 @@ namespace Resources.Scripts.Enemy
                     EnemyMovementHandler.AiDestinationSetter.target = null;
                     EnemyAnimationController.SetFlipAndFaceDirection(PlayerDirection.x, PlayerDirection.y);
                     EnemyMaterialManager.SetMaterial(EnemyMaterialManager.PreparingAttackMaterial);
+                    AttackPreparationCurrentTime = 0f;
                     break;
                 
                 case (States.Attacking):
