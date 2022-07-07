@@ -1,4 +1,5 @@
-﻿using Game;
+﻿using System;
+using Game;
 using Player;
 using UnityEngine;
 using UnityEngine.Analytics;
@@ -8,7 +9,8 @@ namespace Resources.Project.Runtime.Scripts.Game
 {
     public class LevelManager : MonoBehaviour
     {
-        [SerializeField] private string NextScene;
+        [SerializeField] private LevelBuilder levelBuilder;
+        public LevelInfo LevelInfo;
         
         private GameObject Player;
         private Vector2 LevelStartingPoint;
@@ -19,6 +21,11 @@ namespace Resources.Project.Runtime.Scripts.Game
         private RoadblockController RoadblockController;
         
         public int EnemiesRemaining { get; set; }
+
+        private void Awake()
+        {
+            levelBuilder.BuildLevel(LevelInfo);
+        }
 
         private void Start()
         {
@@ -58,7 +65,7 @@ namespace Resources.Project.Runtime.Scripts.Game
         
         public void GoToNextLevel()
         {
-            SceneManager.LoadScene(NextScene);
+            throw new NotImplementedException();
         }
     }
 }

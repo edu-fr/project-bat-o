@@ -11,6 +11,7 @@ namespace Resources.Project.Runtime.Scripts.Game
         public Tile floorTile;
         public List<Transform> objectsPrefabsList;
         public List<Transform> enemiesPrefabsList;
+        public float seed;
     }
     
 }

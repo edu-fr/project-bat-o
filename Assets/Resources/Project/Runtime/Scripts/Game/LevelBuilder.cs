@@ -1,23 +1,36 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
-public class LevelBuilder : MonoBehaviour
+namespace Resources.Project.Runtime.Scripts.Game
 {
-    
-
-    private void BuildFloor()
+    public class LevelBuilder : MonoBehaviour
     {
-        
-    }
+        [SerializeField] private Tilemap gridWalkable;
+        [SerializeField] private GameObject worldObjectsWalkable;
+        [SerializeField] private GameObject worldObjectsObstacle;
+        [SerializeField] private GameObject enemiesParent;
 
-    private void BuildObjects()
-    {
-        
-    }
+        public void BuildLevel(LevelInfo levelInfo)
+        {
+            BuildFloor(levelInfo.floorTile);
+            BuildObjects(levelInfo.objectsPrefabsList, levelInfo.seed);
+            SpawnEnemies(levelInfo.enemiesPrefabsList, levelInfo.seed);
+        }
 
-    private void SpawnEnemies()
-    {
-        
+        private void BuildFloor(Tile floorTile)
+        {
+            gridWalkable.FloodFill(gridWalkable.origin, floorTile);
+        }
+
+        private void BuildObjects(List<Transform> objectsPrefabsList, float seed)
+        {
+        }
+
+
+        private void SpawnEnemies(List<Transform> enemiesPrefabsList, float seed)
+        {
+            
+        }
     }
 }
