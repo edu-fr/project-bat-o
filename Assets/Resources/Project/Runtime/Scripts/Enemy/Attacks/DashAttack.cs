@@ -65,11 +65,11 @@ namespace Resources.Scripts.Enemy.Attacks
                     playerDirection, 3.5f, PlayerLayer);
 
             
-            Debug.DrawRay(new Vector2(transform.position.x + EnemyMovementHandler.BoxCollider2D.size.x/2, transform.position.y), playerDirection * EnemyStatsManager.AttackSpeed, Color.red, 2);
-            Debug.DrawRay(new Vector2(transform.position.x - EnemyMovementHandler.BoxCollider2D.size.x/2, transform.position.y), playerDirection * EnemyStatsManager.AttackSpeed, Color.red, 2);
-            Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + EnemyMovementHandler.BoxCollider2D.size.y/2), playerDirection * EnemyStatsManager.AttackSpeed, Color.red, 2);
-            Debug.DrawRay(new Vector2(transform.position.x, transform.position.y - EnemyMovementHandler.BoxCollider2D.size.y/2), playerDirection * EnemyStatsManager.AttackSpeed, Color.red, 2);
-            
+            // Debug.DrawRay(new Vector2(transform.position.x + EnemyMovementHandler.BoxCollider2D.size.x/2, transform.position.y), playerDirection * EnemyStatsManager.AttackSpeed, Color.red, 2);
+            // Debug.DrawRay(new Vector2(transform.position.x - EnemyMovementHandler.BoxCollider2D.size.x/2, transform.position.y), playerDirection * EnemyStatsManager.AttackSpeed, Color.red, 2);
+            // Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + EnemyMovementHandler.BoxCollider2D.size.y/2), playerDirection * EnemyStatsManager.AttackSpeed, Color.red, 2);
+            // Debug.DrawRay(new Vector2(transform.position.x, transform.position.y - EnemyMovementHandler.BoxCollider2D.size.y/2), playerDirection * EnemyStatsManager.AttackSpeed, Color.red, 2);
+         
             return (raycastHit2DRight.rigidbody != null || raycastHit2DLeft.rigidbody != null ||
                     raycastHit2DUp.rigidbody != null || raycastHit2DDown.rigidbody != null);
         }

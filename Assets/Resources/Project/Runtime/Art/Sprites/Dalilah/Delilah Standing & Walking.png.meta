@@ -264,7 +264,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 8192
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -276,6 +276,54 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
     maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
@@ -1690,7 +1738,7 @@ TextureImporter:
     nameFileIdTable:
       Delilah_Standing_Left_2: -2515487770370172328
       Delilah_Standing_Up_Left_2: 2520850030657979415
-      Delilah_Walking_Down_Right_4: -7034900978725729114
+      Delilah_Walking_Down_Right_2: -3883202641112290910
       Delilah_Standing_Down_Left_3: -6427861213100617759
       Delilah_Standing_Left_3: -1513050227664872324
       Delilah_Walking_Right_3: 8069039299312588914
@@ -1745,15 +1793,15 @@ TextureImporter:
       Delilah_Walking_Down_3: 3464116908647055133
       Delilah_Standing_Up_Right_1: -1485788117865621760
       Delilah_Standing_Right_1: -5412712182983886387
+      Delilah_Walking_Down_Right_4: -7034900978725729114
+      Delilah_Walking_Right_5: 1503175276089058213
       Delilah_Standing_Up_3: -8672532225478366873
       Delilah_Walking_Up_Right_2: -4638251034138187402
-      Delilah_Walking_Right_5: 1503175276089058213
-      Delilah_Walking_Left_4: 8669409393990248849
       Delilah_Standing_Down_Left_1: -4599926664433949108
-      Delilah_Walking_Up_Right_4: -3331847220089366807
-      Delilah_Standing_Down_1: 1569878083706319949
-      Delilah_Walking_Down_Right_2: -3883202641112290910
       Delilah_Walking_Up_Right_1: 3292663013248692029
+      Delilah_Walking_Left_4: 8669409393990248849
+      Delilah_Standing_Down_1: 1569878083706319949
+      Delilah_Walking_Up_Right_4: -3331847220089366807
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

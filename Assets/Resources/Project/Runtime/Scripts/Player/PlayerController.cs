@@ -1,4 +1,5 @@
 ﻿using Player;
+using Unity.Jobs.LowLevel.Unsafe;
 using UnityEngine;
 
 namespace Resources.Project.Runtime.Scripts.Player
@@ -96,7 +97,6 @@ namespace Resources.Project.Runtime.Scripts.Player
             var joystickDirection = Joystick.Direction;
             var joystickValue = Joystick.HandleRange;
             RigidBody.velocity = joystickDirection * (StandardMoveSpeed * modifier * joystickValue);
-            
             // Reset's attack cooldown
             PlayerAttackManager.currentAttackCooldown = 0;
         }
@@ -138,8 +138,8 @@ namespace Resources.Project.Runtime.Scripts.Player
             lastMoveX = Joystick.Horizontal != 0 ? Joystick.Horizontal : lastMoveX;
             lastMoveY = Joystick.Vertical != 0 ? Joystick.Vertical : lastMoveY;
             
-            Animator.SetFloat("MoveX", lastMoveX);
-            Animator.SetFloat("MoveY", lastMoveY);
+            Animator.SetFloat("MoveX", Joystick.Direction.x);
+            Animator.SetFloat("MoveY", Joystick.Direction.y);
             
             Animator.SetFloat("LastMoveX", lastMoveX);
             Animator.SetFloat("LastMoveY", lastMoveY);

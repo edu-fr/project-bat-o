@@ -277,6 +277,7 @@ namespace Resources.Scripts.Enemy
                     break;
 
                 case (States.PreparingAttack):
+                    if (EnemyMovementHandler.Rigidbody.bodyType == RigidbodyType2D.Static) return; // if it's dying
                     EnemyAnimationController.StopMoving();
                     IsWalkingAround = false;
                     EnemyMovementHandler.Rigidbody.velocity = Vector2.zero;
@@ -289,6 +290,7 @@ namespace Resources.Scripts.Enemy
                     break;
                 
                 case (States.Attacking):
+                    if (EnemyMovementHandler.Rigidbody.bodyType == RigidbodyType2D.Static) return; // if it's dying
                     IsWalkingAround = false;
                     EnemyMovementHandler.Rigidbody.velocity = Vector2.zero;
                     EnemyMovementHandler.FieldOfViewComponent.gameObject.SetActive(false);
@@ -355,7 +357,9 @@ namespace Resources.Scripts.Enemy
                     IsOnFire = false;
                     IsPrimaryTarget = false;
                     EnemyCombatManager.Rigidbody2D.velocity = Vector2.zero;
+                    EnemyCombatManager.Rigidbody2D.bodyType = RigidbodyType2D.Static;
                     EnemyAnimationController.SetAnimationSpeedTo(1);
+                    EnemyMovementHandler.AiPath.canMove = false;
                     EnemyMovementHandler.AiPath.maxSpeed = 0;
                     EnemyMovementHandler.BoxCollider2D.enabled = false;
                     if (EnemyMovementHandler.FieldOfViewComponent.gameObject != null)
