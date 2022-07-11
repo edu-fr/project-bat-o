@@ -1,7 +1,8 @@
+using Resources.Project.Runtime.Scripts.Player;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Resources.Scripts.Objects
+namespace Resources.Project.Runtime.Scripts.Objects
 {
     public class LootScript : MonoBehaviour
     {

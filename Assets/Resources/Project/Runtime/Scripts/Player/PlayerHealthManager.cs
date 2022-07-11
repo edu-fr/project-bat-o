@@ -1,10 +1,9 @@
 ﻿using System.Collections;
-using Game;
-using Resources.Project.Runtime.Scripts.Player;
-using Resources.Scripts.Enemy.Attacks;
+using Resources.Project.Runtime.Scripts.Enemy.Attacks;
+using Resources.Project.Runtime.Scripts.Game;
 using UnityEngine;
 
-namespace Player
+namespace Resources.Project.Runtime.Scripts.Player
 {
     public class PlayerHealthManager : MonoBehaviour
     {
@@ -26,8 +25,6 @@ namespace Player
         {
             Renderer = GetComponent<Renderer>();
             DefaultMaterial = Renderer.material;
-            PlayerController = GetComponent<PlayerController>();
-            PlayerStatsController = GetComponent<PlayerStatsController>();
         }
 
         private void Start()
@@ -35,12 +32,6 @@ namespace Player
             MaxHealth = PlayerStatsController.MaxHp;
             CurrentHealth = MaxHealth;
             
-        }
-
-        private void Update()
-        {
-            // Avoid less then 0 and more than max hp
-            CurrentHealth = CurrentHealth > MaxHealth ? MaxHealth : CurrentHealth < 0 ? 0 : CurrentHealth;
         }
 
         public void TakeDamage(float damage, BaseAttack.DamageType damageType)
@@ -66,9 +57,10 @@ namespace Player
 
             // Lose HP
             CurrentHealth -= damage;
+            CurrentHealth = CurrentHealth > MaxHealth ? MaxHealth : CurrentHealth < 0 ? 0 : CurrentHealth;
 
             HealthChanged?.Invoke(CurrentHealth, MaxHealth);
-
+            
             StartCoroutine(FlashSprite());
         }
 

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Player
+namespace Resources.Project.Runtime.Scripts.Player
 {
     public class PowerUpController : MonoBehaviour
     {

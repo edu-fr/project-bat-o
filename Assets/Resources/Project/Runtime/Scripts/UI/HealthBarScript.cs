@@ -1,9 +1,9 @@
-﻿using Player;
+﻿using Resources.Project.Runtime.Scripts.Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI
+namespace Resources.Project.Runtime.Scripts.UI
 {
     public class HealthBarScript : MonoBehaviour
     {

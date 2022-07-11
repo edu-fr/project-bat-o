@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace UI
+namespace Resources.Project.Runtime.Scripts.UI
 {
    public class LootPopup : MonoBehaviour
    {

@@ -1,29 +1,32 @@
-using Player;
+using Resources.Project.Runtime.Scripts.Enemy.Attacks;
+using Resources.Project.Runtime.Scripts.Player;
 using Resources.Scripts.Enemy;
-using Resources.Scripts.Enemy.Attacks;
 using UnityEngine;
 
-public class ObjectDamageScript : MonoBehaviour
+namespace Resources.Project.Runtime.Scripts.Objects
 {
-    public Collider2D ObjectCollider2D;
-    public Transform PrefabDamagePopup;
-    [SerializeField]
-    private float ObjectDamage;
-
-    [SerializeField] private BaseAttack.DamageType ObjectDamageType; 
-    [SerializeField]
-    private float ObjectAttackSpeed; // the bigger, the less time the attacker is invulnerable
-    
-    private void OnCollisionEnter2D(Collision2D other)
+    public class ObjectDamageScript : MonoBehaviour
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        public Collider2D ObjectCollider2D;
+        public Transform PrefabDamagePopup;
+        [SerializeField]
+        private float ObjectDamage;
+
+        [SerializeField] private BaseAttack.DamageType ObjectDamageType; 
+        [SerializeField]
+        private float ObjectAttackSpeed; // the bigger, the less time the attacker is invulnerable
+    
+        private void OnCollisionEnter2D(Collision2D other)
         {
-            var damageTakenByEnemy = other.gameObject.GetComponent<EnemyCombatManager>().TakeDamage(ObjectDamage,
-                other.transform.position - transform.position, 25, false, false, true, Color.green);
-        }
-        else if (other.gameObject.CompareTag("Player"))
-        {
-            other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage(ObjectDamage, ObjectDamageType);
+            if (other.gameObject.CompareTag("Enemy"))
+            {
+                var damageTakenByEnemy = other.gameObject.GetComponent<EnemyCombatManager>().TakeDamage(ObjectDamage,
+                    other.transform.position - transform.position, 25, false, false, true, Color.green);
+            }
+            else if (other.gameObject.CompareTag("Player"))
+            {
+                other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage(ObjectDamage, ObjectDamageType);
+            }
         }
     }
 }

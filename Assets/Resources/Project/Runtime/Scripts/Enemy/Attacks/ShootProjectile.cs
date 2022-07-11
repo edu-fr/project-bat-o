@@ -1,7 +1,9 @@
 using System;
+using Resources.Project.Runtime.Scripts.Objects;
+using Resources.Scripts.Enemy;
 using UnityEngine;
 
-namespace Resources.Scripts.Enemy.Attacks
+namespace Resources.Project.Runtime.Scripts.Enemy.Attacks
 {
     public class ShootProjectile : BaseAttack
     {

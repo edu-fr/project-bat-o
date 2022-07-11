@@ -1,8 +1,8 @@
 using System.Collections;
-using Game;
-using Player;
-using Resources.Scripts.Enemy.Attacks;
-using UI;
+using Resources.Project.Runtime.Scripts.Enemy.Attacks;
+using Resources.Project.Runtime.Scripts.Game;
+using Resources.Project.Runtime.Scripts.Player;
+using Resources.Project.Runtime.Scripts.UI;
 using UnityEngine;
 
 namespace Resources.Scripts.Enemy

@@ -1,5 +1,4 @@
-﻿using Player;
-using Unity.Jobs.LowLevel.Unsafe;
+﻿using Unity.Jobs.LowLevel.Unsafe;
 using UnityEngine;
 
 namespace Resources.Project.Runtime.Scripts.Player
@@ -17,15 +16,14 @@ namespace Resources.Project.Runtime.Scripts.Player
             DownLeft,
             DownRight
         }
-        
-        public Animator Animator;
-        public Rigidbody2D RigidBody;
+
+        [SerializeField] private PlayerAttackManager PlayerAttackManager;
+        [SerializeField] private PowerUpController PowerUpController;
+        [SerializeField] private Rigidbody2D RigidBody;
+        [SerializeField] private ParticleSystem Dust;
         public PlayerStateMachine PlayerStateMachine;
-        public PlayerAttackManager PlayerAttackManager;
         public Collider2D PlayerCollider;
-        public FlurryRush FlurryRush;
-        public ParticleSystem Dust;
-        private PowerUpController PowerUpController;
+        public Animator Animator;
         public Joystick Joystick;
 
         // Move speeds
@@ -69,20 +67,8 @@ namespace Resources.Project.Runtime.Scripts.Player
         // Start is called before the first frame update
         private void Start()
         {
-            Animator = GetComponent<Animator>();
-            // Setting player face direction upwards
             Animator.SetFloat("LastMoveX", 0);
             Animator.SetFloat("LastMoveY", 1);
-
-            RigidBody = GetComponent<Rigidbody2D>();
-            PlayerAttackManager = GetComponent<PlayerAttackManager>();
-            PlayerStateMachine = GetComponent<PlayerStateMachine>();
-            PowerUpController = GetComponent<PowerUpController>();
-
-            // Flurry rush
-            FlurryRush = GetComponent<FlurryRush>();
-
-            Joystick = GameObject.FindGameObjectWithTag("Joystick").GetComponent<Joystick>();
         }
 
         public void HandleMovement(float modifier)

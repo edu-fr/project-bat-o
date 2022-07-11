@@ -1,4 +1,5 @@
 ﻿using Pathfinding;
+using Resources.Project.Runtime.Scripts.Player;
 using UnityEngine;
 using Random = UnityEngine.Random;
 

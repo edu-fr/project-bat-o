@@ -4,7 +4,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 
-namespace Player
+namespace Resources.Project.Runtime.Scripts.Player
 {
     public class PlayerAttackManager : MonoBehaviour
     {

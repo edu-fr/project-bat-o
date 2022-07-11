@@ -1,24 +1,27 @@
 using UnityEngine;
 
-public class SwordEffectScript : MonoBehaviour
+namespace Resources.Project.Runtime.Scripts.Player
 {
-    private BoxCollider2D SwordHitbox;
-
-    void Awake()
+    public class SwordEffectScript : MonoBehaviour
     {
-        SwordHitbox = GetComponentInParent<BoxCollider2D>();
-    }
+        private BoxCollider2D SwordHitbox;
 
-    void Update()
-    {
-        var position = transform.position;
-        var hitboxOffset = SwordHitbox.offset;
-        gameObject.transform.position = new Vector2(SwordHitbox.transform.position.x + hitboxOffset.x  /* + SwordHitbox.size.x/2 */ , SwordHitbox.transform.position.y + hitboxOffset.y /* + SwordHitbox.size.y/2 */ );
-        // position = new Vector2( );
-    }
+        void Awake()
+        {
+            SwordHitbox = GetComponentInParent<BoxCollider2D>();
+        }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawSphere(transform.position, 0.2f);
+        void Update()
+        {
+            var position = transform.position;
+            var hitboxOffset = SwordHitbox.offset;
+            gameObject.transform.position = new Vector2(SwordHitbox.transform.position.x + hitboxOffset.x  /* + SwordHitbox.size.x/2 */ , SwordHitbox.transform.position.y + hitboxOffset.y /* + SwordHitbox.size.y/2 */ );
+            // position = new Vector2( );
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawSphere(transform.position, 0.2f);
+        }
     }
 }

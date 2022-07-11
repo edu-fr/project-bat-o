@@ -1,22 +1,21 @@
-﻿using Game;
-using Resources.Project.Runtime.Scripts.Game;
+﻿using Resources.Project.Runtime.Scripts.Game;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace UI
+namespace Resources.Project.Runtime.Scripts.UI
 {
     public class PauseMenu : MonoBehaviour
     {
-        public GameObject PauseMenuUI;
+        public CanvasRenderer pauseMenuUI;
 
         public void Resume()
         {
             Time.timeScale = 1f;
             LevelManager.GameIsPaused = false;
-            PauseMenuUI.SetActive(false);
+            pauseMenuUI.gameObject.SetActive(false);
         }
 
-        public void LoadMenu()
+        public void LoadPauseMenu()
         {
             Resume();
             SceneManager.LoadScene(0);
@@ -29,8 +28,7 @@ namespace UI
 
         public void Pause()
         {
-            PauseMenuUI.SetActive(true);
-            
+            pauseMenuUI.gameObject.SetActive(true);
             Time.timeScale = 0f;
             LevelManager.GameIsPaused = true;
         }

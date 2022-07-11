@@ -1,10 +1,9 @@
-﻿using UnityEngine;
-using System;
-using Resources.Project.Runtime.Scripts.Game;
+﻿using System;
+using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
-namespace Game
+namespace Resources.Project.Runtime.Scripts.Game
 {
     public class AudioManager : MonoBehaviour
     {

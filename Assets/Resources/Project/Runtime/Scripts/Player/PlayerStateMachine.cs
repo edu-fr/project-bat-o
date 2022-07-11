@@ -1,149 +1,149 @@
 using System;
-using Game;
-using Player;
 using Resources.Project.Runtime.Scripts.Game;
-using Resources.Project.Runtime.Scripts.Player;
 using UnityEngine;
 
-public class PlayerStateMachine : MonoBehaviour
+namespace Resources.Project.Runtime.Scripts.Player
 {
+    public class PlayerStateMachine : MonoBehaviour
+    {
     
-    public enum States
-    {
-        Standard,
-        Attacking,
-        Frozen,
-        Paralyzed,
-        Dashing, 
-        CanRush,
-        Rushing,
-        Petrified
-    };
-
-    public PlayerController PlayerController;
-    public PlayerAttackManager PlayerAttackManager;
-    public FlurryRush FlurryRush;
-    public LayerMask ObjectsLayerMask;
-
-    public States State;
-
-    private float crowdControlTotalDuration;
-    private float crowdControlCurrentTime;
-
-    private void Awake()
-    {
-        PlayerController = GetComponent<PlayerController>();
-        PlayerAttackManager = GetComponent<PlayerAttackManager>();
-        FlurryRush = GetComponent<FlurryRush>();
-    }
-    
-    private void FixedUpdate()
-    {
-        if (LevelManager.GameIsPaused) return; 
-
-        switch (State)
+        public enum States
         {
-            case States.Standard:
-                PlayerController.HandleMovement(1f);
-                if (PlayerController.Joystick.Horizontal == 0 && PlayerController.Joystick.Vertical == 0) // If not moving
-                    PlayerAttackManager.TryToAttack();
-                /***/
-                break;
+            Standard,
+            Attacking,
+            Frozen,
+            Paralyzed,
+            Dashing, 
+            CanRush,
+            Rushing,
+            Petrified
+        };
 
-            case States.Attacking:
-                if (PlayerController.Joystick.Horizontal != 0 || PlayerController.Joystick.Vertical != 0)
-                    PlayerAttackManager.AttackEnd();
-                break;
+        public PlayerController PlayerController;
+        public PlayerAttackManager PlayerAttackManager;
+        public FlurryRush FlurryRush;
+        public LayerMask ObjectsLayerMask;
 
-            case States.Dashing:
-                PlayerController.Dash();
-                break;
+        public States State;
 
-            case States.Rushing:
-                // PlayerAttackManager.PlayerHealthManager.Invincible = true;
-                // if (!FlurryRush.hasStartedLerp)
-                // {
-                //     FlurryRush.TimeStartLerping = Time.unscaledTime;
-                //     FlurryRush.hasStartedLerp = true;
-                // }
-                // if (FlurryRush.RushToEnemyPosition())
-                // {
-                //     FlurryRush.FlurryAttack();
-                // }
-                break;
+        private float crowdControlTotalDuration;
+        private float crowdControlCurrentTime;
 
-            case States.Paralyzed:
-                break;
-
-            case States.Frozen:
-                break;
-            
-            case States.Petrified:
-                crowdControlCurrentTime += Time.deltaTime;
-                if (crowdControlCurrentTime >= crowdControlTotalDuration)
-                {
-                    ChangeState(States.Standard);
-                }
-                break;
+        private void Awake()
+        {
+            PlayerController = GetComponent<PlayerController>();
+            PlayerAttackManager = GetComponent<PlayerAttackManager>();
+            FlurryRush = GetComponent<FlurryRush>();
         }
-    }
+    
+        private void FixedUpdate()
+        {
+            if (LevelManager.GameIsPaused) return; 
+
+            switch (State)
+            {
+                case States.Standard:
+                    PlayerController.HandleMovement(1f);
+                    if (PlayerController.Joystick.Horizontal == 0 && PlayerController.Joystick.Vertical == 0) // If not moving
+                        PlayerAttackManager.TryToAttack();
+                    /***/
+                    break;
+
+                case States.Attacking:
+                    if (PlayerController.Joystick.Horizontal != 0 || PlayerController.Joystick.Vertical != 0)
+                        PlayerAttackManager.AttackEnd();
+                    break;
+
+                case States.Dashing:
+                    PlayerController.Dash();
+                    break;
+
+                case States.Rushing:
+                    // PlayerAttackManager.PlayerHealthManager.Invincible = true;
+                    // if (!FlurryRush.hasStartedLerp)
+                    // {
+                    //     FlurryRush.TimeStartLerping = Time.unscaledTime;
+                    //     FlurryRush.hasStartedLerp = true;
+                    // }
+                    // if (FlurryRush.RushToEnemyPosition())
+                    // {
+                    //     FlurryRush.FlurryAttack();
+                    // }
+                    break;
+
+                case States.Paralyzed:
+                    break;
+
+                case States.Frozen:
+                    break;
+            
+                case States.Petrified:
+                    crowdControlCurrentTime += Time.deltaTime;
+                    if (crowdControlCurrentTime >= crowdControlTotalDuration)
+                    {
+                        ChangeState(States.Standard);
+                    }
+                    break;
+            }
+        }
 
         public void ChangeState(States newState)
-    {
-        switch(newState)
         {
-            case States.Standard:
-                State = States.Standard;
-                break;
+            switch(newState)
+            {
+                case States.Standard:
+                    State = States.Standard;
+                    break;
                 
-            case States.Attacking:
-                State = States.Attacking;
-                break;
+                case States.Attacking:
+                    State = States.Attacking;
+                    break;
             
-            case States.Dashing:
-                State = States.Dashing;
-                break;
+                case States.Dashing:
+                    State = States.Dashing;
+                    break;
             
-            case States.Frozen:
-                State = States.Frozen;
-                break;
+                case States.Frozen:
+                    State = States.Frozen;
+                    break;
             
-            case States.Paralyzed:
-                State = States.Paralyzed;
-                break; 
+                case States.Paralyzed:
+                    State = States.Paralyzed;
+                    break; 
             
-            case States.CanRush:
-                State = States.CanRush;
-                break;
+                case States.CanRush:
+                    State = States.CanRush;
+                    break;
             
-            case States.Rushing:
-                State = States.Rushing;
-                break;
+                case States.Rushing:
+                    State = States.Rushing;
+                    break;
             
-            case States.Petrified:
-                State = States.Petrified;
-                PlayerController.Animator.speed = 0;
+                case States.Petrified:
+                    State = States.Petrified;
+                    PlayerController.Animator.speed = 0;
                 
-                // Make the player gray
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
-        }
+                    // Make the player gray
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
+            }
 
-    }   
-    public void PetrifyPlayer(float duration)
-    {
-        ChangeState(States.Petrified);
-        crowdControlTotalDuration = duration; // - tenacity modificators
-        crowdControlCurrentTime = 0;
-    }
-    public void FrostPlayer(float duration)
-    {
+        }   
+        public void PetrifyPlayer(float duration)
+        {
+            ChangeState(States.Petrified);
+            crowdControlTotalDuration = duration; // - tenacity modificators
+            crowdControlCurrentTime = 0;
+        }
+        public void FrostPlayer(float duration)
+        {
         
-    }
+        }
     
-    public void BurnPlayer(float duration)
-    {
+        public void BurnPlayer(float duration)
+        {
         
+        }
     }
 }

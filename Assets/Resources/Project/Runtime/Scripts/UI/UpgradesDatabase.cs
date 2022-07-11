@@ -1,4 +1,4 @@
-namespace Resources.Scripts.UI
+namespace Resources.Project.Runtime.Scripts.UI
 { 
     public static class UpgradesDatabase
     {

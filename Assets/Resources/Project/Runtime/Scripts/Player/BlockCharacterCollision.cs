@@ -1,13 +1,16 @@
 using UnityEngine;
 
-public class BlockCharacterCollision : MonoBehaviour
+namespace Resources.Project.Runtime.Scripts.Player
 {
-    [SerializeField] 
-    private Collider2D ParentCollider;
-    [SerializeField] 
-    private Collider2D ProtectorCollider;
-    void Awake()
+    public class BlockCharacterCollision : MonoBehaviour
     {
-        Physics2D.IgnoreCollision(ParentCollider, ProtectorCollider, true);
+        [SerializeField] 
+        private Collider2D ParentCollider;
+        [SerializeField] 
+        private Collider2D ProtectorCollider;
+        void Awake()
+        {
+            Physics2D.IgnoreCollision(ParentCollider, ProtectorCollider, true);
+        }
     }
 }

@@ -1,11 +1,10 @@
 using System;
 using System.Collections;
-using Game;
 using Pathfinding;
 using Resources.Project.Runtime.Scripts.Enemy;
+using Resources.Project.Runtime.Scripts.Enemy.Attacks;
 using Resources.Project.Runtime.Scripts.Game;
-using Resources.Scripts.Enemy.Attacks;
-using Resources.Scripts.Objects;
+using Resources.Project.Runtime.Scripts.Objects;
 using UnityEngine;
 
 namespace Resources.Scripts.Enemy
@@ -396,7 +395,7 @@ namespace Resources.Scripts.Enemy
         {
             DropLoot();
             if (!LevelManager) return;
-            LevelManager.EnemiesRemaining -= 1;
+            LevelManager.enemiesRemaining -= 1;
             Destroy(EnemyMovementHandler.FieldOfViewComponent.gameObject);
             Destroy(EnemyMovementHandler.Target.gameObject);
             Destroy(gameObject);

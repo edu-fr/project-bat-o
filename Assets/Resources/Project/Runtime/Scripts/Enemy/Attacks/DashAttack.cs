@@ -1,9 +1,8 @@
 using System.Collections;
-using Player;
 using Resources.Project.Runtime.Scripts.Player;
 using UnityEngine;
 
-namespace Resources.Scripts.Enemy.Attacks
+namespace Resources.Project.Runtime.Scripts.Enemy.Attacks
 {
     public class DashAttack : BaseAttack
     {

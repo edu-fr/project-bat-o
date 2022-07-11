@@ -1,22 +1,20 @@
-﻿using UnityEngine;
+﻿using System;
+using Resources.Project.Runtime.Scripts.Game;
+using UnityEngine;
 
-public class MainMenu : MonoBehaviour
+namespace Resources.Project.Runtime.Scripts.UI
 {
-    private GameController GameController;
+    public class MainMenu : MonoBehaviour
+    {
+        public void PlayGame()
+        {
+            throw new NotImplementedException();
+        }
 
-    private void Awake()
-    {
-        GameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
-    }
-    public void PlayGame()
-    {
-        GameController.InstantiateNewPlayer();
-        GameController.LoadSceneAsynchronously(1);
-    }
-
-    public void QuitGame()
-    {
-        Debug.Log("Quit");
-        Application.Quit();
+        public void QuitGame()
+        {
+            Debug.Log("Quit");
+            Application.Quit();
+        }
     }
 }

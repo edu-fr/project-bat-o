@@ -1,10 +1,12 @@
-using Resources.Scripts.Enemy;
 using UnityEngine;
 
-public class ProjectileSpriteScript : MonoBehaviour
+namespace Resources.Project.Runtime.Scripts.Objects
 {
-    public void DestroyParent()
+    public class ProjectileSpriteScript : MonoBehaviour
     {
-        GetComponentInParent<ProjectileScript>().DestroySelf();
+        public void DestroyParent()
+        {
+            GetComponentInParent<ProjectileScript>().DestroySelf();
+        }
     }
 }

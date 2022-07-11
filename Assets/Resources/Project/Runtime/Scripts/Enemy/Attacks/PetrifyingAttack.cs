@@ -1,10 +1,10 @@
 using System;
-using Game;
-using Player;
+using Resources.Project.Runtime.Scripts.Game;
 using Resources.Project.Runtime.Scripts.Player;
+using Resources.Scripts.Enemy;
 using UnityEngine;
 
-namespace Resources.Scripts.Enemy.Attacks
+namespace Resources.Project.Runtime.Scripts.Enemy.Attacks
 {
     public class PetrifyingAttack : BaseAttack
     {

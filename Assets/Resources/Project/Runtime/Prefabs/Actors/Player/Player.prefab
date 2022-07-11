@@ -5242,7 +5242,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.107142866}
-    oldSize: {x: 2.25, y: 1.75}
+    oldSize: {x: 1.6363636, y: 1.2727273}
     newSize: {x: 2.909091, y: 2.909091}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -5277,13 +5277,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3d7280bb3e9b3e469427cc4efd75ff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Animator: {fileID: 0}
-  RigidBody: {fileID: 0}
-  PlayerStateMachine: {fileID: 0}
-  PlayerAttackManager: {fileID: 0}
-  PlayerCollider: {fileID: 616445933}
-  FlurryRush: {fileID: 0}
+  PlayerAttackManager: {fileID: 6753889184881655942}
+  PowerUpController: {fileID: 555801312}
+  RigidBody: {fileID: 6753889184881655948}
   Dust: {fileID: 3192570680579372882}
+  PlayerStateMachine: {fileID: -1128968484826919403}
+  PlayerCollider: {fileID: 616445933}
+  Animator: {fileID: 6753889184881655939}
   Joystick: {fileID: 0}
   DashInitialMoveSpeedMultiplier: 3
   DashMoveSpeedDecreaseMultiplier: 10
@@ -5312,14 +5312,14 @@ MonoBehaviour:
   EnemyLayerMask:
     serializedVersion: 2
     m_Bits: 256
-  PlayerHealthManager: {fileID: 0}
-  PlayerStateMachine: {fileID: 0}
+  PlayerHealthManager: {fileID: 385695933423370815}
+  PlayerStateMachine: {fileID: -1128968484826919403}
   StandardMaterial: {fileID: 2100000, guid: bb0085cdb6ce6f64a8808d60ea372b8d, type: 2}
   FireMaterial: {fileID: 2100000, guid: bb0085cdb6ce6f64a8808d60ea372b8d, type: 2}
   IceMaterial: {fileID: 2100000, guid: bb0085cdb6ce6f64a8808d60ea372b8d, type: 2}
   ThunderMaterial: {fileID: 2100000, guid: bb0085cdb6ce6f64a8808d60ea372b8d, type: 2}
-  PowerUpController: {fileID: 0}
-  PowerUpActivator: {fileID: 0}
+  PowerUpController: {fileID: 555801312}
+  PowerUpActivator: {fileID: -5479966777030865408}
   EnemyLayers:
     serializedVersion: 2
     m_Bits: 256
@@ -5351,8 +5351,8 @@ MonoBehaviour:
   MaxHealth: 100
   CurrentHealth: 0
   Invincible: 0
-  PlayerController: {fileID: 0}
-  PlayerStatsController: {fileID: 0}
+  PlayerController: {fileID: 6753889184881655951}
+  PlayerStatsController: {fileID: 1996424798420464867}
 --- !u!114 &4396048941111737139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5416,9 +5416,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1646fdd7a57ea5147b6a2b46028b0fc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerController: {fileID: 0}
-  PlayerAttackManager: {fileID: 0}
-  FlurryRush: {fileID: 0}
+  PlayerController: {fileID: 6753889184881655951}
+  PlayerAttackManager: {fileID: 6753889184881655942}
+  FlurryRush: {fileID: 1938860099312322761}
   ObjectsLayerMask:
     serializedVersion: 2
     m_Bits: 576

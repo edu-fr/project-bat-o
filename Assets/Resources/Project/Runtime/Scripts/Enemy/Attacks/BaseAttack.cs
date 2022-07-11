@@ -1,6 +1,7 @@
+using Resources.Scripts.Enemy;
 using UnityEngine;
 
-namespace Resources.Scripts.Enemy.Attacks
+namespace Resources.Project.Runtime.Scripts.Enemy.Attacks
 {
     public abstract class BaseAttack : MonoBehaviour
     {
