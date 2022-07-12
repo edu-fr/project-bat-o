@@ -50,31 +50,22 @@ namespace Resources.Scripts.Enemy
         
         public Vector3 PlayerDirection { get; private set;}
 
-        private EnemyMovementHandler EnemyMovementHandler;
-        public EnemyCombatManager EnemyCombatManager { get; private set; }
-        public EnemyStatsManager EnemyStatsManager { get; private set; }
+        [SerializeField] private EnemyMovementHandler EnemyMovementHandler;
+        public EnemyCombatManager EnemyCombatManager;
+        public EnemyStatsManager EnemyStatsManager;
+
+        public AIPath AiPath;
+        public BaseAttack BaseAttack;
+        public EnemyMaterialManager EnemyMaterialManager;
+
+        public EnemyAnimationController EnemyAnimationController;
         
-        public AIPath AiPath { get; private set; }
-        public BaseAttack BaseAttack { get; private set; }
-        public EnemyMaterialManager EnemyMaterialManager { get; private set; }
-        
-        public EnemyAnimationController EnemyAnimationController { get; private set; }
-        
-        private LevelManager LevelManager;
-        private Renderer Renderer;
+        [SerializeField] private LevelManager LevelManager;
+        [SerializeField] private Renderer Renderer;
         public GameObject Shadow;
         public LayerMask ObstaclesLayer;
         private void Awake()
         {
-            EnemyMovementHandler = GetComponent<EnemyMovementHandler>();
-            EnemyCombatManager = GetComponent<EnemyCombatManager>();
-            BaseAttack = GetComponent<BaseAttack>();
-            EnemyMaterialManager = GetComponent<EnemyMaterialManager>();
-            EnemyStatsManager = GetComponent<EnemyStatsManager>();
-            Renderer = GetComponent<Renderer>();
-            EnemyAnimationController = GetComponent<EnemyAnimationController>();
-            AiPath = GetComponent<AIPath>();
-            // Game Manager
             LevelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
         }
 

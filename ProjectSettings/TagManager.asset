@@ -24,6 +24,7 @@ TagManager:
   - Projectile
   - Joystick
   - EnemySpawn
+  - EnemiesTargetsParent
   layers:
   - Default
   - TransparentFX

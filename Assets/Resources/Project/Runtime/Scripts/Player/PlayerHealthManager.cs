@@ -56,7 +56,7 @@ namespace Resources.Project.Runtime.Scripts.Player
             };
 
             // Lose HP
-            CurrentHealth -= damage;
+            CurrentHealth -= damage > 0 ? damage : 0; // always positive
             CurrentHealth = CurrentHealth > MaxHealth ? MaxHealth : CurrentHealth < 0 ? 0 : CurrentHealth;
 
             HealthChanged?.Invoke(CurrentHealth, MaxHealth);

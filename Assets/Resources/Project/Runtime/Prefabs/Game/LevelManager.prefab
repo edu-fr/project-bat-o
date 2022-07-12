@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6845989161882439208}
   - component: {fileID: 6845989161882439210}
-  - component: {fileID: 6845989161882439209}
   - component: {fileID: 1262939839982684595}
+  - component: {fileID: 6845989161882439209}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: LevelManager
@@ -49,20 +49,9 @@ MonoBehaviour:
   levelBuilder: {fileID: 1262939839982684595}
   playerTransform: {fileID: 0}
   playerSpawn: {fileID: 0}
+  RoadblockController: {fileID: 0}
   enemiesRemaining: 0
   GameOverMenu: {fileID: 0}
---- !u!114 &6845989161882439209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6845989161882439211}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4322670e9a4e2bb47a1fa7c95cfa2d94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1262939839982684595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,6 +66,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelManager: {fileID: 6845989161882439210}
   gridWalkable: {fileID: 0}
+  enemiesParent: {fileID: 0}
   mapSections:
   - {fileID: 0}
   - {fileID: 0}
@@ -87,10 +77,24 @@ MonoBehaviour:
   floorTile: {fileID: 11400000, guid: 96900b184dabd9441b0281c7c225ed5c, type: 2}
   mapSectionObjectsPrefabs:
   - {fileID: 6329177309611934611, guid: d782830b7adce8f4e97853b05ee82e8c, type: 3}
-  - {fileID: 3191073828258036251, guid: 9fa2b197b80e5b942aed34a3f40bce32, type: 3}
+  - {fileID: 6329177309611934611, guid: b17985c64ea59ff4997d1eb9645c1d52, type: 3}
+  - {fileID: 3191073828258036251, guid: 05ae49282afe0b94290197a2b8c72215, type: 3}
   - {fileID: 21841693406921981, guid: 74e876be4f443bc409aa25ee452582b3, type: 3}
+  - {fileID: 3191073828258036251, guid: 9fa2b197b80e5b942aed34a3f40bce32, type: 3}
   - {fileID: 7634585578143114394, guid: 16b451573d812d04fbf6ee128fba3805, type: 3}
-  - {fileID: 2823630503647894718, guid: 6208da8d374bf2c41ab1f4e5065bdc50, type: 3}
   - {fileID: 3220481502391141413, guid: ec7616fa21ca45c409000367bfe0cc25, type: 3}
+  - {fileID: 2823630503647894718, guid: 6208da8d374bf2c41ab1f4e5065bdc50, type: 3}
   enemiesPrefabs:
   - {fileID: 773478135240995051, guid: 90dd3ffa6d8c8b74c87b4c818d244144, type: 3}
+--- !u!114 &6845989161882439209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6845989161882439211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4322670e9a4e2bb47a1fa7c95cfa2d94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

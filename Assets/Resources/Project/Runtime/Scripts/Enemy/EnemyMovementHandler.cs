@@ -15,17 +15,17 @@ namespace Resources.Scripts.Enemy
         public EnemyStateMachine EnemyStateMachine;
         public EnemyAnimationController EnemyAnimationController;
         public EnemyStatsManager EnemyStats;
-        
+
         // Movement
         public float CurrentTimer = 0f;
 
-        private float MaxTimer = 3f; // time to move to the next random spot
+        [SerializeField] [Range(0f, 5f)] private float averageTimeWaitingToMove = 3f; // time to move to the next random spot
+        private float _timeWaitingToMove; // time to move to the next random spot
         public float WalkingAroundSpeed { get; private set; }// walk speed
         public float ChasingSpeed { get; set; }
         public float DyingBurnedSpeed { get; private set; }= 4.5f; // running on fire speed
         private Vector3 HomePosition; // original position on the level
-        [SerializeField]
-        private float WalkableRange = 5f; // Distance it can walk while isn't chasing the player 
+        [SerializeField] private float WalkableRange = 5f; // Distance it can walk while isn't chasing the player 
         public GameObject Target;
 
         // Searching for player
@@ -44,23 +44,19 @@ namespace Resources.Scripts.Enemy
         [SerializeField]
         private LayerMask EnemiesLayer;
         
-        // Start is called before the first frame update
+        
         private void Start()
         {
             Player = GameObject.FindGameObjectWithTag("Player");
             PlayerStateMachine = Player.GetComponent<PlayerStateMachine>();
+           
             Target = new GameObject("Target of " + gameObject.name)
             {
                 transform =
                 {
-                    parent = transform,
-                    position = Vector3.zero,
-                    localPosition = Vector3.zero
+                    parent = GameObject.FindGameObjectWithTag("EnemiesTargetsParent").transform,
                 }
             };
-
-            // Set initial enemy position according to its initial position
-            HomePosition = Rigidbody.position;
 
             // Set the first random target movement 
             Target.transform.position = GenerateNewTarget();
@@ -84,7 +80,9 @@ namespace Resources.Scripts.Enemy
 
         private Vector3 GenerateNewTarget()
         {
-            return new Vector3(HomePosition.x + (WalkableRange * Random.Range(-1, 2)), HomePosition.y + (WalkableRange * Random.Range(-1, 2)), transform.position.z);
+            _timeWaitingToMove = Random.Range(averageTimeWaitingToMove - 1.5f, averageTimeWaitingToMove + 1.5f);
+            var position = transform.position;
+            return new Vector3(position.x + (WalkableRange * Random.Range(0.3f, 1f) * Random.Range(-1, 2)), position.y + (WalkableRange * Random.Range(0.3f, 1f) * Random.Range(-1, 2)), position.z);
         }
 
         public void RunFromThePlayer()
@@ -119,11 +117,10 @@ namespace Resources.Scripts.Enemy
                 EnemyAnimationController.StopMoving();
                 
                 CurrentTimer += Time.deltaTime;
-                if (CurrentTimer >= MaxTimer)
+                if (CurrentTimer >= _timeWaitingToMove)
                 {
                     CurrentTimer = 0;
                     Random.InitState((int) Time.realtimeSinceStartup); // Randomize enemy standing still time
-                    MaxTimer = Random.Range(1.5f, 4f);
                     Target.transform.position = GenerateNewTarget();
                     AstarPath.active.Scan();
                 }

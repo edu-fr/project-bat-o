@@ -244,7 +244,7 @@ MonoBehaviour:
   EnemyAnimationController: {fileID: 773478135240995063}
   EnemyStats: {fileID: 773478135240995069}
   CurrentTimer: 0
-  WalkableRange: 3
+  WalkableRange: 1.1
   Target: {fileID: 0}
   FieldOfViewComponent: {fileID: 4642943370310900116}
   SurroundingDistance: 1
@@ -265,6 +265,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   State: 0
   PreviousState: 0
+  EnemyMovementHandler: {fileID: 773478135240995048}
+  EnemyCombatManager: {fileID: 773478135240995049}
+  EnemyStatsManager: {fileID: 773478135240995069}
+  AiPath: {fileID: 773478135240995070}
+  BaseAttack: {fileID: 2907519490170790978}
+  EnemyMaterialManager: {fileID: 773478135240995062}
+  EnemyAnimationController: {fileID: 773478135240995063}
+  LevelManager: {fileID: 0}
+  Renderer: {fileID: 773478135240995053}
   Shadow: {fileID: 5147232911927614376}
   ObstaclesLayer:
     serializedVersion: 2
@@ -337,7 +346,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 2
-  radius: 0.44
+  radius: 0.67
   height: 0.78
   repathRate: 0.1
   canSearch: 1
@@ -401,7 +410,7 @@ MonoBehaviour:
   traversableTags: -1
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
-    value: -513
+    value: -1
 --- !u!114 &2907519490170790978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -442,7 +451,7 @@ PrefabInstance:
     - target: {fileID: 5392214071961746662, guid: e930f2e8319ea2341896d1f240a2de08,
         type: 3}
       propertyPath: LayerMask.m_Bits
-      value: 1216
+      value: 5568
       objectReference: {fileID: 0}
     - target: {fileID: 5392214071961746663, guid: e930f2e8319ea2341896d1f240a2de08,
         type: 3}

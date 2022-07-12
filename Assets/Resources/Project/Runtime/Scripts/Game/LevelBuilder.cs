@@ -55,12 +55,12 @@ namespace Resources.Project.Runtime.Scripts.Game
         {
             foreach (var section in mapSections)
             {
-                print("Spawning section" + section.name);
                 var randomIndex = Random.Range(0, mapSectionObjectsPrefabs.Count);
                 var randomPrefab = mapSectionObjectsPrefabs[randomIndex];
-                var objects = Instantiate(randomPrefab, Vector3.zero, Quaternion.identity, section);
-                objects.transform.localPosition = Vector3.zero;
-                foreach (var enemySpawn in objects.transform.Find("Enemy Spawns").GetComponentsInChildren<Transform>())
+                var objectsParent = Instantiate(randomPrefab, Vector3.zero, Quaternion.identity, section);
+                objectsParent.transform.localPosition = Vector3.zero;
+                var enemySpawnsParent = objectsParent.transform.Find("Enemy Spawns");
+                foreach (Transform enemySpawn in enemySpawnsParent)
                 {
                     _enemySpawns.Add(enemySpawn);
                 }
@@ -74,11 +74,11 @@ namespace Resources.Project.Runtime.Scripts.Game
             levelManager.enemiesRemaining = 0;
             foreach (var spawn in _enemySpawns)
             {
-                var enemySpawned = Instantiate(enemiesPrefabs[Random.Range(0, mapSectionObjectsPrefabs.Count)], Vector3.zero,
-                    Quaternion.identity, enemiesParent);
+                var enemySpawned = Instantiate(enemiesPrefabs[Random.Range(0, enemiesPrefabs.Count)], Vector3.zero,
+                    Quaternion.identity, spawn);
                 var enemySpawnedTransform = enemySpawned.transform; 
                 enemySpawnedTransform.localPosition = Vector3.zero;
-                enemySpawnedTransform.position = spawn.position;
+                enemySpawnedTransform.parent = enemiesParent;
                 levelManager.enemiesRemaining++;
             }
         }
