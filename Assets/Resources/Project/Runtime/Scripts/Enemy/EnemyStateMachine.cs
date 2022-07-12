@@ -128,7 +128,7 @@ namespace Resources.Scripts.Enemy
                                 var raycastHit2D = Physics2D.Raycast(enemyTransformPosition,  (playerTransformPosition - enemyTransformPosition).normalized, distanceToThePlayer, ObstaclesLayer);
                                 if (raycastHit2D.collider && !raycastHit2D.collider.CompareTag("Player"))
                                 {
-                                    print("Collider: " + raycastHit2D.collider.gameObject.name);
+                                    // print("Collider: " + raycastHit2D.collider.gameObject.name);
                                     DistanceToAttack -= DistanceToAttack/10; // Shrink distance to the player to keep chasing 
                                     if (DistanceToAttack < EnemyStatsManager.DistanceToAttack / 2) // Reset if get to this point
                                         DistanceToAttack = EnemyStatsManager.DistanceToAttack;
@@ -404,8 +404,8 @@ namespace Resources.Scripts.Enemy
         
         private void OnDrawGizmos()
         {
-            Gizmos.color = new Color(100, 0, 0, 0.1f);
-            Gizmos.DrawSphere(transform.position, DistanceToAttack);
+            // Gizmos.color = new Color(100, 0, 0, 0.1f);
+            // Gizmos.DrawSphere(transform.position, DistanceToAttack);
             // Gizmos.color = new Color(50, 50, 0, 0.1f);
             // Gizmos.DrawSphere(transform.position, DistanceToLosePlayerSight);
             

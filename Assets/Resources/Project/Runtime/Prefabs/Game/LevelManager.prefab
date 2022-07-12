@@ -46,7 +46,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 902c0a2effb0b714ca5f83572e6ee171, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NextScene: World 2
+  levelBuilder: {fileID: 1262939839982684595}
+  playerTransform: {fileID: 0}
+  playerSpawn: {fileID: 0}
+  enemiesRemaining: 0
+  GameOverMenu: {fileID: 0}
 --- !u!114 &6845989161882439209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71,7 +75,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 230f5e499b1461848ae78f2270e5f73c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelManager: {fileID: 6845989161882439210}
   gridWalkable: {fileID: 0}
-  worldObjectsWalkable: {fileID: 0}
-  worldObjectsObstacle: {fileID: 0}
-  enemiesParent: {fileID: 0}
+  mapSections:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  floorTile: {fileID: 11400000, guid: 96900b184dabd9441b0281c7c225ed5c, type: 2}
+  mapSectionObjectsPrefabs:
+  - {fileID: 6329177309611934611, guid: d782830b7adce8f4e97853b05ee82e8c, type: 3}
+  - {fileID: 3191073828258036251, guid: 9fa2b197b80e5b942aed34a3f40bce32, type: 3}
+  - {fileID: 21841693406921981, guid: 74e876be4f443bc409aa25ee452582b3, type: 3}
+  - {fileID: 7634585578143114394, guid: 16b451573d812d04fbf6ee128fba3805, type: 3}
+  - {fileID: 2823630503647894718, guid: 6208da8d374bf2c41ab1f4e5065bdc50, type: 3}
+  - {fileID: 3220481502391141413, guid: ec7616fa21ca45c409000367bfe0cc25, type: 3}
+  enemiesPrefabs:
+  - {fileID: 773478135240995051, guid: 90dd3ffa6d8c8b74c87b4c818d244144, type: 3}

@@ -21,7 +21,7 @@ namespace Resources.Project.Runtime.Scripts.Player
 
         private void OnDrawGizmos()
         {
-            Gizmos.DrawSphere(transform.position, 0.2f);
+            // Gizmos.DrawSphere(transform.position, 0.2f);
         }
     }
 }

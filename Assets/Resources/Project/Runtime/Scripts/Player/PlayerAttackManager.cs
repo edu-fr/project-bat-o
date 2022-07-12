@@ -277,7 +277,7 @@ namespace Resources.Project.Runtime.Scripts.Player
         
         private void OnDrawGizmos()
         {
-            Gizmos.DrawWireSphere(transform.position, CurrentWeaponRange);
+            // Gizmos.DrawWireSphere(transform.position, CurrentWeaponRange);
         }
     }
 }

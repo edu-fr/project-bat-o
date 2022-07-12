@@ -236,6 +236,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00396018ff43e984da61fd69b2b89879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Rigidbody: {fileID: 773478135240995058}
+  BoxCollider2D: {fileID: 773478135240995061}
+  AiDestinationSetter: {fileID: 773478135240995057}
+  AiPath: {fileID: 773478135240995070}
+  EnemyStateMachine: {fileID: 773478135240995060}
+  EnemyAnimationController: {fileID: 773478135240995063}
+  EnemyStats: {fileID: 773478135240995069}
   CurrentTimer: 0
   WalkableRange: 3
   Target: {fileID: 0}
@@ -275,7 +282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DefaultMaterial: {fileID: 2100000, guid: bb0085cdb6ce6f64a8808d60ea372b8d, type: 2}
-  CurrentMaterial: {fileID: 2100000, guid: 05ca7a78f0c9ccf46a428747630aa292, type: 2}
+  CurrentMaterial: {fileID: 2100000, guid: bb0085cdb6ce6f64a8808d60ea372b8d, type: 2}
   FlashMaterial: {fileID: 2100000, guid: 93729dd49b58a61438d5c2acee37878e, type: 2}
   BurnedMaterial: {fileID: 2100000, guid: 478fe359495af0742b7432b040a1ca38, type: 2}
   FrozenMaterial: {fileID: 2100000, guid: 46129f794c290cf4f8e7f405d0a945d1, type: 2}
@@ -427,6 +434,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FieldOfView
       objectReference: {fileID: 0}
+    - target: {fileID: 5392214071961746660, guid: e930f2e8319ea2341896d1f240a2de08,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: bb0085cdb6ce6f64a8808d60ea372b8d, type: 2}
     - target: {fileID: 5392214071961746662, guid: e930f2e8319ea2341896d1f240a2de08,
         type: 3}
       propertyPath: LayerMask.m_Bits
@@ -790,7 +802,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 05ca7a78f0c9ccf46a428747630aa292, type: 2}
+      objectReference: {fileID: 2100000, guid: bb0085cdb6ce6f64a8808d60ea372b8d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0db97900cb23cbf40a8e2344c25baeb7, type: 3}
 --- !u!4 &4174686506164178835 stripped

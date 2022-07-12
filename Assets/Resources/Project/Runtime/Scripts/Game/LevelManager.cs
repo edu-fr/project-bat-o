@@ -10,7 +10,7 @@ namespace Resources.Project.Runtime.Scripts.Game
         [SerializeField] private Transform playerTransform;
         [SerializeField] private Transform playerSpawn;
 
-        private RoadblockController RoadblockController;
+        [SerializeField] private RoadblockController RoadblockController;
         public int enemiesRemaining;
         
         [SerializeField] GameOverMenu GameOverMenu;
@@ -26,6 +26,7 @@ namespace Resources.Project.Runtime.Scripts.Game
         private void Start()
         {
             levelBuilder.BuildWorld();
+            playerTransform.position = playerSpawn.position;
         }
 
         private void Update()

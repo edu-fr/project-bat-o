@@ -8,13 +8,13 @@ namespace Resources.Scripts.Enemy
     public class EnemyMovementHandler : MonoBehaviour
     {
         // Components
-        public Rigidbody2D Rigidbody { get; private set; }
-        public BoxCollider2D BoxCollider2D { get; private set; }
-        public AIDestinationSetter AiDestinationSetter { get; private set; }
-        public AIPath AiPath { get; private set; }
-        public EnemyStateMachine EnemyStateMachine { get; private set; }
-        public EnemyAnimationController EnemyAnimationController { get; private set; }
-        public EnemyStatsManager EnemyStats { get; private set; }
+        public Rigidbody2D Rigidbody;
+        public BoxCollider2D BoxCollider2D;
+        public AIDestinationSetter AiDestinationSetter;
+        public AIPath AiPath;
+        public EnemyStateMachine EnemyStateMachine;
+        public EnemyAnimationController EnemyAnimationController;
+        public EnemyStatsManager EnemyStats;
         
         // Movement
         public float CurrentTimer = 0f;
@@ -44,25 +44,21 @@ namespace Resources.Scripts.Enemy
         [SerializeField]
         private LayerMask EnemiesLayer;
         
-        private void Awake()
-        {
-            Rigidbody = GetComponent<Rigidbody2D>();
-            BoxCollider2D = GetComponent<BoxCollider2D>(); 
-            AiDestinationSetter = GetComponent<AIDestinationSetter>();
-            AiPath = GetComponent<AIPath>();
-            EnemyStateMachine = GetComponent<EnemyStateMachine>();
-            EnemyAnimationController = GetComponent<EnemyAnimationController>();
-            EnemyStats = GetComponent<EnemyStatsManager>();
-        }
-        
         // Start is called before the first frame update
         private void Start()
         {
             Player = GameObject.FindGameObjectWithTag("Player");
             PlayerStateMachine = Player.GetComponent<PlayerStateMachine>();
-            Target = new GameObject("Target of " + gameObject.name);
-            // Target.transform.parent = transform;
-            
+            Target = new GameObject("Target of " + gameObject.name)
+            {
+                transform =
+                {
+                    parent = transform,
+                    position = Vector3.zero,
+                    localPosition = Vector3.zero
+                }
+            };
+
             // Set initial enemy position according to its initial position
             HomePosition = Rigidbody.position;
 
