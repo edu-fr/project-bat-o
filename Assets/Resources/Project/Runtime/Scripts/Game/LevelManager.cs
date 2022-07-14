@@ -7,8 +7,7 @@ namespace Resources.Project.Runtime.Scripts.Game
     public class LevelManager : MonoBehaviour
     {
         [SerializeField] private LevelBuilder levelBuilder;
-        [SerializeField] private Transform playerTransform;
-        [SerializeField] private Transform playerSpawn;
+        [SerializeField] public Transform playerTransform;
 
         [SerializeField] private RoadblockController RoadblockController;
         public int enemiesRemaining;
@@ -25,8 +24,7 @@ namespace Resources.Project.Runtime.Scripts.Game
 
         private void Start()
         {
-            levelBuilder.BuildWorld();
-            playerTransform.position = playerSpawn.position;
+            levelBuilder.StartWorld();
         }
 
         private void Update()

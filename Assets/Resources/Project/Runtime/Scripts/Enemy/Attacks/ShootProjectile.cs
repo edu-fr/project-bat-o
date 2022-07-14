@@ -1,6 +1,5 @@
 using System;
 using Resources.Project.Runtime.Scripts.Objects;
-using Resources.Scripts.Enemy;
 using UnityEngine;
 
 namespace Resources.Project.Runtime.Scripts.Enemy.Attacks

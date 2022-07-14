@@ -1,13 +1,12 @@
 using System;
 using System.Collections;
 using Pathfinding;
-using Resources.Project.Runtime.Scripts.Enemy;
 using Resources.Project.Runtime.Scripts.Enemy.Attacks;
 using Resources.Project.Runtime.Scripts.Game;
 using Resources.Project.Runtime.Scripts.Objects;
 using UnityEngine;
 
-namespace Resources.Scripts.Enemy
+namespace Resources.Project.Runtime.Scripts.Enemy
 {
     public class EnemyStateMachine : MonoBehaviour
     {
@@ -337,6 +336,7 @@ namespace Resources.Scripts.Enemy
                     break;
 
                 case (States.Dying):
+                    EnemyCombatManager.StopAllCoroutines();
                     IsWalkingAround = false;
                     IsBeenRushed = false;
                     IsFrozen = false;
@@ -348,6 +348,8 @@ namespace Resources.Scripts.Enemy
                     IsPrimaryTarget = false;
                     EnemyCombatManager.Rigidbody2D.velocity = Vector2.zero;
                     EnemyCombatManager.Rigidbody2D.bodyType = RigidbodyType2D.Static;
+                    EnemyMovementHandler.ProtectorCollider.enabled = false; 
+                    EnemyMovementHandler.BoxCollider2D.enabled = false; 
                     EnemyAnimationController.SetAnimationSpeedTo(1);
                     EnemyMovementHandler.AiPath.canMove = false;
                     EnemyMovementHandler.AiPath.maxSpeed = 0;

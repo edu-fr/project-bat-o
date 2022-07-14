@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Resources.Scripts.Enemy;
+using Resources.Project.Runtime.Scripts.Enemy;
 using UnityEngine;
 
 namespace Resources.Project.Runtime.Scripts.Player
@@ -14,7 +14,7 @@ namespace Resources.Project.Runtime.Scripts.Player
             EnemyHealthManager enemyHealthManager = enemy.GetComponent<EnemyHealthManager>();
             EnemyStateMachine enemyStateMachine = enemy.GetComponent<EnemyStateMachine>();
 
-            enemyStateMachine.WillDieBurned = enemyHealthManager.CurrentHealth < fireDamage;
+            enemyStateMachine.WillDieBurned = enemyHealthManager.currentHealth < fireDamage;
 
             if (BurnTickTimers.Count <= 0)
             {
@@ -33,7 +33,7 @@ namespace Resources.Project.Runtime.Scripts.Player
             EnemyStateMachine enemyStateMachine = enemy.GetComponent<EnemyStateMachine>();
             EnemyHealthManager enemyHealthManager = enemy.GetComponent<EnemyHealthManager>();
 
-            while (BurnTickTimers.Count > 0 && enemyHealthManager.CurrentHealth > 0)
+            while (BurnTickTimers.Count > 0 && enemyHealthManager.currentHealth > 0)
             {
                 enemyStateMachine.IsOnFire = true;
                 for (int i = 0; i < BurnTickTimers.Count; i++)

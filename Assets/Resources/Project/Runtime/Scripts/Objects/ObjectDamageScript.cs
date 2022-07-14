@@ -1,6 +1,6 @@
+using Resources.Project.Runtime.Scripts.Enemy;
 using Resources.Project.Runtime.Scripts.Enemy.Attacks;
 using Resources.Project.Runtime.Scripts.Player;
-using Resources.Scripts.Enemy;
 using UnityEngine;
 
 namespace Resources.Project.Runtime.Scripts.Objects

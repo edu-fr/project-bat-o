@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Resources.Scripts.Enemy;
+using Resources.Project.Runtime.Scripts.Enemy;
 using UnityEngine;
 using Random = UnityEngine.Random;
 

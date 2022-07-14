@@ -3,13 +3,14 @@ using Resources.Project.Runtime.Scripts.Player;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Resources.Scripts.Enemy
+namespace Resources.Project.Runtime.Scripts.Enemy
 {
     public class EnemyMovementHandler : MonoBehaviour
     {
         // Components
         public Rigidbody2D Rigidbody;
         public BoxCollider2D BoxCollider2D;
+        public BoxCollider2D ProtectorCollider;
         public AIDestinationSetter AiDestinationSetter;
         public AIPath AiPath;
         public EnemyStateMachine EnemyStateMachine;
@@ -85,6 +86,7 @@ namespace Resources.Scripts.Enemy
             return new Vector3(position.x + (WalkableRange * Random.Range(0.3f, 1f) * Random.Range(-1, 2)), position.y + (WalkableRange * Random.Range(0.3f, 1f) * Random.Range(-1, 2)), position.z);
         }
 
+        // ReSharper disable Unity.PerformanceAnalysis
         public void RunFromThePlayer()
         {
             var oldTargetPosition =

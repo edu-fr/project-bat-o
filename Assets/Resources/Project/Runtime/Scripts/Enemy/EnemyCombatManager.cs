@@ -5,29 +5,19 @@ using Resources.Project.Runtime.Scripts.Player;
 using Resources.Project.Runtime.Scripts.UI;
 using UnityEngine;
 
-namespace Resources.Scripts.Enemy
+namespace Resources.Project.Runtime.Scripts.Enemy
 {
     public class EnemyCombatManager : MonoBehaviour
     {
-        private EnemyHealthManager EnemyHealthManager;
-        private AudioManager AudioManager;
-        private EnemyMovementHandler EnemyMovementHandler;
-        private EnemyStatsManager EnemyStatsManager;
-        public BoxCollider2D BoxCollider2D { get; private set; }
-        public Rigidbody2D Rigidbody2D { get; private set; } 
+        [SerializeField] private EnemyHealthManager EnemyHealthManager;
+        [SerializeField] private EnemyMovementHandler EnemyMovementHandler;
+        [SerializeField] private EnemyStatsManager EnemyStatsManager;
+        public BoxCollider2D BoxCollider2D;
+        public Rigidbody2D Rigidbody2D; 
         
         public Transform PrefabDamagePopup;
 
         public bool IsAttacking;
-
-        private void Awake()
-        {
-            BoxCollider2D = GetComponent<BoxCollider2D>();
-            EnemyHealthManager = GetComponent<EnemyHealthManager>();
-            EnemyMovementHandler = GetComponent<EnemyMovementHandler>();
-            Rigidbody2D = GetComponent<Rigidbody2D>();
-            EnemyStatsManager = GetComponent<EnemyStatsManager>();
-        }
 
         public float TakeDamage(float damage, Vector3 attackDirection, float attackSpeed, bool isDot, bool isCriticalHit, bool showValue, Color? customColor)
         {

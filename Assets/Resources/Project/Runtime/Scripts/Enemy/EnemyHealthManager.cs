@@ -1,40 +1,35 @@
 ﻿using UnityEngine;
 
-namespace Resources.Scripts.Enemy
+namespace Resources.Project.Runtime.Scripts.Enemy
 {
     public class EnemyHealthManager : MonoBehaviour
     {
-        private EnemyStateMachine EnemyStateMachine;
-        private EnemyStatsManager EnemyStatsManager;
+        [SerializeField] private EnemyStateMachine enemyStateMachine;
+        [SerializeField] private EnemyStatsManager enemyStatsManager;
 
-        private float MaxHealth { get; set; }
-        public float CurrentHealth { get; private set; }
+        private float maxHealth { get; set; }
+        public float currentHealth { get; private set; }
 
-        private void Awake()
-        {
-            EnemyStateMachine = GetComponent<EnemyStateMachine>();
-            EnemyStatsManager = GetComponent<EnemyStatsManager>();
-        }
 
         private void Start()
         {
-            CurrentHealth = EnemyStatsManager.MaxHP;
+            currentHealth = enemyStatsManager.MaxHP;
         }
 
         public void TakeDamage(float damage)
         {
-            CurrentHealth -= damage;
+            currentHealth -= damage;
             
             // Verify if its alive
-            if(!EnemyStateMachine.IsDying && GetCurrentHp() <= 0)
+            if(!enemyStateMachine.IsDying && GetCurrentHp() <= 0)
             {
-                EnemyStateMachine.ChangeState(EnemyStateMachine.States.Dying);
+                enemyStateMachine.ChangeState(EnemyStateMachine.States.Dying);
             }
         }
 
         private float GetCurrentHp()
         {
-            return CurrentHealth;
+            return currentHealth;
         }
         
     }

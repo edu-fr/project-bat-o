@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Resources.Scripts.Enemy
+namespace Resources.Project.Runtime.Scripts.Enemy
 {
     public class FieldOfView : MonoBehaviour
     {

@@ -1,4 +1,3 @@
-using Resources.Scripts.Enemy;
 using UnityEngine;
 
 namespace Resources.Project.Runtime.Scripts.Enemy.Attacks
