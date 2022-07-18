@@ -4,6 +4,6 @@ namespace Objects
 {
     public class Weapon : MonoBehaviour
     {
-        private int Damage;
+        private int _damage;
     }
 }

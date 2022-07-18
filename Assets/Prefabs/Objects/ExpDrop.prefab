@@ -47,12 +47,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99faeab28fc86ce4481ee6f9f43ff354, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectTransform: {fileID: 7828182807555897848}
-  When: 0.35
-  XRandomDistance: 1.301
-  YRandomDistance: 1.301
-  Amount: 0
-  ItemName: 
+  objectTransform: {fileID: 7828182807555897848}
+  when: 0.35
+  xRandomDistance: 1.4
+  yRandomDistance: 1.4
+  amount: 1
+  itemName: 
+  speed: 0.03
+  magnetDistance: 1.5
 --- !u!212 &4725896382082224075
 SpriteRenderer:
   m_ObjectHideFlags: 0

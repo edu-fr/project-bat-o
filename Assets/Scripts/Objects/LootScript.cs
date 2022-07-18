@@ -1,3 +1,4 @@
+using System;
 using Player;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -6,50 +7,83 @@ namespace Objects
 {
     public class LootScript : MonoBehaviour
     {
-        public Transform ObjectTransform;
-        private float Delay = 0;
-        private float PastTime = 0;
+        public Transform objectTransform;
+        private float _delay = 0;
+        private float _pastTime = 0;
         [SerializeField] [Range(0, 2)]
-        private float When = 0.35f;
-        private Vector3 Offset;
-        [SerializeField] [Range(1, 3)] private float XRandomDistance = 1.4f;
-        [SerializeField] [Range(1, 3)]private float YRandomDistance = 1.4f;
-        [SerializeField] public int Amount;
-        [SerializeField] private string ItemName;
+        private float when = 0.35f;
+        private Vector3 _offset;
+        [SerializeField] [Range(1, 3)] private float xRandomDistance = 1.4f;
+        [SerializeField] [Range(1, 3)]private float yRandomDistance = 1.4f;
+        [SerializeField] public int amount;
+        [SerializeField] private string itemName;
+        [SerializeField] private float speed;
+        [SerializeField] private float magnetDistance;
+        
         private static GameObject _prefabLoot;
-        private bool CanBeCollected = false;
+        private bool _canBeCollected = false;
+        private Transform _playerTransform;
         
         private void Awake()
         {
-            Offset = new Vector3(Random.Range(-XRandomDistance, XRandomDistance), 
-                Random.Range(-YRandomDistance, YRandomDistance), Offset.z);
+            _offset = new Vector3(Random.Range(-xRandomDistance, xRandomDistance), 
+                Random.Range(-yRandomDistance, yRandomDistance), _offset.z);
+        }
+
+        private void Start()
+        {
+            _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (When >= Delay)
+            if (when >= _delay)
             {
-                PastTime = Time.deltaTime;
-                ObjectTransform.position += Offset * Time.deltaTime;
-                Delay += PastTime;
+                _pastTime = Time.deltaTime;
+                objectTransform.position += _offset * Time.deltaTime;
+                _delay += _pastTime;
             }
 
-            if (!CanBeCollected)
+            if (!_canBeCollected)
             {
-                if(Delay > When) CanBeCollected = true;
+                if(_delay > when) _canBeCollected = true;
+            }
+            else
+            {
+                FlyToPlayer();
             }
         }
 
+        private void FlyToPlayer()
+        {
+            var thisTransform = this.transform;
+            var playerDistance = Vector2.Distance(thisTransform.position, _playerTransform.position);
+            if (playerDistance > magnetDistance) return;
+            
+            if (playerDistance > 0.1f)
+            {
+                var playerDirection = (_playerTransform.position - thisTransform.position).normalized;
+                thisTransform.position += playerDirection * speed;
+            }
+        }
+        
+        
         public void OnTriggerStay2D(Collider2D other)
         {
-            if (!CanBeCollected) return;
+            if (!_canBeCollected) return;
 
             if (!other.CompareTag("Player") || other.isTrigger) return;
             var playerLevelController = other.gameObject.GetComponent<PlayerLevelController>();
             var playerCollectorController = other.gameObject.GetComponent<PlayerCollectorController>();
-            playerCollectorController.PlayerCollect(Amount);
+            playerCollectorController.PlayerCollect(amount);
             Destroy(gameObject);
+        }
+
+        public void OnDrawGizmos()
+        {
+            Gizmos.color = Color.grey;
+            Gizmos.DrawWireSphere(transform.position, magnetDistance);
         }
     }
 }

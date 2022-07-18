@@ -6,25 +6,25 @@ namespace Objects
 {
     public class ProjectileScript : MonoBehaviour
     {
-        [SerializeField] private bool CanBeStuck;
-        [SerializeField] private bool Rotating;
-        [SerializeField] private bool HasDestructionAnimation; // Imply that the animation will destroy the object
-        [SerializeField] [Range(0, 180)] private float RotationSpeed;
-        [SerializeField] private BaseAttack.DamageType DamageType;
-        private Vector3 ShootDirection;
-        private float Damage;
-        private float MoveSpeed;
-        private bool IsStuck;
-        private bool StoppedMoving; 
-        public GameObject Sprite;
-        private Animator SpriteAnimator;
+        [SerializeField] private bool canBeStuck;
+        [SerializeField] private bool rotating;
+        [SerializeField] private bool hasDestructionAnimation; // Imply that the animation will destroy the object
+        [SerializeField] [Range(0, 180)] private float rotationSpeed;
+        [SerializeField] private BaseAttack.DamageType damageType;
+        private Vector3 _shootDirection;
+        private float _damage;
+        private float _moveSpeed;
+        private bool _isStuck;
+        private bool _stoppedMoving; 
+        public GameObject sprite;
+        private Animator _spriteAnimator;
         
         public void Setup(Vector3 shootDirection, float projectileSpeed, float enemyPhysicalDamage, float enemyMagicalDamage)
         {
-            SpriteAnimator = Sprite.GetComponent<Animator>();
-            this.ShootDirection = shootDirection;
-            this.MoveSpeed = projectileSpeed;
-            this.Damage = DamageType switch
+            _spriteAnimator = sprite.GetComponent<Animator>();
+            this._shootDirection = shootDirection;
+            this._moveSpeed = projectileSpeed;
+            this._damage = damageType switch
             {
                 BaseAttack.DamageType.Physical => enemyPhysicalDamage,
                 BaseAttack.DamageType.Magical => enemyMagicalDamage,
@@ -36,9 +36,9 @@ namespace Objects
 
         private void Update()
         {
-            if ((CanBeStuck && IsStuck) || StoppedMoving) return;
-            transform.position += ShootDirection * (MoveSpeed * Time.deltaTime);
-            if(Rotating) Sprite.transform.Rotate(new Vector3(0, 0, RotationSpeed));
+            if ((canBeStuck && _isStuck) || _stoppedMoving) return;
+            transform.position += _shootDirection * (_moveSpeed * Time.deltaTime);
+            if(rotating) sprite.transform.Rotate(new Vector3(0, 0, rotationSpeed));
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -46,11 +46,11 @@ namespace Objects
             if (other.gameObject.CompareTag("Player"))
             {
                 // Hurt player
-                other.gameObject.GetComponent<PlayerHealthManager>()?.TakeDamage(Damage, DamageType);
-                if (HasDestructionAnimation)
+                other.gameObject.GetComponent<PlayerHealthManager>()?.TakeDamage(_damage, damageType);
+                if (hasDestructionAnimation)
                 {
-                    SpriteAnimator.SetTrigger("Extinguish");
-                    StoppedMoving = true;
+                    _spriteAnimator.SetTrigger("Extinguish");
+                    _stoppedMoving = true;
                 }
                 else 
                     Destroy(gameObject);
@@ -68,13 +68,13 @@ namespace Objects
 
             if (other.gameObject.CompareTag("Scene objects"))
             {
-                if (CanBeStuck) IsStuck = true;
+                if (canBeStuck) _isStuck = true;
                 else
                 {
-                    if (HasDestructionAnimation)
+                    if (hasDestructionAnimation)
                     {
-                        SpriteAnimator.SetTrigger("Extinguish");
-                        StoppedMoving = true; 
+                        _spriteAnimator.SetTrigger("Extinguish");
+                        _stoppedMoving = true; 
                     }
                     else 
                         Destroy(gameObject);
@@ -84,9 +84,9 @@ namespace Objects
 
         public void ReflectProjectile()
         {
-            ShootDirection = -ShootDirection;
-            MoveSpeed = MoveSpeed * 1.5f;
-            transform.right = ShootDirection;
+            _shootDirection = -_shootDirection;
+            _moveSpeed = _moveSpeed * 1.5f;
+            transform.right = _shootDirection;
         }
 
         public void DestroySelf()
