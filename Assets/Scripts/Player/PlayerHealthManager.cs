@@ -29,7 +29,7 @@ namespace Player
 
         private void Start()
         {
-            MaxHealth = PlayerStatsController.MaxHp;
+            MaxHealth = PlayerStatsController.CurrentMaxHP;
             CurrentHealth = MaxHealth;
             
         }
@@ -48,15 +48,10 @@ namespace Player
             AudioManager.instance.Play("Player get hit");
 
             // Calculate defenses, etc
-            damage = damageType switch
-            {
-                BaseAttack.DamageType.Physical => damage - PlayerStatsController.PhysicalDefense,
-                BaseAttack.DamageType.Magical => damage - PlayerStatsController.MagicalDefense,
-                _ => damage
-            };
+            var damageTaken = damage - PlayerStatsController.CurrentResistance;
 
             // Lose HP
-            CurrentHealth -= damage > 0 ? damage : 0; // always positive
+            CurrentHealth -= damageTaken > 0 ? damage : 0; // always positive
             CurrentHealth = CurrentHealth > MaxHealth ? MaxHealth : CurrentHealth < 0 ? 0 : CurrentHealth;
 
             HealthChanged?.Invoke(CurrentHealth, MaxHealth);

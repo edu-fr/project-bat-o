@@ -31,7 +31,7 @@ namespace Player
         [SerializeField] [Range(1f, 5f)] private float CurrentAttackSpeed;
         public float currentAttackCooldown { get; set; }
         
-        [SerializeField] private PowerUpController.Effects CurrentEffect = PowerUpController.Effects.None;
+        // [SerializeField] private PowerUpController.Effects CurrentEffect = PowerUpController.Effects.None;
 
         private List<GameObject> EnemiesHit;
         [SerializeField]
@@ -73,7 +73,7 @@ namespace Player
 
         public void TryToAttack()
         {
-            if (currentAttackCooldown / PlayerStatsController.AttackSpeed > 0)
+            if (currentAttackCooldown / PlayerStatsController.CurrentAttackSpeed > 0)
             {
                 currentAttackCooldown -= Time.deltaTime;
             }
@@ -91,7 +91,7 @@ namespace Player
         {
             Direction = GetAnimationDirection();
             PlayerStateMachine.ChangeState(PlayerStateMachine.States.Attacking);
-            CurrentEffect = PowerUpActivator.GenerateEffect();
+            // CurrentEffect = PowerUpActivator.GenerateEffect();
             AnimateAttack();
             // switch (CurrentEffect)
             // {
@@ -173,12 +173,12 @@ namespace Player
         
                 Vector3 attackDirection = (enemy.transform.position - transform.position).normalized;
                 if (CriticalTest()) // critical hit
-                    enemy.GetComponent<EnemyCombatManager>().TakeDamage(PlayerStatsController.PhysicalDamage * PlayerStatsController.CriticalDamage, attackDirection,
-                        PlayerStatsController.AttackSpeed ,false, true, true, null);
+                    enemy.GetComponent<EnemyCombatManager>().TakeDamage(PlayerStatsController.CurrentAttack * PlayerStatsController.CurrentCriticalDamage, attackDirection,
+                        PlayerStatsController.CurrentAttackSpeed ,false, true, true, null);
                 else                // normal hit
-                    enemy.GetComponent<EnemyCombatManager>().TakeDamage(PlayerStatsController.PhysicalDamage, attackDirection,
-                        PlayerStatsController.AttackSpeed,false, false, true, null);
-                PowerUpActivator.ApplyEffectsOnEnemies(enemy, CurrentEffect);
+                    enemy.GetComponent<EnemyCombatManager>().TakeDamage(PlayerStatsController.CurrentAttack, attackDirection,
+                        PlayerStatsController.CurrentAttackSpeed,false, false, true, null);
+                // PowerUpActivator.ApplyEffectsOnEnemies(enemy, CurrentEffect);
             }
         }
 
@@ -186,7 +186,7 @@ namespace Player
         {
             Random.InitState((int) Time.realtimeSinceStartup);
             var random = Random.Range(0, 100);
-            return random < PlayerStatsController.CriticalRate;
+            return random < PlayerStatsController.CurrentCriticalRate;
         }
 
         private Directions GetAnimationDirection()
