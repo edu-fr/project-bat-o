@@ -5024,6 +5024,7 @@ MonoBehaviour:
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
   m_OverlapOperation: 1
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
@@ -5097,7 +5098,6 @@ GameObject:
   - component: {fileID: 6753889184881655943}
   - component: {fileID: 385695933423370815}
   - component: {fileID: 4396048941111737139}
-  - component: {fileID: 555801312}
   - component: {fileID: 1938860099312322761}
   - component: {fileID: -1128968484826919403}
   - component: {fileID: 5976800456755294409}
@@ -5278,7 +5278,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerAttackManager: {fileID: 6753889184881655942}
-  PowerUpController: {fileID: 555801312}
   RigidBody: {fileID: 6753889184881655948}
   Dust: {fileID: 3192570680579372882}
   PlayerStateMachine: {fileID: -1128968484826919403}
@@ -5308,7 +5307,6 @@ MonoBehaviour:
   CurrentWeaponRange: 0.9
   DefaultAttackCooldown: 0.4
   CurrentAttackSpeed: 2.1
-  CurrentEffect: 3
   EnemyLayerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -5318,7 +5316,6 @@ MonoBehaviour:
   FireMaterial: {fileID: 2100000, guid: bb0085cdb6ce6f64a8808d60ea372b8d, type: 2}
   IceMaterial: {fileID: 2100000, guid: bb0085cdb6ce6f64a8808d60ea372b8d, type: 2}
   ThunderMaterial: {fileID: 2100000, guid: bb0085cdb6ce6f64a8808d60ea372b8d, type: 2}
-  PowerUpController: {fileID: 555801312}
   PowerUpActivator: {fileID: -5479966777030865408}
   EnemyLayers:
     serializedVersion: 2
@@ -5366,32 +5363,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BurnTickTimers: 
---- !u!114 &555801312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6753889184881655945}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc6c4de849fb3604cbe019d6213f0981, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HpLevel: 0
-  AttackLevel: 0
-  AttackSpeedLevel: 0
-  PhysicalDefenseLevel: 0
-  MagicalDefenseLevel: 0
-  CriticalRateLevel: 1
-  CriticalDamageLevel: 1
-  EvasionLevel: 0
-  FireLevel: 0
-  IceLevel: 0
-  ElectricLevel: 0
-  LifeStealLevel: 0
-  PerfectDodgeLevel: 1
-  HitProjectilesLevel: 1
 --- !u!114 &1938860099312322761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5480,42 +5451,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77d3f583b9ff7d946811e2125d9aef47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BasePhysicalDamage: 20
-  PhysicalDamage: 0
-  BaseAttackSpeed: 2
-  AttackSpeed: 0
-  BasePhysicalDefense: 5
-  PhysicalDefense: 0
-  BaseMagicalDefense: 20
-  MagicalDefense: 0
-  BaseMaxHp: 100
-  MaxHp: 0
-  BaseEvasionRate: 5
-  EvasionRate: 0
-  BaseCriticalRate: 10
-  CriticalRate: 0
-  BaseCriticalMultiplier: 1.5
-  CriticalDamage: 0
-  BaseFireDamage: 25
-  FireDamage: 0
-  BaseFireAttackRate: 100
-  BaseIceDamage: 20
-  IceDamage: 0
-  BaseIceAttackRate: 15
-  IceAttackRate: 0
-  BaseFrostDuration: 1
-  FrostDuration: 0
-  BaseShatterDamage: 50
-  ShatterDamage: 0
-  BaseElectricalDamage: 30
-  ElectricalDamage: 0
-  BaseElectricAttackRate: 30
-  ElectricAttackRate: 0
-  BaseElectricRange: 8
-  ElectricRange: 0
-  ParalyzeDuration: 0
-  LifeStealPercentage: 0
-  LifeStealAttackRate: 0
+  basePower: 0
+  currentPower: 0
+  baseAttackSpeed: 0
+  currentAttackSpeed: 0
+  baseResistance: 0
+  currentResistance: 0
+  baseMaxHP: 0
+  currentMaxHP: 0
+  baseLifeRecovery: 0
+  currentLifeRecovery: 0
+  baseCriticalRate: 0
+  currentCriticalRate: 0
+  baseCriticalDamage: 0
+  currentCriticalDamage: 0
+  baseEvasion: 0
+  currentEvasion: 0
+  baseLifeSteal: 0
+  currentLifeSteal: 0
+  baseTotalFireDamage: 0
+  currentTotalFireDamage: 0
+  baseFireTotalDuration: 0
+  currentFireTotalDuration: 0
+  baseFireNumberOfTicks: 0
+  currentFireNumberOfTicks: 0
+  baseFireTickDuration: 0
+  currentFireTickDuration: 0
+  baseWaterCleaveDamage: 0
+  currentWaterCleaveDamage: 0
+  waterCleaveRange: 0
+  waterCleaveAngle: 0
+  baseTotalWindMoveSpeedStack: 0
+  currentTotalWindMoveSpeedStack: 0
+  baseTotalWindAttackSpeedStack: 0
+  currentTotalWindAttackSpeedStack: 0
+  baseTotalWindAttackStack: 0
+  currentTotalWindAttackStack: 0
+  baseTotalWindCriticalRateStack: 0
+  currentTotalWindCriticalRateStack: 0
+  numberOfWindStacks: 0
+  baseTotalLightningDamage: 0
+  currentTotalLightningDamage: 0
+  baseLightningAoE: 0
+  currentLightningAoE: 0
 --- !u!1 &8021345283708634746
 GameObject:
   m_ObjectHideFlags: 0
@@ -5574,6 +5552,7 @@ MonoBehaviour:
     type: 3}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
   m_OverlapOperation: 0
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2

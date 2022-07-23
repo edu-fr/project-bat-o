@@ -17,7 +17,6 @@ namespace Player
         }
 
         [SerializeField] private PlayerAttackManager PlayerAttackManager;
-        [SerializeField] private PowerUpController PowerUpController;
         [SerializeField] private Rigidbody2D RigidBody;
         [SerializeField] private ParticleSystem Dust;
         public PlayerStateMachine PlayerStateMachine;

@@ -46,7 +46,6 @@ namespace Player
         public Material ThunderMaterial;
         private Renderer Renderer;
 
-        public PowerUpController PowerUpController;
         public PowerUpActivator PowerUpActivator;
         private PlayerStatsController PlayerStatsController;
 
@@ -56,7 +55,6 @@ namespace Player
         private void Awake()
         {
             Animator = GetComponent<Animator>();
-            PowerUpController = GetComponent<PowerUpController>();
             Renderer = GetComponent<Renderer>();
             PlayerHealthManager = GetComponent<PlayerHealthManager>();
             PlayerStateMachine = GetComponent<PlayerStateMachine>();
@@ -173,10 +171,10 @@ namespace Player
         
                 Vector3 attackDirection = (enemy.transform.position - transform.position).normalized;
                 if (CriticalTest()) // critical hit
-                    enemy.GetComponent<EnemyCombatManager>().TakeDamage(PlayerStatsController.CurrentAttack * PlayerStatsController.CurrentCriticalDamage, attackDirection,
+                    enemy.GetComponent<EnemyCombatManager>().TakeDamage(PlayerStatsController.CurrentPower * PlayerStatsController.CurrentCriticalDamage, attackDirection,
                         PlayerStatsController.CurrentAttackSpeed ,false, true, true, null);
                 else                // normal hit
-                    enemy.GetComponent<EnemyCombatManager>().TakeDamage(PlayerStatsController.CurrentAttack, attackDirection,
+                    enemy.GetComponent<EnemyCombatManager>().TakeDamage(PlayerStatsController.CurrentPower, attackDirection,
                         PlayerStatsController.CurrentAttackSpeed,false, false, true, null);
                 // PowerUpActivator.ApplyEffectsOnEnemies(enemy, CurrentEffect);
             }

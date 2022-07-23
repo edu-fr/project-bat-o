@@ -1736,6 +1736,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4deb7b0a2ff6ca942890d512123991dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LevelUpUI: {fileID: 0}
+  levelUpOptions: []
 --- !u!114 &1138580505074745668
 MonoBehaviour:
   m_ObjectHideFlags: 0

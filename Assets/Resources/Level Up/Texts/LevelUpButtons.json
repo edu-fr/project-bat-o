@@ -1,0 +1,22 @@
+{
+	"LevelUpOptions": [
+		{
+			"optionAttributeName": "Power",
+			"optionTitle": "Increase power",
+			"optionText": "Increase the damage that you do.",
+			"optionIconName": "iconPower"
+		},
+		{
+			"optionAttributeName": "AttackSpeed",
+			"optionTitle": "Increase attack speed",
+			"optionText": "Increase the speed of your basic attacks.",
+			"optionIconName": "iconAttackSpeed"
+		},
+		{
+			"optionAttributeName": "Resistance",
+			"optionTitle": "Increase resistance",
+			"optionText": "Increase your resistance to damage and crowd control.",
+			"optionIconName": "iconResistance"
+		}
+	]
+}
