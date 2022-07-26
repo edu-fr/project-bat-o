@@ -7,18 +7,19 @@ namespace Enemy.Attacks
 {
     public class PetrifyingAttack : BaseAttack
     {
-        [SerializeField] private bool HasAttackAnimation;
         [SerializeField] private FieldOfView AttackFoV;
-        public LayerMask PlayerLayer;
-        public bool IsOnHalfOfAttackAnimation = false;
-
-        protected override void Start()
-        {
-            base.Start();
-            AttackFoV.SetViewDistance(EnemyStatsManager.AttackRange);
-            AttackFoV.SetFieldOfView(EnemyStatsManager.AreaOfEffect);
-        }
+        [SerializeField] [Range(0, 360)] private float attackAoE;
+        public float AttackAoE => attackAoE;
         
+        [SerializeField] [Range(0, 5)] private float crowdControlDuration;
+        public float CrowdControlDuration => crowdControlDuration;
+        
+        protected void Start()
+        {
+            AttackFoV.SetViewDistance(AttackRange);
+            AttackFoV.SetFieldOfView(AttackAoE);
+        }
+
         protected override void Update()
         {
             base.Update();  
@@ -33,30 +34,21 @@ namespace Enemy.Attacks
                 AttackFoV.gameObject.SetActive(true);
             }
             
-            if (AlreadyPredicted) return;
-            
-            var current = EnemyStatsManager.AttackPreparationTime - EnemyStateMachine.AttackPreparationCurrentTime;
+            var current = AttackPreparationTime - _attackPreparationCurrentTime;
             Debug.Log(current);
-            
-            if (current < EnemyStatsManager.TimeToPredictIfWillHitTheTarget) 
-                WillHitTheTarget(Vector3.zero);
-
             // make sound once (?)
         }
         
         public override void Attack(Vector3 playerDirection)
         {
-            if(HasAttackAnimation)
+            if(hasAttackAnimation)
                 EnemyAnimationController.AnimateAttack(playerDirection.x, playerDirection.y);
             AudioManager.instance.Play("Hit enemy");
             if (AttackFoV.PlayerIsOnFieldOfView && IsPlayerLookingToTheEye(AttackFoV.Player.GetComponent<PlayerController>().PlayerFaceDir, EnemyAnimationController.CurrentFaceDirection))
                 AttackFoV.Player.GetComponent<PlayerStateMachine>()
-                    .PetrifyPlayer(EnemyStatsManager.CrowdControlDuration);
-            else
-                Debug.Log("Player nao encontrado");
-            ProbablyGonnaHit = WillHitTheTarget(playerDirection);
+                    .PetrifyPlayer(CrowdControlDuration);
             EnemyCombatManager.IsAttacking = true;
-            if(!HasAttackAnimation)
+            if(hasAttackAnimation)
                 AttackEnd();
         }
 
@@ -83,29 +75,14 @@ namespace Enemy.Attacks
         public override void AttackEnd()
         {
             base.AttackEnd();
-            IsOnHalfOfAttackAnimation = false;
+            isOnHalfOfAttackAnimation = false;
             AttackFoV.gameObject.SetActive(false);
-            AlreadyPredicted = false;
-        }
-        
-        protected override bool WillHitTheTarget(Vector3 nullVector)
-        {
-            AlreadyPredicted = true;
-            var willHit = AttackFoV.PlayerIsOnFieldOfView;
-            if(willHit) Debug.Log("IA ACERTAR!");
-            return willHit;
         }
         
         public void SetIsOnHalfOfAttackAnimation() // called by animator (?)
         {
-            IsOnHalfOfAttackAnimation = true;
+            isOnHalfOfAttackAnimation = true;
         }
-        
-        private void OnCollisionExit2D(Collision2D other)
-        {
-            if (!other.gameObject.CompareTag("Player")) return;
-            other.gameObject.GetComponent<PlayerController>().DodgeFailed = true;
-            Debug.Log("Colidi e triggei o dodge failed!");
-        }
+
     }
 }

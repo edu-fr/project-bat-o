@@ -4,31 +4,40 @@ namespace Enemy.Attacks
 {
     public abstract class BaseAttack : MonoBehaviour
     {
-        public enum DamageType
-        {
-            Physical,
-            Magical,
-        }
-        
+        /* Components */
         protected EnemyCombatManager EnemyCombatManager;
         protected EnemyStateMachine EnemyStateMachine;
         protected EnemyMovementHandler EnemyMovementHandler;
         protected EnemyStatsManager EnemyStatsManager;
         protected EnemyAnimationController EnemyAnimationController;
 
-        protected float AttackPreparationCurrentTime;
-        protected bool AlreadyPredicted;
-        private bool AttackEnded;
-        private float AttackCurrentRecoveryTime;
-        private float AttackRecoveryTime;
-        [HideInInspector] public bool AttackOnCooldown;
-        private float AttackCurrentCooldown;
-        
+        /* Mandatory variables */
+        protected float _attackPreparationCurrentTime;
+        protected bool _attackEnded;
+        protected bool _isRecoveringFromAttack;
+        protected float _attackCurrentRecoveryTime;
+        public bool AttackOnCooldown { get; private set; }
+        protected float AttackCurrentCooldown;
+        [SerializeField] protected float attackPreparationTime;
+        public float AttackPreparationTime => attackPreparationTime;
+        [SerializeField] protected float attackCooldown;
+        public float AttackCooldown => attackCooldown;
+        [SerializeField] protected float attackRecoveryTime;
+        public float AttackRecoveryTime => attackRecoveryTime;
+        [SerializeField] protected float distanceToAttack;
+        public float DistanceToAttack => distanceToAttack;
+        [SerializeField] protected float attackRange;
+        public float AttackRange => attackRange;
+        [SerializeField] protected bool triggeredDuringAnimation;
         public Vector2 AttackOrigin { get; protected set; }
-        
-        public bool ProbablyGonnaHit { get; protected set; }
-        
-        [SerializeField] protected bool TriggeredDuringAnimation;
+        [SerializeField] protected bool hasAttackAnimation;
+        [SerializeField] protected bool isOnHalfOfAttackAnimation;
+
+        /* Optional variables */ 
+        [SerializeField] protected float preparationWalkDistance;
+        public float PreparationWalkDistance => preparationWalkDistance;
+        [SerializeField] [Range(0.1f, 2f)] [Tooltip("Multiply the speed of the enemy attacking")] protected float attackSpeedModifier;
+        public float AttackSpeedModifier => attackSpeedModifier;
 
         protected virtual void Awake()
         {
@@ -39,57 +48,50 @@ namespace Enemy.Attacks
             EnemyStatsManager = GetComponent<EnemyStatsManager>();
             EnemyAnimationController = GetComponent<EnemyAnimationController>();
         }
-        protected virtual void Start()
-        {
-            AttackRecoveryTime = EnemyStatsManager.AttackRecoveryTime;
-            // get cooldowns, etc
-        }
 
         protected virtual void Update()
         {
-            CheckAttackCooldown();
-            CheckRecoverTimeAfterAttacking();
+            AttackOrigin = transform.position;
+            if (_isRecoveringFromAttack) 
+                RecoverFromAttacking();
+            if (AttackOnCooldown)
+                CheckAttackCooldown();
         }
 
         public abstract void PreparingAttack();
 
         public abstract void Attack(Vector3 playerDirection);
 
-        // ReSharper disable once MemberCanBeProtected.Global
-        // ReSharper disable Unity.PerformanceAnalysis
         public virtual void AttackEnd() // Called by animation end
         {
-            AttackEnded = true;
-            EnemyMovementHandler.EnemyAnimationController.SetAnimationSpeedToDefault();
+            _attackEnded = true;
+            _isRecoveringFromAttack = true;
+            EnemyAnimationController.SetAnimationSpeedToDefault();
+        }
+
+        private void RecoverFromAttacking()
+        {
+            _attackCurrentRecoveryTime += Time.deltaTime;
+            if (!(_attackCurrentRecoveryTime > AttackRecoveryTime)) return;
+            _isRecoveringFromAttack = false;
+            _attackCurrentRecoveryTime = 0;
             AttackOnCooldown = true;
+            
+            /* Get back to action*/
+            EnemyStateMachine.isAttackingNow = false;
+            EnemyMovementHandler.aiPath.enabled = true;
+            EnemyStateMachine.ChangeState(EnemyStateMachine.States.Chasing);
         }
 
         private void CheckAttackCooldown()
         {
             if (!AttackOnCooldown) return;
             AttackCurrentCooldown += Time.deltaTime;
-            if (AttackCurrentCooldown > EnemyStatsManager.AttackCooldown)
+            if (AttackCurrentCooldown > AttackCooldown)
             {
                 AttackCurrentCooldown = 0;
                 AttackOnCooldown = false;
             }
         }
-
-        // ReSharper disable Unity.PerformanceAnalysis
-        private void CheckRecoverTimeAfterAttacking()
-        {
-            if (!AttackEnded || EnemyStateMachine.State != EnemyStateMachine.States.Attacking) return;
-            EnemyCombatManager.IsAttacking = false;
-            AttackCurrentRecoveryTime += Time.deltaTime;
-            if (!(AttackCurrentRecoveryTime > AttackRecoveryTime)) return;
-            AttackCurrentRecoveryTime = 0;
-            AttackEnded = false;
-            EnemyStateMachine.IsAttackingNow = false;
-            EnemyMovementHandler.AiPath.enabled = true;
-            EnemyStateMachine.ChangeState(EnemyStateMachine.States.Chasing);
-        }
-
-        protected abstract bool WillHitTheTarget(Vector3 playerPositionOrDirection);
-
     }
 }

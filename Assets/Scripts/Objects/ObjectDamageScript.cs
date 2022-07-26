@@ -12,9 +12,7 @@ namespace Objects
         [SerializeField]
         private float objectDamage;
 
-        [SerializeField] private BaseAttack.DamageType objectDamageType; 
-        [SerializeField]
-        private float objectAttackSpeed; // the bigger, the less time the attacker is invulnerable
+        [SerializeField] private float objectAttackSpeed; // the bigger, the less time the attacker is invulnerable
     
         private void OnCollisionEnter2D(Collision2D other)
         {
@@ -25,7 +23,7 @@ namespace Objects
             }
             else if (other.gameObject.CompareTag("Player"))
             {
-                other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage(objectDamage, objectDamageType);
+                other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage(objectDamage);
             }
         }
     }

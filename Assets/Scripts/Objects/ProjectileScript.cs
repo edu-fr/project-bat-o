@@ -10,7 +10,6 @@ namespace Objects
         [SerializeField] private bool rotating;
         [SerializeField] private bool hasDestructionAnimation; // Imply that the animation will destroy the object
         [SerializeField] [Range(0, 180)] private float rotationSpeed;
-        [SerializeField] private BaseAttack.DamageType damageType;
         private Vector3 _shootDirection;
         private float _damage;
         private float _moveSpeed;
@@ -19,17 +18,12 @@ namespace Objects
         public GameObject sprite;
         private Animator _spriteAnimator;
         
-        public void Setup(Vector3 shootDirection, float projectileSpeed, float enemyPhysicalDamage, float enemyMagicalDamage)
+        public void Setup(Vector3 shootDirection, float projectileSpeed, float enemyPower)
         {
             _spriteAnimator = sprite.GetComponent<Animator>();
             this._shootDirection = shootDirection;
             this._moveSpeed = projectileSpeed;
-            this._damage = damageType switch
-            {
-                BaseAttack.DamageType.Physical => enemyPhysicalDamage,
-                BaseAttack.DamageType.Magical => enemyMagicalDamage,
-                _ => 0
-            };
+            this._damage = enemyPower;
             transform.right = shootDirection;
             Destroy(gameObject, 3f);
         }
@@ -46,7 +40,7 @@ namespace Objects
             if (other.gameObject.CompareTag("Player"))
             {
                 // Hurt player
-                other.gameObject.GetComponent<PlayerHealthManager>()?.TakeDamage(_damage, damageType);
+                other.gameObject.GetComponent<PlayerHealthManager>()?.TakeDamage(_damage);
                 if (hasDestructionAnimation)
                 {
                     _spriteAnimator.SetTrigger("Extinguish");

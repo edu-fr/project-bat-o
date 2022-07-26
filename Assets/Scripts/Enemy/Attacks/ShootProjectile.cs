@@ -15,7 +15,6 @@ namespace Enemy.Attacks
         [SerializeField] private Vector2 ProjectileOriginBackLeft;
         
         private Vector3 PlayerDirection;
-        [SerializeField] [Range(2, 10)] private float ProjectileSpeed;
 
         public event EventHandler<OnShootEventArgs> OnShoot; // Creation of the event handler
 
@@ -30,12 +29,7 @@ namespace Enemy.Attacks
             base.Awake();
             OnShoot += CreateProjectileOnShoot; // Subscribing a new event to the event handler
         }
-
-        protected override void Update()
-        {
-            base.Update();
-        }
-
+        
         public override void PreparingAttack()
         {
             SetProjectileOrigin(EnemyAnimationController.CurrentFaceDirection);
@@ -60,17 +54,12 @@ namespace Enemy.Attacks
         {    
             PlayerDirection = playerDirection;
             EnemyCombatManager.IsAttacking = true;
-            if (TriggeredDuringAnimation) 
+            if (triggeredDuringAnimation) 
                 EnemyAnimationController.AnimateAttack(playerDirection.x, playerDirection.y);
             else 
                 DoShootProjectile();
         }
-
-        protected override bool WillHitTheTarget(Vector3 playerPositionOrDirection)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         public void DoShootProjectile() // Called by the animator
         {
             OnShoot?.Invoke(this, new OnShootEventArgs()
@@ -78,7 +67,7 @@ namespace Enemy.Attacks
                 ProjectileOrigin = AttackOrigin,
                 ShootDirection = PlayerDirection
             });
-            if (!TriggeredDuringAnimation)
+            if (!triggeredDuringAnimation)
                 AttackEnd();
         }
 
@@ -86,9 +75,7 @@ namespace Enemy.Attacks
         {
             var newProjectile = Instantiate(ProjectilePrefab, AttackOrigin, Quaternion.identity, null);
             var shootDirection = (e.ShootDirection).normalized;
-            var enemyPhysicalDamage = EnemyStatsManager.PhysicalDamage; 
-            var enemyMagicalDamage = EnemyStatsManager.MagicalDamage; 
-            newProjectile.GetComponent<ProjectileScript>().Setup(shootDirection, ProjectileSpeed, enemyPhysicalDamage, enemyMagicalDamage);
+            newProjectile.GetComponent<ProjectileScript>().Setup(shootDirection, AttackSpeedModifier, EnemyStatsManager.CurrentPower);
         }
 
     }

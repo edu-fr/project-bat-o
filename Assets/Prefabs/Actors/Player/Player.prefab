@@ -5362,7 +5362,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80ce8d383d148794796f86a0bbecbddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BurnTickTimers: 
 --- !u!114 &1938860099312322761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5451,22 +5450,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77d3f583b9ff7d946811e2125d9aef47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basePower: 0
-  currentPower: 0
-  baseAttackSpeed: 0
-  currentAttackSpeed: 0
-  baseResistance: 0
-  currentResistance: 0
-  baseMaxHP: 0
-  currentMaxHP: 0
-  baseLifeRecovery: 0
-  currentLifeRecovery: 0
-  baseCriticalRate: 0
-  currentCriticalRate: 0
-  baseCriticalDamage: 0
-  currentCriticalDamage: 0
-  baseEvasion: 0
-  currentEvasion: 0
+  basePower: 5
+  currentPower: 5
+  baseAttackSpeed: 1
+  currentAttackSpeed: 1
+  baseResistance: 2
+  currentResistance: 2
+  baseMaxHP: 30
+  currentMaxHP: 30
+  baseLifeRecovery: 1
+  currentLifeRecovery: 1
+  baseCriticalRate: 10
+  currentCriticalRate: 10
+  baseCriticalDamage: 150
+  currentCriticalDamage: 150
+  baseEvasion: 1
+  currentEvasion: 1
   baseLifeSteal: 0
   currentLifeSteal: 0
   blessingMaxLevel: 4

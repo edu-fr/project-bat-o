@@ -17,62 +17,54 @@ namespace Enemy
             TakingKnockBack,
             PreparingAttack,
             Attacking,
-            DyingBurned,
-            Frozen,
-            Paralyzed,
-            BeenRushed,
             Dying
-        };
-
-        public States State;
-        public States PreviousState;
-        
-        public bool IsWalkingAround { get; private set; } = false;
-
-        public bool IsDying { get; private set; } = false;
-        public bool IsTargeted { get; set; } = false;
-        public bool IsFrozen { get; private set; } = false;
-        public float DefrostCurrentTimer { get; set; }
-        public float DefrostTime { get; set; } 
-        public bool IsOnFire { get; set; } = false;
-        public bool IsPrimaryTarget { get; set; } = false;
-        public bool IsParalyzed { get; private set; } = false;
-        public float ParalyzeHealCurrentTimer { get; set; } 
-        public float ParalyzeHealTime { get; set; } 
-        public bool WillDieBurned { get; set; } = false;
-        public bool IsAttackingNow { get; set; } 
-        public bool IsBeenRushed { get; private set; }
-        
-        public float AttackPreparationCurrentTime { get; private set; }
-        private float DistanceToAttack; // Reference to stats manager
-        private float DistanceToLosePlayerSight; // Reference to stats manager
-        
-        public Vector3 PlayerDirection { get; private set;}
-
-        [SerializeField] private EnemyMovementHandler EnemyMovementHandler;
-        public EnemyCombatManager EnemyCombatManager;
-        public EnemyStatsManager EnemyStatsManager;
-        public Dropper Dropper;
-        
-        public AIPath AiPath;
-        public BaseAttack BaseAttack;
-        public EnemyMaterialManager EnemyMaterialManager;
-
-        public EnemyAnimationController EnemyAnimationController;
-        
-        [SerializeField] private LevelManager LevelManager;
-        [SerializeField] private Renderer Renderer;
-        public GameObject Shadow;
-        public LayerMask ObstaclesLayer;
-        private void Awake()
-        {
-            LevelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
         }
 
-        private void Start()
+        /* State related variables */
+        [Header("State variables")]
+        private States _state;
+        public States State => _state;
+        [SerializeField] private States previousState;
+        public States PreviousState => previousState;
+        public bool IsWalkingAround { get; private set; }
+        public bool IsDying { get; private set; }
+        private bool _isTargeted;
+        private bool _isOnFire;
+        public bool IsOnFire => _isOnFire;
+        private float _attackPreparationCurrentTime;
+        [HideInInspector] public bool isAttackingNow;
+        /***/
+
+        /* Components */
+        public Vector3 PlayerDirection { get; private set;}
+        private EnemyMovementHandler _enemyMovementHandler;
+        private Rigidbody2D _enemyRigidbody;
+        private EnemyCombatManager _enemyCombatManager;
+        private EnemyStatsManager _enemyStatsManager;
+        private Dropper _dropper;
+        private AIPath _aiPath;
+        private BaseAttack _attack;
+        private EnemyMaterialManager _enemyMaterialManager;
+        private EnemyAnimationController _enemyAnimationController;
+        private SpriteRenderer _renderer;
+        /***/
+        
+        private LevelManager _levelManager;
+        [SerializeField] private GameObject shadow;
+        [SerializeField] private LayerMask obstaclesLayer;
+        private void Awake()
         {
-            DistanceToAttack = EnemyStatsManager.DistanceToAttack;
-            DistanceToLosePlayerSight = EnemyStatsManager.DistanceToLosePlayerSight;
+            _levelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
+            _enemyAnimationController = GetComponent<EnemyAnimationController>();
+            _enemyMovementHandler = GetComponent<EnemyMovementHandler>();
+            _enemyCombatManager = GetComponent<EnemyCombatManager>();
+            _enemyStatsManager = GetComponent<EnemyStatsManager>();
+            _enemyMaterialManager = GetComponent<EnemyMaterialManager>();
+            _enemyRigidbody = GetComponent<Rigidbody2D>();
+            _renderer = GetComponent<SpriteRenderer>();
+            _attack = GetComponent<BaseAttack>();
+            _dropper = GetComponent<Dropper>();
+            _aiPath = GetComponent<AIPath>();
         }
 
         private void Update()
@@ -82,51 +74,50 @@ namespace Enemy
                 case States.Standard:
                     IsWalkingAround = true;
                     // Checking if player is close
-                    EnemyMovementHandler.CheckSurroundings();
+                    _enemyMovementHandler.CheckSurroundings();
 
                     // Updating field of view
-                    EnemyMovementHandler.FieldOfViewComponent.SetAimDirection(EnemyMovementHandler.EnemyAnimationController.CurrentFaceDirection);
+                    _enemyMovementHandler.fieldOfViewComponent.SetAimDirection(_enemyMovementHandler.enemyAnimationController.CurrentFaceDirection);
                     // Looking for the player
-                    if (EnemyMovementHandler.TargetPlayer != null)
+                    if (_enemyMovementHandler.TargetPlayer != null)
                     {
                         ChangeState(States.Chasing);
-                        //Debug.Log("LostTargetPlayer");
                     }
-
                     break;
 
                 case States.Chasing:
                     // Verify if there is close enemies chasing the player
-                    if (EnemyMovementHandler.TargetPlayer != null) // Know where the player is
+                    if (_enemyMovementHandler.TargetPlayer != null) // Know where the player is
                     {
-                        var playerTransformPosition = EnemyMovementHandler.TargetPlayer.transform.position;
+                        var playerTransformPosition = _enemyMovementHandler.TargetPlayer.transform.position;
                         var enemyTransformPosition = transform.position;
-                        EnemyAnimationController.AnimateMovement(playerTransformPosition.x - enemyTransformPosition.x, playerTransformPosition.y - enemyTransformPosition.y);
+                        _enemyAnimationController.AnimateMovement(playerTransformPosition.x - enemyTransformPosition.x, playerTransformPosition.y - enemyTransformPosition.y);
 
                         // If enemy is in a certain distance to the player
                         var distanceToThePlayer = Vector2.Distance(enemyTransformPosition, playerTransformPosition);
-                        if (distanceToThePlayer < DistanceToAttack)
+                        if (distanceToThePlayer < _attack.DistanceToAttack)
                         {
-                            EnemyMovementHandler.AiPath.maxSpeed = EnemyStatsManager.MoveSpeed / 5;
-                            EnemyAnimationController.SetAnimationSpeedTo(0.3f);
+                            _enemyMovementHandler.aiPath.maxSpeed = _enemyStatsManager.MoveSpeed / 5;
+                            _enemyAnimationController.SetAnimationSpeedTo(0.3f);
 
-                            if (!BaseAttack.AttackOnCooldown)
+                            if (!_attack.AttackOnCooldown)
                             {
                                 // Back chasing speed to normal
-                                EnemyMovementHandler.AiPath.maxSpeed = EnemyStatsManager.MoveSpeed * EnemyStatsManager.ChasingSpeedMultiplier;
+                                _enemyMovementHandler.aiPath.maxSpeed = _enemyStatsManager.MoveSpeed * _enemyStatsManager.ChasingSpeed;
 
                                 // Verify if there is nothing between the his body and the player 
-                                var raycastHit2D = Physics2D.Raycast(enemyTransformPosition,  (playerTransformPosition - enemyTransformPosition).normalized, distanceToThePlayer, ObstaclesLayer);
+                                var raycastHit2D = Physics2D.Raycast(enemyTransformPosition,  (playerTransformPosition - enemyTransformPosition).normalized, distanceToThePlayer, obstaclesLayer);
+                                var distanceToAttack = _attack.DistanceToAttack;
                                 if (raycastHit2D.collider && !raycastHit2D.collider.CompareTag("Player"))
                                 {
                                     // print("Collider: " + raycastHit2D.collider.gameObject.name);
-                                    DistanceToAttack -= DistanceToAttack/10; // Shrink distance to the player to keep chasing 
-                                    if (DistanceToAttack < EnemyStatsManager.DistanceToAttack / 2) // Reset if get to this point
-                                        DistanceToAttack = EnemyStatsManager.DistanceToAttack;
+                                    distanceToAttack -= distanceToAttack/10; // Shrink distance to the player to keep chasing 
+                                    if (distanceToAttack < _attack.DistanceToAttack / 2) // Reset if get to this point
+                                        distanceToAttack = _attack.DistanceToAttack;
                                 }
                                 else
                                 {
-                                    DistanceToAttack = EnemyStatsManager.DistanceToAttack;
+                                    distanceToAttack = _attack.DistanceToAttack;
                                     ChangeState(States.PreparingAttack);
                                     break;
                                 }
@@ -136,13 +127,13 @@ namespace Enemy
                         }
                         else
                         {
-                            EnemyMovementHandler.AiPath.maxSpeed = EnemyStatsManager.MoveSpeed * EnemyStatsManager.ChasingSpeedMultiplier;
+                            _enemyMovementHandler.aiPath.maxSpeed = _enemyStatsManager.MoveSpeed * _enemyStatsManager.ChasingSpeed;
                         }
                         
                         // Return to Standard state
-                        if (Vector2.Distance(transform.position, playerTransformPosition) > DistanceToLosePlayerSight)
+                        if (Vector2.Distance(transform.position, playerTransformPosition) > _enemyStatsManager.DistanceToLosePlayerSight)
                         {
-                            EnemyMovementHandler.TargetPlayer = null;
+                            _enemyMovementHandler.TargetPlayer = null;
                         }
                     }
                     else // Lost sight of player
@@ -157,60 +148,29 @@ namespace Enemy
                     break;
 
                 case States.PreparingAttack:
-                    AttackPreparationCurrentTime += Time.deltaTime;
-                    if (AttackPreparationCurrentTime > EnemyStatsManager.AttackPreparationTime)
+                    _attackPreparationCurrentTime += Time.deltaTime;
+                    if (_attackPreparationCurrentTime > _attack.AttackPreparationTime)
                     {
-                        AttackPreparationCurrentTime = 0;
+                        _attackPreparationCurrentTime = 0;
                         ChangeState(States.Attacking);
                     }
                     else
                     {
-                        PlayerDirection =  ((Vector2) EnemyMovementHandler.TargetPlayer.transform.position - BaseAttack.AttackOrigin);
-                        EnemyAnimationController.AnimateStanding(PlayerDirection.x, PlayerDirection.y); // makes the enemy look to the player while preparing the attack
-                        BaseAttack.PreparingAttack(); // keeps preparing the attack every frame until it can attack!
+                        PlayerDirection =  ((Vector2) _enemyMovementHandler.TargetPlayer.transform.position - _attack.AttackOrigin);
+                        _enemyAnimationController.AnimateStanding(PlayerDirection.x, PlayerDirection.y); // makes the enemy look to the player while preparing the attack
+                        _attack.PreparingAttack(); // keeps preparing the attack every frame until it can attack!
                     }
                     break;
                 
                 case States.Attacking:
                     // Return if already start the attack
-                    if (IsAttackingNow) return;
-                    IsAttackingNow = true;
+                    if (isAttackingNow) return;
+                    isAttackingNow = true;
                     // only once
-                    BaseAttack.Attack(PlayerDirection);
+                    _attack.Attack(PlayerDirection);
                     PlayerDirection = Vector3.zero;
                     break;
-                    
-                case States.DyingBurned:
-                    EnemyAnimationController.AnimateMovement(EnemyMovementHandler.AiPath.desiredVelocity.x, EnemyMovementHandler.AiPath.desiredVelocity.y);
-                    break;
 
-                case States.Frozen:
-                    DefrostCurrentTimer += Time.deltaTime;
-
-                    if (DefrostCurrentTimer >= DefrostTime)
-                    {
-                        DefrostCurrentTimer = 0;
-                        IsFrozen = false;
-                        ChangeState(States.Chasing);
-                        //Debug.Log("Frozen Ends");
-                    }
-                    break;
-
-                case States.Paralyzed:
-                    ParalyzeHealCurrentTimer += Time.deltaTime;
-                    if (ParalyzeHealCurrentTimer >= ParalyzeHealTime)
-                    {
-                        ParalyzeHealCurrentTimer = 0;
-                        IsParalyzed = false;
-                        ChangeState(States.Chasing);
-                        //Debug.Log("Paralyze ends");
-                    }
-                    break;
-                
-                case States.BeenRushed:
-                    /* StartCoroutine(ReturnEnemyToStandardStateAfterSeconds(3f)); */
-                    break; 
-                
                 case States.Dying:
                     
                     break;
@@ -222,152 +182,90 @@ namespace Enemy
     
         public void ChangeState(States state)
         {
-            PreviousState = this.State;
+            previousState = this.State;
             switch (state)
             {
                 case (States.Standard):
-                    // Making sure that is not frozen or paralyzed
-                    IsFrozen = false;
-                    IsParalyzed = false;
-                    
                     IsWalkingAround = true;
-                    EnemyAnimationController.SetAnimationSpeedToDefault();
-                    EnemyMovementHandler.TargetPlayer = null;
-                    EnemyMovementHandler.AiPath.maxSpeed = EnemyMovementHandler.WalkingAroundSpeed;
-                    EnemyMovementHandler.AiDestinationSetter.target = EnemyMovementHandler.Target.transform;
-                    EnemyMovementHandler.FieldOfViewComponent.gameObject.SetActive(true);
-                    EnemyMovementHandler.ChasingSpeed = EnemyStatsManager.MoveSpeed * EnemyStatsManager.ChasingSpeedMultiplier;
-                    EnemyMaterialManager.SetToDefaultMaterial();
+                    _enemyAnimationController.SetAnimationSpeedToDefault();
+                    _enemyMovementHandler.TargetPlayer = null;
+                    _enemyMovementHandler.aiPath.maxSpeed = _enemyStatsManager.MoveSpeed;
+                    _enemyMovementHandler.aiDestinationSetter.target = _enemyMovementHandler.target.transform;
+                    _enemyMovementHandler.fieldOfViewComponent.gameObject.SetActive(true);
+                    _enemyMaterialManager.SetToDefaultMaterial();
                     break;
 
                 case (States.Chasing):
                     // Making sure that it isn't frozen or paralyzed
-                    IsFrozen = false;
-                    IsParalyzed = false;
-                    
-                    if(EnemyMovementHandler.TargetPlayer) 
-                        EnemyMovementHandler.AiDestinationSetter.target = EnemyMovementHandler.TargetPlayer.transform;
+                    if(_enemyMovementHandler.TargetPlayer) 
+                        _enemyMovementHandler.aiDestinationSetter.target = _enemyMovementHandler.TargetPlayer.transform;
                     else 
                         ChangeState(States.Standard);
                     
-                    EnemyMovementHandler.AiPath.enabled = true;
-                    EnemyAnimationController.SetAnimationSpeedTo(1.2f);
+                    _enemyMovementHandler.aiPath.enabled = true;
+                    _enemyAnimationController.SetAnimationSpeedTo(1.2f);
                     IsWalkingAround = false;
-                    EnemyMovementHandler.AiPath.maxSpeed = EnemyMovementHandler.ChasingSpeed;
-                    EnemyMovementHandler.FieldOfViewComponent.gameObject.SetActive(false);
+                    _enemyMovementHandler.aiPath.maxSpeed = _enemyStatsManager.ChasingSpeed;
+                    _enemyMovementHandler.fieldOfViewComponent.gameObject.SetActive(false);
                     AstarPath.active.Scan();
-                    EnemyMaterialManager.SetToDefaultMaterial();
+                    _enemyMaterialManager.SetToDefaultMaterial();
                     break;
                 
                 case (States.TakingKnockBack):
-                    EnemyAnimationController.StopMoving();
+                    _enemyAnimationController.StopMoving();
                     IsWalkingAround = false;
-                    EnemyMovementHandler.AiPath.maxSpeed = 0f;
-                    EnemyMovementHandler.AiPath.enabled = false;
+                    _enemyMovementHandler.aiPath.maxSpeed = 0f;
+                    _enemyMovementHandler.aiPath.enabled = false;
                     break;
 
                 case (States.PreparingAttack):
-                    if (EnemyMovementHandler.Rigidbody.bodyType == RigidbodyType2D.Static) return; // if it's dying
-                    EnemyAnimationController.StopMoving();
+                    if (_enemyRigidbody.bodyType == RigidbodyType2D.Static) return; // if it's dying
+                    _enemyAnimationController.StopMoving();
                     IsWalkingAround = false;
-                    EnemyMovementHandler.Rigidbody.velocity = Vector2.zero;
-                    EnemyMovementHandler.FieldOfViewComponent.gameObject.SetActive(false);
-                    EnemyMovementHandler.AiPath.enabled = false;
-                    EnemyMovementHandler.AiDestinationSetter.target = null;
-                    EnemyAnimationController.SetFlipAndFaceDirection(PlayerDirection.x, PlayerDirection.y);
-                    EnemyMaterialManager.SetMaterial(EnemyMaterialManager.PreparingAttackMaterial);
-                    AttackPreparationCurrentTime = 0f;
+                    _enemyRigidbody.velocity = Vector2.zero;
+                    _enemyMovementHandler.fieldOfViewComponent.gameObject.SetActive(false);
+                    _enemyMovementHandler.aiPath.enabled = false;
+                    _enemyMovementHandler.aiDestinationSetter.target = null;
+                    _enemyAnimationController.SetFlipAndFaceDirection(PlayerDirection.x, PlayerDirection.y);
+                    _enemyMaterialManager.SetMaterial(_enemyMaterialManager.PreparingAttackMaterial);
+                    _attackPreparationCurrentTime = 0f;
                     break;
                 
                 case (States.Attacking):
-                    if (EnemyMovementHandler.Rigidbody.bodyType == RigidbodyType2D.Static) return; // if it's dying
+                    if ( _enemyRigidbody.bodyType == RigidbodyType2D.Static) return; // if it's dying
                     IsWalkingAround = false;
-                    EnemyMovementHandler.Rigidbody.velocity = Vector2.zero;
-                    EnemyMovementHandler.FieldOfViewComponent.gameObject.SetActive(false);
-                    EnemyMovementHandler.AiPath.enabled = false;
-                    EnemyMovementHandler.AiDestinationSetter.target = null;
+                    _enemyRigidbody.velocity = Vector2.zero;
+                    _enemyMovementHandler.fieldOfViewComponent.gameObject.SetActive(false);
+                    _enemyMovementHandler.aiPath.enabled = false;
+                    _enemyMovementHandler.aiDestinationSetter.target = null;
                     break;
                 
-                case (States.DyingBurned):
-                    // Making sure that isn't frozen or paralyzed
-                    IsFrozen = false;
-                    IsParalyzed = false;
-                    
-                    IsWalkingAround = false;
-                    EnemyMovementHandler.AiPath.maxSpeed = EnemyMovementHandler.DyingBurnedSpeed;
-                    
-                    if (EnemyMovementHandler.FieldOfViewComponent.gameObject != null)
-                    {
-                        EnemyMovementHandler.FieldOfViewComponent.gameObject.SetActive(false);
-                    }
-                    EnemyMovementHandler.RunFromThePlayer();
-                    EnemyAnimationController.SetAnimationSpeedTo(1.5f);
-                    EnemyMovementHandler.AiDestinationSetter.target = EnemyMovementHandler.Target.transform;
-                    
-                    EnemyMaterialManager.SetMaterial(EnemyMaterialManager.BurnedMaterial);
-                    break;
-                
-                case (States.Frozen):
-                    IsWalkingAround = false;
-                    IsFrozen = true;
-                    EnemyAnimationController.SetAnimationSpeedTo(0);
-                    EnemyMovementHandler.AiPath.maxSpeed = 0;
-                   
-                    if (EnemyMovementHandler.FieldOfViewComponent.gameObject != null)
-                    {
-                        EnemyMovementHandler.FieldOfViewComponent.gameObject.SetActive(false);
-                    }
-                    
-                    EnemyMaterialManager.SetMaterial(EnemyMaterialManager.FrozenMaterial);
-                    break;
-                
-                case (States.Paralyzed):
-                    IsWalkingAround = false;
-                    IsParalyzed = true;
-                    EnemyAnimationController.SetAnimationSpeedTo(0);
-                    EnemyMovementHandler.AiPath.maxSpeed = 0;
-                    
-                    if (EnemyMovementHandler.FieldOfViewComponent.gameObject != null)
-                    {
-                        EnemyMovementHandler.FieldOfViewComponent.gameObject.SetActive(false);
-                    }
-                    
-                    
-                    EnemyMaterialManager.SetMaterial(EnemyMaterialManager.ParalyzedMaterial);
-                    break;
-
                 case (States.Dying):
-                    EnemyCombatManager.StopAllCoroutines();
+                    _enemyCombatManager.StopAllCoroutines();
                     IsWalkingAround = false;
-                    IsBeenRushed = false;
-                    IsFrozen = false;
-                    IsParalyzed = false;
-                    IsTargeted = false;
-                    IsAttackingNow = false;
-                    IsBeenRushed = false;
-                    IsOnFire = false;
-                    IsPrimaryTarget = false;
-                    EnemyCombatManager.Rigidbody2D.velocity = Vector2.zero;
-                    EnemyCombatManager.Rigidbody2D.bodyType = RigidbodyType2D.Static;
-                    EnemyMovementHandler.ProtectorCollider.enabled = false; 
-                    EnemyMovementHandler.BoxCollider2D.enabled = false; 
-                    EnemyAnimationController.SetAnimationSpeedTo(1);
-                    EnemyMovementHandler.AiPath.canMove = false;
-                    EnemyMovementHandler.AiPath.maxSpeed = 0;
-                    EnemyMovementHandler.BoxCollider2D.enabled = false;
-                    if (EnemyMovementHandler.FieldOfViewComponent.gameObject != null)
+                    isAttackingNow = false;
+                    _isOnFire = false;
+                    _enemyCombatManager.Rigidbody2D.velocity = Vector2.zero;
+                    _enemyCombatManager.Rigidbody2D.bodyType = RigidbodyType2D.Static;
+                    _enemyMovementHandler.protectorCollider.enabled = false; 
+                    _enemyMovementHandler.boxCollider2D.enabled = false; 
+                    _enemyAnimationController.SetAnimationSpeedTo(1);
+                    _enemyMovementHandler.aiPath.canMove = false;
+                    _enemyMovementHandler.aiPath.maxSpeed = 0;
+                    _enemyMovementHandler.boxCollider2D.enabled = false;
+                    if (_enemyMovementHandler.fieldOfViewComponent.gameObject != null)
                     {
-                        EnemyMovementHandler.FieldOfViewComponent.gameObject?.SetActive(false);
+                        _enemyMovementHandler.fieldOfViewComponent.gameObject?.SetActive(false);
                     }
                     IsDying = true;
                     
                     AudioManager.instance.Play("Final blow in the enemy");
-                    Shadow.SetActive(false);
-                    EnemyMaterialManager.SetToDefaultMaterial();
-                    EnemyAnimationController.TriggerDieAnimation(); // Animation will trigger the death effect
+                    shadow.SetActive(false);
+                    _enemyMaterialManager.SetToDefaultMaterial();
+                    _enemyAnimationController.TriggerDieAnimation(); // Animation will trigger the death effect
                     break; 
             }
-            this.State = state;
+            _state = state;
         }
         
         public IEnumerator ReturnEnemyToStateAfterSeconds(States state, float seconds)
@@ -378,19 +276,19 @@ namespace Enemy
         
         private void DropLoot()
         {
-            Dropper.DropExp();
+            _dropper.DropExp();
             // Dropper.DropItem();
         }
         
         public void EnemyDeath()
         {
             DropLoot();
-            if (!LevelManager) return;
-            LevelManager.enemiesRemaining -= 1;
-            Destroy(EnemyMovementHandler.FieldOfViewComponent.gameObject);
-            Destroy(EnemyMovementHandler.Target.gameObject);
+            if (!_levelManager) return;
+            _levelManager.enemiesRemaining -= 1;
+            Destroy(_enemyMovementHandler.fieldOfViewComponent.gameObject);
+            Destroy(_enemyMovementHandler.target.gameObject);
             Destroy(gameObject);
-            Destroy(Shadow);
+            Destroy(shadow);
         }
         
         private void OnDrawGizmos()

@@ -34,7 +34,7 @@ namespace Player
             
         }
 
-        public void TakeDamage(float damage, BaseAttack.DamageType damageType)
+        public void TakeDamage(float damage)
         {
             if (Invincible) return;
             if (PlayerController.PlayerStateMachine.State == PlayerStateMachine.States.Dashing)

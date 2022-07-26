@@ -4,55 +4,52 @@ namespace Enemy
 {
     public class EnemyStatsManager : MonoBehaviour
     {
-        [SerializeField] private float _maxHP;
-        public float MaxHP => _maxHP;
-        [SerializeField] private float _physicalDamage;
-        public float PhysicalDamage => _physicalDamage;
-        [SerializeField] private float _magicalDamage;
-        public float MagicalDamage => _magicalDamage;
-        [SerializeField] private float _physicalDefense;
-        public float PhysicalDefense => _physicalDefense; // divides the knockback strengh and duration (duration * 2)
-        [SerializeField] private float _magicalDefense;
-        public float MagicalDefense => _magicalDefense;
+        [Header("Attack")] [Tooltip("")] 
+        [SerializeField] private float basePower;
+        [SerializeField] private float currentPower;
+        public float CurrentPower => currentPower;
+        private int _currentPowerLevel;
         
-        [SerializeField] [Range(1, 100)] private float _weight;
-        public float Weight => _weight;
+        [Header("Attack speed")] [Tooltip("Value divides the animation speed.")] 
+        [SerializeField] private float baseAttackSpeed;
+        [SerializeField] private float currentAttackSpeed;
+        public float CurrentAttackSpeed => currentAttackSpeed;
+        private int _currentAttackSpeedLevel;
         
-        [SerializeField] private float _moveSpeed;
-        public float MoveSpeed => _moveSpeed;
-        [SerializeField] private float _chasingSpeedMultiplier;
-        public float ChasingSpeedMultiplier => _chasingSpeedMultiplier;
+        [Header("Resistance")] [Tooltip("Reduce damage receive and the CC time.")] 
+        [SerializeField] private float baseResistance;
+        [SerializeField] private float currentResistance;
+        public float CurrentResistance => currentResistance;
+        private int _currentResistanceLevel;
         
-        [SerializeField] private float _attackSpeed;
-        public float AttackSpeed => _attackSpeed;
-        [SerializeField] private float _attackPreparationTime;
-        public float AttackPreparationTime => _attackPreparationTime;
-        [SerializeField] private float _preparationWalkDistance;
-        public float PreparationWalkDistance => _preparationWalkDistance;
-        [SerializeField] private float _attackCooldown;
-        public float AttackCooldown => _attackCooldown;
-        [SerializeField] private float _attackRecoveryTime;
-        public float AttackRecoveryTime => _attackRecoveryTime;
-        [SerializeField] private float _distanceToAttack;
-        public float DistanceToAttack => _distanceToAttack;
-        [SerializeField] private float _distanceToLosePlayerSight;
-        public float DistanceToLosePlayerSight => _distanceToLosePlayerSight;
-    
-        [SerializeField] [Range(0, 360)] private float _fieldOfViewValue;
-        public float FieldOfViewValue => _fieldOfViewValue;
-        [SerializeField] [Range(0, 15)] private float _fieldOfViewDistance;
-        public float FieldOfViewDistance => _fieldOfViewDistance;
-        [SerializeField] [Range(0, 360)] private float _areaOfEffect;
-        public float AreaOfEffect => _areaOfEffect;
-        
-        [SerializeField] [Range(0, 15)] private float _attackRange;
-        public float AttackRange => _attackRange;
-        
-        [SerializeField] [Range(0, 5)] private float _crowdControlDuration;
-        public float CrowdControlDuration => _crowdControlDuration;
+        [Header("Max HP")] [Tooltip("")] 
+        [SerializeField] private float baseMaxHP;
+        [SerializeField] private float currentMaxHP;
+        public float CurrentMaxHP => currentMaxHP;
+        private int _currentMaxHPLevel;
 
-        [SerializeField] [Range(0, 2)] private float _timeToPredictIfWillHitTheTarget;
-        public float TimeToPredictIfWillHitTheTarget => _timeToPredictIfWillHitTheTarget;
+        [Header("Height")] [Tooltip("Charge attacks won't be stopped if it's height is bigger than the player strength")]
+        [SerializeField] [Range(1, 100)] private float weight;
+        public float Weight => weight;
+        
+        [Header("Speed")]
+        [SerializeField] [Range(0.1f, 10f)] private float moveSpeed;
+        public float MoveSpeed => moveSpeed;
+        [SerializeField] [Range(0.1f, 15f)] private float chasingSpeed;
+        public float ChasingSpeed => chasingSpeed;
+        
+        [Header("Combat related variables")]
+        [SerializeField] private float distanceToLosePlayerSight;
+        public float DistanceToLosePlayerSight => distanceToLosePlayerSight;
+    
+        [SerializeField] [Range(0, 360)] private float fieldOfViewValue;
+        public float FieldOfViewValue => fieldOfViewValue;
+        [SerializeField] [Range(0, 15)] private float fieldOfViewDistance;
+        public float FieldOfViewDistance => fieldOfViewDistance;
+
+        [SerializeField] [Range(0f, 15f)] private float searchForAlliesRange;
+        public float SearchForAlliesRange => searchForAlliesRange;
+
     }
     
     

@@ -13,7 +13,7 @@ namespace Enemy
 
         private void Start()
         {
-            currentHealth = enemyStatsManager.MaxHP;
+            currentHealth = enemyStatsManager.CurrentMaxHP;
         }
 
         public void TakeDamage(float damage)
