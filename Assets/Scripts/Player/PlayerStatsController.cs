@@ -1,21 +1,27 @@
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
+using UI;
 using UnityEngine;
 
 namespace Player
 {
     public class PlayerStatsController : MonoBehaviour
     {
-        enum ElementalBlessing
+        
+        [Tooltip("Need to have the exact same name of the LevelUpOption optionAttributeName")]
+        public enum ElementalBlessing
         {
             Fire,
             Water,
             Wind,
-            Lightning 
+            Lightning,
+            None
         }
-        
-        enum ElementalRampage {
+
+        [Tooltip("Need to have the exact same name of the LevelUpOption optionAttributeName")]
+        public enum ElementalRampage {
             BoilingWave,
             Tsunami,
             HeatCloak,
@@ -23,6 +29,11 @@ namespace Player
             FireShock,
             GoddessOfTheHunt,
             None
+        }
+
+        public enum Ability
+        {
+            LifeSteal
         }
 
         [Header("STATS")]
@@ -59,7 +70,7 @@ namespace Player
         [SerializeField] private float baseLifeRecovery;
         [SerializeField] private float currentLifeRecovery;
         public float CurrentLifeRecovery => currentLifeRecovery;
-        private int _currentLifeRecoveryLevel;
+        private int _currentHpRecoveryLevel;
 
 
         [Header("Critical Rate")] [Tooltip("Percentage.")] 
@@ -146,38 +157,44 @@ namespace Player
         [SerializeField] private float currentLightningAoE;
         public float CurrentLightningAoE => currentLightningAoE;
         private int _currentLightningLevel;
-        
-        
-        private ElementalBlessing _firstElementalBlessing;
-        private ElementalBlessing _secondElementalBlessing;
-        private ElementalRampage _currentElementalRampage;
 
-        private ElementalRampage GetCurrentElementalRampage()
+
+        public List<ElementalBlessing> currentElementalBlessingsList;
+        public List<ElementalRampage> currentElementalRampagesList;
+
+        private void Start()
         {
-            return _firstElementalBlessing switch
+            currentElementalBlessingsList.Add(ElementalBlessing.None);
+            currentElementalBlessingsList.Add(ElementalBlessing.None);
+            currentElementalRampagesList.Add(ElementalRampage.None);
+        }
+        
+        public ElementalRampage GetAvailableRampage()
+        {
+            return currentElementalBlessingsList[0] switch
             {
-                ElementalBlessing.Fire => _secondElementalBlessing switch
+                ElementalBlessing.Fire => currentElementalBlessingsList[1] switch
                 {
                     ElementalBlessing.Water => ElementalRampage.BoilingWave,
                     ElementalBlessing.Wind => ElementalRampage.HeatCloak,
                     ElementalBlessing.Lightning => ElementalRampage.FireShock,
                     _ => ElementalRampage.None
                 },
-                ElementalBlessing.Water => _secondElementalBlessing switch
+                ElementalBlessing.Water => currentElementalBlessingsList[1] switch
                 {
                     ElementalBlessing.Fire => ElementalRampage.BoilingWave,
                     ElementalBlessing.Wind => ElementalRampage.Tsunami,
                     ElementalBlessing.Lightning => ElementalRampage.StormBringer,
                     _ => ElementalRampage.None
                 },
-                ElementalBlessing.Wind => _secondElementalBlessing switch
+                ElementalBlessing.Wind => currentElementalBlessingsList[1] switch
                 {
                     ElementalBlessing.Fire => ElementalRampage.HeatCloak,
                     ElementalBlessing.Water => ElementalRampage.Tsunami,
                     ElementalBlessing.Lightning => ElementalRampage.GoddessOfTheHunt,
                     _ => ElementalRampage.None
                 },
-                ElementalBlessing.Lightning => _secondElementalBlessing switch
+                ElementalBlessing.Lightning => currentElementalBlessingsList[1] switch
                 {
                     ElementalBlessing.Fire => ElementalRampage.FireShock,
                     ElementalBlessing.Water => ElementalRampage.StormBringer,
@@ -188,6 +205,12 @@ namespace Player
             };
         }
         
+        public void LevelUpPower()
+        {
+            _currentPowerLevel++;
+            print("Current attack level " + _currentPowerLevel);
+        }
+
         public void LevelUpAttackSpeed()
         {
             _currentAttackSpeedLevel++;
@@ -206,10 +229,10 @@ namespace Player
             print("Current Max HP level " + _currentMaxHPLevel);
         }
         
-        public void LevelUpLifeRecovery()
+        public void LevelUpHpRecovery()
         {
-            _currentLifeRecoveryLevel++;
-            print("Current Life Recovery level " + _currentLifeRecoveryLevel);
+            _currentHpRecoveryLevel++;
+            print("Current Hp Recovery level " + _currentHpRecoveryLevel);
         }
         
         public void LevelUpCriticalRate()
@@ -270,10 +293,64 @@ namespace Player
             print("Current lightning level " + _currentLightningLevel);
         }
         
-        public static void LevelUpPower(PlayerStatsController playerRef)
+        public void LevelUpBoilingWave()
         {
-            playerRef._currentPowerLevel++;
-            print("Current attack level " + playerRef._currentPowerLevel);
+            currentElementalRampagesList[0] = ElementalRampage.BoilingWave;
+            print("Current elemental rampage: " + ElementalRampage.BoilingWave.ToString());
+        }
+        
+        public void LevelUpTsunami()
+        {
+            currentElementalRampagesList[0] = ElementalRampage.Tsunami;
+            print("Current elemental rampage: " + ElementalRampage.Tsunami);
+        }
+        
+        public void LevelUpHeatCloak()
+        {
+            currentElementalRampagesList[0] = ElementalRampage.HeatCloak;
+            print("Current elemental rampage: " + ElementalRampage.HeatCloak);
+        }
+        
+        public void LevelUpStormBringer()
+        {
+            currentElementalRampagesList[0] = ElementalRampage.StormBringer;
+            print("Current elemental rampage: " + ElementalRampage.StormBringer);
+        }
+        
+        public void LevelUpFireShock()
+        {
+            currentElementalRampagesList[0] = ElementalRampage.FireShock;
+            print("Current elemental rampage: " + ElementalRampage.FireShock);
+        }
+        
+        public void LevelUpGoddessOfTheHunt()
+        {
+            currentElementalRampagesList[0] = ElementalRampage.GoddessOfTheHunt;
+            print("Current elemental rampage: " + ElementalRampage.GoddessOfTheHunt);
+        }
+
+        public int GetBlessingCurrentLevel(ElementalBlessing blessing)
+        {
+            return blessing switch
+            {
+                ElementalBlessing.Fire => _currentFireLevel,
+                ElementalBlessing.Water => _currentWaterLevel,
+                ElementalBlessing.Wind => _currentWindLevel,
+                ElementalBlessing.Lightning => _currentLightningLevel,
+                ElementalBlessing.None => -1,
+                _ => throw new ArgumentOutOfRangeException(nameof(blessing), blessing,
+                    "Not expected blessing: " + blessing.ToString())
+            };
+        }
+
+        public int GetAbilityCurrentLevel(string ability)
+        {
+            return ability switch
+            {
+                "LifeSteal" => _currentLifeStealLevel,
+                _ => throw new ArgumentOutOfRangeException(nameof(ability), ability,
+                    "Not expected ability: " + ability.ToString())
+            };
         }
 
     }
