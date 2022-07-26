@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using UI;
@@ -101,8 +102,9 @@ namespace Player
         public float CurrentLifeSteal => currentLifeSteal;
         private int _currentLifeStealLevel;
 
-        
+
         [Header("ELEMENTAL")] 
+        [SerializeField] private int blessingMaxLevel;
         
         [Header("Fire")] [Tooltip("")]
         [SerializeField] private float baseTotalFireDamage;
@@ -268,27 +270,34 @@ namespace Player
             return method;
         }
         
-        public void LevelUpFireBlessing()
+        public void LevelUpFire()
         {
+            SetBlessing(ElementalBlessing.Fire, _currentFireLevel);
+            if (!BlessingIsEquipped(ElementalBlessing.Fire)) return;
             _currentFireLevel++;
             print("Current fire level " + _currentFireLevel);
         }
         
-        public void LevelUpWaterBlessing()
+        public void LevelUpWater()
         {
+            SetBlessing(ElementalBlessing.Water, _currentWaterLevel);
+            if (!BlessingIsEquipped(ElementalBlessing.Water)) return; 
             _currentWaterLevel++;
             print("Current water level " + _currentWaterLevel);
         }
         
-        public void LevelUpWindBlessing()
+        public void LevelUpWind()
         {
+            SetBlessing(ElementalBlessing.Wind, _currentWindLevel);
+            if (!BlessingIsEquipped(ElementalBlessing.Wind)) return;
             _currentWindLevel++;
-            
             print("Current wind level " + _currentWindLevel);
         }
         
-        public void LevelUpLightningBlessing()
+        public void LevelUpLightning()
         {
+            SetBlessing(ElementalBlessing.Lightning, _currentLightningLevel);
+            if (!BlessingIsEquipped(ElementalBlessing.Lightning)) return;
             _currentLightningLevel++;
             print("Current lightning level " + _currentLightningLevel);
         }
@@ -333,10 +342,10 @@ namespace Player
         {
             return blessing switch
             {
-                ElementalBlessing.Fire => _currentFireLevel,
-                ElementalBlessing.Water => _currentWaterLevel,
-                ElementalBlessing.Wind => _currentWindLevel,
-                ElementalBlessing.Lightning => _currentLightningLevel,
+                ElementalBlessing.Fire => _currentFireLevel != blessingMaxLevel ? _currentFireLevel : -1,
+                ElementalBlessing.Water => _currentWaterLevel != blessingMaxLevel ? _currentWaterLevel : -1,
+                ElementalBlessing.Wind => _currentWindLevel != blessingMaxLevel ? _currentWindLevel : -1,
+                ElementalBlessing.Lightning => _currentLightningLevel != blessingMaxLevel ? _currentLightningLevel : -1,
                 ElementalBlessing.None => -1,
                 _ => throw new ArgumentOutOfRangeException(nameof(blessing), blessing,
                     "Not expected blessing: " + blessing.ToString())
@@ -351,6 +360,30 @@ namespace Player
                 _ => throw new ArgumentOutOfRangeException(nameof(ability), ability,
                     "Not expected ability: " + ability.ToString())
             };
+        }
+
+        private void SetBlessing(ElementalBlessing blessing, int matchingLevelVariable)
+        {
+            if (matchingLevelVariable == 0) // still don't have the blessing
+            {
+                for (int i = 0; i < currentElementalBlessingsList.Count; i++)
+                {
+                    if (currentElementalBlessingsList[i] == ElementalBlessing.None)
+                    {
+                        currentElementalBlessingsList[i] = blessing;
+                        print("Blessing equipped on slot " + i);
+                        return;
+                    } 
+                }
+                print("No slots available to equip the blessing " + blessing.ToString());
+                return;
+            }
+            print(blessing + " level greater than zero");
+        }
+
+        private bool BlessingIsEquipped(ElementalBlessing blessing)
+        {
+            return currentElementalBlessingsList.Any(blessingEquipped => blessing == blessingEquipped);
         }
 
     }

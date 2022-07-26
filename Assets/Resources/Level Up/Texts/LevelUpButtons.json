@@ -2,7 +2,7 @@
 	"LevelUpOptions": [
 		{
 			"optionAttributeName": "Power",
-			"optionLevel": 1,
+			"optionLevel": 0,
 			"optionTitle": "Increase power",
 			"optionText": "Increase the damage that you do.",
 			"optionIconName": "iconPower",
@@ -10,7 +10,7 @@
 		},
 		{
 			"optionAttributeName": "AttackSpeed",
-			"optionLevel": 1,
+			"optionLevel": 0,
 			"optionTitle": "Increase attack speed",
 			"optionText": "Increase the speed of your basic attacks.",
 			"optionIconName": "iconAttackSpeed",
@@ -18,7 +18,7 @@
 		},
 		{
 			"optionAttributeName": "Resistance",
-			"optionLevel": 1,
+			"optionLevel": 0,
 			"optionTitle": "Increase resistance",
 			"optionText": "Increase your resistance to damage and crowd control.",
 			"optionIconName": "iconResistance",
@@ -26,7 +26,7 @@
 		},
 		{
 			"optionAttributeName": "MaxHP",
-			"optionLevel": 1,
+			"optionLevel": 0,
 			"optionTitle": "Increase Hp",
 			"optionText": "Increase your maximum health points.",
 			"optionIconName": "iconIncreaseHP",
@@ -34,7 +34,7 @@
 		},
 		{
 			"optionAttributeName": "HpRecovery",
-			"optionLevel": 1,
+			"optionLevel": 0,
 			"optionTitle": "Increase HP recovery",
 			"optionText": "Increase the Hp you recover from all sources.",
 			"optionIconName": "iconHpRecovery",
@@ -42,135 +42,135 @@
 		},
 		{
 			"optionAttributeName": "LifeSteal",
-			"optionLevel": 1,
+			"optionLevel": 0,
 			"optionTitle": "Life steal",
 			"optionText": "Recover life after killing an enemy.",
 			"optionIconName": "iconLifeSteal",
 			"optionCategory": "Ability"
 		},
 		{
-			"optionAttributeName": "FireBlessing",
-			"optionLevel": 1,
+			"optionAttributeName": "Fire",
+			"optionLevel": 0,
 			"optionTitle": "Fire blade",
 			"optionText": "Attacks set enemies on fire.",
 			"optionIconName": "iconFireBlessingLv1",
 			"optionCategory": "Blessing"
 		},
 		{
-			"optionAttributeName": "FireBlessing",
-			"optionLevel": 2,
+			"optionAttributeName": "Fire",
+			"optionLevel": 1,
 			"optionTitle": "Fire blade Lv. 2",
 			"optionText": "Increases the fire damage your deal to enemies.",
 			"optionIconName": "iconFireBlessingLv2",
 			"optionCategory": "Blessing"
 		},
 		{
-			"optionAttributeName": "FireBlessing",
-			"optionLevel": 3,
+			"optionAttributeName": "Fire",
+			"optionLevel": 2,
 			"optionTitle": "Fire blade Lv. 3",
 			"optionText": "The fire from your attacks burn faster and deals more damage.",
 			"optionIconName": "iconFireBlessingLv3",
 			"optionCategory": "Blessing"
 		},
 		{
-			"optionAttributeName": "FireBlessing",
-			"optionLevel": 4,
+			"optionAttributeName": "Fire",
+			"optionLevel": 3,
 			"optionTitle": "Fire blade Lv. 4",
 			"optionText": "The fire from your attacks can burn critically on enemies. Enemies burning deal less damage.",
 			"optionIconName": "iconFireBlessingLv4",
 			"optionCategory": "Blessing"
 		},
 		{
-			"optionAttributeName": "WaterBlessing",
-			"optionLevel": 1,
+			"optionAttributeName": "Water",
+			"optionLevel": 0,
 			"optionTitle": "Water cleave",
 			"optionText": "Your attacks splash on enemies behind the enemy you hit.",
 			"optionIconName": "iconWaterBlessingLv1",
 			"optionCategory": "Blessing"
 		},
 		{
-			"optionAttributeName": "WaterBlessing",
-			"optionLevel": 2,
+			"optionAttributeName": "Water",
+			"optionLevel": 1,
 			"optionTitle": "Water cleave Lv. 2",
 			"optionText": "The splash damage is increased.",
 			"optionIconName": "iconWaterBlessingLv2",
 			"optionCategory": "Blessing"
 		},
 		{
-			"optionAttributeName": "WaterBlessing",
-			"optionLevel": 3,
+			"optionAttributeName": "Water",
+			"optionLevel": 2,
 			"optionTitle": "Water cleave Lv. 3",
 			"optionText": "Your splash damage is increased. Apply elemental effects on all enemies hit by the splash.",
 			"optionIconName": "iconWaterBlessingLv3",
 			"optionCategory": "Blessing"
 		},
 		{
-			"optionAttributeName": "WaterBlessing",
-			"optionLevel": 4,
+			"optionAttributeName": "Water",
+			"optionLevel": 3,
 			"optionTitle": "Water cleave Lv. 4",
 			"optionText": "The splash deals full damage. Can do critical damage.",
 			"optionIconName": "iconWaterBlessingLv4",
 			"optionCategory": "Blessing"
 		},
 		{
-			"optionAttributeName": "WindBlessing",
-			"optionLevel": 1,
+			"optionAttributeName": "Wind",
+			"optionLevel": 0,
 			"optionTitle": "Wind boost",
 			"optionText": "Gain attack speed and movement speed as hit enemies (max. 5 stacks). Lose the stacks by getting hit or after some time without hit a enemy.",
 			"optionIconName": "iconWindBlessingLv1",
 			"optionCategory": "Blessing"
 		},
 		{
-			"optionAttributeName": "WindBlessing",
-			"optionLevel": 2,
+			"optionAttributeName": "Wind",
+			"optionLevel": 1,
 			"optionTitle": "Wind boost Lv.  2",
 			"optionText": "Increase the attack speed and movement speed gain per hit.",
 			"optionIconName": "iconWindBlessingLv1",
 			"optionCategory": "Blessing"
 		},
 		{
-			"optionAttributeName": "WindBlessing",
-			"optionLevel": 3,
+			"optionAttributeName": "Wind",
+			"optionLevel": 2,
 			"optionTitle": "Wind boost Lv. 3",
 			"optionText": "Gain power per hit, too.",
 			"optionIconName": "iconWindBlessingLv1",
 			"optionCategory": "Blessing"
 		},
 		{
-			"optionAttributeName": "WindBlessing",
-			"optionLevel": 4,
+			"optionAttributeName": "Wind",
+			"optionLevel": 3,
 			"optionTitle": "Wind boost Lv. 4",
 			"optionText": "Also increase your critical hit chance per hit. No longer lose the stacks after getting hit by a enemy.",
 			"optionIconName": "iconWindBlessingLv1",
 			"optionCategory": "Blessing"
 		},
 		{
-			"optionAttributeName": "LightningBlessing",
-			"optionLevel": 1,
+			"optionAttributeName": "Lightning",
+			"optionLevel": 0,
 			"optionTitle": "Thunder blessing",
 			"optionText": "Hitting a enemy can invoke a lightning from the sky.",
 			"optionIconName": "iconLightningBlessingLv1",
 			"optionCategory": "Blessing"
 		},
 		{
-			"optionAttributeName": "LightningBlessing",
-			"optionLevel": 2,
+			"optionAttributeName": "Lightning",
+			"optionLevel": 1,
 			"optionTitle": "Thunder blessing Lv. 2",
 			"optionText": "Increase the damage dealt by the lightning.",
 			"optionIconName": "iconLightningBlessingLv1",
 			"optionCategory": "Blessing"
 		},
 		{
-			"optionAttributeName": "LightningBlessing",
-			"optionLevel": 3,
+			"optionAttributeName": "Lightning",
+			"optionLevel": 2,
 			"optionTitle": "Thunder blessing Lv. 3",
 			"optionText": "Lightning deals damage to surrounding enemies.",
 			"optionIconName": "iconLightningBlessingLv1",
 			"optionCategory": "Blessing"
 		},
 		{
-			"optionAttributeName": "LightningBlessing",
-			"optionLevel": 4,
+			"optionAttributeName": "Lightning",
+			"optionLevel": 3,
 			"optionTitle": "Thunder blessing Lv. 4",
 			"optionText": "Lightning have a chance of desintegrate non-boss enemies.",
 			"optionIconName": "iconLightningBlessingLv1",
@@ -178,7 +178,7 @@
 		},
 		{
 			"optionAttributeName": "BoilingWave",
-			"optionLevel": 1,
+			"optionLevel": 0,
 			"optionTitle": "Hot wave (Fire & Water Rampage)",
 			"optionText": "Need to be worked on.",
 			"optionIconName": "iconFireWaterRampage",
@@ -186,7 +186,7 @@
 		},
 		{
 			"optionAttributeName": "Tsunami",
-			"optionLevel": 1,
+			"optionLevel": 0,
 			"optionTitle": "Tsunami (Water & Wind Rampage)",
 			"optionText": "The next attack will splash on a greater area and deal bonus damage.",
 			"optionIconName": "iconWaterWindRampage",
@@ -194,7 +194,7 @@
 		},
 		{
 			"optionAttributeName": "HeatCloak",
-			"optionLevel": 1,
+			"optionLevel": 0,
 			"optionTitle": "Heat cloak (Fire & Wind Rampage)",
 			"optionText": "Burns close enemies.",
 			"optionIconName": "iconFireWindRampage",
@@ -202,7 +202,7 @@
 		},
 		{
 			"optionAttributeName": "StormBringer",
-			"optionLevel": 1,
+			"optionLevel": 0,
 			"optionTitle": "Storm Bringer (Lightning & Water Rampage)",
 			"optionText": "Close enemies have a chance of been hit by lightning randomly.",
 			"optionIconName": "iconLightningWaterRampage",
@@ -210,7 +210,7 @@
 		},
 		{
 			"optionAttributeName": "FireShock",
-			"optionLevel": 1,
+			"optionLevel": 0,
 			"optionTitle": "Fireshock (Fire & Lightning Rampage)",
 			"optionText": "Need to be worked on.",
 			"optionIconName": "iconFireLightninRampage",
@@ -218,7 +218,7 @@
 		},
 		{
 			"optionAttributeName": "GoddessOfTheHunt",
-			"optionLevel": 1,
+			"optionLevel": 0,
 			"optionTitle": "Goddess of the hunt (Lightning & Wind Rampage)",
 			"optionText": "Need to be worked on;",
 			"optionIconName": "iconLightningWindRampage",

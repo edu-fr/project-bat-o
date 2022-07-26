@@ -5469,6 +5469,7 @@ MonoBehaviour:
   currentEvasion: 0
   baseLifeSteal: 0
   currentLifeSteal: 0
+  blessingMaxLevel: 4
   baseTotalFireDamage: 0
   currentTotalFireDamage: 0
   baseFireTotalDuration: 0
@@ -5494,6 +5495,8 @@ MonoBehaviour:
   currentTotalLightningDamage: 0
   baseLightningAoE: 0
   currentLightningAoE: 0
+  currentElementalBlessingsList: 
+  currentElementalRampagesList: 
 --- !u!1 &8021345283708634746
 GameObject:
   m_ObjectHideFlags: 0

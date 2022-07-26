@@ -35,7 +35,8 @@
             /***/
             
             [Header("UI References")]
-            public GameObject LevelUpUI;
+            public CanvasRenderer LevelUpUI;
+            public CanvasRenderer GamePanel;
             
             [Header("Player stats controller reference")]
             [SerializeField] private PlayerStatsController PlayerStats;
@@ -100,7 +101,8 @@
             
             public void OpenLevelUpMenu()
             {
-                LevelUpUI.SetActive(true);
+                GamePanel.gameObject.SetActive(false);
+                LevelUpUI.gameObject.SetActive(true);
                 Time.timeScale = 0f;
                 IsLevelingUp = true;
                 SetRandomOptions();
@@ -176,47 +178,66 @@
             private LevelUpOption GetBlessing(int randomNumber)
             {
                 if (randomNumber > blessingOdds) return null; // Not getting a blessing on this roll 
-                print("Trying to get a blessing!");
+                
                 var blessingOptionToPick = new List<LevelUpOption>();
                 var playerCurrentBlessings = PlayerStats.currentElementalBlessingsList.ToList();
                 // removing None blessings
                 playerCurrentBlessings.RemoveAll(x => x == PlayerStatsController.ElementalBlessing.None);
-                
+
                 // If the blessings that the player already have can be upgraded, they will be added to the possible blessings list
                 foreach (var blessing in playerCurrentBlessings) // TODO: CHECK IF THIS IS WORKING
                 {
                     var blessingLevel = PlayerStats.GetBlessingCurrentLevel(blessing);
                     if (blessingLevel == -1) // already at max level
+                    {
                         continue;
+                    }                        
                     // Finding the option that match the name of the blessing and current level
                     var option = _blessingsOptions.Find(x => x.optionLevel == blessingLevel && x.optionAttributeName == blessing.ToString());
                     if (option != null) blessingOptionToPick.Add(option); // If found, add to the list of possible options
                 }
-                
-                // The player already have the max of blessings and both of then still can be upgraded 
-                if (blessingOptionToPick.Count == blessingSlots)
-                {
-                    var randomIndex = UnityRandom.Range(0, blessingOptionToPick.Count);
-                    return blessingOptionToPick[randomIndex]; // Return one of the options
-                }
 
+                // The player have the max blessings equipped, and at least 1 blessing that can be upgraded
+                // Just random pick one of those blessing and return it
+                if (playerCurrentBlessings.Count == blessingSlots)
+                {
+                    if (blessingOptionToPick.Count > 0)
+                    {
+                        var randomIndex = UnityRandom.Range(0, blessingOptionToPick.Count);
+                        return blessingOptionToPick[randomIndex]; // Return one of the options
+                    }
+                    return null;
+                }
+                
                 // The player still have 1 or more blessings to learn
-                var blessingsPlayerDontHave = // Currently contains all blessings names
-                    _blessingsOptions.Select(blessing => blessing.optionAttributeName)
-                        .ToList();
+                var blessingsPlayerDontHave = new List<string>();
+                foreach (var blessingOption in _blessingsOptions)
+                {
+                    if (blessingsPlayerDontHave.Find(x => x == blessingOption.optionAttributeName) == null)
+                    {
+                        blessingsPlayerDontHave.Add(blessingOption.optionAttributeName);
+                    }
+                }
                 foreach (var blessing in playerCurrentBlessings)
                     blessingsPlayerDontHave.Remove(blessing.ToString()); // Now contains only the blessings that the player still don't have
-                
+
                 // Add all LevelUpOption blessings that the player still don't have
                 foreach (var blessingPlayerDontHave in blessingsPlayerDontHave) 
                 {
                     var blessingOptionToAdd = _blessingsOptions.Find(x => x.optionAttributeName == blessingPlayerDontHave);
                     if (blessingOptionToAdd != null)
-                        blessingOptionToPick.Add(blessingOptionToAdd);
+                    {
+                        if (!blessingOptionToPick.Contains(blessingOptionToAdd))
+                            blessingOptionToPick.Add(blessingOptionToAdd);
+                    }
                 }
-
+                
                 // Return null if no more blessings can be learned/upgraded
-                if (blessingOptionToPick.Count == 0) return null;
+                if (blessingOptionToPick.Count == 0)
+                {
+                    print("The player don't have any more blessings that he can learn!");
+                    return null;
+                }
                 
                 // Random pick a blessing among the available ones 
                 var randomIndexToPick = UnityRandom.Range(0, blessingOptionToPick.Count);
@@ -245,7 +266,8 @@
 
             private void CloseLevelUpMenu()
             {
-                LevelUpUI.SetActive(false);
+                LevelUpUI.gameObject.SetActive(false);
+                GamePanel.gameObject.SetActive(true);
                 Time.timeScale = 1f;
                 IsLevelingUp = false;
             }
