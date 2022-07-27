@@ -76,12 +76,12 @@ namespace Objects
             }
         }
 
-        public void ReflectProjectile()
-        {
-            _shootDirection = -_shootDirection;
-            _moveSpeed = _moveSpeed * 1.5f;
-            transform.right = _shootDirection;
-        }
+        // public void ReflectProjectile()
+        // {
+        //     _shootDirection = -_shootDirection;
+        //     _moveSpeed = _moveSpeed * 1.5f;
+        //     transform.right = _shootDirection;
+        // }
 
         public void DestroySelf()
         {

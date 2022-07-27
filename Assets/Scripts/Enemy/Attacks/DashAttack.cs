@@ -10,7 +10,7 @@ namespace Enemy.Attacks
         public override void PreparingAttack()
         {
             // make sound once (?)
-            EnemyCombatManager.Rigidbody2D.AddForce(-EnemyStateMachine.PlayerDirection * PreparationWalkDistance, ForceMode2D.Force);
+            EnemyCombatManager.rigidbody2D.AddForce(-EnemyStateMachine.PlayerDirection * PreparationWalkDistance, ForceMode2D.Force);
         }
         
         public override void Attack(Vector3 playerDirection)
@@ -18,7 +18,7 @@ namespace Enemy.Attacks
             AttackHitbox.enabled = true;
             if(hasAttackAnimation)
                 EnemyAnimationController.AnimateAttack(playerDirection.x, playerDirection.y);
-            EnemyCombatManager.Rigidbody2D.AddForce(playerDirection * (EnemyStatsManager.CurrentAttackSpeed * attackSpeedModifier), ForceMode2D.Impulse);
+            EnemyCombatManager.rigidbody2D.AddForce(playerDirection * (EnemyStatsManager.CurrentAttackSpeed * attackSpeedModifier), ForceMode2D.Impulse);
             EnemyCombatManager.IsAttacking = true;
             if(!hasAttackAnimation)
                 AttackEnd();

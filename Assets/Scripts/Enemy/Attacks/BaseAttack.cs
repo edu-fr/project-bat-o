@@ -18,6 +18,7 @@ namespace Enemy.Attacks
         protected float _attackCurrentRecoveryTime;
         public bool AttackOnCooldown { get; private set; }
         protected float AttackCurrentCooldown;
+        [Header("For all kinds of attacks")]
         [SerializeField] protected float attackPreparationTime;
         public float AttackPreparationTime => attackPreparationTime;
         [SerializeField] protected float attackCooldown;
@@ -26,18 +27,20 @@ namespace Enemy.Attacks
         public float AttackRecoveryTime => attackRecoveryTime;
         [SerializeField] protected float distanceToAttack;
         public float DistanceToAttack => distanceToAttack;
-        [SerializeField] protected float attackRange;
-        public float AttackRange => attackRange;
-        [SerializeField] protected bool triggeredDuringAnimation;
         public Vector2 AttackOrigin { get; protected set; }
-        [SerializeField] protected bool hasAttackAnimation;
-        [SerializeField] protected bool isOnHalfOfAttackAnimation;
+        
+        [Header("For ranged attacks")]
+        [SerializeField] [Tooltip("Distance until the attack fade")] protected float attackRange;
+        public float AttackRange => attackRange;
 
-        /* Optional variables */ 
+        [Header("For some type of attacks")]
         [SerializeField] protected float preparationWalkDistance;
         public float PreparationWalkDistance => preparationWalkDistance;
         [SerializeField] [Range(0.1f, 2f)] [Tooltip("Multiply the speed of the enemy attacking")] protected float attackSpeedModifier;
         public float AttackSpeedModifier => attackSpeedModifier;
+        [SerializeField] protected bool triggeredDuringAnimation;
+        [SerializeField] protected bool hasAttackAnimation;
+        [SerializeField] protected bool isOnHalfOfAttackAnimation;
 
         protected virtual void Awake()
         {

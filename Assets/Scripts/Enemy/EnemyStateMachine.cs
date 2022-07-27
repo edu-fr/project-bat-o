@@ -19,6 +19,8 @@ namespace Enemy
             Attacking,
             Dying
         }
+        
+              
 
         /* State related variables */
         [Header("State variables")]
@@ -52,6 +54,12 @@ namespace Enemy
         private LevelManager _levelManager;
         [SerializeField] private GameObject shadow;
         [SerializeField] private LayerMask obstaclesLayer;
+        
+        /* DEBUG */
+        public bool showDistanceToAttack;
+        public bool showLosePlayerDistance;
+        public bool showFieldOfView;
+
         private void Awake()
         {
             _levelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
@@ -97,13 +105,13 @@ namespace Enemy
                         var distanceToThePlayer = Vector2.Distance(enemyTransformPosition, playerTransformPosition);
                         if (distanceToThePlayer < _attack.DistanceToAttack)
                         {
-                            _enemyMovementHandler.aiPath.maxSpeed = _enemyStatsManager.MoveSpeed / 5;
+                            _enemyMovementHandler.aiPath.maxSpeed = _enemyStatsManager.ChasingSpeed / 5;
                             _enemyAnimationController.SetAnimationSpeedTo(0.3f);
 
                             if (!_attack.AttackOnCooldown)
                             {
                                 // Back chasing speed to normal
-                                _enemyMovementHandler.aiPath.maxSpeed = _enemyStatsManager.MoveSpeed * _enemyStatsManager.ChasingSpeed;
+                                _enemyMovementHandler.aiPath.maxSpeed = _enemyStatsManager.ChasingSpeed;
 
                                 // Verify if there is nothing between the his body and the player 
                                 var raycastHit2D = Physics2D.Raycast(enemyTransformPosition,  (playerTransformPosition - enemyTransformPosition).normalized, distanceToThePlayer, obstaclesLayer);
@@ -245,8 +253,8 @@ namespace Enemy
                     IsWalkingAround = false;
                     isAttackingNow = false;
                     _isOnFire = false;
-                    _enemyCombatManager.Rigidbody2D.velocity = Vector2.zero;
-                    _enemyCombatManager.Rigidbody2D.bodyType = RigidbodyType2D.Static;
+                    _enemyCombatManager.rigidbody2D.velocity = Vector2.zero;
+                    _enemyCombatManager.rigidbody2D.bodyType = RigidbodyType2D.Static;
                     _enemyMovementHandler.protectorCollider.enabled = false; 
                     _enemyMovementHandler.boxCollider2D.enabled = false; 
                     _enemyAnimationController.SetAnimationSpeedTo(1);
@@ -293,11 +301,17 @@ namespace Enemy
         
         private void OnDrawGizmos()
         {
-            // Gizmos.color = new Color(100, 0, 0, 0.1f);
-            // Gizmos.DrawSphere(transform.position, DistanceToAttack);
-            // Gizmos.color = new Color(50, 50, 0, 0.1f);
-            // Gizmos.DrawSphere(transform.position, DistanceToLosePlayerSight);
-            
+            if (showDistanceToAttack  && _attack != null)
+            {
+                Gizmos.color = new Color(100, 0, 0, 0.1f);
+                Gizmos.DrawSphere(transform.position, _attack.DistanceToAttack);
+            }
+
+            if (showLosePlayerDistance && _enemyStatsManager != null)
+            {
+                Gizmos.color = new Color(50, 50, 0, 0.1f);
+                Gizmos.DrawSphere(transform.position, _enemyStatsManager.DistanceToLosePlayerSight);
+            }
         }
     }
 }

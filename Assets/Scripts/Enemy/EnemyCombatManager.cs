@@ -9,35 +9,43 @@ namespace Enemy
 {
     public class EnemyCombatManager : MonoBehaviour
     {
-        [SerializeField] private EnemyHealthManager EnemyHealthManager;
-        [SerializeField] private EnemyMovementHandler EnemyMovementHandler;
-        [SerializeField] private EnemyStatsManager EnemyStatsManager;
-        public BoxCollider2D BoxCollider2D;
-        public Rigidbody2D Rigidbody2D; 
-        
-        public Transform PrefabDamagePopup;
+        private EnemyHealthManager _enemyHealthManager;
+        private EnemyMovementHandler _enemyMovementHandler;
+        private EnemyStatsManager _enemyStatsManager;
+        [HideInInspector] public BoxCollider2D boxCollider2D; 
+        [HideInInspector] public Rigidbody2D rigidbody2D;
 
-        public bool IsAttacking;
+        private void Awake()
+        {
+            _enemyHealthManager = GetComponent<EnemyHealthManager>();
+            _enemyMovementHandler = GetComponent<EnemyMovementHandler>();
+            _enemyStatsManager = GetComponent<EnemyStatsManager>();
+            boxCollider2D = GetComponent<BoxCollider2D>();
+            rigidbody2D = GetComponent<Rigidbody2D>();
+        }
+        
+        [Header("Damage popup")]
+        public Transform prefabDamagePopup;
+
+        public bool IsAttacking { get; set; }
 
         public float TakeDamage(float damage, Vector3 attackDirection, float attackSpeed, bool isDot, bool isCriticalHit, bool showValue, Color? customColor)
         {
             // Make hit noise
             AudioManager.instance.Play("Hit enemy");
-            var finalDamage = damage - EnemyStatsManager.CurrentResistance; // arbitrary value
-            var knockBack = 100 / EnemyStatsManager.Weight; // arbitrary value
-            var knockBackDuration = 0.7f; // arbitrary value
-            // Knockback
-            if (knockBack > 5)
-            {
-                Rigidbody2D.AddForce(attackDirection * knockBack, ForceMode2D.Impulse);
-                StartCoroutine(TakeKnockBack(knockBackDuration));
-            }
+            var finalDamage = damage - _enemyStatsManager.CurrentResistance; // arbitrary value
+            var knockBackForce = _enemyStatsManager.Lightness; // arbitrary value
+            var knockBackDuration = _enemyStatsManager.Lightness / 8.5f; // arbitrary value
+       
+            rigidbody2D.AddForce(attackDirection * knockBackForce, ForceMode2D.Impulse);
+            StartCoroutine(TakeKnockBack(knockBackDuration));
+            
             // CALCULATE DEFENSES, ETC
             if (showValue)
-                DamagePopup.Create(transform.position, (int) damage, attackDirection, PrefabDamagePopup, isCriticalHit, isDot, customColor);
+                DamagePopup.Create(transform.position, (int) damage, attackDirection, prefabDamagePopup, isCriticalHit, isDot, customColor);
             
-            EnemyMovementHandler.aiPath.enabled = false;
-            EnemyHealthManager.TakeDamage((int) damage);
+            _enemyMovementHandler.aiPath.enabled = false;
+            _enemyHealthManager.TakeDamage((int) damage);
             
             return damage;
         }
@@ -45,14 +53,18 @@ namespace Enemy
         private void OnCollisionStay2D(Collision2D other) // I will maintain that? 
         {
             if (!other.gameObject.CompareTag("Player")) return;
-            other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage((int)EnemyStatsManager.CurrentPower);
+            other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage((int)_enemyStatsManager.CurrentPower);
         }
 
         private IEnumerator TakeKnockBack(float knockBackTime)
         {
-            EnemyMovementHandler.enemyStateMachine.ChangeState(EnemyStateMachine.States.TakingKnockBack);
+            if (_enemyStatsManager.AttackIsStoppedByPlayer)
+                _enemyMovementHandler.enemyStateMachine.ChangeState(EnemyStateMachine.States.TakingKnockBack);
+            
             yield return new WaitForSeconds(knockBackTime);
-            EnemyMovementHandler.enemyStateMachine.ChangeState(EnemyStateMachine.States.Chasing);
+    
+            if (_enemyStatsManager.AttackIsStoppedByPlayer)
+                _enemyMovementHandler.enemyStateMachine.ChangeState(EnemyStateMachine.States.Chasing);
         }
     }
 }

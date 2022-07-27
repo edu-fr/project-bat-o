@@ -75,7 +75,7 @@ namespace Enemy.Attacks
         {
             var newProjectile = Instantiate(ProjectilePrefab, AttackOrigin, Quaternion.identity, null);
             var shootDirection = (e.ShootDirection).normalized;
-            newProjectile.GetComponent<ProjectileScript>().Setup(shootDirection, AttackSpeedModifier, EnemyStatsManager.CurrentPower);
+            newProjectile.GetComponent<ProjectileScript>().Setup(shootDirection, EnemyStatsManager.CurrentAttackSpeed * AttackSpeedModifier, EnemyStatsManager.CurrentPower);
         }
 
     }

@@ -28,21 +28,24 @@ namespace Enemy
         public float CurrentMaxHP => currentMaxHP;
         private int _currentMaxHPLevel;
 
-        [Header("Height")] [Tooltip("Charge attacks won't be stopped if it's height is bigger than the player strength")]
-        [SerializeField] [Range(1, 100)] private float weight;
-        public float Weight => weight;
+        [Header("Height")] [Tooltip("How light the enemy is. 0 => Don't take knock back. 20 => Take an absurd amount of knock back.")]
+        [SerializeField] [Range(0, 20)] private float lightness;
+        public float Lightness => lightness;
         
+        [SerializeField] private bool attackIsStoppedByPlayer;
+        public bool AttackIsStoppedByPlayer => attackIsStoppedByPlayer;
+
         [Header("Speed")]
         [SerializeField] [Range(0.1f, 10f)] private float moveSpeed;
         public float MoveSpeed => moveSpeed;
-        [SerializeField] [Range(0.1f, 15f)] private float chasingSpeed;
+        [SerializeField] [Range(0f, 15f)] private float chasingSpeed;
         public float ChasingSpeed => chasingSpeed;
         
-        [Header("Combat related variables")]
+        [Header("Player chase related variables")]
         [SerializeField] private float distanceToLosePlayerSight;
         public float DistanceToLosePlayerSight => distanceToLosePlayerSight;
-    
-        [SerializeField] [Range(0, 360)] private float fieldOfViewValue;
+        
+        [SerializeField] [Tooltip("0 to 360º")] [Range(0, 360)] private float fieldOfViewValue;
         public float FieldOfViewValue => fieldOfViewValue;
         [SerializeField] [Range(0, 15)] private float fieldOfViewDistance;
         public float FieldOfViewDistance => fieldOfViewDistance;

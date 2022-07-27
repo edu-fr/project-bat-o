@@ -25,9 +25,8 @@ GameObject:
   - component: {fileID: 773478135240995048}
   - component: {fileID: 773478135240995069}
   - component: {fileID: 773478135240995060}
-  - component: {fileID: 2907519490170790978}
   m_Layer: 8
-  m_Name: Spider
+  m_Name: Base Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -93,8 +92,7 @@ SpriteRenderer:
   m_SortingLayerID: -1442468913
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -3438905571476058607, guid: 9ea6de6a8a045134786b8e870b38880c,
-    type: 3}
+  m_Sprite: {fileID: 467851738888992007, guid: dd98038e98adb244180b3ab9fdbe97a0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -142,7 +140,7 @@ BoxCollider2D:
   m_Offset: {x: -0.00700593, y: 0.027110077}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.444}
+    pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
@@ -162,7 +160,7 @@ Animator:
   m_GameObject: {fileID: 773478135240995052}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 89162f019d8c610459d642977c7c3939, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -362,8 +360,8 @@ MonoBehaviour:
   enemyStateMachine: {fileID: 773478135240995060}
   enemyAnimationController: {fileID: 773478135240995063}
   enemyStats: {fileID: 773478135240995069}
-  averageTimeWaitingToMove: 2.5
-  walkableRange: 3
+  averageTimeWaitingToMove: 3
+  walkableRange: 2
   target: {fileID: 0}
   fieldOfViewComponent: {fileID: 4642943370310900116}
   surroundingDistance: 2
@@ -384,20 +382,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePower: 10
   currentPower: 10
-  baseAttackSpeed: 9
-  currentAttackSpeed: 9
+  baseAttackSpeed: 10
+  currentAttackSpeed: 10
   baseResistance: 5
   currentResistance: 5
-  baseMaxHP: 15
-  currentMaxHP: 15
-  lightness: 6
-  attackIsStoppedByPlayer: 1
-  moveSpeed: 2.5
-  chasingSpeed: 3.5
-  distanceToLosePlayerSight: 4
+  baseMaxHP: 30
+  currentMaxHP: 30
+  lightness: 0
+  attackIsStoppedByPlayer: 0
+  moveSpeed: 2
+  chasingSpeed: 3
+  distanceToLosePlayerSight: 3.5
   fieldOfViewValue: 180
   fieldOfViewDistance: 5
-  searchForAlliesRange: 3
+  searchForAlliesRange: 5
 --- !u!114 &773478135240995060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -419,29 +417,6 @@ MonoBehaviour:
   showDistanceToAttack: 1
   showLosePlayerDistance: 1
   showFieldOfView: 0
---- !u!114 &2907519490170790978
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 773478135240995052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b43e9415a87f80c439e6fc82ec8daafb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackPreparationTime: 1
-  attackCooldown: 2
-  attackRecoveryTime: 1
-  distanceToAttack: 2
-  attackRange: 0
-  preparationWalkDistance: 1.1
-  attackSpeedModifier: 1
-  triggeredDuringAnimation: 0
-  hasAttackAnimation: 0
-  isOnHalfOfAttackAnimation: 0
-  AttackHitbox: {fileID: 2882020134277202305}
 --- !u!1001 &773478136028767602
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -638,12 +613,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f21a97c4342caf94fb387b1cde0968d6, type: 3}
---- !u!61 &2882020134277202305 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 3262027037373342419, guid: f21a97c4342caf94fb387b1cde0968d6,
-    type: 3}
-  m_PrefabInstance: {fileID: 773478136393655122}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6613205064950506195 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5871885445460525441, guid: f21a97c4342caf94fb387b1cde0968d6,
