@@ -21,60 +21,52 @@ namespace Player
             Right
         }
 
-        private enum WeaponType
-        {
-            Sword
-        }
-
-        // private WeaponType CurrentWeaponType = WeaponType.Sword;
-        [SerializeField] private float CurrentWeaponRange;
-        [SerializeField] private float DefaultAttackCooldown;
-        [SerializeField] [Range(1f, 5f)] private float CurrentAttackSpeed;
-        public float currentAttackCooldown { get; set; }
+        [SerializeField] private float currentWeaponRange;
+        [SerializeField] private float defaultAttackCooldown;
+        [SerializeField] [Range(1f, 5f)] private float currentAttackSpeed;
+        public float CurrentAttackCooldown { get; set; }
         
-        // [SerializeField] private PowerUpController.Effects CurrentEffect = PowerUpController.Effects.None;
-
-        private List<GameObject> EnemiesHit;
+        private List<GameObject> _enemiesHit;
         [SerializeField]
-        private LayerMask EnemyLayerMask;
+        private LayerMask enemyLayerMask;
         
-        private Animator Animator;
-        public PlayerHealthManager PlayerHealthManager;
-        public PlayerStateMachine PlayerStateMachine;
-        public Material StandardMaterial;
-        public Material FireMaterial;
-        public Material IceMaterial;
-        public Material ThunderMaterial;
-        private Renderer Renderer;
+        private Animator _animator;
+        public PlayerHealthManager playerHealthManager;
+        public PlayerStateMachine playerStateMachine;
+        public Material standardMaterial;
+        public Material fireMaterial;
+        public Material iceMaterial;
+        public Material thunderMaterial;
+        private Renderer _renderer;
 
-        public PowerUpActivator PowerUpActivator;
-        private PlayerStatsController PlayerStatsController;
+        public PowerUpEffects powerUpEffects;
+        private PlayerStatsController _playerStatsController;
 
-        [SerializeField] private LayerMask EnemyLayers;
-        private Directions Direction;
+        [SerializeField] private LayerMask enemyLayers;
+        private Directions _direction;
 
         private void Awake()
         {
-            Animator = GetComponent<Animator>();
-            Renderer = GetComponent<Renderer>();
-            PlayerHealthManager = GetComponent<PlayerHealthManager>();
-            PlayerStateMachine = GetComponent<PlayerStateMachine>();
-            PowerUpActivator = GetComponent<PowerUpActivator>();
-            PlayerStatsController = GetComponent<PlayerStatsController>();
+            _animator = GetComponent<Animator>();
+            _renderer = GetComponent<Renderer>();
+            playerHealthManager = GetComponent<PlayerHealthManager>();
+            playerStateMachine = GetComponent<PlayerStateMachine>();
+            powerUpEffects = GetComponent<PowerUpEffects>();
+            _playerStatsController = GetComponent<PlayerStatsController>();
         }
 
         private void Start()
         {
-            EnemiesHit = new List<GameObject>();
+            _enemiesHit = new List<GameObject>();
             // SetWeaponStats();
-            currentAttackCooldown = 0; 
+            CurrentAttackCooldown = 0; 
         }
 
         public void TryToAttack()
         {
-            if (currentAttackCooldown / PlayerStatsController.CurrentAttackSpeed > 0)
+            if (CurrentAttackCooldown / _playerStatsController.CurrentAttackSpeed > 0)
             {
-                currentAttackCooldown -= Time.deltaTime;
+                CurrentAttackCooldown -= Time.deltaTime;
             }
             else
             {
@@ -82,67 +74,47 @@ namespace Player
                 if (closestEnemy == null) return;
                 LookToTheEnemy(closestEnemy);
                 Attack();
-                currentAttackCooldown = DefaultAttackCooldown;
+                CurrentAttackCooldown = defaultAttackCooldown;
             }
         }
         
         private void Attack()
         {
-            Direction = GetAnimationDirection();
-            PlayerStateMachine.ChangeState(PlayerStateMachine.States.Attacking);
-            // CurrentEffect = PowerUpActivator.GenerateEffect();
+            _direction = GetAnimationDirection();
+            playerStateMachine.ChangeState(PlayerStateMachine.States.Attacking);
             AnimateAttack();
-            // switch (CurrentEffect)
-            // {
-            //     case (PowerUpController.Effects.Fire):
-            //         Renderer.material = FireMaterial;
-            //         break;
-            //
-            //     case (PowerUpController.Effects.Ice):
-            //         Renderer.material = IceMaterial;
-            //         break;
-            //
-            //     case (Player.PowerUpController.Effects.Thunder):
-            //         Renderer.material = ThunderMaterial;
-            //         break;
-            //
-            //     default:
-            //         Renderer.material = StandardMaterial;
-            //         break;
-            // }
-            
         }
 
         public void AnimateAttack()
         {
             // Set attack animation
-            Animator.speed = CurrentAttackSpeed; // CurrentAttackSpeed * 0.2f;
-            Animator.SetTrigger("Attack");
-            Animator.SetBool("IsAttacking", true);
+            _animator.speed = currentAttackSpeed; // CurrentAttackSpeed * 0.2f;
+            _animator.SetTrigger("Attack");
+            _animator.SetBool("IsAttacking", true);
         }
 
         public GameObject ThereIsEnemiesInRange()
         {
             var nearbyEnemies = new List<Collider2D>();
             var filter = new ContactFilter2D();
-            filter.SetLayerMask(EnemyLayerMask);
-            Physics2D.OverlapCircle(transform.position, CurrentWeaponRange * 5, filter, nearbyEnemies);
-            var ShorterDistanceEnemyIndex = -1;
-            var ShorterDistanceEnemy = 100f;
-            var CurrentEnemyDistance = -1f;
+            filter.SetLayerMask(enemyLayerMask);
+            Physics2D.OverlapCircle(transform.position, currentWeaponRange * 5, filter, nearbyEnemies);
+            var shorterDistanceEnemyIndex = -1;
+            var shorterDistanceEnemy = 100f;
+            var currentEnemyDistance = -1f;
             for (var i = 0; i < nearbyEnemies.Count; i++)
             {
                 if (nearbyEnemies[i] == null) continue;
-                CurrentEnemyDistance = nearbyEnemies[i].Distance(PlayerStateMachine.PlayerController.PlayerCollider).distance;
-                if (CurrentEnemyDistance < ShorterDistanceEnemy)
+                currentEnemyDistance = nearbyEnemies[i].Distance(playerStateMachine.PlayerController.PlayerCollider).distance;
+                if (currentEnemyDistance < shorterDistanceEnemy)
                 {
-                    ShorterDistanceEnemy = CurrentEnemyDistance;
-                    ShorterDistanceEnemyIndex = i;
+                    shorterDistanceEnemy = currentEnemyDistance;
+                    shorterDistanceEnemyIndex = i;
                 }
             }
 
-            if (ShorterDistanceEnemyIndex == -1) return null;
-            return nearbyEnemies[ShorterDistanceEnemyIndex].gameObject;
+            if (shorterDistanceEnemyIndex == -1) return null;
+            return nearbyEnemies[shorterDistanceEnemyIndex].gameObject;
 
         }
             
@@ -156,27 +128,29 @@ namespace Player
 
         public void AttackEnd()
         {
-            Animator.speed = 1f;
-            Animator.SetBool("IsAttacking", false);
-            PlayerStateMachine.ChangeState(PlayerStateMachine.States.Standard);
-            Renderer.material = StandardMaterial;
+            _animator.speed = 1f;
+            _animator.SetBool("IsAttacking", false);
+            playerStateMachine.ChangeState(PlayerStateMachine.States.Standard);
+            _renderer.material = standardMaterial;
             ClearEnemiesHitList();
         }
 
         public void VerifyAttackCollision(GameObject enemy)
         {
             // avoids the enemy been hit twice in the same attack
-            if (!EnemiesHit.Contains(enemy))
+            if (!_enemiesHit.Contains(enemy))
             {
-                EnemiesHit.Add(enemy);
+                _enemiesHit.Add(enemy);
         
                 Vector3 attackDirection = (enemy.transform.position - transform.position).normalized;
+                
+                powerUpEffects.
                 if (CriticalTest()) // critical hit
-                    enemy.GetComponent<EnemyCombatManager>().TakeDamage(PlayerStatsController.CurrentPower * PlayerStatsController.CurrentCriticalDamage, attackDirection,
-                        PlayerStatsController.CurrentAttackSpeed ,false, true, true, null);
+                    enemy.GetComponent<EnemyCombatManager>().TakeDamage(_playerStatsController.CurrentPower * _playerStatsController.CurrentCriticalDamage, attackDirection,
+                        _playerStatsController.CurrentAttackSpeed ,false, true, true, null);
                 else                // normal hit
-                    enemy.GetComponent<EnemyCombatManager>().TakeDamage(PlayerStatsController.CurrentPower, attackDirection,
-                        PlayerStatsController.CurrentAttackSpeed,false, false, true, null);
+                    enemy.GetComponent<EnemyCombatManager>().TakeDamage(_playerStatsController.CurrentPower, attackDirection,
+                        _playerStatsController.CurrentAttackSpeed,false, false, true, null);
                 // PowerUpActivator.ApplyEffectsOnEnemies(enemy, CurrentEffect);
             }
         }
@@ -185,13 +159,13 @@ namespace Player
         {
             Random.InitState((int) Time.realtimeSinceStartup);
             var random = Random.Range(0, 100);
-            return random < PlayerStatsController.CurrentCriticalRate;
+            return random < _playerStatsController.CurrentCriticalRate;
         }
 
         private Directions GetAnimationDirection()
         {
-            float lastMoveX = Animator.GetFloat("LastMoveX");
-            float lastMoveY = Animator.GetFloat("LastMoveY");
+            float lastMoveX = _animator.GetFloat("LastMoveX");
+            float lastMoveY = _animator.GetFloat("LastMoveY");
 
             switch (lastMoveX)
             {
@@ -238,39 +212,25 @@ namespace Player
             var enemyPosition = enemy.transform.position;
             var playerPosition = transform.position;
             var faceDirection = UtilitiesClass.Get8DirectionFromAngle(UtilitiesClass.GetAngleFromVectorFloat(new Vector3(enemyPosition.x - playerPosition.x, enemyPosition.y - playerPosition.y)));
-            Animator.SetFloat("MoveX", faceDirection.x);
-            Animator.SetFloat("MoveY", faceDirection.y);
+            _animator.SetFloat("MoveX", faceDirection.x);
+            _animator.SetFloat("MoveY", faceDirection.y);
             
-            Animator.SetFloat("LastMoveX", faceDirection.x);
-            Animator.SetFloat("LastMoveY", faceDirection.y);
+            _animator.SetFloat("LastMoveX", faceDirection.x);
+            _animator.SetFloat("LastMoveY", faceDirection.y);
             
             /* Necessary? */
-            PlayerStateMachine.PlayerController.lastMoveX = faceDirection.x;
-            PlayerStateMachine.PlayerController.lastMoveY = faceDirection.y;
+            playerStateMachine.PlayerController.lastMoveX = faceDirection.x;
+            playerStateMachine.PlayerController.lastMoveY = faceDirection.y;
             
             /* I need to set the face dir variable? */ 
             
         }
-        
-        // private void SetWeaponStats()
-        // {
-        //     switch (CurrentWeaponType)
-        //     {
-        //         default:
-        //
-        //             break;
-        //         case (WeaponType.Sword):
-        //             CurrentDamage = 34;
-        //             CurrentAttackSpeed = 15f;
-        //             break;
-        //     }
-        // }
 
         private void ClearEnemiesHitList()
         {
-            if (EnemiesHit.Count > 0)
+            if (_enemiesHit.Count > 0)
             {
-                EnemiesHit.Clear();
+                _enemiesHit.Clear();
             }
         }
         
@@ -278,5 +238,7 @@ namespace Player
         {
             // Gizmos.DrawWireSphere(transform.position, CurrentWeaponRange);
         }
+        
+        
     }
 }

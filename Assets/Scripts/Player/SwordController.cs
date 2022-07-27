@@ -20,11 +20,6 @@ namespace Player
             {
                 PlayerAttackManager.VerifyAttackCollision(other.gameObject);
             }
-            
-            // if (other.CompareTag("Projectile"))
-            // {
-            //     other.GetComponent<ProjectileScript>()?.ReflectProjectile();
-            // }
         }
     }
 }

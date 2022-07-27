@@ -82,7 +82,7 @@ namespace Player
             var joystickValue = Joystick.HandleRange;
             RigidBody.velocity = joystickDirection * (StandardMoveSpeed * modifier * joystickValue);
             // Reset's attack cooldown
-            PlayerAttackManager.currentAttackCooldown = 0;
+            PlayerAttackManager.CurrentAttackCooldown = 0;
         }
 
         

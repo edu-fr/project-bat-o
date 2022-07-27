@@ -7,43 +7,89 @@ namespace Player
 {
     public class PowerUpEffects : MonoBehaviour
     {
-        // public List<int> BurnTickTimers = new List<int>();
+        private PlayerStatsController _playerStatsController;
+
+        private void Awake()
+        {
+            _playerStatsController = GetComponent<PlayerStatsController>();
+        }
+        
+        // [Header("Water blessing")]
         //
-        // public void BurnEnemy(GameObject enemy, float fireDamage)
-        // {
-        //     EnemyHealthManager enemyHealthManager = enemy.GetComponent<EnemyHealthManager>();
-        //     EnemyStateMachine enemyStateMachine = enemy.GetComponent<EnemyStateMachine>();
-        //     
-        //     if (BurnTickTimers.Count <= 0)
-        //     {
-        //         BurnTickTimers.Add(5);
-        //         StartCoroutine(ApplyBurn(enemy, fireDamage));
-        //     }
-        //     else
-        //     {
-        //         BurnTickTimers.Add(5);
-        //     }
-        // }
+        // [Header("Wind blessing")]
         //
-        // public IEnumerator ApplyBurn(GameObject enemy, float fireDamage)
-        // {
-        //     EnemyCombatManager enemyCombatManager = enemy.GetComponent<EnemyCombatManager>();
-        //     EnemyStateMachine enemyStateMachine = enemy.GetComponent<EnemyStateMachine>();
-        //     EnemyHealthManager enemyHealthManager = enemy.GetComponent<EnemyHealthManager>();
-        //
-        //     while (BurnTickTimers.Count > 0 && enemyHealthManager.currentHealth > 0)
-        //     {
-        //         enemyStateMachine.IsOnFire = true;
-        //         for (int i = 0; i < BurnTickTimers.Count; i++)
-        //         {
-        //             BurnTickTimers[i]--;
-        //         }
-        //         enemyCombatManager.TakeDamage(fireDamage/4, Vector3.zero, 40, true, false, true, Color.magenta);
-        //         BurnTickTimers.RemoveAll(i => i == 0);
-        //         yield return new WaitForSeconds(0.5f);
-        //     }
-        //     if(enemyStateMachine) enemyStateMachine._isOnFire = false;
-        //     BurnTickTimers.Clear();
-        // }
+        // [Header("Lightning blessing")]
+        
+        private void ApplyBlessings(EnemyHealthManager enemyHealth)
+        {
+            var fireLevel = _playerStatsController.CurrentFireLevel;
+            var waterLevel = _playerStatsController.CurrentWaterLevel;
+            var windLevel = _playerStatsController.CurrentWindLevel;
+            var lightningLevel = _playerStatsController.CurrentLightningLevel;
+
+            if (fireLevel > 0)
+                FireBlessing(fireLevel, enemyHealth);
+            if (waterLevel > 0)
+                WaterBlessing(waterLevel, enemyHealth);
+            if (windLevel > 0)
+                WindBlessing(windLevel, enemyHealth);
+            if (lightningLevel > 0)
+                LightningBlessing(lightningLevel, enemyHealth);
+        }
+
+        #region FireBlessing
+        [Header("Fire blessing")]
+        
+        private void FireBlessing(int fireLevel, EnemyHealthManager enemyHealth)
+        {
+            var interval = _playerStatsController.IntervalBetweenTicks;
+            var ticks = _playerStatsController.CurrentFireNumberOfTicks;
+            var totalDamage = _playerStatsController.CurrentTotalFireDamage;
+            
+            switch (fireLevel)
+            {
+                case 1:
+                    ApplyBurnOnEnemy(enemyHealth, totalDamage, ticks, interval);
+                    break;
+                
+                case 2:
+                    break;
+                
+                case 3:
+                    break;
+                
+                case 4:
+                    break;
+                
+            }
+        }
+
+        private IEnumerator ApplyBurnOnEnemy(EnemyHealthManager enemyHealth, float totalDamage, float ticks, float interval)
+        {
+            // for (int i = 0; i < ticks;)
+            yield return new WaitForSeconds(interval);
+        }
+
+        private IEnumerator TickBurn(int interval)
+        {
+        }
+
+        #endregion
+
+
+        private void WaterBlessing(int waterLevel, EnemyHealthManager enemyHealthManager)
+        {
+            
+        }
+
+        private void WindBlessing(int windLevel, EnemyHealthManager enemyHealthManager)
+        {
+            
+        }
+
+        private void LightningBlessing(int lightningLevel, EnemyHealthManager enemyHealthManager)
+        {
+            
+        }
     }
 }

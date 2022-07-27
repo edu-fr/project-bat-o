@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
-using UI;
 using UnityEngine;
 
 namespace Player
@@ -110,27 +108,23 @@ namespace Player
         [SerializeField] private float baseTotalFireDamage;
         [SerializeField] private float currentTotalFireDamage;
         public float CurrentTotalFireDamage => currentTotalFireDamage;
-        [SerializeField] private float baseFireTotalDuration;
-        [SerializeField] private float currentFireTotalDuration;
-        public float CurrentFireTotalDuration => currentFireTotalDuration;
+        [SerializeField] private float intervalBetweenTicks;
+        public float IntervalBetweenTicks => intervalBetweenTicks;
         [SerializeField] private int baseFireNumberOfTicks;
         [SerializeField] private int currentFireNumberOfTicks;
         public int CurrentFireNumberOfTicks => currentFireNumberOfTicks;
-        [SerializeField] private float baseFireTickDuration;
-        [SerializeField] private float currentFireTickDuration;
-        public float CurrentFireTickDuration => currentFireTickDuration;
-        private int _currentFireLevel;
+        public int CurrentFireLevel { get; private set; }
 
-
+        
         [Header("Water")] [Tooltip("Percentage of the damage given on the enemy hit.")] 
         [SerializeField] private float baseWaterCleaveDamage;
         [SerializeField] private float currentWaterCleaveDamage;
         public float CurrentWaterCleaveDamage => currentWaterCleaveDamage;
-        private int _currentWaterLevel;
         [SerializeField] private float waterCleaveRange;
         [SerializeField] [Range(45, 180)] private float waterCleaveAngle;
         public float WaterCleaveRange => waterCleaveRange;
         public float WaterCleaveAngle => waterCleaveAngle;
+        public int CurrentWaterLevel { get; private set; }
 
         
         [Header("Wind")] [Tooltip("Percentage of the total stats accumulated.")] 
@@ -148,7 +142,7 @@ namespace Player
         public float CurrentTotalWindCriticalRateStack => currentTotalWindCriticalRateStack;
         [SerializeField] private int numberOfWindStacks;
         public int NumberOfWindStacks => numberOfWindStacks;
-        private int _currentWindLevel;
+        public int CurrentWindLevel { get; private set; }
 
         
         [Header("Lightning")] [Tooltip("")]
@@ -158,8 +152,8 @@ namespace Player
         [SerializeField] private float baseLightningAoE;
         [SerializeField] private float currentLightningAoE;
         public float CurrentLightningAoE => currentLightningAoE;
-        private int _currentLightningLevel;
-
+        public int CurrentLightningLevel { get; private set; }
+        
 
         public List<ElementalBlessing> currentElementalBlessingsList;
         public List<ElementalRampage> currentElementalRampagesList;
@@ -272,34 +266,34 @@ namespace Player
         
         public void LevelUpFire()
         {
-            SetBlessing(ElementalBlessing.Fire, _currentFireLevel);
+            SetBlessing(ElementalBlessing.Fire, CurrentFireLevel);
             if (!BlessingIsEquipped(ElementalBlessing.Fire)) return;
-            _currentFireLevel++;
-            print("Current fire level " + _currentFireLevel);
+            CurrentFireLevel++;
+            print("Current fire level " + CurrentFireLevel);
         }
         
         public void LevelUpWater()
         {
-            SetBlessing(ElementalBlessing.Water, _currentWaterLevel);
+            SetBlessing(ElementalBlessing.Water, CurrentWaterLevel);
             if (!BlessingIsEquipped(ElementalBlessing.Water)) return; 
-            _currentWaterLevel++;
-            print("Current water level " + _currentWaterLevel);
+            CurrentWaterLevel++;
+            print("Current water level " + CurrentWaterLevel);
         }
         
         public void LevelUpWind()
         {
-            SetBlessing(ElementalBlessing.Wind, _currentWindLevel);
+            SetBlessing(ElementalBlessing.Wind, CurrentWindLevel);
             if (!BlessingIsEquipped(ElementalBlessing.Wind)) return;
-            _currentWindLevel++;
-            print("Current wind level " + _currentWindLevel);
+            CurrentWindLevel++;
+            print("Current wind level " + CurrentWindLevel);
         }
         
         public void LevelUpLightning()
         {
-            SetBlessing(ElementalBlessing.Lightning, _currentLightningLevel);
+            SetBlessing(ElementalBlessing.Lightning, CurrentLightningLevel);
             if (!BlessingIsEquipped(ElementalBlessing.Lightning)) return;
-            _currentLightningLevel++;
-            print("Current lightning level " + _currentLightningLevel);
+            CurrentLightningLevel++;
+            print("Current lightning level " + CurrentLightningLevel);
         }
         
         public void LevelUpBoilingWave()
@@ -342,10 +336,10 @@ namespace Player
         {
             return blessing switch
             {
-                ElementalBlessing.Fire => _currentFireLevel != blessingMaxLevel ? _currentFireLevel : -1,
-                ElementalBlessing.Water => _currentWaterLevel != blessingMaxLevel ? _currentWaterLevel : -1,
-                ElementalBlessing.Wind => _currentWindLevel != blessingMaxLevel ? _currentWindLevel : -1,
-                ElementalBlessing.Lightning => _currentLightningLevel != blessingMaxLevel ? _currentLightningLevel : -1,
+                ElementalBlessing.Fire => CurrentFireLevel != blessingMaxLevel ? CurrentFireLevel : -1,
+                ElementalBlessing.Water => CurrentWaterLevel != blessingMaxLevel ? CurrentWaterLevel : -1,
+                ElementalBlessing.Wind => CurrentWindLevel != blessingMaxLevel ? CurrentWindLevel : -1,
+                ElementalBlessing.Lightning => CurrentLightningLevel != blessingMaxLevel ? CurrentLightningLevel : -1,
                 ElementalBlessing.None => -1,
                 _ => throw new ArgumentOutOfRangeException(nameof(blessing), blessing,
                     "Not expected blessing: " + blessing.ToString())
