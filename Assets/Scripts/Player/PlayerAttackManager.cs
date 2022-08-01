@@ -21,12 +21,12 @@ namespace Player
             Right
         }
 
-        [SerializeField] private float currentWeaponRange;
+        [SerializeField] private float tryAttackingRange;
+        [SerializeField] [Range(1f, 5f)] private float animationAttackSpeed;
         [SerializeField] private float defaultAttackCooldown;
-        [SerializeField] [Range(1f, 5f)] private float currentAttackSpeed;
         public float CurrentAttackCooldown { get; set; }
-        
-        private List<GameObject> _enemiesHit;
+
+        public int CurrentAttackID { get; private set; } 
         [SerializeField]
         private LayerMask enemyLayerMask;
         
@@ -34,9 +34,6 @@ namespace Player
         public PlayerHealthManager playerHealthManager;
         public PlayerStateMachine playerStateMachine;
         public Material standardMaterial;
-        public Material fireMaterial;
-        public Material iceMaterial;
-        public Material thunderMaterial;
         private Renderer _renderer;
 
         public PowerUpEffects powerUpEffects;
@@ -53,13 +50,6 @@ namespace Player
             playerStateMachine = GetComponent<PlayerStateMachine>();
             powerUpEffects = GetComponent<PowerUpEffects>();
             _playerStatsController = GetComponent<PlayerStatsController>();
-        }
-
-        private void Start()
-        {
-            _enemiesHit = new List<GameObject>();
-            // SetWeaponStats();
-            CurrentAttackCooldown = 0; 
         }
 
         public void TryToAttack()
@@ -80,6 +70,7 @@ namespace Player
         
         private void Attack()
         {
+            CurrentAttackID = Random.Range(1, 100000);
             _direction = GetAnimationDirection();
             playerStateMachine.ChangeState(PlayerStateMachine.States.Attacking);
             AnimateAttack();
@@ -88,7 +79,7 @@ namespace Player
         public void AnimateAttack()
         {
             // Set attack animation
-            _animator.speed = currentAttackSpeed; // CurrentAttackSpeed * 0.2f;
+            _animator.speed = animationAttackSpeed; // CurrentAttackSpeed * 0.2f;
             _animator.SetTrigger("Attack");
             _animator.SetBool("IsAttacking", true);
         }
@@ -98,7 +89,7 @@ namespace Player
             var nearbyEnemies = new List<Collider2D>();
             var filter = new ContactFilter2D();
             filter.SetLayerMask(enemyLayerMask);
-            Physics2D.OverlapCircle(transform.position, currentWeaponRange * 5, filter, nearbyEnemies);
+            Physics2D.OverlapCircle(transform.position, tryAttackingRange, filter, nearbyEnemies);
             var shorterDistanceEnemyIndex = -1;
             var shorterDistanceEnemy = 100f;
             var currentEnemyDistance = -1f;
@@ -117,14 +108,6 @@ namespace Player
             return nearbyEnemies[shorterDistanceEnemyIndex].gameObject;
 
         }
-            
-        // public void FlurryAttack()
-        // {
-        //     PlayerStateMachine.ChangeState(PlayerStateMachine.States.Attacking);
-        //     Animator.speed = CurrentAttackSpeed * 0.2f;
-        //     Animator.SetTrigger("Attack");
-        //     Animator.SetBool("IsAttacking", true);
-        // }
 
         public void AttackEnd()
         {
@@ -132,27 +115,19 @@ namespace Player
             _animator.SetBool("IsAttacking", false);
             playerStateMachine.ChangeState(PlayerStateMachine.States.Standard);
             _renderer.material = standardMaterial;
-            ClearEnemiesHitList();
         }
 
         public void VerifyAttackCollision(GameObject enemy)
         {
-            // avoids the enemy been hit twice in the same attack
-            if (!_enemiesHit.Contains(enemy))
-            {
-                _enemiesHit.Add(enemy);
-        
-                Vector3 attackDirection = (enemy.transform.position - transform.position).normalized;
-                
-                powerUpEffects.
-                if (CriticalTest()) // critical hit
-                    enemy.GetComponent<EnemyCombatManager>().TakeDamage(_playerStatsController.CurrentPower * _playerStatsController.CurrentCriticalDamage, attackDirection,
-                        _playerStatsController.CurrentAttackSpeed ,false, true, true, null);
-                else                // normal hit
-                    enemy.GetComponent<EnemyCombatManager>().TakeDamage(_playerStatsController.CurrentPower, attackDirection,
-                        _playerStatsController.CurrentAttackSpeed,false, false, true, null);
-                // PowerUpActivator.ApplyEffectsOnEnemies(enemy, CurrentEffect);
-            }
+            var enemyCombatManager = enemy.GetComponent<EnemyCombatManager>();
+    
+            Vector3 attackDirection = (enemy.transform.position - transform.position).normalized;
+            
+            powerUpEffects.ApplyBlessings(enemyCombatManager);
+
+            var criticalHit = CriticalTest();
+            enemyCombatManager.TakeDamage(CurrentAttackID, _playerStatsController.CurrentPower * (criticalHit ? _playerStatsController.CurrentCriticalDamage / 100 : 1), attackDirection,
+                    false, criticalHit, true, null); 
         }
 
         private bool CriticalTest()
@@ -222,18 +197,9 @@ namespace Player
             playerStateMachine.PlayerController.lastMoveX = faceDirection.x;
             playerStateMachine.PlayerController.lastMoveY = faceDirection.y;
             
-            /* I need to set the face dir variable? */ 
-            
+            /* I need to set the face dir variable? */
         }
 
-        private void ClearEnemiesHitList()
-        {
-            if (_enemiesHit.Count > 0)
-            {
-                _enemiesHit.Clear();
-            }
-        }
-        
         private void OnDrawGizmos()
         {
             // Gizmos.DrawWireSphere(transform.position, CurrentWeaponRange);

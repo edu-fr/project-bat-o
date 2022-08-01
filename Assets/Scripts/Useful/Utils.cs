@@ -20,6 +20,15 @@ namespace Useful
             return new Vector3(Mathf.Cos(angleRad), Mathf.Sin(angleRad));
         }
 
+        public static float AddAngle(float currentAngle, float amountToAdd)
+        {
+            return currentAngle + amountToAdd <= 360 ? currentAngle + amountToAdd : currentAngle + amountToAdd - 360;
+        }
+        
+        public static float SubtractAngle(float currentAngle, float amountToSubtract)
+        {
+            return currentAngle - amountToSubtract >= 0 ? currentAngle - amountToSubtract : currentAngle - amountToSubtract + 360;
+        }
 
         public static float GetAngleFromVectorFloat(Vector3 dir)
         {

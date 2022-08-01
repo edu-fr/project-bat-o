@@ -49,6 +49,8 @@ namespace Enemy
             target = new GameObject("Target of " + gameObject.name).transform;
             target.parent = GameObject.FindGameObjectWithTag("EnemiesTargetsParent").transform; 
             
+            aiPath.maxSpeed = enemyStats.MoveSpeed;
+            
             // Set the first random target movement 
             target.transform.position = GenerateNewTarget();
             aiDestinationSetter.target = target.transform;

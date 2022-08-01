@@ -2172,6 +2172,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1996424798420464867, guid: 58eef81883803ef48a802794ff258dc7,
+        type: 3}
+      propertyPath: waterCleaveAngle
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996424798420464867, guid: 58eef81883803ef48a802794ff258dc7,
+        type: 3}
+      propertyPath: waterCleaveRange.Array.data[0]
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996424798420464867, guid: 58eef81883803ef48a802794ff258dc7,
+        type: 3}
+      propertyPath: waterCleaveRange.Array.data[1]
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996424798420464867, guid: 58eef81883803ef48a802794ff258dc7,
+        type: 3}
+      propertyPath: waterCleaveRange.Array.data[2]
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996424798420464867, guid: 58eef81883803ef48a802794ff258dc7,
+        type: 3}
+      propertyPath: waterCleaveRange.Array.data[3]
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6753889184881655945, guid: 58eef81883803ef48a802794ff258dc7,
         type: 3}
       propertyPath: m_Name
@@ -2367,7 +2392,7 @@ PrefabInstance:
     - target: {fileID: 1262939839982684595, guid: 76d2fe65ef4a887439ae046ef1edad6d,
         type: 3}
       propertyPath: enemiesPrefabs.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1262939839982684595, guid: 76d2fe65ef4a887439ae046ef1edad6d,
         type: 3}
@@ -2399,6 +2424,12 @@ PrefabInstance:
       propertyPath: mapSections.Array.data[5]
       value: 
       objectReference: {fileID: 1127624397}
+    - target: {fileID: 1262939839982684595, guid: 76d2fe65ef4a887439ae046ef1edad6d,
+        type: 3}
+      propertyPath: enemiesPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 8549221283934516841, guid: a28190c5c437be444a2e805413fdf4b7,
+        type: 3}
     - target: {fileID: 1262939839982684595, guid: 76d2fe65ef4a887439ae046ef1edad6d,
         type: 3}
       propertyPath: enemiesPrefabs.Array.data[1]

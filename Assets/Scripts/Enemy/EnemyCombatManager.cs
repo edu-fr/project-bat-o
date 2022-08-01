@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Enemy.Attacks;
 using Game;
 using Player;
@@ -14,6 +15,7 @@ namespace Enemy
         private EnemyStatsManager _enemyStatsManager;
         [HideInInspector] public BoxCollider2D boxCollider2D; 
         [HideInInspector] public Rigidbody2D rigidbody2D;
+        public List<int> attacksImmuneTo;  
 
         private void Awake()
         {
@@ -22,6 +24,7 @@ namespace Enemy
             _enemyStatsManager = GetComponent<EnemyStatsManager>();
             boxCollider2D = GetComponent<BoxCollider2D>();
             rigidbody2D = GetComponent<Rigidbody2D>();
+            attacksImmuneTo = new List<int>();
         }
         
         [Header("Damage popup")]
@@ -29,8 +32,9 @@ namespace Enemy
 
         public bool IsAttacking { get; set; }
 
-        public float TakeDamage(float damage, Vector3 attackDirection, float attackSpeed, bool isDot, bool isCriticalHit, bool showValue, Color? customColor)
+        public void TakeDamage(int damageId, float damage, Vector3 attackDirection, bool isDot, bool isCriticalHit, bool showValue, Color? customColor)
         {
+            if (attacksImmuneTo.Contains(damageId)) return;
             // Make hit noise
             AudioManager.instance.Play("Hit enemy");
             var finalDamage = damage - _enemyStatsManager.CurrentResistance; // arbitrary value
@@ -46,8 +50,8 @@ namespace Enemy
             
             _enemyMovementHandler.aiPath.enabled = false;
             _enemyHealthManager.TakeDamage((int) damage);
-            
-            return damage;
+            StartCoroutine(ImmunityFrames(damageId));
+            if (_enemyHealthManager.currentHealth <= 0) StopAllCoroutines();
         }
         
         private void OnCollisionStay2D(Collision2D other) // I will maintain that? 
@@ -65,6 +69,13 @@ namespace Enemy
     
             if (_enemyStatsManager.AttackIsStoppedByPlayer)
                 _enemyMovementHandler.enemyStateMachine.ChangeState(EnemyStateMachine.States.Chasing);
+        }
+
+        private IEnumerator ImmunityFrames(int id)
+        {
+            attacksImmuneTo.Add(id);
+            yield return new WaitForSeconds(_enemyStatsManager.immunitySeconds);
+            attacksImmuneTo.Remove(id);
         }
     }
 }

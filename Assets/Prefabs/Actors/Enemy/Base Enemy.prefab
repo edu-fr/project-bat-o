@@ -304,6 +304,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boxCollider2D: {fileID: 0}
   rigidbody2D: {fileID: 0}
+  attacksImmuneTo: 
   prefabDamagePopup: {fileID: 5288669746408271298, guid: 592b06df424ea3c4f9c648348d1e08e0,
     type: 3}
 --- !u!114 &773478135240995050
@@ -396,6 +397,7 @@ MonoBehaviour:
   fieldOfViewValue: 180
   fieldOfViewDistance: 5
   searchForAlliesRange: 5
+  immunitySeconds: 0.2
 --- !u!114 &773478135240995060
 MonoBehaviour:
   m_ObjectHideFlags: 0

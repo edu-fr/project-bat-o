@@ -14,14 +14,11 @@ namespace Player
             Frozen,
             Paralyzed,
             Dashing, 
-            CanRush,
-            Rushing,
             Petrified
         };
 
         public PlayerController PlayerController;
         public PlayerAttackManager PlayerAttackManager;
-        public FlurryRush FlurryRush;
         public LayerMask ObjectsLayerMask;
 
         public States State;
@@ -33,7 +30,6 @@ namespace Player
         {
             PlayerController = GetComponent<PlayerController>();
             PlayerAttackManager = GetComponent<PlayerAttackManager>();
-            FlurryRush = GetComponent<FlurryRush>();
         }
     
         private void FixedUpdate()
@@ -58,25 +54,6 @@ namespace Player
                     PlayerController.Dash();
                     break;
 
-                case States.Rushing:
-                    // PlayerAttackManager.PlayerHealthManager.Invincible = true;
-                    // if (!FlurryRush.hasStartedLerp)
-                    // {
-                    //     FlurryRush.TimeStartLerping = Time.unscaledTime;
-                    //     FlurryRush.hasStartedLerp = true;
-                    // }
-                    // if (FlurryRush.RushToEnemyPosition())
-                    // {
-                    //     FlurryRush.FlurryAttack();
-                    // }
-                    break;
-
-                case States.Paralyzed:
-                    break;
-
-                case States.Frozen:
-                    break;
-            
                 case States.Petrified:
                     crowdControlCurrentTime += Time.deltaTime;
                     if (crowdControlCurrentTime >= crowdControlTotalDuration)
@@ -109,16 +86,8 @@ namespace Player
             
                 case States.Paralyzed:
                     State = States.Paralyzed;
-                    break; 
-            
-                case States.CanRush:
-                    State = States.CanRush;
                     break;
-            
-                case States.Rushing:
-                    State = States.Rushing;
-                    break;
-            
+
                 case States.Petrified:
                     State = States.Petrified;
                     PlayerController.Animator.speed = 0;

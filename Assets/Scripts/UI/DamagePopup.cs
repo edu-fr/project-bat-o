@@ -46,24 +46,10 @@ namespace UI
       {
          TextMeshPro.SetText(damageAmount.ToString());
 
-         if (isDot)              // Dot
-         {
-            TextMeshPro.fontSize = DotFontSize;
-            TextColor = customColor?? NormalDamageColor;
-         }
-         else
-         {
-            if (isCriticalHit)   // Critical hit
-            {
-               TextMeshPro.fontSize = CriticalHitFontSize;
-               TextColor = customColor?? CriticalDamageColor;
-            }
-            else                 // Normal hit   
-            {
-               TextMeshPro.fontSize = FontSize;
-               TextColor = customColor?? NormalDamageColor;
-            }
-         }
+         TextMeshPro.fontSize = isDot ? (isCriticalHit ? CriticalHitFontSize : DotFontSize) :
+            (isCriticalHit ? CriticalHitFontSize : FontSize);
+         TextColor =  isDot ? (isCriticalHit ? CriticalDamageColor : DotDamageColor) :
+            (isCriticalHit ? CriticalDamageColor : NormalDamageColor);
          
          TextMeshPro.color = TextColor;
          DisappearTimer = DisappearTimerMax;

@@ -5098,11 +5098,9 @@ GameObject:
   - component: {fileID: 6753889184881655943}
   - component: {fileID: 385695933423370815}
   - component: {fileID: 4396048941111737139}
-  - component: {fileID: 1938860099312322761}
   - component: {fileID: -1128968484826919403}
   - component: {fileID: 5976800456755294409}
   - component: {fileID: 381225563}
-  - component: {fileID: -5479966777030865408}
   - component: {fileID: 1996424798420464867}
   m_Layer: 7
   m_Name: Player
@@ -5304,20 +5302,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de6e46098e12e4443b13b2f5563617e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentWeaponRange: 0.9
-  DefaultAttackCooldown: 0.4
-  CurrentAttackSpeed: 2.1
-  EnemyLayerMask:
+  tryAttackingRange: 3
+  animationAttackSpeed: 1
+  defaultAttackCooldown: 0.5
+  enemyLayerMask:
     serializedVersion: 2
     m_Bits: 256
-  PlayerHealthManager: {fileID: 385695933423370815}
-  PlayerStateMachine: {fileID: -1128968484826919403}
-  StandardMaterial: {fileID: 2100000, guid: bb0085cdb6ce6f64a8808d60ea372b8d, type: 2}
-  FireMaterial: {fileID: 2100000, guid: bb0085cdb6ce6f64a8808d60ea372b8d, type: 2}
-  IceMaterial: {fileID: 2100000, guid: bb0085cdb6ce6f64a8808d60ea372b8d, type: 2}
-  ThunderMaterial: {fileID: 2100000, guid: bb0085cdb6ce6f64a8808d60ea372b8d, type: 2}
-  PowerUpActivator: {fileID: -5479966777030865408}
-  EnemyLayers:
+  playerHealthManager: {fileID: 385695933423370815}
+  playerStateMachine: {fileID: -1128968484826919403}
+  standardMaterial: {fileID: 2100000, guid: bb0085cdb6ce6f64a8808d60ea372b8d, type: 2}
+  powerUpEffects: {fileID: 4396048941111737139}
+  enemyLayers:
     serializedVersion: 2
     m_Bits: 256
 --- !u!114 &6753889184881655943
@@ -5362,18 +5357,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80ce8d383d148794796f86a0bbecbddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1938860099312322761
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6753889184881655945}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6439c14509f2b154abad06a9264e08f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-1128968484826919403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5388,7 +5371,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerController: {fileID: 6753889184881655951}
   PlayerAttackManager: {fileID: 6753889184881655942}
-  FlurryRush: {fileID: 1938860099312322761}
   ObjectsLayerMask:
     serializedVersion: 2
     m_Bits: 576
@@ -5426,18 +5408,6 @@ MonoBehaviour:
   TimeBetweenPopUps: 0
   PrefabLootPopup: {fileID: 5288669746408271298, guid: c8d4684867929a94fa482f0937e0dafe,
     type: 3}
---- !u!114 &-5479966777030865408
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6753889184881655945}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3663bdfbd8a963f468a0d3e818cb237a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1996424798420464867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5456,8 +5426,8 @@ MonoBehaviour:
   currentAttackSpeed: 1
   baseResistance: 2
   currentResistance: 2
-  baseMaxHP: 30
-  currentMaxHP: 30
+  baseMaxHP: 300000
+  currentMaxHP: 300000
   baseLifeRecovery: 1
   currentLifeRecovery: 1
   baseCriticalRate: 10
@@ -5469,18 +5439,28 @@ MonoBehaviour:
   baseLifeSteal: 0
   currentLifeSteal: 0
   blessingMaxLevel: 4
-  baseTotalFireDamage: 0
-  currentTotalFireDamage: 0
-  baseFireTotalDuration: 0
-  currentFireTotalDuration: 0
-  baseFireNumberOfTicks: 0
-  currentFireNumberOfTicks: 0
-  baseFireTickDuration: 0
-  currentFireTickDuration: 0
-  baseWaterCleaveDamage: 0
-  currentWaterCleaveDamage: 0
-  waterCleaveRange: 0
-  waterCleaveAngle: 0
+  totalFireDamage:
+  - 8
+  - 12
+  - 20
+  - 30
+  intervalBetweenTicks:
+  - 0.4
+  - 0.4
+  - 0.2
+  - 0.2
+  numberOfFireTicks: 04000000040000000400000006000000
+  currentWaterCleaveDamagePercentage:
+  - 25
+  - 50
+  - 75
+  - 100
+  waterCleaveRange:
+  - 3
+  - 5
+  - 7
+  - 9
+  waterCleaveAngle: 180
   baseTotalWindMoveSpeedStack: 0
   currentTotalWindMoveSpeedStack: 0
   baseTotalWindAttackSpeedStack: 0

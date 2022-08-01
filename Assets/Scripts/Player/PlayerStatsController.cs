@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Game;
 using UnityEngine;
 
 namespace Player
@@ -105,26 +106,25 @@ namespace Player
         [SerializeField] private int blessingMaxLevel;
         
         [Header("Fire")] [Tooltip("")]
-        [SerializeField] private float baseTotalFireDamage;
-        [SerializeField] private float currentTotalFireDamage;
-        public float CurrentTotalFireDamage => currentTotalFireDamage;
-        [SerializeField] private float intervalBetweenTicks;
-        public float IntervalBetweenTicks => intervalBetweenTicks;
-        [SerializeField] private int baseFireNumberOfTicks;
-        [SerializeField] private int currentFireNumberOfTicks;
-        public int CurrentFireNumberOfTicks => currentFireNumberOfTicks;
+        [SerializeField] private float[] totalFireDamage;
+        public float[] TotalFireDamage => totalFireDamage;
+        [SerializeField] private float[] intervalBetweenTicks;
+        public float[] IntervalBetweenTicks => intervalBetweenTicks;
+        [SerializeField] private int[] numberOfFireTicks;
+        public int[] NumberOfFireTicks => numberOfFireTicks;
         public int CurrentFireLevel { get; private set; }
 
         
-        [Header("Water")] [Tooltip("Percentage of the damage given on the enemy hit.")] 
-        [SerializeField] private float baseWaterCleaveDamage;
-        [SerializeField] private float currentWaterCleaveDamage;
-        public float CurrentWaterCleaveDamage => currentWaterCleaveDamage;
-        [SerializeField] private float waterCleaveRange;
+        [Header("Water")] [Tooltip("Percentage of the damage given on the enemy hit. Divide it by 100.")] 
+        [SerializeField] private float[] currentWaterCleaveDamagePercentage;
+        public float[] CurrentWaterCleaveDamagePercentage => currentWaterCleaveDamagePercentage;
+        [SerializeField] private float[] waterCleaveRange;
         [SerializeField] [Range(45, 180)] private float waterCleaveAngle;
-        public float WaterCleaveRange => waterCleaveRange;
+        public float[] WaterCleaveRange => waterCleaveRange;
         public float WaterCleaveAngle => waterCleaveAngle;
+        public float splashDelay;
         public int CurrentWaterLevel { get; private set; }
+        
 
         
         [Header("Wind")] [Tooltip("Percentage of the total stats accumulated.")] 
@@ -165,6 +165,29 @@ namespace Player
             currentElementalRampagesList.Add(ElementalRampage.None);
         }
         
+        public void Update() {
+            /* DEBUG */
+            if (Input.GetKeyUp(KeyCode.Alpha1))
+            {
+                LevelUpFire();
+            }
+
+            if (Input.GetKeyUp(KeyCode.Alpha2))
+            {
+                LevelUpWater();
+            }
+            
+            if (Input.GetKeyUp(KeyCode.Alpha3))
+            {
+                LevelUpWind();
+            }
+            
+            if (Input.GetKeyUp(KeyCode.Alpha4))
+            {
+                LevelUpLightning();
+            }
+        }
+
         public ElementalRampage GetAvailableRampage()
         {
             return currentElementalBlessingsList[0] switch

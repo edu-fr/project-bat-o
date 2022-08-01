@@ -36,7 +36,7 @@ namespace Enemy
         public bool AttackIsStoppedByPlayer => attackIsStoppedByPlayer;
 
         [Header("Speed")]
-        [SerializeField] [Range(0.1f, 10f)] private float moveSpeed;
+        [SerializeField] [Range(0f, 10f)] private float moveSpeed;
         public float MoveSpeed => moveSpeed;
         [SerializeField] [Range(0f, 15f)] private float chasingSpeed;
         public float ChasingSpeed => chasingSpeed;
@@ -52,6 +52,7 @@ namespace Enemy
 
         [SerializeField] [Range(0f, 15f)] private float searchForAlliesRange;
         public float SearchForAlliesRange => searchForAlliesRange;
+        public float immunitySeconds;
 
     }
     
