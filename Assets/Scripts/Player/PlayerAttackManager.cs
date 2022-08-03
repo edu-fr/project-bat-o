@@ -21,12 +21,31 @@ namespace Player
             Right
         }
 
+        public class Attack
+        {
+            public int AttackID { get; private set; } 
+            public bool CriticalHit { get; private set; }
+
+            public Attack(float currentCriticalRate)
+            {
+                AttackID = Random.Range(1, 100000);
+                CriticalHit = CriticalTest(currentCriticalRate);
+            }
+            
+            private static bool CriticalTest(float currentCriticalRate)
+            {
+                Random.InitState((int) Time.realtimeSinceStartup);
+                var random = Random.Range(0, 100);
+                return random < currentCriticalRate;
+            }
+        }
+        
         [SerializeField] private float tryAttackingRange;
         [SerializeField] [Range(1f, 5f)] private float animationAttackSpeed;
         [SerializeField] private float defaultAttackCooldown;
         public float CurrentAttackCooldown { get; set; }
-
-        public int CurrentAttackID { get; private set; } 
+        
+        public Attack CurrentAttack { get; private set; } 
         [SerializeField]
         private LayerMask enemyLayerMask;
         
@@ -63,14 +82,14 @@ namespace Player
                 var closestEnemy = ThereIsEnemiesInRange();
                 if (closestEnemy == null) return;
                 LookToTheEnemy(closestEnemy);
-                Attack();
+                StartAttack();
                 CurrentAttackCooldown = defaultAttackCooldown;
             }
         }
         
-        private void Attack()
+        private void StartAttack()
         {
-            CurrentAttackID = Random.Range(1, 100000);
+            CurrentAttack = new Attack(_playerStatsController.CurrentCriticalRate);
             _direction = GetAnimationDirection();
             playerStateMachine.ChangeState(PlayerStateMachine.States.Attacking);
             AnimateAttack();
@@ -120,21 +139,10 @@ namespace Player
         public void VerifyAttackCollision(GameObject enemy)
         {
             var enemyCombatManager = enemy.GetComponent<EnemyCombatManager>();
-    
             Vector3 attackDirection = (enemy.transform.position - transform.position).normalized;
-            
+            enemyCombatManager.TakeDamage(CurrentAttack.AttackID, _playerStatsController.CurrentPower * (CurrentAttack.CriticalHit ? _playerStatsController.CurrentCriticalDamage / 100 : 1), attackDirection,
+                    false, CurrentAttack.CriticalHit, true, null); 
             powerUpEffects.ApplyBlessings(enemyCombatManager);
-
-            var criticalHit = CriticalTest();
-            enemyCombatManager.TakeDamage(CurrentAttackID, _playerStatsController.CurrentPower * (criticalHit ? _playerStatsController.CurrentCriticalDamage / 100 : 1), attackDirection,
-                    false, criticalHit, true, null); 
-        }
-
-        private bool CriticalTest()
-        {
-            Random.InitState((int) Time.realtimeSinceStartup);
-            var random = Random.Range(0, 100);
-            return random < _playerStatsController.CurrentCriticalRate;
         }
 
         private Directions GetAnimationDirection()

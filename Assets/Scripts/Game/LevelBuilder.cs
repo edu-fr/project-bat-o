@@ -122,10 +122,12 @@ namespace Game
         private void SpawnEnemiesDisabled()
         {
             levelManager.enemiesRemaining = 0;
+            var enemyIndex = 0;
             foreach (var spawn in _enemySpawns)
             {
                 var enemySpawned = Instantiate(enemiesPrefabs[Random.Range(0, enemiesPrefabs.Count)], Vector3.zero,
                     Quaternion.identity, spawn);
+                enemySpawned.name += enemyIndex++;
                 _enemiesList.Add(enemySpawned.gameObject);
                 var enemySpawnedTransform = enemySpawned.transform; 
                 enemySpawnedTransform.localPosition = Vector3.zero;

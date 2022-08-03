@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Enemy;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -13,10 +14,17 @@ namespace Player
     {
         private PlayerStatsController _playerStatsController;
         private PlayerAttackManager _playerAttackManager;
+        
+        /* DEBUG */ 
+        List<Vector2> rayDirections;
 
+        private Vector2 lastHitPosition;
+        /***/
+        
         private void Awake()
         {
             _playerStatsController = GetComponent<PlayerStatsController>();
+            _playerAttackManager = GetComponent<PlayerAttackManager>();
             
             /* DEBUG */
             lastHitPosition = Vector2.zero;
@@ -47,6 +55,23 @@ namespace Player
                 LightningBlessing(lightningLevel, enemy);
         }
 
+        public void ApplyBlessingsExcept(EnemyCombatManager enemy, PlayerStatsController.ElementalBlessing blessing)
+        {
+            var fireLevel = _playerStatsController.CurrentFireLevel;
+            var waterLevel = _playerStatsController.CurrentWaterLevel;
+            var windLevel = _playerStatsController.CurrentWindLevel;
+            var lightningLevel = _playerStatsController.CurrentLightningLevel;
+
+            if (fireLevel > 0 && blessing != PlayerStatsController.ElementalBlessing.Fire)
+                FireBlessing(fireLevel, enemy);
+            if (waterLevel > 0 && blessing != PlayerStatsController.ElementalBlessing.Water)
+                WaterBlessing(waterLevel, enemy);
+            if (windLevel > 0 && blessing != PlayerStatsController.ElementalBlessing.Wind)
+                WindBlessing(windLevel, enemy);
+            if (lightningLevel > 0 && blessing != PlayerStatsController.ElementalBlessing.Lightning)
+                LightningBlessing(lightningLevel, enemy);
+        }
+        
         #region FireBlessing
 
         private void FireBlessing(int fireLevel, EnemyCombatManager enemy)
@@ -91,16 +116,10 @@ namespace Player
             var damagePercentage = _playerStatsController.CurrentWaterCleaveDamagePercentage[waterLevel - 1];
             var cleaveRange = _playerStatsController.WaterCleaveRange[waterLevel - 1];
             var cleaveAngle = _playerStatsController.WaterCleaveAngle;
-            GetEnemiesInAngle(enemy, cleaveAngle, cleaveRange, damagePercentage);
+            GetEnemiesInAngle(enemy, cleaveAngle, cleaveRange, damagePercentage, waterLevel);
         }
         
-        /* DEBUG */ 
-        List<Vector2> rayDirections;
-
-        private Vector2 lastHitPosition;
-        /***/
-
-        private void GetEnemiesInAngle(EnemyCombatManager enemy, float angle, float range, float damagePercentage)
+        private void GetEnemiesInAngle(EnemyCombatManager enemy, float angle, float range, float damagePercentage, int waterLevel)
         {
             var playerTransform = transform;
             var enemyTransform = enemy.transform;
@@ -110,7 +129,8 @@ namespace Player
             var rayCount = 30;
             var angleIncrease = angle / rayCount;
             var currentAngle = UtilitiesClass.SubtractAngle(UtilitiesClass.GetAngleFromVectorFloat(attackDirection),angle / 2);
-            var enemiesHit = new List<GameObject>();
+            var enemiesHit = new List<Transform>();
+            
             /* DEBUG */ 
             rayDirections = new List<Vector2>();
             /***/
@@ -125,27 +145,16 @@ namespace Player
                 /* Debug */
                 rayDirections.Add(UtilitiesClass.GetVectorFromAngle(currentAngle));
                 /***/
-                foreach (var hit in resultingHits)
-                {
-                    if (hit.collider == null)
-                        continue;
-                    if (hit.collider.gameObject.CompareTag("Enemy"))
-                    {
-                        print(hit.collider.gameObject.name);
-                        if (!enemiesHit.Contains(hit.collider.gameObject))
-                        {
-                            enemiesHit.Add(hit.collider.gameObject);
-                        }
-                    }
-                }
+                // Add to the list of enemies hit
+                foreach (var hit in from hit in resultingHits where hit.transform != null where hit.transform.CompareTag("Enemy") where !enemiesHit.Contains(hit.transform) select hit)
+                    enemiesHit.Add(hit.transform);
                 currentAngle = UtilitiesClass.AddAngle(currentAngle, angleIncrease);
             }
 
-            StartCoroutine(SplashOnEnemies(enemiesHit, damagePercentage));
-            // hit.collider.gameObject.GetComponent<EnemyCombatManager>().TakeDamage(_playerAttackManager.CurrentAttackID,1, (hit.collider.transform.position - playerTransform.position).normalized, false, false, true, Color.cyan);
+            StartCoroutine(SplashOnEnemies(enemiesHit, damagePercentage, waterLevel));
         }
 
-        private IEnumerator SplashOnEnemies(List<GameObject> enemies, float damagePercentage)
+        private IEnumerator SplashOnEnemies(List<Transform> enemies, float damagePercentage, int waterLevel)
         {
             var playerPosition = transform.position;
             yield return new WaitForSeconds(_playerStatsController.splashDelay);
@@ -155,11 +164,23 @@ namespace Player
                 if (enemy == null) continue;
                 var enemyPosition = enemy.transform.position;
                 var attackDirection = (enemyPosition - playerPosition).normalized;
-                var enemyCombatManager = enemy.GetComponent<EnemyCombatManager>();
-                if (enemyCombatManager == null) continue;
-                enemyCombatManager.TakeDamage(_playerAttackManager.CurrentAttackID, 
-                    _playerStatsController.CurrentPower * damagePercentage / 100,
-                    attackDirection, false, false, true, Color.blue);
+                var currentAttackID = _playerAttackManager.CurrentAttack;
+                var enemyCombat = enemy.GetComponent<EnemyCombatManager>(); 
+                if (enemyCombat == null) continue;
+                
+                // If water level >= 4, critical hits splash too
+                enemyCombat?.TakeDamage(_playerAttackManager.CurrentAttack.AttackID,
+                    _playerStatsController.CurrentPower *
+                    (waterLevel >= 4 && _playerAttackManager.CurrentAttack.CriticalHit
+                        ? _playerStatsController.CurrentCriticalDamage / 100
+                        : 1) * damagePercentage / 100, attackDirection, false,
+                    waterLevel >= 4 && _playerAttackManager.CurrentAttack.CriticalHit, true, Color.blue);
+                
+                // If water level > 3, apply the other blessings to the enemies hit by the splash
+                if (waterLevel >= 3)
+                {
+                    ApplyBlessingsExcept(enemyCombat, PlayerStatsController.ElementalBlessing.Water);
+                }
             }
         }
 

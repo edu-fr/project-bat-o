@@ -34,7 +34,12 @@ namespace Enemy
 
         public void TakeDamage(int damageId, float damage, Vector3 attackDirection, bool isDot, bool isCriticalHit, bool showValue, Color? customColor)
         {
-            if (attacksImmuneTo.Contains(damageId)) return;
+            print($"TAKE DAMAGE => Enemy: {name} | DamageID: {damageId} | Damage: {damage}");
+            if (attacksImmuneTo.Contains(damageId))
+            {
+                print("The enemy " + name + " is immune to the attack " + damageId);
+                return;
+            }
             // Make hit noise
             AudioManager.instance.Play("Hit enemy");
             var finalDamage = damage - _enemyStatsManager.CurrentResistance; // arbitrary value
