@@ -46,7 +46,7 @@ namespace Player
         private int _currentPowerLevel;
         
         
-        [Header("Attack speed")] [Tooltip("Value divides the animation speed.")] 
+        [Header("Attack speed")] [Tooltip("Animation speed. Default = 2")] 
         [SerializeField] private float startingAttackSpeed;
         private float baseAttackSpeed;
         [SerializeField] private float currentAttackSpeed;
@@ -68,6 +68,8 @@ namespace Player
         [SerializeField] private float currentMaxHP;
         public float CurrentMaxHP => currentMaxHP;
         private int _currentMaxHPLevel;
+        public delegate float MaxHealthChangeHandler(float max);
+        public static event MaxHealthChangeHandler MaxHealthChanged;
 
 
         [Header("Life recovery")] [Tooltip("Additional percentage. Influences life steal, heal, etc")] 
@@ -100,7 +102,14 @@ namespace Player
         public float CurrentEvasion => currentEvasion;
         private int _currentEvasionLevel;
         
+        [Header("Move Speed")] [Tooltip("Flat values")] 
+        [SerializeField] private float startingMoveSpeed;
+        private float baseMoveSpeed;
+        [SerializeField] private float currentMoveSpeed;
+        public float CurrentMoveSpeed => currentMoveSpeed;
+        private int _currentMoveSpeedLevel;
 
+        
         [Header("ABILITIES")]
         
         [Tooltip("Percentage of HP recovered per trigger")] 
@@ -133,23 +142,11 @@ namespace Player
         public float splashDelay;
         public int CurrentWaterLevel { get; private set; }
         
-
         
-        [Header("Wind")] [Tooltip("Percentage of the total stats accumulated.")] 
-        [SerializeField] private float baseTotalWindMoveSpeedStack;
-        [SerializeField] private float currentTotalWindMoveSpeedStack;
-        public float CurrentTotalWindMoveSpeedStack => currentTotalWindMoveSpeedStack;
-        [SerializeField] private float baseTotalWindAttackSpeedStack;
-        [SerializeField] private float currentTotalWindAttackSpeedStack;
-        public float CurrentTotalWindAttackSpeedStack => currentTotalWindAttackSpeedStack;
-        [SerializeField] private float baseTotalWindAttackStack;
-        [SerializeField] private float currentTotalWindAttackStack;
-        public float CurrentTotalWindAttackStack => currentTotalWindAttackStack;
-        [SerializeField] private float baseTotalWindCriticalRateStack;
-        [SerializeField] private float currentTotalWindCriticalRateStack;
-        public float CurrentTotalWindCriticalRateStack => currentTotalWindCriticalRateStack;
-        [SerializeField] private int numberOfWindStacks;
-        public int NumberOfWindStacks => numberOfWindStacks;
+        [Header("Wind")] [Tooltip("Percentage of the total stats accumulated.")]
+        [SerializeField] private int maxWindStacks;
+        public int MaxWindStacks => maxWindStacks;
+        public int currentWindsStacks;
         public int CurrentWindLevel { get; private set; }
 
         
@@ -162,7 +159,7 @@ namespace Player
         public float CurrentLightningAoE => currentLightningAoE;
         public int CurrentLightningLevel { get; private set; }
         
-
+        
         public List<ElementalBlessing> currentElementalBlessingsList;
         public List<ElementalRampage> currentElementalRampagesList;
 
@@ -175,29 +172,29 @@ namespace Player
             /***/
             
             /* Initialize stats */
-            UpdatePower();
-            currentPower = basePower;
-            
-            UpdateAttackSpeed();
-            currentAttackSpeed = startingAttackSpeed;
-            
-            UpdateResistance();
-            currentResistance = startingResistance;
+            UpdateBasePower();
+            UpdateCurrentPower();
 
-            UpdateMaxHP();
-            currentMaxHP = startingMaxHP;
+            UpdateBaseAttackSpeed();
+            UpdateCurrentAttackSpeed();
             
-            UpdateLifeRecovery();
-            currentLifeRecovery = startingLifeRecovery;
+            UpdateBaseResistance();
+            UpdateCurrentResistance();
+
+            UpdateBaseMaxHP();
+            UpdateCurrentMaxHP();
+
+            UpdateBaseLifeRecovery();
+            UpdateCurrentLifeRecovery();
             
-            UpdateCriticalRate();
-            currentCriticalRate = startingCriticalRate;
+            UpdateBaseCriticalRate();
+            UpdateCurrentCriticalRate();
             
-            UpdateCriticalDamage();
-            currentCriticalDamage = startingCriticalDamage;
-            
-            UpdateEvasion();
-            currentEvasion = startingEvasion;
+            UpdateBaseCriticalDamage();
+            UpdateCurrentCriticalDamage();
+
+            UpdateBaseEvasion();
+            UpdateCurrentEvasion();
             /***/
         }
         
@@ -264,49 +261,49 @@ namespace Player
         {
             _currentPowerLevel++;
             print("Current attack level " + _currentPowerLevel);
-            UpdatePower();
+            UpdateBasePower();
         }
 
         public void LevelUpAttackSpeed()
         {
             _currentAttackSpeedLevel++;
             print("Current attack speed level " + _currentAttackSpeedLevel);
-            UpdateAttackSpeed();
+            UpdateBaseAttackSpeed();
         }
         
         public void LevelUpResistance()
         {
             _currentResistanceLevel++;
             print("Current resistance level " + _currentResistanceLevel);
-            UpdateResistance();
+            UpdateBaseResistance();
         }
         
         public void LevelUpMaxHP()
         {
             _currentMaxHPLevel++;
             print("Current Max HP level " + _currentMaxHPLevel);
-            UpdateMaxHP();
+            UpdateBaseMaxHP();
         }
         
         public void LevelUpLifeRecovery()
         {
             _currentLifeRecoveryLevel++;
             print("Current Hp Recovery level " + _currentLifeRecoveryLevel);
-            UpdateLifeRecovery();
+            UpdateBaseLifeRecovery();
         }
         
         public void LevelUpCriticalRate()
         {
             _currentCriticalRateLevel++;
             print("Current Critical Rate level " + _currentCriticalRateLevel);
-            UpdateCriticalRate();
+            UpdateBaseCriticalRate();
         }
         
         public void LevelUpCriticalDamage()
         {
             _currentCriticalDamageLevel++;
             print("Current critical damage level " + _currentCriticalDamageLevel);
-            UpdateCriticalDamage();
+            UpdateBaseCriticalDamage();
         }
         
         public void LevelUpLifeSteal()
@@ -319,7 +316,14 @@ namespace Player
         {
             _currentEvasionLevel++;
             print("Current evasion level " + _currentEvasionLevel);
-            UpdateEvasion();
+            UpdateBaseEvasion();
+        }
+        
+        public void LevelUpMoveSpeed()
+        {
+            _currentMoveSpeedLevel++;
+            print("Current move speed level " + _currentMoveSpeedLevel);
+            UpdateBaseMoveSpeed();
         }
 
         public MethodInfo GetLevelUpFunction(string variableName)
@@ -447,55 +451,134 @@ namespace Player
             return currentElementalBlessingsList.Any(blessingEquipped => blessing == blessingEquipped);
         }
 
-        private void UpdatePower()
+        private void UpdateBasePower()
         {
             // Power formula
             basePower = startingPower + (10 * _currentPowerLevel);
         }
+
+        public void UpdateCurrentPower()
+        {
+            currentPower = basePower;
+
+            // Wind blessing
+            if (CurrentWindLevel >= 3)
+            {
+                currentPower += basePower * (0.05f * currentWindsStacks);
+            }
+        }
         
-        private void UpdateAttackSpeed()
+        private void UpdateBaseAttackSpeed()
         {
             // Attack speed formula
             baseAttackSpeed = startingAttackSpeed + (0.2f * _currentAttackSpeedLevel);
         }
-
-        private void UpdateMaxHP()
+        
+        public void UpdateCurrentAttackSpeed()
+        {
+            currentAttackSpeed = baseAttackSpeed;
+            
+            // Wind blessing
+            if (CurrentWindLevel > 0)
+            {
+                currentAttackSpeed += baseAttackSpeed * (0.07f * currentWindsStacks);
+            }
+        }
+        
+        private void UpdateBaseMaxHP()
         {
             // Max HP formula
             baseMaxHP = startingMaxHP + (5 * _currentMaxHPLevel);
         }
+        
+        public void UpdateCurrentMaxHP()
+        {
+            currentMaxHP = baseMaxHP;
+        }
 
-        private void UpdateResistance()
+        private void UpdateBaseResistance()
         {
             // Resistance formula
             baseResistance = startingResistance + (2 * _currentResistanceLevel);
         }
         
+        private void UpdateCurrentResistance()
+        {
+            currentResistance = baseResistance;
+        }
         
-        private void UpdateCriticalRate()
+        
+        private void UpdateBaseCriticalRate()
         {
             // Critical rate formula
             baseCriticalRate = startingCriticalRate + (0.1f * _currentCriticalRateLevel);
+            
+            // Setting the ceiling
+            if (baseCriticalRate > 100) baseCriticalRate = 100;
         }
         
-        
-        private void UpdateCriticalDamage()
+        public void UpdateCurrentCriticalRate()
         {
-            //  formula
+            currentCriticalRate = baseCriticalRate;
+            
+            // Wind blessing
+            if (CurrentWindLevel >= 4)
+            {
+                currentCriticalRate += baseCriticalRate * (0.07f * currentWindsStacks);
+            }
+
+            // Setting the ceiling
+            if (currentCriticalRate > 100) currentCriticalRate = 100;
+        }
+        
+        private void UpdateBaseCriticalDamage()
+        {
+            // CriticalDamage formula
             baseCriticalDamage = startingCriticalDamage + (10 * _currentCriticalDamageLevel);
         }
         
-        
-        private void UpdateLifeRecovery()
+        public void UpdateCurrentCriticalDamage()
         {
-            //  formula
+            currentCriticalDamage = baseCriticalDamage;
+        }
+        
+        private void UpdateBaseLifeRecovery()
+        {
+            // LifeRecovery formula
             baseLifeRecovery = startingLifeRecovery + (10 * _currentLifeRecoveryLevel);
         }
         
-        private void UpdateEvasion()
+        public void UpdateCurrentLifeRecovery()
         {
-            //  formula
+            currentLifeRecovery = baseLifeRecovery;
+        }
+        
+        private void UpdateBaseEvasion()
+        {
+            // Evasion formula
             baseEvasion = startingEvasion + (4 * _currentEvasionLevel);
+        }
+        
+        public void UpdateCurrentEvasion()
+        {
+            currentEvasion = baseEvasion;
+        }
+
+        private void UpdateBaseMoveSpeed()
+        {
+            // MoveSpeed formula
+            baseMoveSpeed = startingMoveSpeed + (0.05f * _currentMoveSpeedLevel);
+        }
+        
+        public void UpdateCurrentMoveSpeed()
+        {
+            currentMoveSpeed = baseMoveSpeed;
+            
+            // Wind blessing
+            if (CurrentWindLevel > 0)
+            {
+                currentMoveSpeed += baseMoveSpeed * (0.03f * currentWindsStacks);
+            }
         }
         
     }
