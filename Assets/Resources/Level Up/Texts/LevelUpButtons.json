@@ -27,17 +27,17 @@
 		{
 			"optionAttributeName": "MaxHP",
 			"optionLevel": 0,
-			"optionTitle": "Increase Hp",
-			"optionText": "Increase your maximum health points.",
+			"optionTitle": "Increase HP",
+			"optionText": "Increase your maximum Health Points.",
 			"optionIconName": "iconIncreaseHP",
 			"optionCategory": "Stats"
 		},
 		{
-			"optionAttributeName": "HpRecovery",
+			"optionAttributeName": "LifeRecovery",
 			"optionLevel": 0,
-			"optionTitle": "Increase HP recovery",
-			"optionText": "Increase the Hp you recover from all sources.",
-			"optionIconName": "iconHpRecovery",
+			"optionTitle": "Increase life recovery",
+			"optionText": "Increase the amount of life that you recover from all sources.",
+			"optionIconName": "iconLifeRecovery",
 			"optionCategory": "Stats"
 		},
 		{
@@ -213,7 +213,7 @@
 			"optionLevel": 0,
 			"optionTitle": "Fireshock (Fire & Lightning Rampage)",
 			"optionText": "Need to be worked on.",
-			"optionIconName": "iconFireLightninRampage",
+			"optionIconName": "iconFireLightningRampage",
 			"optionCategory": "Rampage"
 		},
 		{

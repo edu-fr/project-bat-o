@@ -39,55 +39,63 @@ namespace Player
         [Header("STATS")]
 
         [Header("Attack")] [Tooltip("")] 
-        [SerializeField] private float basePower;
+        [SerializeField] private float startingPower;
+        private float basePower;
         [SerializeField] private float currentPower;
         public float CurrentPower => currentPower;
         private int _currentPowerLevel;
         
         
         [Header("Attack speed")] [Tooltip("Value divides the animation speed.")] 
-        [SerializeField] private float baseAttackSpeed;
+        [SerializeField] private float startingAttackSpeed;
+        private float baseAttackSpeed;
         [SerializeField] private float currentAttackSpeed;
         public float CurrentAttackSpeed => currentAttackSpeed;
         private int _currentAttackSpeedLevel;
 
 
         [Header("Resistance")] [Tooltip("Reduce damage receive and the CC time.")] 
-        [SerializeField] private float baseResistance;
+        [SerializeField] private float startingResistance;
+        private float baseResistance;
         [SerializeField] private float currentResistance;
         public float CurrentResistance => currentResistance;
         private int _currentResistanceLevel;
 
 
         [Header("Max HP")] [Tooltip("")] 
-        [SerializeField] private float baseMaxHP;
+        [SerializeField] private float startingMaxHP;
+        private float baseMaxHP;
         [SerializeField] private float currentMaxHP;
         public float CurrentMaxHP => currentMaxHP;
         private int _currentMaxHPLevel;
 
 
         [Header("Life recovery")] [Tooltip("Additional percentage. Influences life steal, heal, etc")] 
-        [SerializeField] private float baseLifeRecovery;
+        [SerializeField] private float startingLifeRecovery;
+        private float baseLifeRecovery;
         [SerializeField] private float currentLifeRecovery;
         public float CurrentLifeRecovery => currentLifeRecovery;
-        private int _currentHpRecoveryLevel;
+        private int _currentLifeRecoveryLevel;
 
 
         [Header("Critical Rate")] [Tooltip("Percentage.")] 
-        [SerializeField] private float baseCriticalRate;
+        [SerializeField] private float startingCriticalRate;
+        private float baseCriticalRate;
         [SerializeField] private float currentCriticalRate;
         public float CurrentCriticalRate => currentCriticalRate;
         private int _currentCriticalRateLevel;
 
         
         [Header("Base Critical Damage")] [Tooltip("Additional percentage.")] 
-        [SerializeField] private float baseCriticalDamage;
+        [SerializeField] private float startingCriticalDamage;
+        private float baseCriticalDamage;
         [SerializeField] private float currentCriticalDamage;
         public float CurrentCriticalDamage => currentCriticalDamage;
         private int _currentCriticalDamageLevel;
         
         [Header("Evasion")] [Tooltip("Percentage.")] 
-        [SerializeField] private float baseEvasion;
+        [SerializeField] private float startingEvasion;
+        private float baseEvasion;
         [SerializeField] private float currentEvasion;
         public float CurrentEvasion => currentEvasion;
         private int _currentEvasionLevel;
@@ -160,9 +168,37 @@ namespace Player
 
         private void Start()
         {
+            /* Start without blessings or rampages */
             currentElementalBlessingsList.Add(ElementalBlessing.None);
             currentElementalBlessingsList.Add(ElementalBlessing.None);
             currentElementalRampagesList.Add(ElementalRampage.None);
+            /***/
+            
+            /* Initialize stats */
+            UpdatePower();
+            currentPower = basePower;
+            
+            UpdateAttackSpeed();
+            currentAttackSpeed = startingAttackSpeed;
+            
+            UpdateResistance();
+            currentResistance = startingResistance;
+
+            UpdateMaxHP();
+            currentMaxHP = startingMaxHP;
+            
+            UpdateLifeRecovery();
+            currentLifeRecovery = startingLifeRecovery;
+            
+            UpdateCriticalRate();
+            currentCriticalRate = startingCriticalRate;
+            
+            UpdateCriticalDamage();
+            currentCriticalDamage = startingCriticalDamage;
+            
+            UpdateEvasion();
+            currentEvasion = startingEvasion;
+            /***/
         }
         
         public void Update() {
@@ -228,42 +264,49 @@ namespace Player
         {
             _currentPowerLevel++;
             print("Current attack level " + _currentPowerLevel);
+            UpdatePower();
         }
 
         public void LevelUpAttackSpeed()
         {
             _currentAttackSpeedLevel++;
             print("Current attack speed level " + _currentAttackSpeedLevel);
+            UpdateAttackSpeed();
         }
         
         public void LevelUpResistance()
         {
             _currentResistanceLevel++;
             print("Current resistance level " + _currentResistanceLevel);
+            UpdateResistance();
         }
         
         public void LevelUpMaxHP()
         {
             _currentMaxHPLevel++;
             print("Current Max HP level " + _currentMaxHPLevel);
+            UpdateMaxHP();
         }
         
-        public void LevelUpHpRecovery()
+        public void LevelUpLifeRecovery()
         {
-            _currentHpRecoveryLevel++;
-            print("Current Hp Recovery level " + _currentHpRecoveryLevel);
+            _currentLifeRecoveryLevel++;
+            print("Current Hp Recovery level " + _currentLifeRecoveryLevel);
+            UpdateLifeRecovery();
         }
         
         public void LevelUpCriticalRate()
         {
             _currentCriticalRateLevel++;
             print("Current Critical Rate level " + _currentCriticalRateLevel);
+            UpdateCriticalRate();
         }
         
         public void LevelUpCriticalDamage()
         {
             _currentCriticalDamageLevel++;
             print("Current critical damage level " + _currentCriticalDamageLevel);
+            UpdateCriticalDamage();
         }
         
         public void LevelUpLifeSteal()
@@ -276,6 +319,7 @@ namespace Player
         {
             _currentEvasionLevel++;
             print("Current evasion level " + _currentEvasionLevel);
+            UpdateEvasion();
         }
 
         public MethodInfo GetLevelUpFunction(string variableName)
@@ -403,5 +447,56 @@ namespace Player
             return currentElementalBlessingsList.Any(blessingEquipped => blessing == blessingEquipped);
         }
 
+        private void UpdatePower()
+        {
+            // Power formula
+            basePower = startingPower + (10 * _currentPowerLevel);
+        }
+        
+        private void UpdateAttackSpeed()
+        {
+            // Attack speed formula
+            baseAttackSpeed = startingAttackSpeed + (0.2f * _currentAttackSpeedLevel);
+        }
+
+        private void UpdateMaxHP()
+        {
+            // Max HP formula
+            baseMaxHP = startingMaxHP + (5 * _currentMaxHPLevel);
+        }
+
+        private void UpdateResistance()
+        {
+            // Resistance formula
+            baseResistance = startingResistance + (2 * _currentResistanceLevel);
+        }
+        
+        
+        private void UpdateCriticalRate()
+        {
+            // Critical rate formula
+            baseCriticalRate = startingCriticalRate + (0.1f * _currentCriticalRateLevel);
+        }
+        
+        
+        private void UpdateCriticalDamage()
+        {
+            //  formula
+            baseCriticalDamage = startingCriticalDamage + (10 * _currentCriticalDamageLevel);
+        }
+        
+        
+        private void UpdateLifeRecovery()
+        {
+            //  formula
+            baseLifeRecovery = startingLifeRecovery + (10 * _currentLifeRecoveryLevel);
+        }
+        
+        private void UpdateEvasion()
+        {
+            //  formula
+            baseEvasion = startingEvasion + (4 * _currentEvasionLevel);
+        }
+        
     }
 }

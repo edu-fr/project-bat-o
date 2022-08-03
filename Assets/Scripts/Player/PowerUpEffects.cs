@@ -110,6 +110,8 @@ namespace Player
 
         #endregion
 
+        
+        #region WaterBlessing
 
         private void WaterBlessing(int waterLevel, EnemyCombatManager enemy)
         { 
@@ -183,16 +185,30 @@ namespace Player
                 }
             }
         }
+        
+        #endregion
+
+        
+        #region WindBlessing
+
+        private int currentWindCount;
 
         private void WindBlessing(int windLevel, EnemyCombatManager enemy)
         {
             
         }
 
+        #endregion
+        
+        
+        #region LightningBlessing
+        
         private void LightningBlessing(int lightningLevel, EnemyCombatManager enemy)
         {
             
         }
+        
+        #endregion
 
         private void OnDrawGizmos()
         {

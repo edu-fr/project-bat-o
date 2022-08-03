@@ -2952,6 +2952,16 @@ PrefabInstance:
       propertyPath: PlayerStats
       value: 
       objectReference: {fileID: 1940611136}
+    - target: {fileID: 3880060818107635054, guid: 1ac584daeee254d459f301995c01b686,
+        type: 3}
+      propertyPath: icons.Array.data[4].name
+      value: iconLifeRecovery
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880060818107635054, guid: 1ac584daeee254d459f301995c01b686,
+        type: 3}
+      propertyPath: icons.Array.data[26].name
+      value: iconFireLightningRampage
+      objectReference: {fileID: 0}
     - target: {fileID: 7543719331385871554, guid: 1ac584daeee254d459f301995c01b686,
         type: 3}
       propertyPath: m_AnchorMax.y

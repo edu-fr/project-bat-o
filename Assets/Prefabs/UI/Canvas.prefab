@@ -569,7 +569,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5604302995005417223
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1748,7 +1748,7 @@ MonoBehaviour:
   - name: iconIncreaseHP
     sprite: {fileID: -6314646018040834758, guid: dd98038e98adb244180b3ab9fdbe97a0,
       type: 3}
-  - name: iconHpRecovery
+  - name: iconLifeRecovery
     sprite: {fileID: -6314646018040834758, guid: dd98038e98adb244180b3ab9fdbe97a0,
       type: 3}
   - name: iconLifeSteal
@@ -1814,7 +1814,7 @@ MonoBehaviour:
   - name: iconLightningWaterRampage
     sprite: {fileID: -6314646018040834758, guid: dd98038e98adb244180b3ab9fdbe97a0,
       type: 3}
-  - name: iconFireLightninRampage
+  - name: iconFireLightningRampage
     sprite: {fileID: -6314646018040834758, guid: dd98038e98adb244180b3ab9fdbe97a0,
       type: 3}
   - name: iconLightningWindRampage
