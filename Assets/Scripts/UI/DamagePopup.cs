@@ -51,7 +51,7 @@ namespace UI
          TextColor =  isDot ? (isCriticalHit ? CriticalDamageColor : DotDamageColor) :
             (isCriticalHit ? CriticalDamageColor : NormalDamageColor);
          
-         TextMeshPro.color = TextColor;
+         TextMeshPro.color = customColor ?? TextColor;
          DisappearTimer = DisappearTimerMax;
          MoveVector = hitDirection * MoveSpeed;
          SortingOrder++;

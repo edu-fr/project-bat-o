@@ -152,12 +152,15 @@ namespace Player
 
         
         [Header("Lightning")] [Tooltip("")]
-        [SerializeField] private float baseTotalLightningDamage;
-        [SerializeField] private float currentTotalLightningDamage;
-        public float CurrentTotalLightningDamage => currentTotalLightningDamage;
-        [SerializeField] private float baseLightningAoE;
-        [SerializeField] private float currentLightningAoE;
-        public float CurrentLightningAoE => currentLightningAoE;
+        [SerializeField] private float[] currentLightningDamage;
+        public float[] CurrentLightningDamage => currentLightningDamage;
+        [Header("Percentage of happening on a attack")] [Range(0, 100f)]
+        [SerializeField] private float[] currentLightningRate;
+        public float[] CurrentLightningRate => currentLightningRate;
+        [Header("Area of effect of the lightning")] [Range(0, 5f)]
+        [SerializeField] private float[] currentLightningAoE;
+        public float[] CurrentLightningAoE => currentLightningAoE;
+        public float lightningDelay;
         public int CurrentLightningLevel { get; private set; }
         
         

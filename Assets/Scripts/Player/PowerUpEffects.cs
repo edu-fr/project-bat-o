@@ -100,14 +100,16 @@ namespace Player
         #region WaterBlessing
 
         private void WaterBlessing(int waterLevel, EnemyCombatManager enemy)
-        { 
+        {
+            var attackID = _playerAttackManager.CurrentAttack.AttackID;
             var damagePercentage = _playerStats.CurrentWaterCleaveDamagePercentage[waterLevel - 1];
             var cleaveRange = _playerStats.WaterCleaveRange[waterLevel - 1];
             var cleaveAngle = _playerStats.WaterCleaveAngle;
-            GetEnemiesInAngle(enemy, cleaveAngle, cleaveRange, damagePercentage, waterLevel);
+            var enemiesHitByTheSplash = GetEnemiesInAngle(attackID, enemy, cleaveAngle, cleaveRange);
+            StartCoroutine(SplashOnEnemies(attackID, enemiesHitByTheSplash, damagePercentage, waterLevel));
         }
         
-        private void GetEnemiesInAngle(EnemyCombatManager enemy, float angle, float range, float damagePercentage, int waterLevel)
+        private List<Transform> GetEnemiesInAngle(int attackID, EnemyCombatManager enemy, float angle, float range)
         {
             var playerTransform = transform;
             var enemyTransform = enemy.transform;
@@ -138,11 +140,10 @@ namespace Player
                     enemiesHit.Add(hit.transform);
                 currentAngle = UtilitiesClass.AddAngle(currentAngle, angleIncrease);
             }
-
-            StartCoroutine(SplashOnEnemies(enemiesHit, damagePercentage, waterLevel));
+            return enemiesHit;
         }
 
-        private IEnumerator SplashOnEnemies(List<Transform> enemies, float damagePercentage, int waterLevel)
+        private IEnumerator SplashOnEnemies(int attackID, List<Transform> enemies, float damagePercentage, int waterLevel)
         {
             var playerPosition = transform.position;
             yield return new WaitForSeconds(_playerStats.splashDelay);
@@ -152,7 +153,6 @@ namespace Player
                 if (enemy == null) continue;
                 var enemyPosition = enemy.transform.position;
                 var attackDirection = (enemyPosition - playerPosition).normalized;
-                var currentAttackID = _playerAttackManager.CurrentAttack;
                 var enemyCombat = enemy.GetComponent<EnemyCombatManager>(); 
                 if (enemyCombat == null) continue;
                 
@@ -187,11 +187,33 @@ namespace Player
 
         #endregion
         
-        
         #region LightningBlessing
         
         private void LightningBlessing(int lightningLevel, EnemyCombatManager enemy)
         {
+            var chance = Random.Range(0, 100);
+            if (chance < _playerStats.CurrentLightningRate[lightningLevel])
+            {
+                var area = _playerStats.CurrentLightningAoE[lightningLevel];
+                var damage = _playerStats.CurrentLightningDamage[lightningLevel];
+                var lightningDelay = _playerStats.lightningDelay; 
+                StartCoroutine(InvokeLightning(enemy, damage, area, lightningDelay));    
+            }
+        }
+
+        private IEnumerator InvokeLightning(EnemyCombatManager enemy, float damage, float area, float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            
+            // TODO animation
+            var enemiesAffected = Physics2D.OverlapCircleAll(enemy.transform.position, area, LayerMask.GetMask("Enemy"));
+            var lightningID = Random.Range(0, 100000);
+            // Cast on the original enemy hit
+            enemy.GetComponent<EnemyCombatManager>().TakeDamage(lightningID, damage, Vector3.zero, false, false, true, Color.yellow);
+            foreach (var enemyAffected in enemiesAffected)
+            {
+                enemyAffected.GetComponent<EnemyCombatManager>().TakeDamage(lightningID, damage, Vector3.zero, false, false, true, Color.yellow);
+            }
             
         }
         

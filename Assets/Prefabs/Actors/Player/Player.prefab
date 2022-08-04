@@ -5325,7 +5325,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FlashMaterial: {fileID: 2100000, guid: 478fe359495af0742b7432b040a1ca38, type: 2}
-  MaxHealth: 100
   CurrentHealth: 0
   Invincible: 0
 --- !u!114 &4396048941111737139
@@ -5417,7 +5416,7 @@ MonoBehaviour:
   currentCriticalDamage: 0
   startingEvasion: 2
   currentEvasion: 0
-  startingMoveSpeed: 4
+  startingMoveSpeed: 3.5
   currentMoveSpeed: 0
   baseLifeSteal: 0
   currentLifeSteal: 0
@@ -5448,10 +5447,22 @@ MonoBehaviour:
   maxWindStacks: 4
   timeLimitToLoseStacks: 3
   currentWindStacks: 0
-  baseTotalLightningDamage: 0
-  currentTotalLightningDamage: 0
-  baseLightningAoE: 0
-  currentLightningAoE: 0
+  currentLightningDamage:
+  - 2
+  - 4
+  - 4
+  - 4
+  currentLightningRate:
+  - 33
+  - 33
+  - 33
+  - 33
+  currentLightningAoE:
+  - 2
+  - 2
+  - 2
+  - 2
+  lightningDelay: 0.5
   currentElementalBlessingsList: 
   currentElementalRampagesList: 
 --- !u!1 &8021345283708634746
