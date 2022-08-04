@@ -82,5 +82,30 @@ namespace Enemy
             yield return new WaitForSeconds(_enemyStatsManager.immunitySeconds);
             attacksImmuneTo.Remove(id);
         }
+
+        public void StartBurning(float totalDamage, float ticks, float interval, float criticalRate, float criticalDamage)
+        {
+            // Stop previous burnings
+            StopAllCoroutines();
+            StartCoroutine(BurningRoutine(totalDamage, ticks, interval, criticalRate, criticalDamage));;
+        }
+        
+        private IEnumerator BurningRoutine(float totalDamage, float ticks, float interval, float criticalRate, float criticalDamage)
+        {
+            for (var i = 0; i < ticks; i++)
+            {
+                BurnTick(totalDamage/ticks, criticalRate, criticalDamage);
+                yield return new WaitForSeconds(interval);
+            }
+        }
+
+        private void BurnTick(float damage, float criticalChance, float criticalDamage)
+        {
+            var criticalTest = Random.Range(0, 100);
+            var burnId = Random.Range(1, 10000);
+            print("Ticking! Damage: " + damage + " Chance: " + criticalChance + " Damage: " + criticalDamage);
+            TakeDamage(burnId, damage * (criticalTest < criticalChance ? criticalDamage / 100 : 1), Vector3.zero,
+                true, criticalTest < criticalChance, true, null);
+        }
     }
 }

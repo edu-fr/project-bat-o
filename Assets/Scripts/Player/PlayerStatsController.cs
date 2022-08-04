@@ -359,6 +359,7 @@ namespace Player
         
         public void LevelUpFire()
         {
+            if (CurrentFireLevel >= blessingMaxLevel) return; 
             SetBlessing(ElementalBlessing.Fire, CurrentFireLevel);
             if (!BlessingIsEquipped(ElementalBlessing.Fire)) return;
             CurrentFireLevel++;
@@ -367,6 +368,7 @@ namespace Player
         
         public void LevelUpWater()
         {
+            if (CurrentWaterLevel >= blessingMaxLevel) return; 
             SetBlessing(ElementalBlessing.Water, CurrentWaterLevel);
             if (!BlessingIsEquipped(ElementalBlessing.Water)) return; 
             CurrentWaterLevel++;
@@ -375,6 +377,7 @@ namespace Player
         
         public void LevelUpWind()
         {
+            if (CurrentWindLevel >= blessingMaxLevel) return; 
             SetBlessing(ElementalBlessing.Wind, CurrentWindLevel);
             if (!BlessingIsEquipped(ElementalBlessing.Wind)) return;
             CurrentWindLevel++;
@@ -383,6 +386,7 @@ namespace Player
         
         public void LevelUpLightning()
         {
+            if (CurrentLightningLevel >= blessingMaxLevel) return; 
             SetBlessing(ElementalBlessing.Lightning, CurrentLightningLevel);
             if (!BlessingIsEquipped(ElementalBlessing.Lightning)) return;
             CurrentLightningLevel++;
@@ -391,36 +395,42 @@ namespace Player
         
         public void LevelUpBoilingWave()
         {
+            if (currentElementalRampagesList[0] != ElementalRampage.None) return;
             currentElementalRampagesList[0] = ElementalRampage.BoilingWave;
             print("Current elemental rampage: " + ElementalRampage.BoilingWave.ToString());
         }
         
         public void LevelUpTsunami()
         {
+            if (currentElementalRampagesList[0] != ElementalRampage.None) return;
             currentElementalRampagesList[0] = ElementalRampage.Tsunami;
             print("Current elemental rampage: " + ElementalRampage.Tsunami);
         }
         
         public void LevelUpHeatCloak()
         {
+            if (currentElementalRampagesList[0] != ElementalRampage.None) return;
             currentElementalRampagesList[0] = ElementalRampage.HeatCloak;
             print("Current elemental rampage: " + ElementalRampage.HeatCloak);
         }
         
         public void LevelUpStormBringer()
         {
+            if (currentElementalRampagesList[0] != ElementalRampage.None) return;
             currentElementalRampagesList[0] = ElementalRampage.StormBringer;
             print("Current elemental rampage: " + ElementalRampage.StormBringer);
         }
         
         public void LevelUpFireShock()
         {
+            if (currentElementalRampagesList[0] != ElementalRampage.None) return;
             currentElementalRampagesList[0] = ElementalRampage.FireShock;
             print("Current elemental rampage: " + ElementalRampage.FireShock);
         }
         
         public void LevelUpGoddessOfTheHunt()
         {
+            if (currentElementalRampagesList[0] != ElementalRampage.None) return;
             currentElementalRampagesList[0] = ElementalRampage.GoddessOfTheHunt;
             print("Current elemental rampage: " + ElementalRampage.GoddessOfTheHunt);
         }

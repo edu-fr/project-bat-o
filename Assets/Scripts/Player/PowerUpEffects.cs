@@ -82,10 +82,7 @@ namespace Player
         #region FireBlessing
 
         private void FireBlessing(int fireLevel, EnemyCombatManager enemy)
-        {   
-            // Stop on going burning events
-            StopAllCoroutines();
-            
+        {
             var interval = _playerStats.IntervalBetweenTicks[fireLevel - 1];
             var ticks = _playerStats.NumberOfFireTicks[fireLevel - 1];
             var totalDamage = _playerStats.TotalFireDamage[fireLevel - 1];
@@ -93,26 +90,8 @@ namespace Player
                 : 0;
             var criticalDamage = fireLevel > 3 ? _playerStats.CurrentCriticalDamage
                 : 0;
-            StartCoroutine(ApplyBurnOnEnemy(enemy, totalDamage, ticks, interval, criticalRate, criticalDamage));
-        }
-
-        private IEnumerator ApplyBurnOnEnemy(EnemyCombatManager enemy, float totalDamage, float ticks, float interval, float criticalRate, float criticalDamage)
-        {
-            for (var i = 0; i < ticks; i++)
-            {
-                if (enemy == null) yield break;
-                TickBurn(enemy, totalDamage/ticks, criticalRate, criticalDamage);
-                yield return new WaitForSeconds(interval);
-            }
-        }
-
-        private void TickBurn(EnemyCombatManager enemy, float damage, float criticalChance, float criticalDamage)
-        {
-            var criticalTest = Random.Range(0, 100);
-            var burnId = Random.Range(1, 10000);
-            print("Ticking! Damage: " + damage + " Chance: " + criticalChance + " Damage: " + criticalDamage);
-            enemy?.TakeDamage(burnId, damage * (criticalTest < criticalChance ? criticalDamage / 100 : 1), Vector3.zero,
-                true, criticalTest < criticalChance, true, null);
+            
+            enemy.StartBurning(totalDamage,  ticks, interval, criticalRate, criticalDamage);
         }
 
         #endregion
