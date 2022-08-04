@@ -40,40 +40,39 @@ namespace Player
             }
         }
         
-        [SerializeField] private float tryAttackingRange;
-        [SerializeField] [Range(1f, 5f)] private float animationAttackSpeed;
-        [SerializeField] private float defaultAttackCooldown;
-        public float CurrentAttackCooldown { get; set; }
-        
-        public Attack CurrentAttack { get; private set; } 
-        [SerializeField]
-        private LayerMask enemyLayerMask;
-        
+        [SerializeField] private LayerMask enemyLayerMask;
         private Animator _animator;
-        public PlayerHealthManager playerHealthManager;
         public PlayerStateMachine playerStateMachine;
         public Material standardMaterial;
         private Renderer _renderer;
+        private Collider2D _collider2D;
 
         public PowerUpEffects powerUpEffects;
-        private PlayerStatsController _playerStatsController;
+        private PlayerStatsController _playerStats;
+        private PlayerController _playerController;
 
-        [SerializeField] private LayerMask enemyLayers;
+        [SerializeField] private float tryAttackingRange;
+        [SerializeField] [Range(1f, 5f)] private float animationAttackSpeed;
+        [SerializeField] private float defaultAttackCooldown;
+        
         private Directions _direction;
+        public float CurrentAttackCooldown { get; set; }
+        public Attack CurrentAttack { get; private set; }
 
         private void Awake()
         {
+            _playerController = GetComponent<PlayerController>();
+            _collider2D = GetComponent<Collider2D>();
             _animator = GetComponent<Animator>();
             _renderer = GetComponent<Renderer>();
-            playerHealthManager = GetComponent<PlayerHealthManager>();
             playerStateMachine = GetComponent<PlayerStateMachine>();
             powerUpEffects = GetComponent<PowerUpEffects>();
-            _playerStatsController = GetComponent<PlayerStatsController>();
+            _playerStats = GetComponent<PlayerStatsController>();
         }
 
         public void TryToAttack()
         {
-            if (CurrentAttackCooldown / _playerStatsController.CurrentAttackSpeed > 0)
+            if (CurrentAttackCooldown > 0)
             {
                 CurrentAttackCooldown -= Time.deltaTime;
             }
@@ -89,7 +88,7 @@ namespace Player
         
         private void StartAttack()
         {
-            CurrentAttack = new Attack(_playerStatsController.CurrentCriticalRate);
+            CurrentAttack = new Attack(_playerStats.CurrentCriticalRate);
             _direction = GetAnimationDirection();
             playerStateMachine.ChangeState(PlayerStateMachine.States.Attacking);
             AnimateAttack();
@@ -98,7 +97,7 @@ namespace Player
         public void AnimateAttack()
         {
             // Set attack animation
-            _animator.speed = animationAttackSpeed; // CurrentAttackSpeed * 0.2f;
+            _animator.speed = _playerStats.CurrentAttackSpeed; 
             _animator.SetTrigger("Attack");
             _animator.SetBool("IsAttacking", true);
         }
@@ -115,7 +114,7 @@ namespace Player
             for (var i = 0; i < nearbyEnemies.Count; i++)
             {
                 if (nearbyEnemies[i] == null) continue;
-                currentEnemyDistance = nearbyEnemies[i].Distance(playerStateMachine.PlayerController.PlayerCollider).distance;
+                currentEnemyDistance = nearbyEnemies[i].Distance(_collider2D).distance;
                 if (currentEnemyDistance < shorterDistanceEnemy)
                 {
                     shorterDistanceEnemy = currentEnemyDistance;
@@ -140,7 +139,7 @@ namespace Player
         {
             var enemyCombatManager = enemy.GetComponent<EnemyCombatManager>();
             Vector3 attackDirection = (enemy.transform.position - transform.position).normalized;
-            enemyCombatManager.TakeDamage(CurrentAttack.AttackID, _playerStatsController.CurrentPower * (CurrentAttack.CriticalHit ? _playerStatsController.CurrentCriticalDamage / 100 : 1), attackDirection,
+            enemyCombatManager.TakeDamage(CurrentAttack.AttackID, _playerStats.CurrentPower * (CurrentAttack.CriticalHit ? _playerStats.CurrentCriticalDamage / 100 : 1), attackDirection,
                     false, CurrentAttack.CriticalHit, true, null); 
             powerUpEffects.ApplyBlessings(enemyCombatManager);
         }
@@ -202,9 +201,8 @@ namespace Player
             _animator.SetFloat("LastMoveY", faceDirection.y);
             
             /* Necessary? */
-            playerStateMachine.PlayerController.lastMoveX = faceDirection.x;
-            playerStateMachine.PlayerController.lastMoveY = faceDirection.y;
-            
+            _playerController.lastMoveX = faceDirection.x;
+            _playerController.lastMoveY = faceDirection.y;
             /* I need to set the face dir variable? */
         }
 

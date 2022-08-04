@@ -10,18 +10,17 @@ namespace UI
         private void Start()
         {
             // Observe player health change event
-            PlayerHealthManager.HealthChanged += OnHealthChanged;
+            PlayerHealthManager.HealthChanged += OnCurrentHPChanged;
         }
 
         [SerializeField] private Slider Slider;
         [SerializeField] private TextMeshProUGUI Amount;
 
-        public void OnHealthChanged(float current, float max)
+        private void OnCurrentHPChanged(float current, float max)
         {
             Slider.value = current;
+            Slider.maxValue = max;
             Amount.SetText(current + "/" + max);
         }
-        
-
     }
 }

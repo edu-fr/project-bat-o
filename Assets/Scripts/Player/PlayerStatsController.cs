@@ -9,7 +9,6 @@ namespace Player
 {
     public class PlayerStatsController : MonoBehaviour
     {
-        
         [Tooltip("Need to have the exact same name of the LevelUpOption optionAttributeName")]
         public enum ElementalBlessing
         {
@@ -146,7 +145,9 @@ namespace Player
         [Header("Wind")] [Tooltip("Percentage of the total stats accumulated.")]
         [SerializeField] private int maxWindStacks;
         public int MaxWindStacks => maxWindStacks;
-        public int currentWindsStacks;
+        [SerializeField] private float timeLimitToLoseStacks;
+        public float TimeLimitToLoseStacks => timeLimitToLoseStacks;
+        public int currentWindStacks;
         public int CurrentWindLevel { get; private set; }
 
         
@@ -163,6 +164,13 @@ namespace Player
         public List<ElementalBlessing> currentElementalBlessingsList;
         public List<ElementalRampage> currentElementalRampagesList;
 
+        private PlayerHealthManager _playerHealthManager;
+
+        private void Awake()
+        {
+            _playerHealthManager = GetComponent<PlayerHealthManager>();
+        }
+
         private void Start()
         {
             /* Start without blessings or rampages */
@@ -172,6 +180,10 @@ namespace Player
             /***/
             
             /* Initialize stats */
+            UpdateBaseMaxHP();
+            UpdateCurrentMaxHP();
+            _playerHealthManager.Heal(CurrentMaxHP);
+
             UpdateBasePower();
             UpdateCurrentPower();
 
@@ -180,10 +192,7 @@ namespace Player
             
             UpdateBaseResistance();
             UpdateCurrentResistance();
-
-            UpdateBaseMaxHP();
-            UpdateCurrentMaxHP();
-
+            
             UpdateBaseLifeRecovery();
             UpdateCurrentLifeRecovery();
             
@@ -195,7 +204,11 @@ namespace Player
 
             UpdateBaseEvasion();
             UpdateCurrentEvasion();
+            
+            UpdateBaseMoveSpeed();
+            UpdateCurrentMoveSpeed();
             /***/
+            
         }
         
         public void Update() {
@@ -262,6 +275,7 @@ namespace Player
             _currentPowerLevel++;
             print("Current attack level " + _currentPowerLevel);
             UpdateBasePower();
+            UpdateCurrentPower();
         }
 
         public void LevelUpAttackSpeed()
@@ -269,6 +283,7 @@ namespace Player
             _currentAttackSpeedLevel++;
             print("Current attack speed level " + _currentAttackSpeedLevel);
             UpdateBaseAttackSpeed();
+            UpdateCurrentAttackSpeed();
         }
         
         public void LevelUpResistance()
@@ -276,6 +291,7 @@ namespace Player
             _currentResistanceLevel++;
             print("Current resistance level " + _currentResistanceLevel);
             UpdateBaseResistance();
+            UpdateCurrentResistance();
         }
         
         public void LevelUpMaxHP()
@@ -283,6 +299,7 @@ namespace Player
             _currentMaxHPLevel++;
             print("Current Max HP level " + _currentMaxHPLevel);
             UpdateBaseMaxHP();
+            UpdateCurrentMaxHP();
         }
         
         public void LevelUpLifeRecovery()
@@ -290,6 +307,7 @@ namespace Player
             _currentLifeRecoveryLevel++;
             print("Current Hp Recovery level " + _currentLifeRecoveryLevel);
             UpdateBaseLifeRecovery();
+            UpdateCurrentLifeRecovery();
         }
         
         public void LevelUpCriticalRate()
@@ -297,6 +315,7 @@ namespace Player
             _currentCriticalRateLevel++;
             print("Current Critical Rate level " + _currentCriticalRateLevel);
             UpdateBaseCriticalRate();
+            UpdateCurrentCriticalDamage();
         }
         
         public void LevelUpCriticalDamage()
@@ -304,6 +323,7 @@ namespace Player
             _currentCriticalDamageLevel++;
             print("Current critical damage level " + _currentCriticalDamageLevel);
             UpdateBaseCriticalDamage();
+            UpdateCurrentCriticalDamage();
         }
         
         public void LevelUpLifeSteal()
@@ -317,6 +337,7 @@ namespace Player
             _currentEvasionLevel++;
             print("Current evasion level " + _currentEvasionLevel);
             UpdateBaseEvasion();
+            UpdateCurrentEvasion();
         }
         
         public void LevelUpMoveSpeed()
@@ -324,6 +345,7 @@ namespace Player
             _currentMoveSpeedLevel++;
             print("Current move speed level " + _currentMoveSpeedLevel);
             UpdateBaseMoveSpeed();
+            UpdateCurrentMoveSpeed();
         }
 
         public MethodInfo GetLevelUpFunction(string variableName)
@@ -464,7 +486,7 @@ namespace Player
             // Wind blessing
             if (CurrentWindLevel >= 3)
             {
-                currentPower += basePower * (0.05f * currentWindsStacks);
+                currentPower += basePower * (0.05f * currentWindStacks);
             }
         }
         
@@ -481,7 +503,7 @@ namespace Player
             // Wind blessing
             if (CurrentWindLevel > 0)
             {
-                currentAttackSpeed += baseAttackSpeed * (0.07f * currentWindsStacks);
+                currentAttackSpeed += baseAttackSpeed * (0.07f * currentWindStacks);
             }
         }
         
@@ -493,7 +515,10 @@ namespace Player
         
         public void UpdateCurrentMaxHP()
         {
+            var amount = baseMaxHP - currentMaxHP;
             currentMaxHP = baseMaxHP;
+            _playerHealthManager.UpdateMaxHP(CurrentMaxHP);
+            _playerHealthManager.Heal(amount);
         }
 
         private void UpdateBaseResistance()
@@ -524,7 +549,7 @@ namespace Player
             // Wind blessing
             if (CurrentWindLevel >= 4)
             {
-                currentCriticalRate += baseCriticalRate * (0.07f * currentWindsStacks);
+                currentCriticalRate += baseCriticalRate * (0.07f * currentWindStacks);
             }
 
             // Setting the ceiling
@@ -577,9 +602,36 @@ namespace Player
             // Wind blessing
             if (CurrentWindLevel > 0)
             {
-                currentMoveSpeed += baseMoveSpeed * (0.03f * currentWindsStacks);
+                currentMoveSpeed += baseMoveSpeed * (0.03f * currentWindStacks);
             }
         }
         
+        /* Wind blessing */
+        public void IncreaseWindStacks()
+        {
+            if (currentWindStacks > MaxWindStacks) return;
+            currentWindStacks++;
+            UpdateWindStats();
+        }
+
+        public void LoseWindStacks()
+        {
+            if (CurrentWindLevel <= 0) return;
+            currentWindStacks = 0;
+            UpdateWindStats();
+        }
+
+        private void UpdateWindStats()
+        {
+            UpdateCurrentAttackSpeed();
+            UpdateCurrentMoveSpeed();
+
+            if (CurrentWindLevel <= 2) return;
+            UpdateCurrentPower();
+            
+            if (CurrentWindLevel <= 3) return;
+            UpdateCurrentCriticalRate();
+        }
+        /***/
     }
 }

@@ -19,12 +19,16 @@ namespace Game
         private void Awake()
         {
             _playerHealthManager = playerTransform.GetComponent<PlayerHealthManager>();
-            PlayerHealthManager.HealthChanged += OnHealthChanged;
         }
 
         private void Start()
         {
             levelBuilder.StartWorld();
+        }
+
+        public void SubscribePlayerDeathCondition()
+        {
+            PlayerHealthManager.HealthChanged += OnHealthChanged;
         }
 
         private void Update()

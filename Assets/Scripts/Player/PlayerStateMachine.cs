@@ -13,12 +13,12 @@ namespace Player
             Attacking,
             Frozen,
             Paralyzed,
-            Dashing, 
             Petrified
         };
 
-        public PlayerController PlayerController;
-        public PlayerAttackManager PlayerAttackManager;
+        private PlayerController _playerController;
+        private PlayerAttackManager _playerAttackManager;
+        private Animator _animator;
         public LayerMask ObjectsLayerMask;
 
         public States State;
@@ -28,8 +28,9 @@ namespace Player
 
         private void Awake()
         {
-            PlayerController = GetComponent<PlayerController>();
-            PlayerAttackManager = GetComponent<PlayerAttackManager>();
+            _animator = GetComponent<Animator>();
+            _playerController = GetComponent<PlayerController>();
+            _playerAttackManager = GetComponent<PlayerAttackManager>();
         }
     
         private void FixedUpdate()
@@ -39,19 +40,15 @@ namespace Player
             switch (State)
             {
                 case States.Standard:
-                    PlayerController.HandleMovement(1f);
-                    if (PlayerController.Joystick.Horizontal == 0 && PlayerController.Joystick.Vertical == 0) // If not moving
-                        PlayerAttackManager.TryToAttack();
+                    _playerController.HandleMovement(1f);
+                    if (_playerController.joystick.Horizontal == 0 && _playerController.joystick.Vertical == 0) // If not moving
+                        _playerAttackManager.TryToAttack();
                     /***/
                     break;
 
                 case States.Attacking:
-                    if (PlayerController.Joystick.Horizontal != 0 || PlayerController.Joystick.Vertical != 0)
-                        PlayerAttackManager.AttackEnd();
-                    break;
-
-                case States.Dashing:
-                    PlayerController.Dash();
+                    if (_playerController.joystick.Horizontal != 0 || _playerController.joystick.Vertical != 0)
+                        _playerAttackManager.AttackEnd();
                     break;
 
                 case States.Petrified:
@@ -75,11 +72,7 @@ namespace Player
                 case States.Attacking:
                     State = States.Attacking;
                     break;
-            
-                case States.Dashing:
-                    State = States.Dashing;
-                    break;
-            
+
                 case States.Frozen:
                     State = States.Frozen;
                     break;
@@ -90,7 +83,7 @@ namespace Player
 
                 case States.Petrified:
                     State = States.Petrified;
-                    PlayerController.Animator.speed = 0;
+                    _animator.speed = 0;
                 
                     // Make the player gray
                     break;
@@ -105,6 +98,7 @@ namespace Player
             crowdControlTotalDuration = duration; // - tenacity modificators
             crowdControlCurrentTime = 0;
         }
+        
         public void FrostPlayer(float duration)
         {
         

@@ -12,9 +12,9 @@ namespace Player
 {
     public class PowerUpEffects : MonoBehaviour
     {
-        private PlayerStatsController _playerStatsController;
+        private PlayerStatsController _playerStats;
         private PlayerAttackManager _playerAttackManager;
-        
+
         /* DEBUG */ 
         List<Vector2> rayDirections;
 
@@ -23,7 +23,7 @@ namespace Player
         
         private void Awake()
         {
-            _playerStatsController = GetComponent<PlayerStatsController>();
+            _playerStats = GetComponent<PlayerStatsController>();
             _playerAttackManager = GetComponent<PlayerAttackManager>();
             
             /* DEBUG */
@@ -31,43 +31,50 @@ namespace Player
             rayDirections = new List<Vector2>();
             /***/
         }
-        
-        // [Header("Water blessing")]
-        //
-        // [Header("Wind blessing")]
-        //
-        // [Header("Lightning blessing")]
+
+        private void Update()
+        {
+            /* Wind blessing */
+            if (_playerStats.CurrentWindLevel <= 0) return;
+            _timeSinceLastAttack += Time.deltaTime;
+            if (_timeSinceLastAttack > _playerStats.TimeLimitToLoseStacks)
+            {
+                _playerStats.LoseWindStacks();
+                _timeSinceLastAttack = 0;
+            }
+            /***/
+        }
         
         public void ApplyBlessings(EnemyCombatManager enemy)
         {
-            var fireLevel = _playerStatsController.CurrentFireLevel;
-            var waterLevel = _playerStatsController.CurrentWaterLevel;
-            var windLevel = _playerStatsController.CurrentWindLevel;
-            var lightningLevel = _playerStatsController.CurrentLightningLevel;
+            var fireLevel = _playerStats.CurrentFireLevel;
+            var waterLevel = _playerStats.CurrentWaterLevel;
+            var windLevel = _playerStats.CurrentWindLevel;
+            var lightningLevel = _playerStats.CurrentLightningLevel;
 
             if (fireLevel > 0)
                 FireBlessing(fireLevel, enemy);
             if (waterLevel > 0)
                 WaterBlessing(waterLevel, enemy);
             if (windLevel > 0)
-                WindBlessing(windLevel, enemy);
+                WindBlessing();
             if (lightningLevel > 0)
                 LightningBlessing(lightningLevel, enemy);
         }
 
         public void ApplyBlessingsExcept(EnemyCombatManager enemy, PlayerStatsController.ElementalBlessing blessing)
         {
-            var fireLevel = _playerStatsController.CurrentFireLevel;
-            var waterLevel = _playerStatsController.CurrentWaterLevel;
-            var windLevel = _playerStatsController.CurrentWindLevel;
-            var lightningLevel = _playerStatsController.CurrentLightningLevel;
+            var fireLevel = _playerStats.CurrentFireLevel;
+            var waterLevel = _playerStats.CurrentWaterLevel;
+            var windLevel = _playerStats.CurrentWindLevel;
+            var lightningLevel = _playerStats.CurrentLightningLevel;
 
             if (fireLevel > 0 && blessing != PlayerStatsController.ElementalBlessing.Fire)
                 FireBlessing(fireLevel, enemy);
             if (waterLevel > 0 && blessing != PlayerStatsController.ElementalBlessing.Water)
                 WaterBlessing(waterLevel, enemy);
             if (windLevel > 0 && blessing != PlayerStatsController.ElementalBlessing.Wind)
-                WindBlessing(windLevel, enemy);
+                WindBlessing();
             if (lightningLevel > 0 && blessing != PlayerStatsController.ElementalBlessing.Lightning)
                 LightningBlessing(lightningLevel, enemy);
         }
@@ -79,12 +86,12 @@ namespace Player
             // Stop on going burning events
             StopAllCoroutines();
             
-            var interval = _playerStatsController.IntervalBetweenTicks[fireLevel - 1];
-            var ticks = _playerStatsController.NumberOfFireTicks[fireLevel - 1];
-            var totalDamage = _playerStatsController.TotalFireDamage[fireLevel - 1];
-            var criticalRate = fireLevel > 3 ? _playerStatsController.CurrentCriticalRate
+            var interval = _playerStats.IntervalBetweenTicks[fireLevel - 1];
+            var ticks = _playerStats.NumberOfFireTicks[fireLevel - 1];
+            var totalDamage = _playerStats.TotalFireDamage[fireLevel - 1];
+            var criticalRate = fireLevel > 3 ? _playerStats.CurrentCriticalRate
                 : 0;
-            var criticalDamage = fireLevel > 3 ? _playerStatsController.CurrentCriticalDamage
+            var criticalDamage = fireLevel > 3 ? _playerStats.CurrentCriticalDamage
                 : 0;
             StartCoroutine(ApplyBurnOnEnemy(enemy, totalDamage, ticks, interval, criticalRate, criticalDamage));
         }
@@ -115,9 +122,9 @@ namespace Player
 
         private void WaterBlessing(int waterLevel, EnemyCombatManager enemy)
         { 
-            var damagePercentage = _playerStatsController.CurrentWaterCleaveDamagePercentage[waterLevel - 1];
-            var cleaveRange = _playerStatsController.WaterCleaveRange[waterLevel - 1];
-            var cleaveAngle = _playerStatsController.WaterCleaveAngle;
+            var damagePercentage = _playerStats.CurrentWaterCleaveDamagePercentage[waterLevel - 1];
+            var cleaveRange = _playerStats.WaterCleaveRange[waterLevel - 1];
+            var cleaveAngle = _playerStats.WaterCleaveAngle;
             GetEnemiesInAngle(enemy, cleaveAngle, cleaveRange, damagePercentage, waterLevel);
         }
         
@@ -159,7 +166,7 @@ namespace Player
         private IEnumerator SplashOnEnemies(List<Transform> enemies, float damagePercentage, int waterLevel)
         {
             var playerPosition = transform.position;
-            yield return new WaitForSeconds(_playerStatsController.splashDelay);
+            yield return new WaitForSeconds(_playerStats.splashDelay);
             
             foreach (var enemy in enemies)
             {
@@ -172,9 +179,9 @@ namespace Player
                 
                 // If water level >= 4, critical hits splash too
                 enemyCombat?.TakeDamage(_playerAttackManager.CurrentAttack.AttackID,
-                    _playerStatsController.CurrentPower *
+                    _playerStats.CurrentPower *
                     (waterLevel >= 4 && _playerAttackManager.CurrentAttack.CriticalHit
-                        ? _playerStatsController.CurrentCriticalDamage / 100
+                        ? _playerStats.CurrentCriticalDamage / 100
                         : 1) * damagePercentage / 100, attackDirection, false,
                     waterLevel >= 4 && _playerAttackManager.CurrentAttack.CriticalHit, true, Color.blue);
                 
@@ -191,11 +198,12 @@ namespace Player
         
         #region WindBlessing
 
-        private int currentWindCount;
-
-        private void WindBlessing(int windLevel, EnemyCombatManager enemy)
+        private float _timeSinceLastAttack;
+        
+        private void WindBlessing()
         {
-            
+            _timeSinceLastAttack = 0; 
+            _playerStats.IncreaseWindStacks();
         }
 
         #endregion
@@ -212,10 +220,14 @@ namespace Player
 
         private void OnDrawGizmos()
         {
+            if (_playerStats == null) return; 
+            if (_playerStats.CurrentWaterLevel <= 0) return;
+            if (rayDirections == null) return;
+            if (rayDirections.Count == 0) return; 
             Gizmos.color = Color.red;
             foreach (var ray in rayDirections)
             {
-                Gizmos.DrawRay(lastHitPosition, ray * _playerStatsController.WaterCleaveRange[_playerStatsController.CurrentWaterLevel - 1] );
+                Gizmos.DrawRay(lastHitPosition, ray * _playerStats.WaterCleaveRange[_playerStats.CurrentWaterLevel - 1] );
             }
         }
     }

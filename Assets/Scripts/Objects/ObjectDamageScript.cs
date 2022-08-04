@@ -11,7 +11,6 @@ namespace Objects
         public Transform prefabDamagePopup;
         [SerializeField]
         private float objectDamage;
-        [SerializeField] private float objectAttackSpeed; // the bigger, the less time the attacker is invulnerable
         private int damageID;
 
         private void Start()

@@ -41,7 +41,7 @@ namespace Game
             CreateNewAreaObjects();
             
             yield return new WaitForSecondsRealtime(2f);
-            
+            levelManager.SubscribePlayerDeathCondition();
             SetEnemiesEnable(true);
             
             /* Loading Panel */

@@ -126,13 +126,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8b769e31894ee8468b413a47c5234b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectCollider2D: {fileID: 6070897187834349070, guid: 051b3d0cc0f509046a71a8cff4d2e0ea,
+  objectCollider2D: {fileID: 1018748886681901729}
+  prefabDamagePopup: {fileID: 5288669746408271298, guid: 592b06df424ea3c4f9c648348d1e08e0,
     type: 3}
-  PrefabDamagePopup: {fileID: 5288669746408271298, guid: 592b06df424ea3c4f9c648348d1e08e0,
-    type: 3}
-  ObjectDamage: 2
-  ObjectDamageType: 0
-  ObjectAttackSpeed: 15
+  objectDamage: 3
 --- !u!50 &8188518770400807223
 Rigidbody2D:
   serializedVersion: 4

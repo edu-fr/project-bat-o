@@ -5275,19 +5275,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3d7280bb3e9b3e469427cc4efd75ff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerAttackManager: {fileID: 6753889184881655942}
-  RigidBody: {fileID: 6753889184881655948}
   Dust: {fileID: 3192570680579372882}
-  PlayerStateMachine: {fileID: -1128968484826919403}
-  PlayerCollider: {fileID: 616445933}
-  Animator: {fileID: 6753889184881655939}
-  Joystick: {fileID: 0}
-  DashInitialMoveSpeedMultiplier: 3
-  DashMoveSpeedDecreaseMultiplier: 10
-  DashCurrentMoveSpeedMultiplier: 0
-  DashCooldown: 2
-  DashCurrentCooldown: 0
-  DodgeFailed: 0
+  joystick: {fileID: 0}
   lastMoveX: 0
   lastMoveY: 0
 --- !u!114 &6753889184881655942
@@ -5302,19 +5291,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de6e46098e12e4443b13b2f5563617e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tryAttackingRange: 3
-  animationAttackSpeed: 1
-  defaultAttackCooldown: 0.5
   enemyLayerMask:
     serializedVersion: 2
     m_Bits: 256
-  playerHealthManager: {fileID: 385695933423370815}
   playerStateMachine: {fileID: -1128968484826919403}
   standardMaterial: {fileID: 2100000, guid: bb0085cdb6ce6f64a8808d60ea372b8d, type: 2}
   powerUpEffects: {fileID: 4396048941111737139}
-  enemyLayers:
-    serializedVersion: 2
-    m_Bits: 256
+  tryAttackingRange: 3
+  animationAttackSpeed: 1
+  defaultAttackCooldown: 0.5
 --- !u!114 &6753889184881655943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5343,8 +5328,6 @@ MonoBehaviour:
   MaxHealth: 100
   CurrentHealth: 0
   Invincible: 0
-  PlayerController: {fileID: 6753889184881655951}
-  PlayerStatsController: {fileID: 1996424798420464867}
 --- !u!114 &4396048941111737139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5369,8 +5352,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1646fdd7a57ea5147b6a2b46028b0fc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerController: {fileID: 6753889184881655951}
-  PlayerAttackManager: {fileID: 6753889184881655942}
   ObjectsLayerMask:
     serializedVersion: 2
     m_Bits: 576
@@ -5420,22 +5401,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77d3f583b9ff7d946811e2125d9aef47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basePower: 5
-  currentPower: 5
-  baseAttackSpeed: 1
-  currentAttackSpeed: 1
-  baseResistance: 2
-  currentResistance: 2
-  baseMaxHP: 300000
-  currentMaxHP: 300000
-  baseLifeRecovery: 1
-  currentLifeRecovery: 1
-  baseCriticalRate: 10
-  currentCriticalRate: 10
-  baseCriticalDamage: 150
-  currentCriticalDamage: 150
-  baseEvasion: 1
-  currentEvasion: 1
+  startingPower: 5
+  currentPower: 0
+  startingAttackSpeed: 1
+  currentAttackSpeed: 0
+  startingResistance: 2
+  currentResistance: 0
+  startingMaxHP: 30
+  currentMaxHP: 0
+  startingLifeRecovery: 0
+  currentLifeRecovery: 0
+  startingCriticalRate: 5
+  currentCriticalRate: 0
+  startingCriticalDamage: 50
+  currentCriticalDamage: 0
+  startingEvasion: 2
+  currentEvasion: 0
+  startingMoveSpeed: 4
+  currentMoveSpeed: 0
   baseLifeSteal: 0
   currentLifeSteal: 0
   blessingMaxLevel: 4
@@ -5457,19 +5440,14 @@ MonoBehaviour:
   - 100
   waterCleaveRange:
   - 3
-  - 5
-  - 7
-  - 9
-  waterCleaveAngle: 180
-  baseTotalWindMoveSpeedStack: 0
-  currentTotalWindMoveSpeedStack: 0
-  baseTotalWindAttackSpeedStack: 0
-  currentTotalWindAttackSpeedStack: 0
-  baseTotalWindAttackStack: 0
-  currentTotalWindAttackStack: 0
-  baseTotalWindCriticalRateStack: 0
-  currentTotalWindCriticalRateStack: 0
-  numberOfWindStacks: 0
+  - 3
+  - 3
+  - 3
+  waterCleaveAngle: 120
+  splashDelay: 0.1
+  maxWindStacks: 4
+  timeLimitToLoseStacks: 3
+  currentWindStacks: 0
   baseTotalLightningDamage: 0
   currentTotalLightningDamage: 0
   baseLightningAoE: 0

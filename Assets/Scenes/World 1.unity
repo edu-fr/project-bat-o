@@ -2174,33 +2174,8 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1996424798420464867, guid: 58eef81883803ef48a802794ff258dc7,
         type: 3}
-      propertyPath: splashDelay
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1996424798420464867, guid: 58eef81883803ef48a802794ff258dc7,
-        type: 3}
-      propertyPath: waterCleaveAngle
-      value: 120
-      objectReference: {fileID: 0}
-    - target: {fileID: 1996424798420464867, guid: 58eef81883803ef48a802794ff258dc7,
-        type: 3}
-      propertyPath: waterCleaveRange.Array.data[0]
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1996424798420464867, guid: 58eef81883803ef48a802794ff258dc7,
-        type: 3}
-      propertyPath: waterCleaveRange.Array.data[1]
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1996424798420464867, guid: 58eef81883803ef48a802794ff258dc7,
-        type: 3}
-      propertyPath: waterCleaveRange.Array.data[2]
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1996424798420464867, guid: 58eef81883803ef48a802794ff258dc7,
-        type: 3}
-      propertyPath: waterCleaveRange.Array.data[3]
-      value: 3
+      propertyPath: startingMoveSpeed
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 6753889184881655945, guid: 58eef81883803ef48a802794ff258dc7,
         type: 3}
@@ -2264,7 +2239,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6753889184881655951, guid: 58eef81883803ef48a802794ff258dc7,
         type: 3}
-      propertyPath: Joystick
+      propertyPath: joystick
       value: 
       objectReference: {fileID: 2106435424}
     m_RemovedComponents: []
@@ -2832,11 +2807,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3174608397439854144, guid: 1ac584daeee254d459f301995c01b686,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3634845844141618917, guid: 1ac584daeee254d459f301995c01b686,
         type: 3}
       propertyPath: m_Name
@@ -2952,16 +2922,6 @@ PrefabInstance:
       propertyPath: PlayerStats
       value: 
       objectReference: {fileID: 1940611136}
-    - target: {fileID: 3880060818107635054, guid: 1ac584daeee254d459f301995c01b686,
-        type: 3}
-      propertyPath: icons.Array.data[4].name
-      value: iconLifeRecovery
-      objectReference: {fileID: 0}
-    - target: {fileID: 3880060818107635054, guid: 1ac584daeee254d459f301995c01b686,
-        type: 3}
-      propertyPath: icons.Array.data[26].name
-      value: iconFireLightningRampage
-      objectReference: {fileID: 0}
     - target: {fileID: 7543719331385871554, guid: 1ac584daeee254d459f301995c01b686,
         type: 3}
       propertyPath: m_AnchorMax.y
