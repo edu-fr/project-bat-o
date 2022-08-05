@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Enemy;
+using Game;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Useful;
@@ -17,8 +18,8 @@ namespace Player
 
         /* DEBUG */ 
         List<Vector2> rayDirections;
-
         private Vector2 lastHitPosition;
+        private float rayLenght;
         /***/
         
         private void Awake()
@@ -43,8 +44,23 @@ namespace Player
                 _timeSinceLastAttack = 0;
             }
             /***/
+            
+            /* Tsunami Rampage */
+            if (!_tsunamiReady)
+            {
+                if (_tsunamiCurrentCooldown > _playerStats.TsunamiCooldown)
+                {
+                    AudioManager.instance.Play("Wave 5");
+                    _tsunamiReady = true;
+                }
+                else   
+                    _tsunamiCurrentCooldown += Time.deltaTime;
+            } 
+            /***/
         }
-        
+
+        #region Blessings
+
         public void ApplyBlessings(EnemyCombatManager enemy)
         {
             var fireLevel = _playerStats.CurrentFireLevel;
@@ -78,7 +94,7 @@ namespace Player
             if (lightningLevel > 0 && blessing != PlayerStatsController.ElementalBlessing.Lightning)
                 LightningBlessing(lightningLevel, enemy);
         }
-        
+
         #region FireBlessing
 
         private void FireBlessing(int fireLevel, EnemyCombatManager enemy)
@@ -101,10 +117,20 @@ namespace Player
 
         private void WaterBlessing(int waterLevel, EnemyCombatManager enemy)
         {
+            /* Tsunami rampage*/
+            if (_playerStats.currentElementalRampage == PlayerStatsController.ElementalRampage.Tsunami && _tsunamiReady) 
+                return;
+            /***/
+            
             var attackID = _playerAttackManager.CurrentAttack.AttackID;
             var damagePercentage = _playerStats.CurrentWaterCleaveDamagePercentage[waterLevel - 1];
             var cleaveRange = _playerStats.WaterCleaveRange[waterLevel - 1];
             var cleaveAngle = _playerStats.WaterCleaveAngle;
+            WaterBlessingsActivation(attackID, enemy, cleaveAngle, cleaveRange, damagePercentage, waterLevel);
+        }
+
+        private void WaterBlessingsActivation(int attackID, EnemyCombatManager enemy, float cleaveAngle, float cleaveRange, float damagePercentage, int waterLevel)
+        {
             var enemiesHitByTheSplash = GetEnemiesInAngle(attackID, enemy, cleaveAngle, cleaveRange);
             StartCoroutine(SplashOnEnemies(attackID, enemiesHitByTheSplash, damagePercentage, waterLevel));
         }
@@ -123,6 +149,7 @@ namespace Player
             
             /* DEBUG */ 
             rayDirections = new List<Vector2>();
+            rayLenght = range;
             /***/
 
             var contactFilter = new ContactFilter2D();
@@ -196,7 +223,7 @@ namespace Player
             {
                 var area = _playerStats.CurrentLightningAoE[lightningLevel];
                 var damage = _playerStats.CurrentLightningDamage[lightningLevel];
-                var lightningDelay = _playerStats.lightningDelay; 
+                var lightningDelay = _playerStats.lightningDelay + Random.Range(-_playerStats.lightningDelayVariation, _playerStats.lightningDelayVariation); 
                 StartCoroutine(InvokeLightning(enemy, damage, area, lightningDelay));    
             }
         }
@@ -219,6 +246,75 @@ namespace Player
         
         #endregion
 
+        #endregion Blessings
+        
+        
+        #region Rampages
+        
+        public void ApplyRampage(EnemyCombatManager enemy)
+        {
+            switch (_playerStats.currentElementalRampage)
+            {
+                case PlayerStatsController.ElementalRampage.BoilingWave:
+                    
+                    break;
+                
+                case PlayerStatsController.ElementalRampage.Tsunami:
+                    if (_tsunamiReady)
+                    {
+                        var attackID = _playerAttackManager.CurrentAttack.AttackID;
+                        var waterLevel = _playerStats.CurrentWaterLevel;
+                        var damagePercentage = _playerStats.CurrentWaterCleaveDamagePercentage[waterLevel - 1] + _playerStats.TsunamiExtraDamagePercentage;
+                        var cleaveRange = _playerStats.WaterCleaveRange[waterLevel - 1] * _playerStats.TsunamiRangeMultiplier;
+                        var cleaveAngle = _playerStats.WaterCleaveAngle * _playerStats.TsunamiCleaveAngleMultiplier;
+                        AudioManager.instance.Play("Wave 3");
+                        WaterBlessingsActivation(attackID, enemy, cleaveAngle, cleaveRange, damagePercentage, waterLevel);
+                        _tsunamiCurrentCooldown = 0;
+                        _tsunamiReady = false;
+                    }
+                    break;
+                
+                case PlayerStatsController.ElementalRampage.HeatCloak:
+                    
+                    break;
+                
+                case PlayerStatsController.ElementalRampage.StormBringer:
+                    
+                    break;
+                
+                case PlayerStatsController.ElementalRampage.FireShock:
+                    
+                    break;
+                
+                case PlayerStatsController.ElementalRampage.GoddessOfTheHunt:
+                    
+                    break;
+                
+                case PlayerStatsController.ElementalRampage.None:
+                    
+                    break;
+                
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+        
+        #region Boiling Wave
+
+        #endregion
+        
+        
+        #region Tsunami
+        
+        private bool _tsunamiReady;
+        private float _tsunamiCurrentCooldown;
+        
+        
+        
+        #endregion 
+        
+        #endregion Rampages
+
         private void OnDrawGizmos()
         {
             if (_playerStats == null) return; 
@@ -228,7 +324,7 @@ namespace Player
             Gizmos.color = Color.red;
             foreach (var ray in rayDirections)
             {
-                Gizmos.DrawRay(lastHitPosition, ray * _playerStats.WaterCleaveRange[_playerStats.CurrentWaterLevel - 1] );
+                Gizmos.DrawRay(lastHitPosition, ray * rayLenght );
             }
         }
     }

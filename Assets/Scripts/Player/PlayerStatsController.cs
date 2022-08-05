@@ -118,7 +118,7 @@ namespace Player
         private int _currentLifeStealLevel;
 
 
-        [Header("ELEMENTAL")] 
+        [Header("ELEMENTAL BLESSINGS")] 
         [SerializeField] private int blessingMaxLevel;
         
         [Header("Fire")] [Tooltip("")]
@@ -154,19 +154,44 @@ namespace Player
         [Header("Lightning")] [Tooltip("")]
         [SerializeField] private float[] currentLightningDamage;
         public float[] CurrentLightningDamage => currentLightningDamage;
-        [Header("Percentage of happening on a attack")] [Range(0, 100f)]
+        [Tooltip("Percentage of happening on a attack")] [Range(0, 100f)]
         [SerializeField] private float[] currentLightningRate;
         public float[] CurrentLightningRate => currentLightningRate;
-        [Header("Area of effect of the lightning")] [Range(0, 5f)]
-        [SerializeField] private float[] currentLightningAoE;
+        [Tooltip("Area of effect of the lightning")]
+        [Range(0, 5f)] [SerializeField] private float[] currentLightningAoE;
         public float[] CurrentLightningAoE => currentLightningAoE;
-        public float lightningDelay;
+        [Tooltip("Delay to be invoked after the attack")] 
+        [Range(0f, 2f)] public float lightningDelay; 
+        [Tooltip("Random value increased to the delay value (Must be less than the current delay)")] 
+        [Range(0.01f, 1f)] public float lightningDelayVariation;
         public int CurrentLightningLevel { get; private set; }
         
-        
         public List<ElementalBlessing> currentElementalBlessingsList;
-        public List<ElementalRampage> currentElementalRampagesList;
+        
+        [Header("ELEMENTAL RAMPAGES")] 
+        
+        [Header("Boiling Wave")]
+        [Header("Tsunami")]
+        [SerializeField] private float tsunamiCooldown;
+        public  float TsunamiCooldown => tsunamiCooldown;
+        [Tooltip("Tsunami range multiplier")] [Range(1f, 3f)]
+        [SerializeField] private float tsunamiRangeMultiplier;
+        public float TsunamiRangeMultiplier => tsunamiRangeMultiplier;
+        [Tooltip("Tsunami additional damage percentage")] [Range(0f, 200f)]
+        [SerializeField] private float tsunamiExtraDamagePercentage;
+        public float TsunamiExtraDamagePercentage => tsunamiExtraDamagePercentage;
+        [Tooltip("Percentage of additional cleave angle")] [Range(1f, 2f)]
+        [SerializeField] private float tsunamiCleaveAngleMultiplier;
+        public float TsunamiCleaveAngleMultiplier=> tsunamiCleaveAngleMultiplier;
 
+        [Header("Heat Cloak")]
+        [Header("Storm Bringer")]
+        [Header("Fire Shock")]
+        [Header("Goddess of the Hunt")]
+        
+        public ElementalRampage currentElementalRampage;
+
+        
         private PlayerHealthManager _playerHealthManager;
 
         private void Awake()
@@ -179,7 +204,7 @@ namespace Player
             /* Start without blessings or rampages */
             currentElementalBlessingsList.Add(ElementalBlessing.None);
             currentElementalBlessingsList.Add(ElementalBlessing.None);
-            currentElementalRampagesList.Add(ElementalRampage.None);
+            currentElementalRampage = ElementalRampage.None;
             /***/
             
             /* Initialize stats */
@@ -234,6 +259,16 @@ namespace Player
             if (Input.GetKeyUp(KeyCode.Alpha4))
             {
                 LevelUpLightning();
+            }
+
+            if (Input.GetKeyUp(KeyCode.Alpha5))
+            {
+                LevelUpBoilingWave();
+            }
+            
+            if (Input.GetKeyUp(KeyCode.Alpha6))
+            {
+                LevelUpTsunami();
             }
         }
 
@@ -398,43 +433,43 @@ namespace Player
         
         public void LevelUpBoilingWave()
         {
-            if (currentElementalRampagesList[0] != ElementalRampage.None) return;
-            currentElementalRampagesList[0] = ElementalRampage.BoilingWave;
+            if (currentElementalRampage != ElementalRampage.None) return;
+            currentElementalRampage = ElementalRampage.BoilingWave;
             print("Current elemental rampage: " + ElementalRampage.BoilingWave.ToString());
         }
         
         public void LevelUpTsunami()
         {
-            if (currentElementalRampagesList[0] != ElementalRampage.None) return;
-            currentElementalRampagesList[0] = ElementalRampage.Tsunami;
+            if (currentElementalRampage != ElementalRampage.None) return;
+            currentElementalRampage = ElementalRampage.Tsunami;
             print("Current elemental rampage: " + ElementalRampage.Tsunami);
         }
         
         public void LevelUpHeatCloak()
         {
-            if (currentElementalRampagesList[0] != ElementalRampage.None) return;
-            currentElementalRampagesList[0] = ElementalRampage.HeatCloak;
+            if (currentElementalRampage != ElementalRampage.None) return;
+            currentElementalRampage = ElementalRampage.HeatCloak;
             print("Current elemental rampage: " + ElementalRampage.HeatCloak);
         }
         
         public void LevelUpStormBringer()
         {
-            if (currentElementalRampagesList[0] != ElementalRampage.None) return;
-            currentElementalRampagesList[0] = ElementalRampage.StormBringer;
+            if (currentElementalRampage != ElementalRampage.None) return;
+            currentElementalRampage = ElementalRampage.StormBringer;
             print("Current elemental rampage: " + ElementalRampage.StormBringer);
         }
         
         public void LevelUpFireShock()
         {
-            if (currentElementalRampagesList[0] != ElementalRampage.None) return;
-            currentElementalRampagesList[0] = ElementalRampage.FireShock;
+            if (currentElementalRampage != ElementalRampage.None) return;
+            currentElementalRampage = ElementalRampage.FireShock;
             print("Current elemental rampage: " + ElementalRampage.FireShock);
         }
         
         public void LevelUpGoddessOfTheHunt()
         {
-            if (currentElementalRampagesList[0] != ElementalRampage.None) return;
-            currentElementalRampagesList[0] = ElementalRampage.GoddessOfTheHunt;
+            if (currentElementalRampage != ElementalRampage.None) return;
+            currentElementalRampage = ElementalRampage.GoddessOfTheHunt;
             print("Current elemental rampage: " + ElementalRampage.GoddessOfTheHunt);
         }
 

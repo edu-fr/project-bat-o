@@ -170,7 +170,7 @@
             {
                 if (randomNumber > rampageOdds) return null; // Not getting a rampage on this roll
                 print("Trying to get a rampage!");
-                if (PlayerStats.currentElementalRampagesList[0] != PlayerStatsController.ElementalRampage.None) // Already have a rampage
+                if (PlayerStats.currentElementalRampage != PlayerStatsController.ElementalRampage.None) // Already have a rampage
                     return null; 
                 return _rampagesOptions.Find(x => x.optionAttributeName == PlayerStats.GetAvailableRampage().ToString());
             }

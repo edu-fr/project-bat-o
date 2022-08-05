@@ -142,6 +142,7 @@ namespace Player
             enemyCombatManager.TakeDamage(CurrentAttack.AttackID, _playerStats.CurrentPower * (CurrentAttack.CriticalHit ? _playerStats.CurrentCriticalDamage / 100 : 1), attackDirection,
                     false, CurrentAttack.CriticalHit, true, null); 
             powerUpEffects.ApplyBlessings(enemyCombatManager);
+            powerUpEffects.ApplyRampage(enemyCombatManager);
         }
 
         private Directions GetAnimationDirection()
